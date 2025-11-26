@@ -1,0 +1,65 @@
+@import "../../../assets/styles/base/variables";
+@import "../../../assets/styles/base/fonts";
+
+.atom-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: $font-primary;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &--full {
+        width: 100%;
+        display: block;
+    }
+
+    // Variantes
+    &--primary {
+        background-color: $color-primary;
+        color: $color-on-primary;
+        font-size: 40px;
+        border-radius: 20px;
+        padding: 0.3em 1em;
+        font-weight: 500;
+
+        &:hover {
+            background-color: darken($color-primary, 5%);
+        }
+    }
+
+    &--secondary {
+        background-color: $color-secondary;
+        color: $color-dark;
+
+        &:hover {
+            background-color: darken($color-secondary, 5%);
+        }
+    }
+
+    &--outline {
+        background-color: transparent;
+        border: 2px solid $color-primary;
+        color: $color-primary;
+
+        &:hover {
+            background-color: $color-primary;
+            color: $color-dark;
+        }
+    }
+
+    &--ghost {
+        background-color: transparent;
+        color: $color-dark;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
