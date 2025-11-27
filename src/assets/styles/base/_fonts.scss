@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 // Fuente primaria global
 $font-primary: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
 
@@ -8,7 +9,7 @@ $font-primary: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
 // ... tus colores existentes ...
 
 // Tipografía
-$font-family-heading: 'Cormorant Garamond', serif;
+$font-family-heading: 'Roboto', sans-serif;
 $font-family-body: 'Raleway', sans-serif;
 
 // Pesos
@@ -16,3 +17,6 @@ $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
+
+$font-size-heading: 20px;
+$font-size-body: 16px;

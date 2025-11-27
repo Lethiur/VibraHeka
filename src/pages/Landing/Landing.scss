@@ -1,19 +1,20 @@
+@import "../../assets/styles/base/fonts";
+@import "../../assets/styles/base/variables";
+
 .video-player {
     margin-bottom: 2rem;
 }
 
-.button-holder {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .button {
-        width: 70%;
-    }
+
+p {
+    font-family: $font-family-body;
+    letter-spacing: 1px;
+    line-height: 1.75em;
+
+
 }
 
-.formulario {
-    background-color: #ada7e1;
-    padding: 2rem;
+.subtitle {
+    font-weight: $font-weight-bold;
 }

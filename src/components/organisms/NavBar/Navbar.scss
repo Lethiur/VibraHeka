@@ -1,0 +1,23 @@
+@import "../../../assets/styles/base/variables";
+@import "../../../assets/styles/base/fonts";
+
+.navbar {
+    background-color: $color-primary;
+}
+
+.nav-link {
+    color: $color-on-primary !important;
+    font-family: $font-family-heading;
+    font-weight: $font-weight-light;
+    font-size: $font-size-heading;
+    letter-spacing: 1px;
+    margin-right: 0.2em;
+}
+
+.navbar-brand {
+    font-family: $font-family-heading;
+    font-weight: $font-weight-bold ;
+    font-size: $font-size-heading;
+    letter-spacing: 2px;
+    color: $color-on-primary !important;
+}

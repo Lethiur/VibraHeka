@@ -17,6 +17,9 @@ importers:
       jotai:
         specifier: ^2.8.0
         version: 2.15.1(@babel/core@7.28.5)(@babel/template@7.27.2)(@types/react@18.3.27)(react@18.3.1)
+      prop-types:
+        specifier: ^15.8.1
+        version: 15.8.1
       react:
         specifier: ^18.3.1
         version: 18.3.1

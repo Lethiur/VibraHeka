@@ -1,0 +1,21 @@
+.side-block {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+
+    &__image img {
+        width: 350px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    &__content {
+        width: 100%;
+        text-align: justify;
+    }
+
+    &.right {
+        flex-direction: row-reverse;
+    }
+}
