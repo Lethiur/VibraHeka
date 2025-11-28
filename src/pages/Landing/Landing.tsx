@@ -67,13 +67,16 @@ export default function LandingPage() {
             <div className="button-holder">
                 <PrimaryButton label={"Quiero unirme y probar gratis"} onClick={() => { }} variant="primary" disabled={false} fullWidth={true} ></PrimaryButton>
             </div>
-            <SideImageBlock image={flor_de_loto} imageLeft={false}>
-                <p>¿Qué es VibraHeka?</p>
-                <b>Un espacio digital con alma humana.</b>
-                <p>En Vibraheka creemos que el bienestar no se trata de desconectarse del mundo, sino de recontectarse consigo mismo.</p>
-                <p>Creamos una comunidad done puedes aprender, compartir y crecer junto a otros que también buscan equilibro</p>
-                <p>Sin juicios. Sin etiquetas. Solo presencia y práctica.</p>
-            </SideImageBlock>
+            <div className="side-block-holder">
+                <SideImageBlock image={flor_de_loto} imageLeft={false}>
+                    <p>¿Qué es VibraHeka?</p>
+                    <b>Un espacio digital con alma humana.</b>
+                    <p>En Vibraheka creemos que el bienestar no se trata de desconectarse del mundo, sino de recontectarse consigo mismo.</p>
+                    <p>Creamos una comunidad done puedes aprender, compartir y crecer junto a otros que también buscan equilibro</p>
+                    <p>Sin juicios. Sin etiquetas. Solo presencia y práctica.</p>
+                </SideImageBlock>
+            </div>
+
             <SideImageBlock image={conciencia} imageLeft={true}>
                 <h1>¿C&oacute;mo te acompañamos?</h1>
                 <br />
