@@ -11,10 +11,18 @@ p {
     font-family: $font-family-body;
     letter-spacing: 1px;
     line-height: 1.75em;
-
-
+    color: $color-dark;
 }
 
 .subtitle {
     font-weight: $font-weight-bold;
+    color: $color-dark;
+}
+
+.button-holder {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

@@ -3,20 +3,23 @@ import SideImageBlock from "../../components/organisms/SideImageBlock/SideImageB
 
 import meditacion_cristales from "../../assets/images/meditacion_cristales.png";
 import flor_de_loto from "../../assets/images/flor_de_loto.png";
+import ascension from "../../assets/images/ascension.png"
+import conciencia from "../../assets/images/conciencia.png"
+
 import "./Landing.scss";
 import VideoPlayer from "../../components/atoms/VideoPlayer/VideoPlayer";
+import PrimaryButton from "../../components/atoms/PrimaryButton/PrimaryButton";
 
 export default function LandingPage() {
     return (
         <div className="container">
-            {/* <Logo
+            <Logo
                 src="http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png"
                 alt="VibraHeka Logo"
                 width="159"
-                height="140" /> */}
+                height="140" />
 
             <SideImageBlock image={meditacion_cristales} imageLeft={true}>
-                <h1>Vibraheka</h1>
 
                 <p className="subtitle">
                     Tu espacio para parar, respirar y volver a ti.<br />
@@ -61,6 +64,9 @@ export default function LandingPage() {
                     width="100%"
                     height="auto" />
             </div>
+            <div className="button-holder">
+                <PrimaryButton label={"Quiero unirme y probar gratis"} onClick={() => { }} variant="primary" disabled={false} fullWidth={true} ></PrimaryButton>
+            </div>
             <SideImageBlock image={flor_de_loto} imageLeft={false}>
                 <p>¿Qué es VibraHeka?</p>
                 <b>Un espacio digital con alma humana.</b>
@@ -68,6 +74,26 @@ export default function LandingPage() {
                 <p>Creamos una comunidad done puedes aprender, compartir y crecer junto a otros que también buscan equilibro</p>
                 <p>Sin juicios. Sin etiquetas. Solo presencia y práctica.</p>
             </SideImageBlock>
+            <SideImageBlock image={conciencia} imageLeft={true}>
+                <h1>¿C&oacute;mo te acompañamos?</h1>
+                <br />
+                <p>En Vibraheka te guiamos en un proceso de reconexi&oacute;n con tu bienestar a través de contenidos, pr&aacute;cticas y espacios de encuentro que puedes vivir a tu ritmo.
+                </p>
+                <p>Cada experiencia —una meditación, una charla, una reflexión— está pensada para que pares un momento, respires y vuelvas a ti.</p>
+                <p>No importa en qué punto estés: siempre hay un lugar desde donde empezar a vibrar en </p>
+            </SideImageBlock>
+            <SideImageBlock image={ascension} imageLeft={false}>
+                <h1>¿Por qué unirte a esta Comunidad?</h1>
+                <br />
+                <p>Porque mereces sentirte acompañado/a de personas que vibran como tú</p>
+                <p>Vibraheka es una comunidad consciente donde encontrarás apoyo, calma y conexión real.</p>
+                <p>En comunidad, el bienestar deja de ser un esfuerzo y se convierte en una práctica natural</p>
+                <p>Sin juicios. Sin etiquetas. Solo presencia y práctica.</p>
+            </SideImageBlock>
+
+            <div className="sign-up-form">
+
+            </div>
         </div>
 
     )

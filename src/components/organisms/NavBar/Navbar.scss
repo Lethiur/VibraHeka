@@ -12,6 +12,7 @@
     font-size: $font-size-heading;
     letter-spacing: 1px;
     margin-right: 0.2em;
+
 }
 
 .navbar-brand {
@@ -20,4 +21,8 @@
     font-size: $font-size-heading;
     letter-spacing: 2px;
     color: $color-on-primary !important;
+}
+
+.side-block {
+    margin-bottom: 100px;
 }
