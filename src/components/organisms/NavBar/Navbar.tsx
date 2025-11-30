@@ -5,11 +5,11 @@ export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg px-3">
             <Link className="navbar-brand" to="/">
-                {/* <img
+                <img
                     src="http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png"
                     alt="Logo"
                     style={{ width: "48px", height: "48px", marginRight: "8px" }}
-                /> */}
+                />
                 VibraHeka
             </Link>
 
@@ -34,14 +34,8 @@ export default function Navbar() {
                     </li>
 
                     <li className="nav-item">
-                        <Link className="nav-link" to="/about">
+                        <Link className="nav-link" to="/terapeutas">
                             Terapeutas
-                        </Link>
-                    </li>
-
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/registro">
-                            Registro
                         </Link>
                     </li>
                 </ul>

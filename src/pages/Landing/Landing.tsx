@@ -9,10 +9,19 @@ import conciencia from "../../assets/images/conciencia.png"
 import "./Landing.scss";
 import VideoPlayer from "../../components/atoms/VideoPlayer/VideoPlayer";
 import PrimaryButton from "../../components/atoms/PrimaryButton/PrimaryButton";
+import { useState } from "react";
 
 export default function LandingPage() {
+    const [name, setName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = () => {
+        console.log("Form submitted:", { name, email, password });
+    };
     return (
-        <div className="container">
+        <div className="container display-flex flex-column align-items-center">
             <Logo
                 src="http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png"
                 alt="VibraHeka Logo"
@@ -94,8 +103,77 @@ export default function LandingPage() {
                 <p>Sin juicios. Sin etiquetas. Solo presencia y práctica.</p>
             </SideImageBlock>
 
-            <div className="sign-up-form">
+            <div className="container-fluid justify-content-center">
+                <div className="sign-up-form">
 
+                    <form
+                        onSubmit={handleSubmit}
+                        className="p-4 bg-light rounded shadow-sm"
+                    >
+                        <h1>Quiero unirme y probar gratis</h1>
+
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">
+                                Nombre
+                            </label>
+                            <input
+                                id="name"
+                                type="text"
+                                value={name}
+                                className="form-control"
+                                placeholder="Your full name"
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="lastName" className="form-label">
+                                Apellidos
+                            </label>
+                            <input
+                                id="lastName"
+                                type="text"
+                                value={lastName}
+                                className="form-control"
+                                placeholder="Your full name"
+                                onChange={(e) => setLastName(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label">
+                                Email
+                            </label>
+                            <input
+                                id="email"
+                                type="email"
+                                value={email}
+                                className="form-control"
+                                placeholder="you@example.com"
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">
+                                    Contrase&ntilde;a
+                                </label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    value={password}
+                                    className="form-control"
+                                    placeholder="********"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <PrimaryButton label="Unirme y probar gratis" onClick={() => handleSubmit()} variant="primary" disabled={false} fullWidth={true} />
+                    </form>
+                </div>
             </div>
         </div>
 
