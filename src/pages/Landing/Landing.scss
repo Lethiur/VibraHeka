@@ -17,6 +17,7 @@ p {
 .subtitle {
     font-weight: $font-weight-bold;
     color: $color-dark;
+    text-align: justify;
 }
 
 .button-holder {
@@ -38,4 +39,8 @@ p {
 .sign-up-form {
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+p {
+    text-align: justify;
 }

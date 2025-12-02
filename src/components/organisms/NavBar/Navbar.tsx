@@ -38,6 +38,18 @@ export default function Navbar() {
                             Terapeutas
                         </Link>
                     </li>
+
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/registro">
+                            Registrarse
+                        </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/identificarse">
+                            Identificarse
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </nav>
