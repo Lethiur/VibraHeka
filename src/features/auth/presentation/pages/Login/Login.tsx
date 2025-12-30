@@ -8,6 +8,11 @@ import {ValidationErrors} from "fluentvalidation-ts";
 import useLoginUser from "../../Hooks/useLoginUser.ts";
 import LoginUserUseCase from "../../../Application/UseCases/LoginUser/LoginUserUseCase.ts";
 import {useNavigate} from "react-router-dom";
+import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
+import {LoginResult} from "../../../Domain/Models/LoginResult.ts";
+import {Result} from "neverthrow";
+import useLocalStorage from "../../../../../core/Presentation/Hooks/UseLocalStorage.ts";
+import {STORAGE_KEYS} from "../../Storage/StorageKeys.ts";
 
 
 export default function Login() {
@@ -18,15 +23,31 @@ export default function Login() {
     const { t } = useTranslation();
     
     const loginUserUseCase : LoginUserUseCase = useLoginUser();
+    const localStorage = useLocalStorage();
     const navigation  = useNavigate();
     
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setGlobalError(null);
+        const formData = new FormData(event.currentTarget);
         
         try {
             setIsSubmitting(true);
-            await loginUserUseCase.execute()
+            const authResult : Result<LoginResult, AuthErrorCodes> = await loginUserUseCase.execute({
+                email: formData.get('email') as string,
+                password: formData.get('password') as string
+            });
+            
+            if (authResult.isOk()) {
+                localStorage.setString(STORAGE_KEYS.AUTH_TOKEN, authResult.value.Token);
+                localStorage.setString(STORAGE_KEYS.REFRESH_TOKEN, authResult.value.RefreshToken);
+                localStorage.setString(STORAGE_KEYS.USER_ID, authResult.value.UserID);
+                navigation('/');
+                window.location.reload();
+            } else {
+                setGlobalError(authResult.error);
+            }
+            
         } catch (error) {
             if (error instanceof InvalidEntityError) {
                 setErrors(error.fieldErrors);
@@ -41,20 +62,20 @@ export default function Login() {
         <div>
             <h1>{t('pages.login.title')}</h1>
             <p>{t('pages.login.description')}</p>
-            <ErrorBox message={globalError} />
+            <ErrorBox message={globalError} variant="danger" />
             <form onSubmit={handleSubmit} noValidate>
                 <div className='mb-3'>
                     <label htmlFor="email" className="form-label">{t('pages.login.form.email_label')}</label>
-                    <input type="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`} id="email" aria-describedby="emailHelp"/>
+                    <input type="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`} name="email" id="email" aria-describedby="emailHelp"/>
                     <div id="emailHelp" className="form-text">{t('pages.login.form.email_help')}</div>
-                    {errors.email && <div className="invalid-feedback">{t(`auth.errors.${errors.email}`)}</div>}
+                    {errors.email && <div className="invalid-feedback">{t(`errors.auth.${errors.email}`)}</div>}
                 </div>
                 
                 <div className='mb-3'>
                     <label htmlFor="password" className="form-label">{t('pages.login.form.password_label')}</label>
                     <input type="password" className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="password" name="password"/>
                     <div id="passwordHelp" className="form-text">{t('pages.login.form.password_help')}</div>
-                    {errors.password && <div className="invalid-feedback">{t(`auth.errors.${errors.password}`)}</div>}
+                    {errors.password && <div className="invalid-feedback">{t(`errors.auth.${errors.password}`)}</div>}
                 </div>
 
                 <PrimaryButton

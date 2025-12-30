@@ -24,7 +24,7 @@ export const es = {
                 [AuthApplicationErrors.PASSWORD_NOT_PRESENT] : "La contraseña es obligatoria",
                 [AuthApplicationErrors.PASSWORD_TOO_SHORT] : "La contraseña debe tener al menos 6 caracteres",
                 [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT] : "El código de verificación debe tener al menos 6 caracteres",
-                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT] : "El código de verificación es obligatorio",
+                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT] : "El código de verificación es obligatorio"
             }
         },
         pages: {

@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import './Navbar.scss'
+import useLocalStorage from "../../../core/Presentation/Hooks/UseLocalStorage.ts";
+import {STORAGE_KEYS} from "../../../features/auth/presentation/Storage/StorageKeys.ts";
 
 export default function Navbar() {
+    
+    const localStorage = useLocalStorage();
+    
+    function isAuthenticated() {
+        return localStorage.getString(STORAGE_KEYS.AUTH_TOKEN) !== null;
+    }
+    
     return (
         <nav className="navbar navbar-expand-lg px-3">
             <Link className="navbar-brand" to="/">
@@ -39,17 +48,33 @@ export default function Navbar() {
                         </Link>
                     </li>
 
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/registro">
-                            Registrarse
-                        </Link>
-                    </li>
+                    {
+                        !isAuthenticated() && (
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/registro">
+                                        Registrarse
+                                    </Link>
+                                </li>
 
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/login">
-                            Identificarse
-                        </Link>
-                    </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">
+                                        Identificarse
+                                    </Link>
+                                </li>
+                            </>
+                        )
+                    }
+
+                    {
+                        isAuthenticated() && (<>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/cerrar-sesion">
+                                    Cerrar sesion
+                                </Link>
+                            </li>
+                        </>)
+                    }
                 </ul>
             </div>
         </nav>
