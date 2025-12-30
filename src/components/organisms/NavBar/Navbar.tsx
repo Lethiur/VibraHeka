@@ -46,7 +46,7 @@ export default function Navbar() {
                     </li>
 
                     <li className="nav-item">
-                        <Link className="nav-link" to="/identificarse">
+                        <Link className="nav-link" to="/login">
                             Identificarse
                         </Link>
                     </li>

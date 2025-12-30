@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import { ValidationErrors } from "fluentvalidation-ts";
 import PrimaryButton from "../../../../../components/atoms/PrimaryButton/PrimaryButton";
-import { RegistrationData } from "../../../domain/models/RegistrationData";
-import RegistrationDataValidator from "../../validators/RegistrationDataValidator";
-import { authRepository } from "../../../infrastructure/AuthRepository";
 import { useTranslation } from "react-i18next";
+import {RegistrationData} from "../../../Domain/Models/RegistrationData.ts";
+import {useRegisterUser} from "../../Hooks/useRegisterUser.ts";
+import RegisterUserUseCase from "../../../Application/UseCases/RegisterUser/RegisterUserUseCase.ts";
+import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
+import {RegistrationResult} from "../../../Domain/Models/RegistrationResult.ts";
+import {Result} from "neverthrow";
+import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
+import useLocalStorage from "../../../../../core/Presentation/Hooks/UseLocalStorage.ts";
+import LocalStorageService from "../../../../../core/Infrastructure/Storage/LocalStorageService.ts";
+import {STORAGE_KEYS} from "../../Storage/StorageKeys.ts";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
 export default function Registro() {
     const { t } = useTranslation();
     const [errors, setErrors] = useState<ValidationErrors<RegistrationData>>({});
     const [globalError, setGlobalError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+    
+    const registerUserUseCase : RegisterUserUseCase = useRegisterUser();
+    const localStorage : LocalStorageService = useLocalStorage();
+    const naviagate : NavigateFunction = useNavigate();
+    
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setGlobalError(null);
@@ -24,33 +36,24 @@ export default function Registro() {
             password: (formData.get('password') as string) || ""
         };
 
-        const validator = new RegistrationDataValidator();
-        const validationResult = validator.validate(data);
-
-        // Traducir errores de validación si es necesario, 
-        // aunque fluentvalidation-ts suele devolver strings fijos, 
-        // idealmente el validador debería devolver claves o usar una librería que soporte i18n
-        setErrors(validationResult);
-
-        if (Object.keys(validationResult).length === 0) {
+        
+        try {
             setIsSubmitting(true);
-
-            const result = await authRepository.register(data);
+            const result : Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
             if (result.isOk()) {
-                console.log("Registrado con éxito:", result.value.userId);
-                // Aquí podrías redireccionar o mostrar éxito
+                localStorage.setString(STORAGE_KEYS.EMAIL, data.email);
+                naviagate('/verify');
             } else {
-                // Usamos la clave del error para traducir
-                const errorKey = `errors.auth.${result.error}`;
-                console.log(errorKey);
-                // t devuelve la clave si no encuentra traducción, así que es seguro
-                setGlobalError(t(errorKey));
+                setGlobalError(t(`errors.auth.${result.error}`));
             }
 
-            setIsSubmitting(false);
-
-        } else {
-            console.log("Errores de validación:", validationResult);
+        } catch (error) {
+            if (error instanceof InvalidEntityError) {
+                setErrors(error.fieldErrors);
+            }
+        }
+        finally {
+            setIsSubmitting(false)
         }
     }
 

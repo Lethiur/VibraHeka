@@ -1,8 +1,38 @@
 import { Result } from 'neverthrow';
-import { RegistrationData } from "../models/RegistrationData";
-import { RegistrationResult } from "../models/RegistrationResult";
-import { AuthErrorCodes } from "../errors/AuthErrorCodes";
+import {RegistrationData} from "../Models/RegistrationData.ts";
+import {RegistrationResult} from "../Models/RegistrationResult.ts";
+import {AuthErrorCodes} from "../Errors/AuthErrorCodes.ts";
+import {VerificationData} from "../Models/VerificationData.ts";
+import {LoginData} from "../Models/LoginData.ts";
+import {LoginResult} from "../Models/LoginResult.ts";
 
+/**
+ * Interface representing an authentication repository that provides methods
+ * for user registration and verification.
+ */
 export interface IAuthRepository {
-    register(data: RegistrationData): Promise<Result<RegistrationResult, AuthErrorCodes>>;
+
+    /**
+     * Registers a new user with the provided registration data.
+     *
+     * @param {RegistrationData} data - The registration details such as username, email, and password.
+     * @return {Promise<Result<RegistrationResult, AuthErrorCodes>>} A promise that resolves to a result object containing either the registration result or an authentication error code.
+     */
+    Register(data: RegistrationData): Promise<Result<RegistrationResult, AuthErrorCodes>>;
+
+    /**
+     * Verifies the provided data and checks its validity.
+     *
+     * @param {VerificationData} data - The verification data to be validated.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves to a result object indicating whether the verification was successful or contains error codes in case of failure.
+     */
+    Verify(data: VerificationData): Promise<Result<void, AuthErrorCodes>>;
+
+    /**
+     * Authenticates a user based on the provided login data and returns the result of the operation.
+     *
+     * @param {LoginData} data - The login data containing the user's credentials and any required information for authentication.
+     * @return {Promise<Result<LoginResult, AuthErrorCodes>>} A promise that resolves with the authentication result, which is either a `LoginResult` object on success or an `AuthErrorCodes` error on failure.
+     */
+    Login(data: LoginData) : Promise<Result<LoginResult, AuthErrorCodes>>;
 }

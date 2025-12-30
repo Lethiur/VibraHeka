@@ -1,4 +1,5 @@
-import { AuthErrorCodes } from '../../../features/auth/domain/errors/AuthErrorCodes';
+import {AuthErrorCodes} from "../../../features/auth/Domain/Errors/AuthErrorCodes.ts";
+import {AuthApplicationErrors} from "../../../features/auth/Application/Errors/AuthApplicationErrors.ts";
 
 export const es = {
     translation: {
@@ -16,6 +17,14 @@ export const es = {
                 [AuthErrorCodes.USER_NOT_CONFIRMED]: "La cuenta de usuario no ha sido confirmada.",
                 [AuthErrorCodes.UNEXPECTED_ERROR]: "Ha ocurrido un error inesperado, por favor intenta nuevamente.",
                 [AuthErrorCodes.UNKNOWN_ERROR]: "Error desconocido.",
+                [AuthApplicationErrors.FULL_NAME_NOT_PRESENT] : "El nombre es obligatorio",
+                [AuthApplicationErrors.FULL_NAME_TOO_SHORT] : "El nombre debe tener al menos 2 caracteres",
+                [AuthApplicationErrors.EMAIL_NOT_PRESENT] : "El email es obligatorio",
+                [AuthApplicationErrors.EMAIL_INVALID] : "Debe ingresar un email válido",
+                [AuthApplicationErrors.PASSWORD_NOT_PRESENT] : "La contraseña es obligatoria",
+                [AuthApplicationErrors.PASSWORD_TOO_SHORT] : "La contraseña debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT] : "El código de verificación debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT] : "El código de verificación es obligatorio",
             }
         },
         pages: {
@@ -28,14 +37,29 @@ export const es = {
                     password_label: "Password",
                     submit_button: "Registrarse",
                     submitting_button: "Registrando..."
-                },
-                validation: {
-                    name_required: "El nombre es obligatorio",
-                    name_length: "El nombre debe tener al menos 2 caracteres",
-                    email_required: "El email es obligatorio",
-                    email_invalid: "Debe ingresar un email válido",
-                    password_required: "La contraseña es obligatoria",
-                    password_length: "La contraseña debe tener al menos 6 caracteres"
+                }
+            },
+            verification: {
+                title: "Verifica tu cuenta",
+                description: "Verifica tu cuenta para poder disfrutar de todos los beneficios que ofrecemos.",
+                form: {
+                    code_label: "Código de verificación",
+                    code_help: "Introduce el código que te ha llegado a tu correo",
+                    submit_button: "Verificar",
+                    submitting_button: "Verificando..."
+                }
+            },
+            login: {
+                title: 'Identificarse',
+                description: 'Identificate para acceder a tu cuenta.',
+                form: {
+                    email_label: "Email",
+                    email_help: "Introduce tu email",
+                    password_label: "Contraseña",
+                    password_help: "No compartas tu contraseña con nadie",
+                    submit_button: "Identificarse",
+                    submitting_button: "Verificando..."
+                    
                 }
             }
         }

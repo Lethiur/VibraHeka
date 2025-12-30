@@ -5,7 +5,8 @@ import TerapeutasHome from './pages/Terapeutas/TerapetuasHome'
 import BeatrizAlonso from './pages/Terapeutas/Individuales/BeatrizAlonso'
 import VeraLucya from './pages/Terapeutas/Individuales/VeraLucya'
 import Registro from './features/auth/presentation/pages/Registro/Registro'
-import Login from './pages/Login/Login'
+import Login from "./features/auth/presentation/pages/Login/Login.tsx";
+import Verification from "./features/auth/presentation/pages/Verification/Verification.tsx";
 function App() {
     return (
         <Router>
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/registro" element={<Registro />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/verify" element={<Verification />} />
                     <Route path="/terapeutas" element={<TerapeutasHome />} />
                     <Route path="/terapeutas/beatriz-alonso" element={<BeatrizAlonso />} />
                     <Route path="/terapeutas/vera-lucya" element={<VeraLucya />} />
