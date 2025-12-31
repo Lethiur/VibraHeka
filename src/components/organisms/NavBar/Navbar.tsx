@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import './Navbar.scss'
-import useLocalStorage from "../../../core/Presentation/Hooks/UseLocalStorage.ts";
-import {STORAGE_KEYS} from "../../../features/auth/presentation/Storage/StorageKeys.ts";
 
-export default function Navbar() {
+interface NavbarProps {
+    isAuthenticated: boolean;
+    onLogout: () => void;
+}
+
+export default function Navbar({ isAuthenticated, onLogout }: NavbarProps) {
     
-    const localStorage = useLocalStorage();
-    
-    function isAuthenticated() {
-        return localStorage.getString(STORAGE_KEYS.AUTH_TOKEN) !== null;
-    }
     
     return (
         <nav className="navbar navbar-expand-lg px-3">
@@ -49,7 +47,7 @@ export default function Navbar() {
                     </li>
 
                     {
-                        !isAuthenticated() && (
+                        !isAuthenticated && (
                             <>
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/registro">
@@ -67,11 +65,16 @@ export default function Navbar() {
                     }
 
                     {
-                        isAuthenticated() && (<>
+                        isAuthenticated && (<>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/cerrar-sesion">
-                                    Cerrar sesion
+                                <Link className="nav-link" to="/talleres">
+                                    Talleres
                                 </Link>
+                            </li>
+                            <li className="nav-item">
+                                <button onClick={onLogout} className="nav-link btn btn-link">
+                                    Cerrar sesión
+                                </button>
                             </li>
                         </>)
                     }

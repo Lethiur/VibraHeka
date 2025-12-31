@@ -1,8 +1,8 @@
 
-import Bea from '../../assets/images/Terapeutas/Beatriz.png'
-import Terapeuta from '../../components/molecules/Terapeuta/Terapeuta'
+import Bea from '../../../../assets/images/Terapeutas/Beatriz.png'
+import Terapeuta from "../../../../components/molecules/Terapeuta/Terapeuta.tsx";
 
-export default function Terapeutas() {
+export default function TerapeutasHome() {
     return (
         <div className='container-fluid mb-5'>
             <h1 className='text-center pb-5'>Terapeutas</h1>

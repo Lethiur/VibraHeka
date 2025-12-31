@@ -1,12 +1,12 @@
-@import "./fonts";
-@import "./variables";
+@use "./fonts" as fonts;
+@use "./variables" as vars;
 
 body {
-    font-family: $font-primary;
+    font-family: fonts.$font-primary;
     margin: 0;
     padding: 0;
-    background-color: $color-background;
-    color: $color-dark;
+    background-color: vars.$color-background;
+    color: vars.$color-dark;
     font-size: 16px;
     line-height: 1.5;
 }
@@ -17,8 +17,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: $font-family-heading;
-    font-weight: $font-weight-bold;
+    font-family: fonts.$font-family-heading;
+    font-weight: fonts.$font-weight-bold;
     line-height: 1em;
-    padding: 0%;
+    padding: 0;
 }

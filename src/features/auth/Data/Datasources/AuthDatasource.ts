@@ -3,7 +3,6 @@ import {Result} from "neverthrow";
 import {RegisterResponseDto} from "../DTOs/RegistrationResponseDTO.ts";
 import {RegistrationRequestDto} from "../DTOs/RegistrationRequestDTO.ts";
 import {VerificationRequestDTO} from "../DTOs/VerificationRequestDTO.ts";
-import {LoginData} from "../../Domain/Models/LoginData.ts";
 import {LoginResultDTO} from "../DTOs/LoginResultDTO.ts";
 import {LoginRequestDTO} from "../DTOs/LoginRequestDTO.ts";
 

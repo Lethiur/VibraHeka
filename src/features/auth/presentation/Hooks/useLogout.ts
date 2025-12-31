@@ -1,0 +1,26 @@
+﻿import { useSetAtom } from 'jotai';
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticatedAtom } from '../../../../core/Presentation/Storage/AuthAtom';
+import useLocalStorage from '../../../../core/Presentation/Hooks/UseLocalStorage';
+import { STORAGE_KEYS } from '../../../../core/Infrastructure/Storage/StorageKeys';
+
+export const useLogout = () => {
+    const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
+    const localStorage = useLocalStorage();
+    const navigate = useNavigate();
+
+    const logout = () => {
+        // 1. Limpiar persistencia
+        localStorage.remove(STORAGE_KEYS.AUTH_TOKEN);
+        localStorage.remove(STORAGE_KEYS.REFRESH_TOKEN);
+        localStorage.remove(STORAGE_KEYS.USER_ID);
+
+        // 2. Notificar a la aplicación (Reactividad)
+        setIsAuthenticated(false);
+
+        // 3. Redirigir
+        navigate('/login');
+    };
+
+    return { logout };
+};

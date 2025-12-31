@@ -1,5 +1,5 @@
-@import "../../assets/styles/base/fonts";
-@import "../../assets/styles/base/variables";
+@use "../../../../assets/styles/base/fonts" as fonts;
+@use "../../../../assets/styles/base/variables" as vars;
 
 .video-player {
     margin-bottom: 2rem;
@@ -8,15 +8,15 @@
 
 
 p {
-    font-family: $font-family-body;
+    font-family: fonts.$font-family-body;
     letter-spacing: 1px;
     line-height: 1.75em;
-    color: $color-dark;
+    color: vars.$color-dark;
 }
 
 .subtitle {
-    font-weight: $font-weight-bold;
-    color: $color-dark;
+    font-weight: fonts.$font-weight-bold;
+    color: vars.$color-dark;
     text-align: justify;
 }
 

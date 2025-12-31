@@ -5,13 +5,13 @@ import VerifyUserUseCaseImpl from "../../../Application/UseCases/VerifyUser/Veri
 import useVerifyUser from "../../Hooks/useVerifyUser.ts";
 import useLocalStorage from "../../../../../core/Presentation/Hooks/UseLocalStorage.ts";
 import LocalStorageService from "../../../../../core/Infrastructure/Storage/LocalStorageService.ts";
-import {STORAGE_KEYS} from "../../Storage/StorageKeys.ts";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
 import {VerificationData} from "../../../Domain/Models/VerificationData.ts";
 import {ValidationErrors} from "fluentvalidation-ts";
 import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
 import {Result} from "neverthrow";
+import {STORAGE_KEYS} from "../../../../../core/Infrastructure/Storage/StorageKeys.ts";
 
 
 export default function Verification() {

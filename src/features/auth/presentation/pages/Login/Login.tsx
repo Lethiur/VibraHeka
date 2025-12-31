@@ -12,7 +12,9 @@ import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
 import {LoginResult} from "../../../Domain/Models/LoginResult.ts";
 import {Result} from "neverthrow";
 import useLocalStorage from "../../../../../core/Presentation/Hooks/UseLocalStorage.ts";
-import {STORAGE_KEYS} from "../../Storage/StorageKeys.ts";
+import {STORAGE_KEYS} from "../../../../../core/Infrastructure/Storage/StorageKeys.ts";
+import {useSetAtom} from "jotai";
+import {isAuthenticatedAtom} from "../../../../../core/Presentation/Storage/AuthAtom.ts";
 
 
 export default function Login() {
@@ -25,6 +27,7 @@ export default function Login() {
     const loginUserUseCase : LoginUserUseCase = useLoginUser();
     const localStorage = useLocalStorage();
     const navigation  = useNavigate();
+    const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
     
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -42,8 +45,8 @@ export default function Login() {
                 localStorage.setString(STORAGE_KEYS.AUTH_TOKEN, authResult.value.Token);
                 localStorage.setString(STORAGE_KEYS.REFRESH_TOKEN, authResult.value.RefreshToken);
                 localStorage.setString(STORAGE_KEYS.USER_ID, authResult.value.UserID);
+                setIsAuthenticated(true);
                 navigation('/');
-                window.location.reload();
             } else {
                 setGlobalError(authResult.error);
             }

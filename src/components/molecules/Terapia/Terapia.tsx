@@ -14,9 +14,9 @@ export default function Terapia({ title, children, buttonOnClick }: TerapiaProps
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
                     <br />
-                    <p className="card-text">
+                    <div className="card-text">
                         {children}
-                    </p>
+                    </div>
                     <PrimaryButton label="Reservar una sesi&oacute;n" onClick={buttonOnClick} />
                 </div>
             </div>

@@ -11,8 +11,8 @@ import {Result} from "neverthrow";
 import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
 import useLocalStorage from "../../../../../core/Presentation/Hooks/UseLocalStorage.ts";
 import LocalStorageService from "../../../../../core/Infrastructure/Storage/LocalStorageService.ts";
-import {STORAGE_KEYS} from "../../Storage/StorageKeys.ts";
 import {NavigateFunction, useNavigate} from "react-router-dom";
+import {STORAGE_KEYS} from "../../../../../core/Infrastructure/Storage/StorageKeys.ts";
 
 export default function Registro() {
     const { t } = useTranslation();

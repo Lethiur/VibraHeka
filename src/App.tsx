@@ -1,32 +1,32 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import LandingPage from './pages/Landing/Landing'
+import { Routes, Route} from 'react-router-dom'
 import Navbar from './components/organisms/NavBar/Navbar'
-import TerapeutasHome from './pages/Terapeutas/TerapetuasHome'
-import BeatrizAlonso from './pages/Terapeutas/Individuales/BeatrizAlonso'
-import VeraLucya from './pages/Terapeutas/Individuales/VeraLucya'
+
 import Registro from './features/auth/presentation/pages/Registro/Registro'
 import Login from "./features/auth/presentation/pages/Login/Login.tsx";
 import Verification from "./features/auth/presentation/pages/Verification/Verification.tsx";
-import useLocalStorage from "./core/Presentation/Hooks/UseLocalStorage.ts";
-import {STORAGE_KEYS} from "./features/auth/presentation/Storage/StorageKeys.ts";
+import {isAuthenticatedAtom} from "./core/Presentation/Storage/AuthAtom.ts";
+import {useAtomValue} from "jotai";
+import {useLogout} from "./features/auth/presentation/Hooks/useLogout.ts";
+import LandingPage from "./features/Landing/Presentation/Pages/Landing.tsx";
+import VeraLucya from "./features/Therapist/Presentation/Pages/Individuales/VeraLucya.tsx";
+import TerapeutasHome from "./features/Therapist/Presentation/Pages/TerapetuasHome.tsx";
+import BeatrizAlonso from "./features/Therapist/Presentation/Pages/Individuales/BeatrizAlonso.tsx";
 
 function App() {
 
-    const localStorageToken = useLocalStorage();
+    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
+    const {logout} = useLogout();
 
-    function isAuthenticated() {
-        return localStorageToken.getString(STORAGE_KEYS.AUTH_TOKEN) !== null;
-    }
 
     return (
-        <Router>
-            <Navbar/>
+        <>
+            <Navbar isAuthenticated={isAuthenticated} onLogout={logout}/>
 
             <div className="container mt-5">
                 <Routes>
                     <Route path="/" element={<LandingPage/>}/>
                     {
-                        !isAuthenticated() && (
+                        !isAuthenticated && (
                             <>
                                 <Route path="/registro" element={<Registro/>}/>
                                 <Route path="/login" element={<Login/>}/>
@@ -35,21 +35,21 @@ function App() {
                     }
 
                     {
-                        isAuthenticated() && (
+                        isAuthenticated && (
                             <>
-                                <Route path="/talleres" element={<TerapeutasHome/>}/>            
+                                <Route path="/talleres" element={<TerapeutasHome/>}/>
                             </>
                         )
                     }
 
 
-                    
                     <Route path="/terapeutas" element={<TerapeutasHome/>}/>
                     <Route path="/terapeutas/beatriz-alonso" element={<BeatrizAlonso/>}/>
                     <Route path="/terapeutas/vera-lucya" element={<VeraLucya/>}/>
                 </Routes>
             </div>
-        </Router>
+        
+        </>
     )
 }
 
