@@ -14,7 +14,6 @@ import BeatrizAlonso from "./features/Therapist/Presentation/Pages/Individuales/
 import {STORAGE_KEYS} from "./core/Infrastructure/Storage/StorageKeys.ts";
 import Dashboard from "./Admin/Dashboard/Presentation/Pages/Dashboard.tsx";
 import AdminLayout from "./core/Presentation/Layouts/AdminLayout.tsx";
-import TherapistList from "./Admin/AddTherapist/Presentation/Pages/TherapistList.tsx";
 import TherapistIndex from "./Admin/AddTherapist/Presentation/Pages/TherapistIndex.tsx";
 
 function App() {
