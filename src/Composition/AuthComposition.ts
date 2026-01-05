@@ -6,6 +6,7 @@ import VerifyUserUseCaseImpl from "../features/auth/Application/UseCases/VerifyU
 import VerificationDataValidator from "../features/auth/Application/Validators/VerificationDataValidator.ts";
 import LoginUserDataValidator from "../features/auth/Application/Validators/LoginUserDataValidator.ts";
 import LoginUserUseCase from "../features/auth/Application/UseCases/LoginUser/LoginUserUseCase.ts";
+import LocalStorageService from "../core/Infrastructure/Storage/LocalStorageService.ts";
 
 const datasource = new AuthDatasource();
 const repository = new AuthRepositoryImpl(datasource);
@@ -14,4 +15,4 @@ export const registerUserUseCase = new RegisterUserUseCase(repository, new Regis
 
 export const verifyUserUseCase = new VerifyUserUseCaseImpl(repository, new VerificationDataValidator());
 
-export const loginUserUseCase = new LoginUserUseCase(repository, new LoginUserDataValidator());
+export const loginUserUseCase = new LoginUserUseCase(repository, new LoginUserDataValidator(), new LocalStorageService());

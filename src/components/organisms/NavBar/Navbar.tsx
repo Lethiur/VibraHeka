@@ -4,9 +4,10 @@ import './Navbar.scss'
 interface NavbarProps {
     isAuthenticated: boolean;
     onLogout: () => void;
+    role : number
 }
 
-export default function Navbar({ isAuthenticated, onLogout }: NavbarProps) {
+export default function Navbar({ isAuthenticated, onLogout, role }: NavbarProps) {
     
     
     return (
@@ -64,6 +65,16 @@ export default function Navbar({ isAuthenticated, onLogout }: NavbarProps) {
                         )
                     }
 
+                    {
+                        role === 1 && (<>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/admin">
+                                    Admin
+                                </Link>
+                            </li>
+                        </>)
+                    }
+                    
                     {
                         isAuthenticated && (<>
                             <li className="nav-item">

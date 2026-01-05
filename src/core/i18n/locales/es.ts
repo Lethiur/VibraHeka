@@ -27,6 +27,9 @@ export const es = {
                 [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT] : "El código de verificación es obligatorio"
             }
         },
+        admin : {
+          title: "Panel de administracion "  
+        },
         pages: {
             register: {
                 title: "Registrate en vibraheka!",

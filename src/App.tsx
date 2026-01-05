@@ -11,16 +11,25 @@ import LandingPage from "./features/Landing/Presentation/Pages/Landing.tsx";
 import VeraLucya from "./features/Therapist/Presentation/Pages/Individuales/VeraLucya.tsx";
 import TerapeutasHome from "./features/Therapist/Presentation/Pages/TerapetuasHome.tsx";
 import BeatrizAlonso from "./features/Therapist/Presentation/Pages/Individuales/BeatrizAlonso.tsx";
+import {STORAGE_KEYS} from "./core/Infrastructure/Storage/StorageKeys.ts";
+import Dashboard from "./Admin/Dashboard/Presentation/Pages/Dashboard.tsx";
+import AdminLayout from "./core/Presentation/Layouts/AdminLayout.tsx";
+import TherapistList from "./Admin/AddTherapist/Presentation/Pages/TherapistList.tsx";
+import TherapistIndex from "./Admin/AddTherapist/Presentation/Pages/TherapistIndex.tsx";
 
 function App() {
 
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const {logout} = useLogout();
 
+    function getRole() : number {
+        return parseInt(localStorage.getItem(STORAGE_KEYS.ROLE) ?? "0");
+    }
+    
 
     return (
         <>
-            <Navbar isAuthenticated={isAuthenticated} onLogout={logout}/>
+            <Navbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()}/>
 
             <div className="container mt-5">
                 <Routes>
@@ -37,7 +46,20 @@ function App() {
                     {
                         isAuthenticated && (
                             <>
-                                <Route path="/talleres" element={<TerapeutasHome/>}/>
+                                <Route path="/talleres" element={<TerapeutasHome/>}>
+                                </Route>
+                            </>
+                                
+                        )
+                    }
+
+                    {
+                        getRole() === 1 && (
+                            <>
+                                <Route path="/admin" element={<AdminLayout/>}>
+                                    <Route path="/admin/dashboard" element={<Dashboard/>}/>
+                                    <Route path="/admin/therapists" element={<TherapistIndex/>}/>
+                                </Route>
                             </>
                         )
                     }

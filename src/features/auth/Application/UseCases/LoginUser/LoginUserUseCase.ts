@@ -7,6 +7,8 @@ import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository.ts";
 import LoginUserDataValidator from "../../Validators/LoginUserDataValidator.ts";
 import {ValidationErrors} from "fluentvalidation-ts";
 import InvalidEntityError from "../../Errors/InvalidEntityError.ts";
+import LocalStorageService from "../../../../../core/Infrastructure/Storage/LocalStorageService.ts";
+import {STORAGE_KEYS} from "../../../../../core/Infrastructure/Storage/StorageKeys.ts";
 
 /**
  * Use case class for handling user login functionality.
@@ -17,7 +19,7 @@ import InvalidEntityError from "../../Errors/InvalidEntityError.ts";
  */
 export default class LoginUserUseCase implements ILoginUserUseCase {
     
-    constructor(private AuthRepository : IAuthRepository, private LoginValidator : LoginUserDataValidator) { }
+    constructor(private AuthRepository : IAuthRepository, private LoginValidator : LoginUserDataValidator, private LocalStorageService : LocalStorageService) { }
 
     /**
      * Executes the login operation by validating the provided login data
@@ -35,7 +37,19 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
             throw new InvalidEntityError(validate);
         }
         
-        return await this.AuthRepository.Login(data);
+        const loginResult : Result<LoginResult, AuthErrorCodes> = await this.AuthRepository.Login(data);
+        
+        if (loginResult.isOk())
+        {
+            this.LocalStorageService.setString(STORAGE_KEYS.ROLE, loginResult.value.Role.toString())
+            this.LocalStorageService.setString(STORAGE_KEYS.USER_ID, loginResult.value.UserID)
+            this.LocalStorageService.setString(STORAGE_KEYS.REFRESH_TOKEN, loginResult.value.RefreshToken);
+            this.LocalStorageService.setString(STORAGE_KEYS.AUTH_TOKEN, loginResult.value.Token);
+        }
+        
+        return loginResult;
+        
+        
     }
     
 }

@@ -38,6 +38,7 @@ export class AuthRepositoryImpl implements IAuthRepository {
                 UserID: loginResult.userID,
                 Token: loginResult.accessToken,
                 RefreshToken: loginResult.refreshToken,
+                Role: loginResult.role,
             }
         }).mapErr(error => error as AuthErrorCodes);
     }
