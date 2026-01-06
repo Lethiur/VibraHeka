@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import { ValidationErrors } from "fluentvalidation-ts";
-import PrimaryButton from "../../../../../components/atoms/PrimaryButton/PrimaryButton";
+import PrimaryButton from "../../../../../core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
 import { useTranslation } from "react-i18next";
-import {RegistrationData} from "../../../Domain/Models/RegistrationData.ts";
-import {useRegisterUser} from "../../Hooks/useRegisterUser.ts";
+import { RegistrationData } from "../../../Domain/Models/RegistrationData.ts";
+import { useRegisterUser } from "../../Hooks/useRegisterUser.ts";
 import RegisterUserUseCase from "../../../Application/UseCases/RegisterUser/RegisterUserUseCase.ts";
-import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
-import {RegistrationResult} from "../../../Domain/Models/RegistrationResult.ts";
-import {Result} from "neverthrow";
+import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
+import { RegistrationResult } from "../../../Domain/Models/RegistrationResult.ts";
+import { Result } from "neverthrow";
 import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
 import useLocalStorage from "../../../../../core/Presentation/Hooks/UseLocalStorage.ts";
 import LocalStorageService from "../../../../../core/Infrastructure/Storage/LocalStorageService.ts";
-import {NavigateFunction, useNavigate} from "react-router-dom";
-import {STORAGE_KEYS} from "../../../../../core/Infrastructure/Storage/StorageKeys.ts";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { STORAGE_KEYS } from "../../../../../core/Infrastructure/Storage/StorageKeys.ts";
 
 export default function Registro() {
     const { t } = useTranslation();
     const [errors, setErrors] = useState<ValidationErrors<RegistrationData>>({});
     const [globalError, setGlobalError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    
-    const registerUserUseCase : RegisterUserUseCase = useRegisterUser();
-    const localStorage : LocalStorageService = useLocalStorage();
-    const naviagate : NavigateFunction = useNavigate();
-    
+
+    const registerUserUseCase: RegisterUserUseCase = useRegisterUser();
+    const localStorage: LocalStorageService = useLocalStorage();
+    const naviagate: NavigateFunction = useNavigate();
+
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setGlobalError(null);
@@ -36,10 +36,10 @@ export default function Registro() {
             password: (formData.get('password') as string) || ""
         };
 
-        
+
         try {
             setIsSubmitting(true);
-            const result : Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
+            const result: Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
             if (result.isOk()) {
                 localStorage.setString(STORAGE_KEYS.EMAIL, data.email);
                 naviagate('/verify');

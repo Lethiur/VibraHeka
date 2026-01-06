@@ -1,5 +1,5 @@
-import {AuthErrorCodes} from "../../../features/auth/Domain/Errors/AuthErrorCodes.ts";
-import {AuthApplicationErrors} from "../../../features/auth/Application/Errors/AuthApplicationErrors.ts";
+import { AuthErrorCodes } from "../../../Features/auth/Domain/Errors/AuthErrorCodes.ts";
+import { AuthApplicationErrors } from "../../../Features/auth/Application/Errors/AuthApplicationErrors.ts";
 
 export const es = {
     translation: {
@@ -17,18 +17,18 @@ export const es = {
                 [AuthErrorCodes.USER_NOT_CONFIRMED]: "La cuenta de usuario no ha sido confirmada.",
                 [AuthErrorCodes.UNEXPECTED_ERROR]: "Ha ocurrido un error inesperado, por favor intenta nuevamente.",
                 [AuthErrorCodes.UNKNOWN_ERROR]: "Error desconocido.",
-                [AuthApplicationErrors.FULL_NAME_NOT_PRESENT] : "El nombre es obligatorio",
-                [AuthApplicationErrors.FULL_NAME_TOO_SHORT] : "El nombre debe tener al menos 2 caracteres",
-                [AuthApplicationErrors.EMAIL_NOT_PRESENT] : "El email es obligatorio",
-                [AuthApplicationErrors.EMAIL_INVALID] : "Debe ingresar un email válido",
-                [AuthApplicationErrors.PASSWORD_NOT_PRESENT] : "La contraseña es obligatoria",
-                [AuthApplicationErrors.PASSWORD_TOO_SHORT] : "La contraseña debe tener al menos 6 caracteres",
-                [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT] : "El código de verificación debe tener al menos 6 caracteres",
-                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT] : "El código de verificación es obligatorio"
+                [AuthApplicationErrors.FULL_NAME_NOT_PRESENT]: "El nombre es obligatorio",
+                [AuthApplicationErrors.FULL_NAME_TOO_SHORT]: "El nombre debe tener al menos 2 caracteres",
+                [AuthApplicationErrors.EMAIL_NOT_PRESENT]: "El email es obligatorio",
+                [AuthApplicationErrors.EMAIL_INVALID]: "Debe ingresar un email válido",
+                [AuthApplicationErrors.PASSWORD_NOT_PRESENT]: "La contraseña es obligatoria",
+                [AuthApplicationErrors.PASSWORD_TOO_SHORT]: "La contraseña debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT]: "El código de verificación debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT]: "El código de verificación es obligatorio"
             }
         },
-        admin : {
-          title: "Panel de administracion "  
+        admin: {
+            title: "Panel de administracion "
         },
         pages: {
             register: {
@@ -62,7 +62,7 @@ export const es = {
                     password_help: "No compartas tu contraseña con nadie",
                     submit_button: "Identificarse",
                     submitting_button: "Verificando..."
-                    
+
                 }
             }
         }

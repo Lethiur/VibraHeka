@@ -1,8 +1,8 @@
-import VideoPlayer from "../../../../../components/atoms/VideoPlayer/VideoPlayer";
-import Terapia from "../../../../../components/molecules/Terapia/Terapia";
+import VideoPlayer from "../../../../../core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
+import Terapia from "../../../../../core/Presentation/Components/molecules/Terapia/Terapia";
 
 import Beatriz from "../../../../../assets/images/Terapeutas/Beatriz.png"
-import SideImageBlock from "../../../../../components/organisms/SideImageBlock/SideImageBlock";
+import SideImageBlock from "../../../../../core/Presentation/Components/organisms/SideImageBlock/SideImageBlock";
 
 export default function BeatrizAlonso() {
     return (
@@ -15,11 +15,11 @@ export default function BeatrizAlonso() {
                     complementarias para animales.
                     Mi propósito es reconectar a las personas con el alma y la sabiduría de los animales para crear
                     vínculos más conscientes, amorosos y equilibrados.
-                    <br/><br/>
-                    <strong>Si sientes que este es tu momento...</strong><br/><br/>
+                    <br /><br />
+                    <strong>Si sientes que este es tu momento...</strong><br /><br />
                     Explora mis terapias dentro de Vibraheka y da el primer paso hacia tu bienestar.</p>
             </SideImageBlock>
-            <VideoPlayer src="https://drive.google.com/file/d/1ZpTKmKW8llfRWMZo2ziM3cXbVxlWwo_E/view?usp=drive_link"/>
+            <VideoPlayer src="https://drive.google.com/file/d/1ZpTKmKW8llfRWMZo2ziM3cXbVxlWwo_E/view?usp=drive_link" />
 
             <h1>Mis terapias</h1>
             <p className="subtitle">Ofrezco acompañamiento (sesiones individuales) y formación en:</p>
@@ -41,7 +41,7 @@ export default function BeatrizAlonso() {
                     </ul>
 
 
-                    <br/><br/>
+                    <br /><br />
                     <p><strong>Beneficios:</strong> más armonía y equilibrio en casa, comprensión profunda, conexión con
                         tu animal.</p>
                     <p><strong>Duración de la sesión aproximada:</strong> 60-90 minutos.</p>
@@ -62,7 +62,7 @@ export default function BeatrizAlonso() {
                             </li>
                         </ul>
 
-                        <br/><br/>
+                        <br /><br />
                         <p><strong>Beneficios:</strong> renovación energética, mayor vitalidad, equilibrio integral y
                             acompañamiento respetuoso en procesos de sanación.</p>
                         <p><strong>Duración de la sesión aproximada:</strong> 60-90 minutos.</p>
