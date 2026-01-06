@@ -1,6 +1,7 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {err, ok, Result} from "neverthrow";
-import {ResponseEntity} from "../../domain/Entities/ResponseEntity.ts";
+import {ResponseEntity} from "@core/Domain/Entities/ResponseEntity.ts";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService.ts";
 
 const BASE_URL: string = import.meta.env.VITE_API_URL || "/api/v1";
 
@@ -21,9 +22,9 @@ export default class ApiDatasource {
      * for performing the respective HTTP operations. Additionally, interceptors
      * can be attached to the instance for request/response customization.
      */
-    private AxiosInstance : AxiosInstance;
-    
-    constructor() {
+    private AxiosInstance: AxiosInstance;
+
+    constructor(private StorageService: LocalStorageService = new LocalStorageService()) {
         console.log('ApiDatasource initialized with Base URL:', BASE_URL);
         this.AxiosInstance = axios.create({
             baseURL: BASE_URL,
@@ -37,10 +38,18 @@ export default class ApiDatasource {
      * Sends an HTTP request using Axios and processes the response.
      *
      * @param {AxiosRequestConfig} config - The configuration object for the Axios request.
+     * @param {boolean} includeToken - Determines if the request should include an authorization token. Defaults to false.
      * @return {Promise<Result<T, string>>} A promise that resolves to a `Result` object containing either the response content or an error message.
      */
-    private async request<T>(config: AxiosRequestConfig): Promise<Result<T, string>> {
+    private async request<T>(config: AxiosRequestConfig, includeToken: boolean = false): Promise<Result<T, string>> {
         try {
+            if (includeToken) {
+                const token = this.StorageService.getString('token') || '';
+                config.headers = {
+                    ...config.headers,
+                    Authorization: `Bearer ${token}`
+                };
+            }
             const response: AxiosResponse<ResponseEntity<T>> = await this.AxiosInstance.request(config);
             if (response.data.success) {
                 return ok(response.data.content!);
@@ -55,24 +64,24 @@ export default class ApiDatasource {
             return err('NETWORK_ERROR');
         }
     }
-    
-    public async get<T>(url: string, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'GET', url });
+
+    public async get<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
+        return this.request<T>({...config, method: 'GET', url}, includeToken);
     }
 
-    public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'POST', url, data });
+    public async post<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
+        return this.request<T>({...config, method: 'POST', url, data}, includeToken);
     }
 
-    public async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'PUT', url, data });
+    public async put<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
+        return this.request<T>({...config, method: 'PUT', url, data}, includeToken);
     }
 
-    public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'DELETE', url });
+    public async delete<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
+        return this.request<T>({...config, method: 'DELETE', url}, includeToken);
     }
 
-    public async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'PATCH', url, data });
+    public async patch<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
+        return this.request<T>({...config, method: 'PATCH', url, data}, includeToken);
     }
 }

@@ -5,7 +5,7 @@ import {IVerifyUserUseCase} from "./IVerifyUserUseCase.ts";
 import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository.ts";
 import VerificationDataValidator from "../../Validators/VerificationDataValidator.ts";
 import {ValidationErrors} from "fluentvalidation-ts";
-import InvalidEntityError from "../../Errors/InvalidEntityError.ts";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
 
 
 /**

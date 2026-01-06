@@ -1,6 +1,6 @@
 ﻿import AuthDatasource from "../../../Modules/Features/Auth/Data/Datasources/AuthDatasource.ts";
-import { AuthRepositoryImpl } from "../../../Modules/Features/Auth/Data/Repositories/AuthRepositoryImpl.ts";
-import VerifyUserUseCaseImpl from "../../../Modules/Features/Auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl.ts";
+import { AuthRepositoryImpl } from "@auth/Data/Repositories/AuthRepositoryImpl.ts";
+import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl.ts";
 import LoginUserDataValidator from "../../../Modules/Features/Auth/Application/Validators/LoginUserDataValidator.ts";
 import LoginUserUseCase from "../../../Modules/Features/Auth/Application/UseCases/LoginUser/LoginUserUseCase.ts";
 import VerificationDataValidator

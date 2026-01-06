@@ -8,7 +8,7 @@ import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
 import {RegistrationData} from "../../../Domain/Models/RegistrationData.ts";
 import RegistrationDataValidator from "../../Validators/RegistrationDataValidator.ts";
 import {ValidationErrors} from "fluentvalidation-ts";
-import InvalidEntityError from "../../Errors/InvalidEntityError.ts";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
 
 export default class RegisterUserUseCase implements IRegisterUserUseCase {
     

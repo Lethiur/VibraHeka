@@ -30,7 +30,7 @@ function App() {
         <>
             <Navbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()} />
 
-            <div className="container mt-5">
+            <div className="mt-6">
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     {

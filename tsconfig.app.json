@@ -13,6 +13,13 @@
         "skipLibCheck": true,
         /* Bundler mode */
         "moduleResolution": "bundler",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["src/*"],
+            "@auth/*": ["src/Modules/Features/Auth/*"],
+            "@admin/addTherapist/*": ["src/Modules/Admin/AddTherapist/*"],
+            "@core/*": ["src/Core/*"],
+        },
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
@@ -23,7 +30,9 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "esModuleInterop": true,
+        
     },
     "include": [
         "src"
