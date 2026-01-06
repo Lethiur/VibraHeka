@@ -7,8 +7,10 @@ import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository.ts";
 import LoginUserDataValidator from "../../Validators/LoginUserDataValidator.ts";
 import {ValidationErrors} from "fluentvalidation-ts";
 import InvalidEntityError from "../../Errors/InvalidEntityError.ts";
-import LocalStorageService from "../../../../../core/Infrastructure/Storage/LocalStorageService.ts";
-import {STORAGE_KEYS} from "../../../../../core/Infrastructure/Storage/StorageKeys.ts";
+import {STORAGE_KEYS} from "../../../../../../Core/Infrastructure/Storage/StorageKeys.ts";
+
+class LocalStorageService {
+}
 
 /**
  * Use case class for handling user login functionality.

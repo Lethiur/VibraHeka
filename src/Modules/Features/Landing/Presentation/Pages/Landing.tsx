@@ -1,16 +1,16 @@
 
 
-import meditacion_cristales from "../../../../assets/images/meditacion_cristales.png";
-import flor_de_loto from "../../../../assets/images/flor_de_loto.png";
-import ascension from "../../../../assets/images/ascension.png"
-import conciencia from "../../../../assets/images/conciencia.png"
+import meditacion_cristales from "../../../../../Assets/images/meditacion_cristales.png";
+import flor_de_loto from "../../../../../Assets/images/flor_de_loto.png";
+import ascension from "../../../../../Assets/images/ascension.png"
+import conciencia from "../../../../../Assets/images/conciencia.png"
 
 import "./Landing.scss";
 import { useState } from "react";
-import SideImageBlock from "../../../../core/Presentation/Components/organisms/SideImageBlock/SideImageBlock.tsx";
-import Logo from "../../../../core/Presentation/Components/atoms/Logo/Logo.tsx";
-import VideoPlayer from "../../../../core/Presentation/Components/atoms/VideoPlayer/VideoPlayer.tsx";
-import PrimaryButton from "../../../../core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
+import SideImageBlock from "../../../../../Core/Presentation/Components/organisms/SideImageBlock/SideImageBlock.tsx";
+import Logo from "../../../../../Core/Presentation/Components/atoms/Logo/Logo.tsx";
+import VideoPlayer from "../../../../../Core/Presentation/Components/atoms/VideoPlayer/VideoPlayer.tsx";
+import PrimaryButton from "../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
 
 export default function LandingPage() {
     const [name, setName] = useState("");

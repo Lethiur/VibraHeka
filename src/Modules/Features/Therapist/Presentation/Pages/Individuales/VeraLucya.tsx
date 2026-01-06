@@ -1,7 +1,8 @@
-import Beatriz from "../../../../../assets/images/Terapeutas/Beatriz.png"
-import SideImageBlock from "../../../../../core/Presentation/Components/organisms/SideImageBlock/SideImageBlock.tsx";
-import VideoPlayer from "../../../../../core/Presentation/Components/atoms/VideoPlayer/VideoPlayer.tsx";
-import Terapia from "../../../../../core/Presentation/Components/molecules/Terapia/Terapia.tsx";
+import Beatriz from "../../../../../../Assets/images/Terapeutas/Beatriz.png"
+import SideImageBlock from "../../../../../../Core/Presentation/Components/organisms/SideImageBlock/SideImageBlock.tsx";
+import VideoPlayer from "../../../../../../Core/Presentation/Components/atoms/VideoPlayer/VideoPlayer.tsx";
+import Terapia from "../../../../../../Core/Presentation/Components/molecules/Terapia/Terapia.tsx";
+
 
 export default function VeraLucya() {
     return (

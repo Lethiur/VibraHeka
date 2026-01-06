@@ -1,4 +1,7 @@
-﻿export const STORAGE_KEYS = {
+﻿/**
+ * Defines the keys used to store data in localStorage.
+ */
+export const STORAGE_KEYS = {
     AUTH_TOKEN: 'auth_token',
     REFRESH_TOKEN: 'refresh_token',
     EMAIL: 'email',

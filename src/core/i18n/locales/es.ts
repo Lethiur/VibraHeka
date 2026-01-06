@@ -1,5 +1,6 @@
-import { AuthErrorCodes } from "../../../Features/auth/Domain/Errors/AuthErrorCodes.ts";
-import { AuthApplicationErrors } from "../../../Features/auth/Application/Errors/AuthApplicationErrors.ts";
+import {AuthErrorCodes} from "../../../Modules/Features/Auth/Domain/Errors/AuthErrorCodes.ts";
+import {AuthApplicationErrors} from "../../../Modules/Features/Auth/Application/Errors/AuthApplicationErrors.ts";
+
 
 export const es = {
     translation: {

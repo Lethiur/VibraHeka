@@ -1,6 +1,4 @@
-import ErrorBox from "../../../../../core/Presentation/Components/atoms/ErrorBox/ErrorBox.tsx";
 import React, { useState } from "react";
-import PrimaryButton from "../../../../../core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
 import { useTranslation } from "react-i18next";
 import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
 import { LoginData } from "../../../Domain/Models/LoginData.ts";
@@ -11,7 +9,9 @@ import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
 import { LoginResult } from "../../../Domain/Models/LoginResult.ts";
 import { Result } from "neverthrow";
 import { useSetAtom } from "jotai";
-import { isAuthenticatedAtom } from "../../../../../core/Presentation/Storage/AuthAtom.ts";
+import {isAuthenticatedAtom} from "../../../../../../Core/Presentation/Storage/AuthAtom.ts";
+import ErrorBox from "../../../../../../Core/Presentation/Components/atoms/ErrorBox/ErrorBox.tsx";
+import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
 
 
 export default function Login() {

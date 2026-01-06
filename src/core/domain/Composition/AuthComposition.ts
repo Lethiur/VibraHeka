@@ -1,12 +1,15 @@
-﻿import AuthDatasource from "../Features/Auth/Data/Datasources/AuthDatasource.ts";
-import { AuthRepositoryImpl } from "../Features/Auth/Data/Repositories/AuthRepositoryImpl.ts";
-import RegisterUserUseCase from "../Features/auth/Application/UseCases/RegisterUser/RegisterUserUseCase.ts";
-import RegistrationDataValidator from "../Features/auth/Application/Validators/RegistrationDataValidator.ts";
-import VerifyUserUseCaseImpl from "../Features/Auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl.ts";
-import VerificationDataValidator from "../Features/auth/Application/Validators/VerificationDataValidator.ts";
-import LoginUserDataValidator from "../Features/Auth/Application/Validators/LoginUserDataValidator.ts";
-import LoginUserUseCase from "../Features/Auth/Application/UseCases/LoginUser/LoginUserUseCase.ts";
-import LocalStorageService from "../core/Infrastructure/Storage/LocalStorageService.ts";
+﻿import AuthDatasource from "../../../Modules/Features/Auth/Data/Datasources/AuthDatasource.ts";
+import { AuthRepositoryImpl } from "../../../Modules/Features/Auth/Data/Repositories/AuthRepositoryImpl.ts";
+import VerifyUserUseCaseImpl from "../../../Modules/Features/Auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl.ts";
+import LoginUserDataValidator from "../../../Modules/Features/Auth/Application/Validators/LoginUserDataValidator.ts";
+import LoginUserUseCase from "../../../Modules/Features/Auth/Application/UseCases/LoginUser/LoginUserUseCase.ts";
+import VerificationDataValidator
+    from "../../../Modules/Features/Auth/Application/Validators/VerificationDataValidator.ts";
+import RegistrationDataValidator
+    from "../../../Modules/Features/Auth/Application/Validators/RegistrationDataValidator.ts";
+import RegisterUserUseCase
+    from "../../../Modules/Features/Auth/Application/UseCases/RegisterUser/RegisterUserUseCase.ts";
+import LocalStorageService from "../../Infrastructure/Storage/LocalStorageService.ts";
 
 const datasource = new AuthDatasource();
 const repository = new AuthRepositoryImpl(datasource);
