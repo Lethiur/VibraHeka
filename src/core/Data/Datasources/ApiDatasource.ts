@@ -2,6 +2,7 @@ import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {err, ok, Result} from "neverthrow";
 import {ResponseEntity} from "@core/Domain/Entities/ResponseEntity.ts";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService.ts";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
 
 const BASE_URL: string = import.meta.env.VITE_API_URL || "/api/v1";
 
@@ -44,7 +45,7 @@ export default class ApiDatasource {
     private async request<T>(config: AxiosRequestConfig, includeToken: boolean = false): Promise<Result<T, string>> {
         try {
             if (includeToken) {
-                const token = this.StorageService.getString('token') || '';
+                const token = this.StorageService.getString(STORAGE_KEYS.AUTH_TOKEN) || '';
                 config.headers = {
                     ...config.headers,
                     Authorization: `Bearer ${token}`

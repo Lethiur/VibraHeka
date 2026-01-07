@@ -8,11 +8,11 @@ i18n
         resources: {
             es: es
         },
-        lng: "es", // idioma por defecto
+        lng: "es",
         fallbackLng: "es",
 
         interpolation: {
-            escapeValue: false // react already safes from xss
+            escapeValue: false 
         }
     });
 

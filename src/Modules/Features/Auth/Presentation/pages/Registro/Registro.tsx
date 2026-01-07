@@ -7,12 +7,12 @@ import RegisterUserUseCase from "../../../Application/UseCases/RegisterUser/Regi
 import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
 import { RegistrationResult } from "../../../Domain/Models/RegistrationResult.ts";
 import { Result } from "neverthrow";
-import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage.ts";
 import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService.ts";
 import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
 import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
 
 export default function Registro() {
     const { t } = useTranslation();

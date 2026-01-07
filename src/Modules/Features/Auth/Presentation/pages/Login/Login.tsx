@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
 import { LoginData } from "../../../Domain/Models/LoginData.ts";
 import { ValidationErrors } from "fluentvalidation-ts";
 import useLoginUser from "../../Hooks/useLoginUser.ts";
@@ -9,9 +8,10 @@ import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
 import { LoginResult } from "../../../Domain/Models/LoginResult.ts";
 import { Result } from "neverthrow";
 import { useSetAtom } from "jotai";
-import {isAuthenticatedAtom} from "../../../../../../Core/Presentation/Storage/AuthAtom.ts";
+import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
 import ErrorBox from "../../../../../../Core/Presentation/Components/atoms/ErrorBox/ErrorBox.tsx";
 import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
 
 
 export default function Login() {

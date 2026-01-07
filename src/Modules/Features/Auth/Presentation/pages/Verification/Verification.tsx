@@ -3,15 +3,15 @@ import { useTranslation } from "react-i18next";
 import VerifyUserUseCaseImpl from "../../../Application/UseCases/VerifyUser/VerifyUserUseCaseImpl.ts";
 import useVerifyUser from "../../Hooks/useVerifyUser.ts";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import InvalidEntityError from "../../../Application/Errors/InvalidEntityError.ts";
 import { VerificationData } from "../../../Domain/Models/VerificationData.ts";
 import { ValidationErrors } from "fluentvalidation-ts";
 import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
 import { Result } from "neverthrow";
 import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage.ts";
 import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService.ts";
-import {STORAGE_KEYS} from "../../../../../../Core/Infrastructure/Storage/StorageKeys.ts";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
 import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
 
 
 export default function Verification() {

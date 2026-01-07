@@ -7,7 +7,7 @@ import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErro
 
 
 interface UseTherapistReturn {
-    TherapistList: Therapist[] | null;
+    BackendTherapistList: Therapist[] | null;
     Loading: boolean;
     Error: TherapistsErrors | null;
     GetTherapists: () => Promise<void>;
@@ -39,5 +39,5 @@ export default function UseGetTherapistUseCase() : UseTherapistReturn {
         setLoading(false);
     }
     
-    return {TherapistList, Loading, Error, GetTherapists};
+    return {BackendTherapistList: TherapistList, Loading, Error, GetTherapists};
 }
