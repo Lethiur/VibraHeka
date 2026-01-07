@@ -1,0 +1,46 @@
+@use "../../../../../Assets/styles/base/fonts" as fonts;
+@use "../../../../../Assets/styles/base/variables" as vars;
+
+.video-player {
+    margin-bottom: 2rem;
+}
+
+
+
+p {
+    font-family: fonts.$font-family-body;
+    letter-spacing: 1px;
+    line-height: 1.75em;
+    color: vars.$color-dark;
+}
+
+.subtitle {
+    font-weight: fonts.$font-weight-bold;
+    color: vars.$color-dark;
+    text-align: justify;
+}
+
+.button-holder {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+.container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.sign-up-form {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+p {
+    text-align: justify;
+}

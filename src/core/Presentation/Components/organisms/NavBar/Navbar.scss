@@ -1,0 +1,28 @@
+@use "../../../../../assets/styles/base/variables" as vars;
+@use "../../../../../assets/styles/base/fonts" as fonts;
+
+.navbar {
+    background-color: vars.$color-primary;
+}
+
+.nav-link {
+    color: vars.$color-on-primary !important;
+    font-family: fonts.$font-family-heading;
+    font-weight: fonts.$font-weight-light;
+    font-size: fonts.$font-size-heading;
+    letter-spacing: 1px;
+    margin-right: 0.2em;
+
+}
+
+.navbar-brand {
+    font-family: fonts.$font-family-heading;
+    font-weight: fonts.$font-weight-bold ;
+    font-size: fonts.$font-size-heading;
+    letter-spacing: 2px;
+    color: vars.$color-on-primary !important;
+}
+
+.side-block {
+    margin-bottom: 100px;
+}

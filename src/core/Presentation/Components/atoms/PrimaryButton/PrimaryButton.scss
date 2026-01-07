@@ -1,0 +1,66 @@
+@use "../../../../../Assets/styles/base/variables" as vars;
+@use "../../../../../Assets/styles/base/fonts" as fonts;
+@use "sass:color";
+
+.atom-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: fonts.$font-primary;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+    &--full {
+        width: 100%;
+        display: block;
+    }
+
+    // Variantes
+    &--primary {
+        background-color: vars.$color-primary;
+        color: vars.$color-on-primary;
+        font-size: 3rem;
+        border-radius: 20px;
+        padding: 0.3em 1em;
+        font-weight: 500;
+
+        &:hover {
+            background-color: color.scale(vars.$color-primary, $lightness: -7.5%);
+        }
+    }
+
+    &--secondary {
+        background-color: vars.$color-secondary;
+        color: vars.$color-dark;
+
+        &:hover {
+            background-color: color.scale(vars.$color-secondary, $lightness: -7.5%);
+        }
+    }
+
+    &--outline {
+        background-color: transparent;
+        border: 2px solid vars.$color-primary;
+        color: vars.$color-primary;
+
+        &:hover {
+            background-color: vars.$color-primary;
+            color: vars.$color-dark;
+        }
+    }
+
+    &--ghost {
+        background-color: transparent;
+        color: vars.$color-dark;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}

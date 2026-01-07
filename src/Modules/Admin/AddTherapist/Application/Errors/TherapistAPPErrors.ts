@@ -1,0 +1,8 @@
+﻿
+export enum TherapistAPPErrors {
+    
+    INVALID_EMAIL = "INVALID_EMAIL",
+    EMAIL_TOO_SHORT = "EMAIL_TOO_SHORT",
+    PASSWORD_TOO_SHORT = "PASSWORD_TOO_SHORT",
+    
+}

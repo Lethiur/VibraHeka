@@ -1,5 +1,6 @@
-import {AuthErrorCodes} from "../../../features/auth/Domain/Errors/AuthErrorCodes.ts";
-import {AuthApplicationErrors} from "../../../features/auth/Application/Errors/AuthApplicationErrors.ts";
+import {AuthErrorCodes} from "@auth/Domain/Errors/AuthErrorCodes.ts";
+import {AuthApplicationErrors} from "@auth/Application/Errors/AuthApplicationErrors.ts";
+
 
 export const es = {
     translation: {
@@ -17,17 +18,44 @@ export const es = {
                 [AuthErrorCodes.USER_NOT_CONFIRMED]: "La cuenta de usuario no ha sido confirmada.",
                 [AuthErrorCodes.UNEXPECTED_ERROR]: "Ha ocurrido un error inesperado, por favor intenta nuevamente.",
                 [AuthErrorCodes.UNKNOWN_ERROR]: "Error desconocido.",
-                [AuthApplicationErrors.FULL_NAME_NOT_PRESENT] : "El nombre es obligatorio",
-                [AuthApplicationErrors.FULL_NAME_TOO_SHORT] : "El nombre debe tener al menos 2 caracteres",
-                [AuthApplicationErrors.EMAIL_NOT_PRESENT] : "El email es obligatorio",
-                [AuthApplicationErrors.EMAIL_INVALID] : "Debe ingresar un email válido",
-                [AuthApplicationErrors.PASSWORD_NOT_PRESENT] : "La contraseña es obligatoria",
-                [AuthApplicationErrors.PASSWORD_TOO_SHORT] : "La contraseña debe tener al menos 6 caracteres",
-                [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT] : "El código de verificación debe tener al menos 6 caracteres",
-                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT] : "El código de verificación es obligatorio"
+                [AuthApplicationErrors.FULL_NAME_NOT_PRESENT]: "El nombre es obligatorio",
+                [AuthApplicationErrors.FULL_NAME_TOO_SHORT]: "El nombre debe tener al menos 2 caracteres",
+                [AuthApplicationErrors.EMAIL_NOT_PRESENT]: "El email es obligatorio",
+                [AuthApplicationErrors.EMAIL_INVALID]: "Debe ingresar un email válido",
+                [AuthApplicationErrors.PASSWORD_NOT_PRESENT]: "La contraseña es obligatoria",
+                [AuthApplicationErrors.PASSWORD_TOO_SHORT]: "La contraseña debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT]: "El código de verificación debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT]: "El código de verificación es obligatorio"
             }
         },
+
         pages: {
+            admin: {
+                title: "Panel de administracion"
+            },
+            therapists: {
+                title: "Administrar terapeutas",
+                description: "Gestiona aqui los terapeutas registrados en el sistema.",
+                list_title: "Lista de terapeutas",
+                list_id : "Identificador",
+                list_name: "Nombre",
+                list_email: "Email",
+                list_role: "Rol",
+                list_actions: "Acciones",
+                options : {
+                    delete : "Eliminar",
+                    edit : "Editar"
+                },
+                form: {
+                    title: "Agregar terapeuta",
+                    description: "Agrega un nuevo terapeuta al sistema.",
+                    name_label: "Nombre",
+                    email_label: "Email",
+                    password_label: "Contraseña",
+                    submit_button: "Crear Terapeuta",
+                    submitting_button: "Creando..."
+                }
+            },
             register: {
                 title: "Registrate en vibraheka!",
                 description: "Registrate en vibraheka para poder disfrutar de todos los beneficios que ofrecemos.",
@@ -59,7 +87,7 @@ export const es = {
                     password_help: "No compartas tu contraseña con nadie",
                     submit_button: "Identificarse",
                     submitting_button: "Verificando..."
-                    
+
                 }
             }
         }
