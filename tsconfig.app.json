@@ -15,10 +15,21 @@
         "moduleResolution": "bundler",
         "baseUrl": "./",
         "paths": {
-            "@/*": ["src/*"],
-            "@auth/*": ["src/Modules/Features/Auth/*"],
-            "@admin/addTherapist/*": ["src/Modules/Admin/AddTherapist/*"],
-            "@core/*": ["src/Core/*"],
+            "@/*": [
+                "src/*"
+            ],
+            "@auth/*": [
+                "src/Modules/Features/Auth/*"
+            ],
+            "@admin/addTherapist/*": [
+                "src/Modules/Admin/AddTherapist/*"
+            ],
+            "@core/*": [
+                "src/Core/*"
+            ],
+            "@admin/emailTempaltes/*": [
+                "src/Modules/Admin/Emails/*"
+            ]
         },
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
@@ -32,7 +43,6 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "esModuleInterop": true,
-        
     },
     "include": [
         "src"
