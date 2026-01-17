@@ -1,12 +1,12 @@
-﻿import {Col, Container, Nav, Navbar, Row} from "react-bootstrap";
-import {Link, Outlet} from "react-router-dom";
-import {useTranslation} from "react-i18next";
+﻿import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { Link, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 export default function AdminLayout() {
     const { t } = useTranslation();
     return (
-        <div className="admin-wrapper" style={{minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100%'}}>
+        <div className="admin-wrapper" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100%' }}>
             {/* Navbar Superior */}
             <Navbar bg="dark" variant="dark" expand="lg">
                 <Container fluid>
@@ -15,7 +15,7 @@ export default function AdminLayout() {
             </Navbar>
 
             <Container fluid className="flex-grow-1">
-                <Row style={{minHeight: 'calc(100vh - 56px)'}}>
+                <Row style={{ minHeight: 'calc(100vh - 56px)' }}>
                     {/* Sidebar Lateral */}
                     <Col md={2} className="bg-light d-none d-md-block sidebar py-4 border-end">
                         <Nav className="flex-column px-2">
@@ -26,12 +26,9 @@ export default function AdminLayout() {
                             <Nav.Link as={Link} to="/admin/emails" className="text-dark">⚙️ Correos electornicos</Nav.Link>
                         </Nav>
                     </Col>
-
-                    {/* Área de Contenido Dinámico */}
                     <Col md={10} className="py-4 px-4 bg-white">
                         <main>
-                            {/* AQUÍ ES DONDE REACT-ROUTER INYECTA LAS PÁGINAS */}
-                            <Outlet/>
+                            <Outlet />
                         </main>
                     </Col>
                 </Row>
