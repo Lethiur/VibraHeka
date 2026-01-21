@@ -3,5 +3,7 @@
  */
 export interface EmailTemplateDTO {
     id: string,
-    name: string
+    name: string,
+    created: string,
+    lastModified: string
 }

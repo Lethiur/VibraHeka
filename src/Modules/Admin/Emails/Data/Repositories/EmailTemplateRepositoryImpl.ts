@@ -24,6 +24,8 @@ export default class EmailTemplateRepositoryImpl implements IEmailTemplateReposi
             return {
                 ID: template.id,
                 Name: template.name,
+                Created: template.created,
+                LastModified: template.lastModified
             }
         })).mapErr((error) => error as EmailTemplateErrors);
     }

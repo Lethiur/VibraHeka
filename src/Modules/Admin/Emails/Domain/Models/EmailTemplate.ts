@@ -1,4 +1,6 @@
 export interface EmailTemplate {
     ID: string,
-    Name: string
+    Name: string,
+    Created: string,
+    LastModified: string
 }

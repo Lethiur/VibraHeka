@@ -15,7 +15,8 @@ import { STORAGE_KEYS } from "./Core/Infrastructure/Storage/StorageKeys.ts";
 import Dashboard from "./Modules/Admin/Dashboard/Presentation/Pages/Dashboard.tsx";
 import AdminLayout from "./Core/Presentation/Layouts/AdminLayout.tsx";
 import TherapistIndex from "./Modules/Admin/AddTherapist/Presentation/Pages/TherapistIndex.tsx";
-import Emails from './Modules/Admin/Emails/Presentation/Screens/Emails.tsx';
+import Emails from './Modules/Admin/Emails/Presentation/Screens/EmailsForAction/Emails.tsx';
+import TemplateManagement from './Modules/Admin/Emails/Presentation/Screens/TemplatesManagement/TemplateManagement.tsx';
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
                                     <Route path="/admin/dashboard" element={<Dashboard />} />
                                     <Route path="/admin/therapists" element={<TherapistIndex />} />
                                     <Route path="/admin/emails" element={<Emails />} />
+                                    <Route path="/admin/emails/templates" element={<TemplateManagement />} />
                                 </Route>
                             </>
                         )
