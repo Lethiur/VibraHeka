@@ -24,6 +24,7 @@ export default function AdminLayout() {
                             <Nav.Link as={Link} to="/admin/products" className="text-dark">📦 Productos</Nav.Link>
                             <Nav.Link as={Link} to="/admin/settings" className="text-dark">⚙️ Configuración</Nav.Link>
                             <Nav.Link as={Link} to="/admin/emails" className="text-dark">⚙️ Correos electornicos</Nav.Link>
+                            <Nav.Link as={Link} to="/admin/emails/templates" className="text-dark">⚙️ Admin. Plantillas correo</Nav.Link>
                         </Nav>
                     </Col>
                     <Col md={10} className="py-4 px-4 bg-white">

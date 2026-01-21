@@ -1,8 +1,8 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import {err, ok, Result} from "neverthrow";
-import {ResponseEntity} from "@core/Domain/Entities/ResponseEntity.ts";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { err, ok, Result } from "neverthrow";
+import { ResponseEntity } from "@core/Domain/Entities/ResponseEntity.ts";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService.ts";
-import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys.ts";
 
 const BASE_URL: string = import.meta.env.VITE_API_URL || "/api/v1";
 
@@ -57,32 +57,44 @@ export default class ApiDatasource {
             }
             return err(response.data.errorCode || 'UNKNOWN_ERROR');
         } catch (error: any) {
-            if (axios.isAxiosError(error) && error.response && error.response.data) {
-                const errorData = error.response.data as ResponseEntity<T>;
-                console.log(errorData);
-                return err(errorData.errorCode || 'UNKNOWN_ERROR');
+            if (axios.isAxiosError(error)) {
+                const axiosError = error as AxiosError;
+                if (axiosError.response) {
+
+                    if (axiosError.response.data) {
+                        const errorData = axiosError.response.data as ResponseEntity<T>;
+                        console.log(errorData);
+                        return err(errorData.errorCode || 'UNKNOWN_ERROR');
+                    } else {
+                        if (axiosError.response.status == 401) {
+                            return err('UNAUTHORIZED');
+                        }
+                    }
+                } else {
+                    return err('NETWORK_ERROR');
+                }
             }
             return err('NETWORK_ERROR');
         }
     }
 
     public async get<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({...config, method: 'GET', url}, includeToken);
+        return this.request<T>({ ...config, method: 'GET', url }, includeToken);
     }
 
     public async post<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({...config, method: 'POST', url, data}, includeToken);
+        return this.request<T>({ ...config, method: 'POST', url, data }, includeToken);
     }
 
     public async put<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({...config, method: 'PUT', url, data}, includeToken);
+        return this.request<T>({ ...config, method: 'PUT', url, data }, includeToken);
     }
 
     public async delete<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({...config, method: 'DELETE', url}, includeToken);
+        return this.request<T>({ ...config, method: 'DELETE', url }, includeToken);
     }
 
     public async patch<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({...config, method: 'PATCH', url, data}, includeToken);
+        return this.request<T>({ ...config, method: 'PATCH', url, data }, includeToken);
     }
 }
