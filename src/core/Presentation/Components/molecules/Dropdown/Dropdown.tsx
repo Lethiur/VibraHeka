@@ -13,10 +13,9 @@ interface SearchableDropdownProps<T> {
     label: string;
     options: T[] | undefined;
     isLoading: boolean;
-
+    value: T | null;
     getId: (item: T) => string;
     getLabel: (item: T) => string;
-
     onChange?: (item: T) => void;
 }
 
@@ -28,13 +27,13 @@ export default function SearchableDropdown<T>({
     label,
     options,
     isLoading,
+    value,
     getId,
     getLabel,
     onChange,
 }: SearchableDropdownProps<T>) {
     const dropdownId = useId();
 
-    const [selected, setSelected] = useState<T | null>(null);
     const [search, setSearch] = useState<string>("");
 
     /* ============
@@ -62,7 +61,7 @@ export default function SearchableDropdown<T>({
     };
 
     const handleSelect = (item: T): void => {
-        setSelected(item);
+
         setSearch("");
         onChange?.(item);
     };
@@ -82,16 +81,18 @@ export default function SearchableDropdown<T>({
                     className="w-100 text-start d-flex justify-content-between align-items-center"
                     disabled={isLoading}
                 >
-                    {isLoading ? (
-                        <>
-                            <span>Cargando…</span>
-                            <Spinner animation="border" size="sm" />
-                        </>
-                    ) : selected ? (
-                        getLabel(selected)
-                    ) : (
-                        "Selecciona una opción"
-                    )}
+                    {
+
+                        isLoading ? (
+                            <>
+                                <span>Cargando…</span>
+                                <Spinner animation="border" size="sm" />
+                            </>
+                        ) : value ? (
+                            getLabel(value)
+                        ) : (
+                            "Selecciona una opción"
+                        )}
                 </Dropdown.Toggle>
 
                 {!isLoading && (

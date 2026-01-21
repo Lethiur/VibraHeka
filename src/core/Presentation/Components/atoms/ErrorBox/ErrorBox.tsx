@@ -1,4 +1,5 @@
 ﻿import 'bootstrap/dist/css/bootstrap.min.css';
+
 interface FormAlertProps {
     message: string | null | undefined;
     variant?: 'danger' | 'success' | 'warning';
