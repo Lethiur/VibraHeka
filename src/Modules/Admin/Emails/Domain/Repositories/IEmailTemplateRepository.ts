@@ -14,4 +14,37 @@ export default interface IEmailTemplateRepository {
      * @returns A promise that resolves to a Result object containing either the email templates or an error message.
      */
     GetAllTemplates(): Promise<Result<EmailTemplate[], EmailTemplateErrors>>;
+
+
+    /**
+     * Adds an attachment to an email template.
+     * @param templateId The ID of the email template.
+     * @param file The file to add as an attachment.
+     * @param attachmentName The name of the attachment.
+     * @returns A promise that resolves to a Result object containing either void or an error message.
+     */
+    AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<void, EmailTemplateErrors>>;
+
+    /**
+     * Changes the name of an email template.
+     * @param templateId The ID of the email template.
+     * @param newName The new name of the email template.
+     * @returns A promise that resolves to a Result object containing either void or an error message.
+     */
+    ChangeTemplateName(templateId: string, newName: string): Promise<Result<void, EmailTemplateErrors>>;
+
+    /**
+     * Edits the content of an email template.
+     * @param templateId The ID of the email template.
+     * @param newContent The new content of the email template.
+     * @returns A promise that resolves to a Result object containing either void or an error message.
+     */
+    EditTemplateContent(templateId: string, newContent: File): Promise<Result<void, EmailTemplateErrors>>;
+
+    /**
+     * Gets the URL of the content of an email template.
+     * @param templateId The ID of the email template.
+     * @returns A promise that resolves to a Result object containing either the URL of the content or an error message.
+     */
+    GetTemplateContentUrl(templateId: string): Promise<Result<string, EmailTemplateErrors>>;
 }

@@ -1,16 +1,16 @@
-import {Result} from "neverthrow";
-import {RegisterResponseDto} from "../DTOs/RegistrationResponseDTO.ts";
-import {RegistrationRequestDto} from "../DTOs/RegistrationRequestDTO.ts";
-import {VerificationRequestDTO} from "../DTOs/VerificationRequestDTO.ts";
-import {LoginResultDTO} from "../DTOs/LoginResultDTO.ts";
-import {LoginRequestDTO} from "../DTOs/LoginRequestDTO.ts";
-import ApiDatasource from "../../../../../Core/Data/Datasources/ApiDatasource.ts";
+import { Result } from "neverthrow";
+import { RegisterResponseDto } from "../DTOs/RegistrationResponseDTO.ts";
+import { RegistrationRequestDto } from "../DTOs/RegistrationRequestDTO.ts";
+import { VerificationRequestDTO } from "../DTOs/VerificationRequestDTO.ts";
+import { LoginResultDTO } from "../DTOs/LoginResultDTO.ts";
+import { LoginRequestDTO } from "../DTOs/LoginRequestDTO.ts";
+import BackendDatasource from "../../../../../Core/Data/Datasources/BackendDatasource.ts";
 
 /**
  * Represents an authentication data source responsible for handling
  * authentication-related API calls, inheriting from ApiDatasource.
  */
-export default class AuthDatasource extends ApiDatasource {
+export default class AuthDatasource extends BackendDatasource {
 
     /**
      * Registers a new user with the provided registration data.
@@ -28,7 +28,7 @@ export default class AuthDatasource extends ApiDatasource {
      * @param {VerificationRequestDTO} dto - The data transfer object containing the verification details.
      * @return {Promise<Result<void, string>>} A promise that resolves with a `Result` containing either a success or error message.
      */
-    async Verify(dto: VerificationRequestDTO) : Promise<Result<void, string>> {
+    async Verify(dto: VerificationRequestDTO): Promise<Result<void, string>> {
         return await this.patch<void>('/auth/confirm', dto);
     }
 
@@ -38,7 +38,7 @@ export default class AuthDatasource extends ApiDatasource {
      * @param {LoginRequestDTO} dto - The data transfer object containing user login credentials.
      * @return {Promise<Result<LoginResultDTO, string>>} A promise that resolves to a result object containing either the authenticated user's data or an error message.
      */
-    async Login(dto: LoginRequestDTO) : Promise<Result<LoginResultDTO, string>> {
+    async Login(dto: LoginRequestDTO): Promise<Result<LoginResultDTO, string>> {
         return await this.post<LoginResultDTO>('/auth/authenticate', dto);
     }
 }

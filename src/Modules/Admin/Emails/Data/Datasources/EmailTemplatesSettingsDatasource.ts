@@ -1,11 +1,11 @@
-import ApiDatasource from "@/Core/Data/Datasources/ApiDatasource";
+import BackendDatasource from "@/Core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
 import { EmailTemplateForActionDTO } from "@admin/emailTempaltes/Data/DTOs/EmailTemplateForActionDTO";
 
 /**
  * Data source for email templates settings.
  */
-export default class EmailTemplatesSettingsDatasource extends ApiDatasource {
+export default class EmailTemplatesSettingsDatasource extends BackendDatasource {
 
     /**
      * Gets the templates settings.
