@@ -12,5 +12,5 @@ export interface IAddAttachmentToTemplateUseCase {
      * @param {string} attachmentName - The name of the attachment.
      * @returns {Promise<Result<void, EmailTemplateErrors>>}
      */
-    Execute(templateId: string, file: File, attachmentName: string): Promise<Result<void, EmailTemplateErrors>>;
+    Execute(templateId: string, file: File, attachmentName: string): Promise<Result<string, EmailTemplateErrors>>;
 }

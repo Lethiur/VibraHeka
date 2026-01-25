@@ -13,7 +13,7 @@ export default class AddAttachmentToTemplateUseCaseImpl implements IAddAttachmen
      * @param {string} attachmentName - The name of the attachment.
      * @returns {Promise<Result<void, EmailTemplateErrors>>}
      */
-    public async Execute(templateId: string, file: File, attachmentName: string): Promise<Result<void, EmailTemplateErrors>> {
+    public async Execute(templateId: string, file: File, attachmentName: string): Promise<Result<string, EmailTemplateErrors>> {
         return this.repository.AddAttachment(templateId, file, attachmentName);
     }
 }

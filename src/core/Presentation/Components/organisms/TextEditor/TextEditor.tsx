@@ -135,24 +135,6 @@ const extensions = [
     Indent,
     LineHeight,
     Link,
-    Image.configure({
-        upload: (files: File) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve(URL.createObjectURL(files));
-                }, 300);
-            });
-        },
-    }),
-    Video.configure({
-        upload: (files: File) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve(URL.createObjectURL(files));
-                }, 300);
-            });
-        },
-    }),
     Blockquote,
     HorizontalRule,
 
@@ -169,15 +151,24 @@ interface TextEditorProps {
     content: string;
     onChange: (content: JSONContent) => void;
     onSave: (content: JSONContent) => void;
+    onMediaUpload: (content: File) => Promise<string>;
     characterLimit?: number;
 }
 
-export default function TextEditor({ content, onChange, onSave, characterLimit = LIMIT }: TextEditorProps) {
+export default function TextEditor({ content, onChange, onSave, onMediaUpload, characterLimit = LIMIT }: TextEditorProps) {
 
     console.log(content);
     const editor = useEditor({
         textDirection: 'auto',
-        extensions,
+        extensions: [...extensions,
+        Image.configure({
+            upload: onMediaUpload,
+        },
+        ),
+        Video.configure({
+            upload: onMediaUpload,
+        }),
+        ],
         content: JSON.parse(content == "" ? "{}" : content),
         immediatelyRender: false,
         onUpdate: ({ editor }) => {

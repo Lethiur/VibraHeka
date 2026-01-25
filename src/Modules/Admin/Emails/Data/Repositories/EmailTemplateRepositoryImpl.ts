@@ -30,7 +30,7 @@ export default class EmailTemplateRepositoryImpl implements IEmailTemplateReposi
      * @param attachmentName The name of the attachment.
      * @returns A promise that resolves to a Result object containing either void or an error message.
      */
-    public async AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<void, EmailTemplateErrors>> {
+    public async AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<string, EmailTemplateErrors>> {
         const result: Result<void, string> = await this.Datasource.AddAttachment(templateId, file, attachmentName);
         return result.mapErr((error) => error as EmailTemplateErrors);
     }

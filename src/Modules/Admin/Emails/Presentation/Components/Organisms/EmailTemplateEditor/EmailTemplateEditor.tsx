@@ -8,10 +8,11 @@ import { JSONContent } from "@tiptap/react";
 interface EmailTemplateEditorProps {
     template: EmailTemplate;
     onSave: (json: JSONContent) => void;
+    onUploadMedia: (file: File) => Promise<string>;
 }
 
 
-export default function EmailTemplateEditor({ template, onSave }: EmailTemplateEditorProps) {
+export default function EmailTemplateEditor({ template, onSave, onUploadMedia }: EmailTemplateEditorProps) {
 
     const { content, loading, error, GetContent } = UseGetEmailTemplateContent();
 
@@ -28,7 +29,7 @@ export default function EmailTemplateEditor({ template, onSave }: EmailTemplateE
     return (
         <div>
             <h1>Email Template Editor {template.Name}</h1>
-            <TextEditor content={content} onChange={console.log} onSave={onSave} />
+            <TextEditor content={content} onChange={console.log} onSave={onSave} onMediaUpload={onUploadMedia} />
         </div>
     );
 }

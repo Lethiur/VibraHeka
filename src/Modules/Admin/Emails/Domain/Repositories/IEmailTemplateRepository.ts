@@ -23,7 +23,7 @@ export default interface IEmailTemplateRepository {
      * @param attachmentName The name of the attachment.
      * @returns A promise that resolves to a Result object containing either void or an error message.
      */
-    AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<void, EmailTemplateErrors>>;
+    AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<string, EmailTemplateErrors>>;
 
     /**
      * Changes the name of an email template.
