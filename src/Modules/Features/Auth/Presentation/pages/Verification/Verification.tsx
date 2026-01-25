@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import VerifyUserUseCaseImpl from "../../../Application/UseCases/VerifyUser/VerifyUserUseCaseImpl.ts";
-import useVerifyUser from "../../Hooks/useVerifyUser.ts";
+import VerifyUserUseCaseImpl from "../../../Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
+import useVerifyUser from "../../Hooks/useVerifyUser";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { VerificationData } from "../../../Domain/Models/VerificationData.ts";
+import { VerificationData } from "../../../Domain/Models/VerificationData";
 import { ValidationErrors } from "fluentvalidation-ts";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
+import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
 import { Result } from "neverthrow";
-import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage.ts";
-import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService.ts";
-import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
-import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage";
+import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys";
+import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 
 export default function Verification() {

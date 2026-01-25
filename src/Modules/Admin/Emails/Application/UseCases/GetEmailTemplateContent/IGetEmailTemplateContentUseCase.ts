@@ -9,5 +9,5 @@ export interface IGetEmailTemplateContentUseCase {
      * @param templateID The ID of the email template.
      * @returns A promise that resolves to a `Result` object containing either the email template content or an error message.
      */
-    execute(templateID: string): Promise<Result<string, string>>;
+    Execute(templateID: string): Promise<Result<string, string>>;
 }

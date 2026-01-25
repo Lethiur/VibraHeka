@@ -1,8 +1,8 @@
 import { Result } from "neverthrow";
-import { EmailTemplateForAction } from "@admin/emailTempaltes/Domain/Models/EmailTemplateForAction";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
-import ISaveTemplateForActionUseCase from "@admin/emailTempaltes/Application/UseCases/SaveTemplateForAction/ISaveTemplateForActionUseCase";
-import IEmailTemplateSettingsRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateSettingsRepository";
+import { EmailTemplateForAction } from "@admin/emailTemplates/Domain/Models/EmailTemplateForAction";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
+import ISaveTemplateForActionUseCase from "@admin/emailTemplates/Application/UseCases/SaveTemplateForAction/ISaveTemplateForActionUseCase";
+import IEmailTemplateSettingsRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateSettingsRepository";
 
 /**
  * Implementation of the save template for action use case.

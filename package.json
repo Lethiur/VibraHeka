@@ -45,7 +45,7 @@
     "react-i18next": "^16.5.0",
     "react-router-dom": "^6.23.0",
     "reactjs-tiptap-editor": "^1.0.17",
-    "vite-tsconfig-paths": "^6.0.3"
+    "vite-tsconfig-paths": "^6.0.5"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",

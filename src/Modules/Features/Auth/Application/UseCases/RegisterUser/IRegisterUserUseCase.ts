@@ -1,7 +1,7 @@
 ﻿import {Result} from "neverthrow";
-import {RegistrationData} from "../../../Domain/Models/RegistrationData.ts";
-import {RegistrationResult} from "../../../Domain/Models/RegistrationResult.ts";
-import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
+import {RegistrationData} from "../../../Domain/Models/RegistrationData";
+import {RegistrationResult} from "../../../Domain/Models/RegistrationResult";
+import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
 
 
 export interface IRegisterUserUseCase

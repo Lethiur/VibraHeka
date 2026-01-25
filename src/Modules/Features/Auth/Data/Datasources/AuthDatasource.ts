@@ -1,10 +1,10 @@
 import { Result } from "neverthrow";
-import { RegisterResponseDto } from "../DTOs/RegistrationResponseDTO.ts";
-import { RegistrationRequestDto } from "../DTOs/RegistrationRequestDTO.ts";
-import { VerificationRequestDTO } from "../DTOs/VerificationRequestDTO.ts";
-import { LoginResultDTO } from "../DTOs/LoginResultDTO.ts";
-import { LoginRequestDTO } from "../DTOs/LoginRequestDTO.ts";
-import BackendDatasource from "../../../../../Core/Data/Datasources/BackendDatasource.ts";
+import { RegisterResponseDto } from "../DTOs/RegistrationResponseDTO";
+import { RegistrationRequestDto } from "../DTOs/RegistrationRequestDTO";
+import { VerificationRequestDTO } from "../DTOs/VerificationRequestDTO";
+import { LoginResultDTO } from "../DTOs/LoginResultDTO";
+import { LoginRequestDTO } from "../DTOs/LoginRequestDTO";
+import BackendDatasource from "../../../../../Core/Data/Datasources/BackendDatasource";
 
 /**
  * Represents an authentication data source responsible for handling

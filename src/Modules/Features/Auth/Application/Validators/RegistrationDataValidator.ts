@@ -1,6 +1,6 @@
 import { Validator } from "fluentvalidation-ts";
-import {RegistrationData} from "../../Domain/Models/RegistrationData.ts";
-import {AuthApplicationErrors} from "../Errors/AuthApplicationErrors.ts";
+import {RegistrationData} from "../../Domain/Models/RegistrationData";
+import {AuthApplicationErrors} from "../Errors/AuthApplicationErrors";
 
 export default class RegistrationDataValidator extends Validator<RegistrationData> {
     constructor() {

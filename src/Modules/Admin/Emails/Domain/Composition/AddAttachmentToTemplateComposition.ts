@@ -1,8 +1,8 @@
-import { IAddAttachmentToTemplateUseCase } from "@admin/emailTempaltes/Application/UseCases/AddAttachment/IAddAttachmentToTemplateUseCase";
-import EmailTemplateRepositoryImpl from "@admin/emailTempaltes/Data/Repositories/EmailTemplateRepositoryImpl";
-import IEmailTemplateRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateRepository";
-import EmailTemplateDatasource from "@admin/emailTempaltes/Data/Datasources/EmailTemplateDatasource";
-import AddAttachmentToTemplateUseCaseImpl from "@admin/emailTempaltes/Application/UseCases/AddAttachment/AddAttachmentToTemplateUseCaseImpl";
+import { IAddAttachmentToTemplateUseCase } from "@admin/emailTemplates/Application/UseCases/AddAttachment/IAddAttachmentToTemplateUseCase";
+import EmailTemplateRepositoryImpl from "@admin/emailTemplates/Data/Repositories/EmailTemplateRepositoryImpl";
+import IEmailTemplateRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateRepository";
+import EmailTemplateDatasource from "@admin/emailTemplates/Data/Datasources/EmailTemplateDatasource";
+import AddAttachmentToTemplateUseCaseImpl from "@admin/emailTemplates/Application/UseCases/AddAttachment/AddAttachmentToTemplateUseCaseImpl";
 
 /**
  * @description Composition root for the add attachment to template use case.

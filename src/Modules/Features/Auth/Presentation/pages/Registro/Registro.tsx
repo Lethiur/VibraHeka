@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { ValidationErrors } from "fluentvalidation-ts";
 import { useTranslation } from "react-i18next";
-import { RegistrationData } from "../../../Domain/Models/RegistrationData.ts";
-import { useRegisterUser } from "../../Hooks/useRegisterUser.ts";
-import RegisterUserUseCase from "../../../Application/UseCases/RegisterUser/RegisterUserUseCase.ts";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
-import { RegistrationResult } from "../../../Domain/Models/RegistrationResult.ts";
+import { RegistrationData } from "../../../Domain/Models/RegistrationData";
+import { useRegisterUser } from "../../Hooks/useRegisterUser";
+import RegisterUserUseCase from "../../../Application/UseCases/RegisterUser/RegisterUserUseCase";
+import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
+import { RegistrationResult } from "../../../Domain/Models/RegistrationResult";
 import { Result } from "neverthrow";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage.ts";
-import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService.ts";
-import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
-import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage";
+import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys";
+import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 export default function Registro() {
     const { t } = useTranslation();

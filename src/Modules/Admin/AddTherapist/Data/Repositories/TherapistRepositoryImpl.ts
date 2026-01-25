@@ -1,13 +1,13 @@
-﻿import {ITherapistRepository} from "@admin/addTherapist/Domain/Repositories/ITherapistRepository.ts";
+﻿import {ITherapistRepository} from "@admin/addTherapist/Domain/Repositories/ITherapistRepository";
 import {Result} from "neverthrow";
 import Therapist from "../../Domain/Entities/Therapist";
 import {TherapistsErrors} from "../../Domain/Errors/TherapistsErrors";
-import TherapistDatasource from "@admin/addTherapist/Data/Datasources/TherapistDatasource.ts";
-import {TherapistDTO} from "@admin/addTherapist/Data/Models/TherapistDTO.ts";
-import {TherapistAPIErrors} from "@admin/addTherapist/Data/Errors/TherapistAPIErrors.ts";
-import {API_ERROR_MAP} from "@admin/addTherapist/Data/Errors/ErrorMap.ts";
-import {CreateTherapistDTO} from "@admin/addTherapist/Data/Models/CreateTherapistDTO.ts";
-import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity.ts";
+import TherapistDatasource from "@admin/addTherapist/Data/Datasources/TherapistDatasource";
+import {TherapistDTO} from "@admin/addTherapist/Data/Models/TherapistDTO";
+import {TherapistAPIErrors} from "@admin/addTherapist/Data/Errors/TherapistAPIErrors";
+import {API_ERROR_MAP} from "@admin/addTherapist/Data/Errors/ErrorMap";
+import {CreateTherapistDTO} from "@admin/addTherapist/Data/Models/CreateTherapistDTO";
+import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
 
 /**
  * TherapistRepositoryImpl is responsible for providing implementations of the ITherapistRepository interface.

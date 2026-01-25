@@ -48,9 +48,9 @@ export default class EmailTempalteDatasource extends BackendDatasource {
      */
     public async EditTemplateContent(templateId: string, newContent: File): Promise<Result<void, string>> {
         const formData = new FormData();
-        formData.append('file', newContent);
+        formData.append('templateFile', newContent);
         formData.append('templateId', templateId);
-        return this.patch<void>(`/email-templates/edit-content`, formData, true, { headers: { 'Content-Type': 'multipart/form-data' } });
+        return this.patch<void>(`/email-templates/change-contents`, formData, true, { headers: { 'Content-Type': 'multipart/form-data' } });
     }
 
     /**

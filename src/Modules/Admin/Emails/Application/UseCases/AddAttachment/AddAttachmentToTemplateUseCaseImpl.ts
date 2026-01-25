@@ -1,6 +1,6 @@
 import { Result } from "neverthrow";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
-import IEmailTemplateRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateRepository";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
+import IEmailTemplateRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateRepository";
 import { IAddAttachmentToTemplateUseCase } from "@/Modules/Admin/Emails/Application/UseCases/AddAttachment/IAddAttachmentToTemplateUseCase";
 
 export default class AddAttachmentToTemplateUseCaseImpl implements IAddAttachmentToTemplateUseCase {

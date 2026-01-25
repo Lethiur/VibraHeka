@@ -1,8 +1,8 @@
 ﻿import React from "react";
 import {ValidationErrors} from "fluentvalidation-ts";
-import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity.ts";
+import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
 import {useTranslation} from "react-i18next";
-import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 
 
 export interface CreateTherapistFormProps {

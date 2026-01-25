@@ -1,8 +1,8 @@
-import EmailTemplateDatasource from "@admin/emailTempaltes/Data/Datasources/EmailTemplateDatasource";
-import IEmailTemplateRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateRepository";
-import IChangeTemplateContentUseCase from "@admin/emailTempaltes/Application/UseCases/ChangeTemplateContent/IChangeTemplateContentUseCase";
-import ChangeTemplateContentUseCaseImpl from "@admin/emailTempaltes/Application/UseCases/ChangeTemplateContent/ChangeTemplateContentUseCaseImpl";
-import EmailTemplateRepositoryImpl from "@admin/emailTempaltes/Data/Repositories/EmailTemplateRepositoryImpl";
+import EmailTemplateDatasource from "@admin/emailTemplates/Data/Datasources/EmailTemplateDatasource";
+import IEmailTemplateRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateRepository";
+import IChangeTemplateContentUseCase from "@admin/emailTemplates/Application/UseCases/ChangeTemplateContent/IChangeTemplateContentUseCase";
+import ChangeTemplateContentUseCaseImpl from "@admin/emailTemplates/Application/UseCases/ChangeTemplateContent/ChangeTemplateContentUseCaseImpl";
+import EmailTemplateRepositoryImpl from "@admin/emailTemplates/Data/Repositories/EmailTemplateRepositoryImpl";
 
 /**
  * @description Composition root for the change template content use case.

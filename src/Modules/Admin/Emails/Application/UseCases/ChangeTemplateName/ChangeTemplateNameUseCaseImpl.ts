@@ -1,7 +1,7 @@
 import { Result } from "neverthrow";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
-import IEmailTemplateRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateRepository";
-import IChangeTemplateNameUseCase from "@admin/emailTempaltes/Application/UseCases/ChangeTemplateName/IChangeTempalteNameUseCase";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
+import IEmailTemplateRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateRepository";
+import IChangeTemplateNameUseCase from "@admin/emailTemplates/Application/UseCases/ChangeTemplateName/IChangeTempalteNameUseCase";
 
 /**
  * @description Implementation of the change template name use case.

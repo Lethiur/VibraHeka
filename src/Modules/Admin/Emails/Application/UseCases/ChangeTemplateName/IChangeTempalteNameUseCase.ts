@@ -1,5 +1,5 @@
 import { Result } from "neverthrow";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 /**
  * @description Interface for the change template name use case.

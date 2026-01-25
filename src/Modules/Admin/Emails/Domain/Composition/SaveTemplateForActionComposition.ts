@@ -1,9 +1,9 @@
 
-import EmailTemplateSettingsRepositoryImpl from "@admin/emailTempaltes/Data/Repositories/EmailTemplateSettingsRepositoryImpl";
-import EmailTemplatesSettingsDatasource from "@admin/emailTempaltes/Data/Datasources/EmailTemplatesSettingsDatasource";
-import ISaveTemplateForActionUseCase from "@admin/emailTempaltes/Application/UseCases/SaveTemplateForAction/ISaveTemplateForActionUseCase";
-import SaveTemplateForActionUseCaseImpl from "@admin/emailTempaltes/Application/UseCases/SaveTemplateForAction/SaveTemplateForActionUseCaseImpl";
-import IEmailTemplateSettingsRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateSettingsRepository";
+import EmailTemplateSettingsRepositoryImpl from "@admin/emailTemplates/Data/Repositories/EmailTemplateSettingsRepositoryImpl";
+import EmailTemplatesSettingsDatasource from "@admin/emailTemplates/Data/Datasources/EmailTemplatesSettingsDatasource";
+import ISaveTemplateForActionUseCase from "@admin/emailTemplates/Application/UseCases/SaveTemplateForAction/ISaveTemplateForActionUseCase";
+import SaveTemplateForActionUseCaseImpl from "@admin/emailTemplates/Application/UseCases/SaveTemplateForAction/SaveTemplateForActionUseCaseImpl";
+import IEmailTemplateSettingsRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateSettingsRepository";
 
 
 const datasource: EmailTemplatesSettingsDatasource = new EmailTemplatesSettingsDatasource();

@@ -174,10 +174,11 @@ interface TextEditorProps {
 
 export default function TextEditor({ content, onChange, onSave, characterLimit = LIMIT }: TextEditorProps) {
 
+    console.log(content);
     const editor = useEditor({
         textDirection: 'auto',
         extensions,
-        content,
+        content: JSON.parse(content == "" ? "{}" : content),
         immediatelyRender: false,
         onUpdate: ({ editor }) => {
             onChange(editor.getJSON())

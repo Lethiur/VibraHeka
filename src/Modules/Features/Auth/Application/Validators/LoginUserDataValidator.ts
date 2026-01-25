@@ -1,6 +1,6 @@
-﻿import {LoginData} from "../../Domain/Models/LoginData.ts";
+﻿import {LoginData} from "../../Domain/Models/LoginData";
 import {Validator} from "fluentvalidation-ts";
-import {AuthApplicationErrors} from "../Errors/AuthApplicationErrors.ts";
+import {AuthApplicationErrors} from "../Errors/AuthApplicationErrors";
 
 export default class LoginUserDataValidator extends Validator<LoginData> {
     

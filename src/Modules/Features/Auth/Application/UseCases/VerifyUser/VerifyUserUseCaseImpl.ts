@@ -1,11 +1,11 @@
 ﻿import { Result } from "neverthrow";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
-import { VerificationData } from "../../../Domain/Models/VerificationData.ts";
-import {IVerifyUserUseCase} from "./IVerifyUserUseCase.ts";
-import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository.ts";
-import VerificationDataValidator from "../../Validators/VerificationDataValidator.ts";
+import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
+import { VerificationData } from "../../../Domain/Models/VerificationData";
+import {IVerifyUserUseCase} from "./IVerifyUserUseCase";
+import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository";
+import VerificationDataValidator from "../../Validators/VerificationDataValidator";
 import {ValidationErrors} from "fluentvalidation-ts";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 
 /**

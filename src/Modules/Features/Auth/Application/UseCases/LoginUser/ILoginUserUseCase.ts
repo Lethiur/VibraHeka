@@ -1,6 +1,6 @@
-﻿import {LoginData} from "../../../Domain/Models/LoginData.ts";
-import {LoginResult} from "../../../Domain/Models/LoginResult.ts";
-import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
+﻿import {LoginData} from "../../../Domain/Models/LoginData";
+import {LoginResult} from "../../../Domain/Models/LoginResult";
+import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
 import {Result} from "neverthrow";
 
 /**

@@ -1,9 +1,9 @@
 import IEmailTemplateRepository from "../../Domain/Repositories/IEmailTemplateRepository";
 import EmailTemplateDatasource from "../Datasources/EmailTemplateDatasource";
 import { Result } from "neverthrow";
-import { EmailTemplate } from "@admin/emailTempaltes/Domain/Models/EmailTemplate";
-import { EmailTemplateDTO } from "@admin/emailTempaltes/Data/DTOs/EmailTemplateDTO";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
+import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
+import { EmailTemplateDTO } from "@admin/emailTemplates/Data/DTOs/EmailTemplateDTO";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 /**
  * Implementation of the email template repository.

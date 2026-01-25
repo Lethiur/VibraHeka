@@ -1,12 +1,12 @@
-﻿import {IAddTherapistUseCase} from "@admin/addTherapist/Application/UseCases/AddTherapist/IAddTherapistUseCase.ts";
+﻿import {IAddTherapistUseCase} from "@admin/addTherapist/Application/UseCases/AddTherapist/IAddTherapistUseCase";
 import { Result } from "neverthrow";
 import { CreateTherapistEntity } from "../../../Domain/Entities/CreateTherapistEntity";
 import { TherapistsErrors } from "../../../Domain/Errors/TherapistsErrors";
-import {ITherapistRepository} from "@admin/addTherapist/Domain/Repositories/ITherapistRepository.ts";
+import {ITherapistRepository} from "@admin/addTherapist/Domain/Repositories/ITherapistRepository";
 import CreateTherapistRequestValidator
-    from "@admin/addTherapist/Application/Validators/CreateTherapistRequestValidator.ts";
+    from "@admin/addTherapist/Application/Validators/CreateTherapistRequestValidator";
 import {ValidationErrors} from "fluentvalidation-ts";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 
 /**

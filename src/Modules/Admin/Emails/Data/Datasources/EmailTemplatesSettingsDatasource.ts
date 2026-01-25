@@ -1,6 +1,6 @@
 import BackendDatasource from "@/Core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
-import { EmailTemplateForActionDTO } from "@admin/emailTempaltes/Data/DTOs/EmailTemplateForActionDTO";
+import { EmailTemplateForActionDTO } from "@admin/emailTemplates/Data/DTOs/EmailTemplateForActionDTO";
 
 /**
  * Data source for email templates settings.

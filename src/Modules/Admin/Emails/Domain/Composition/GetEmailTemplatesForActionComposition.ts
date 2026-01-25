@@ -1,6 +1,6 @@
-import GetTemplatesForActionUseCaseImpl from "@admin/emailTempaltes/Application/UseCases/GetTemplatesForAction/GetTemplatesForActionUseCaseImpl";
-import EmailTemplateSettingsRepositoryImpl from "@admin/emailTempaltes/Data/Repositories/EmailTemplateSettingsRepositoryImpl";
-import EmailTemplatesSettingsDatasource from "@admin/emailTempaltes/Data/Datasources/EmailTemplatesSettingsDatasource";
+import GetTemplatesForActionUseCaseImpl from "@admin/emailTemplates/Application/UseCases/GetTemplatesForAction/GetTemplatesForActionUseCaseImpl";
+import EmailTemplateSettingsRepositoryImpl from "@admin/emailTemplates/Data/Repositories/EmailTemplateSettingsRepositoryImpl";
+import EmailTemplatesSettingsDatasource from "@admin/emailTemplates/Data/Datasources/EmailTemplatesSettingsDatasource";
 
 
 

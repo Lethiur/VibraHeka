@@ -1,20 +1,21 @@
-import ApiDatasource from "@/Core/Data/Datasources/ApiDatasource";
+
+import BackendDatasource from "@/Core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
 
 /**
  * Datasource for email template content.
  */
-export default class EmailTemplateContentDatasource extends ApiDatasource {
+export default class EmailTemplateContentDatasource extends BackendDatasource {
     constructor() {
         super();
     }
 
     /**
      * Gets the content of an email template.
-     * @param templateURL The URL of the email template.
+     * @param templateID The ID of the email template.
      * @returns A promise that resolves to a `Result` object containing either the email template content or an error message.
      */
-    public async GetEmailTemplateContent(templateURL: string): Promise<Result<string, string>> {
-        return this.get<string>(templateURL, false);
+    public async GetEmailTemplateContent(templateID: string): Promise<Result<string, string>> {
+        return this.get<string>(`email-templates/contents?templateID=${templateID}`, true);
     }
 }

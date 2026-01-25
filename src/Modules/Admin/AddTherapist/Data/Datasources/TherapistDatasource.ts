@@ -1,8 +1,8 @@
 ﻿import BackendDatasource from "@/Core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
-import { TherapistAPIErrors } from "@admin/addTherapist/Data/Errors/TherapistAPIErrors.ts";
-import { TherapistDTO } from "@admin/addTherapist/Data/Models/TherapistDTO.ts";
-import { CreateTherapistDTO } from "@admin/addTherapist/Data/Models/CreateTherapistDTO.ts";
+import { TherapistAPIErrors } from "@admin/addTherapist/Data/Errors/TherapistAPIErrors";
+import { TherapistDTO } from "@admin/addTherapist/Data/Models/TherapistDTO";
+import { CreateTherapistDTO } from "@admin/addTherapist/Data/Models/CreateTherapistDTO";
 
 
 /**

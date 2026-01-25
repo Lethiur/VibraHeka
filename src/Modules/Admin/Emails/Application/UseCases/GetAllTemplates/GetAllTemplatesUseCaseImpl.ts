@@ -1,8 +1,8 @@
 import { Result } from "neverthrow";
-import IEmailTemplateRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateRepository";
-import { EmailTemplate } from "@admin/emailTempaltes/Domain/Models/EmailTemplate";
+import IEmailTemplateRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateRepository";
+import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
 import { IGetAllTemplatesUseCase } from "./IGetAllTemplatesUseCase";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 /**
  * Implementation of the get all templates use case.

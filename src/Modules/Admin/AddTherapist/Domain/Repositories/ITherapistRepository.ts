@@ -1,7 +1,7 @@
 ﻿import {Result} from "neverthrow";
-import Therapist from "@admin/addTherapist/Domain/Entities/Therapist.ts";
-import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors.ts";
-import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity.ts";
+import Therapist from "@admin/addTherapist/Domain/Entities/Therapist";
+import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
+import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
 
 /**
  * Interface representing a repository for managing therapist data.

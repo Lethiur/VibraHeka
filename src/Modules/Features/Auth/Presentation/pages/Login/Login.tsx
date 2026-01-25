@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LoginData } from "../../../Domain/Models/LoginData.ts";
+import { LoginData } from "../../../Domain/Models/LoginData";
 import { ValidationErrors } from "fluentvalidation-ts";
-import useLoginUser from "../../Hooks/useLoginUser.ts";
-import LoginUserUseCase from "../../../Application/UseCases/LoginUser/LoginUserUseCase.ts";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
-import { LoginResult } from "../../../Domain/Models/LoginResult.ts";
+import useLoginUser from "../../Hooks/useLoginUser";
+import LoginUserUseCase from "../../../Application/UseCases/LoginUser/LoginUserUseCase";
+import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
+import { LoginResult } from "../../../Domain/Models/LoginResult";
 import { Result } from "neverthrow";
 import { useSetAtom } from "jotai";
-import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
-import ErrorBox from "../../../../../../Core/Presentation/Components/atoms/ErrorBox/ErrorBox.tsx";
-import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom";
+import ErrorBox from "../../../../../../Core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 
 export default function Login() {

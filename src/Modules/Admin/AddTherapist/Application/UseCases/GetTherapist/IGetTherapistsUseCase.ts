@@ -1,6 +1,6 @@
-﻿import Therapist from "@admin/addTherapist/Domain/Entities/Therapist.ts";
+﻿import Therapist from "@admin/addTherapist/Domain/Entities/Therapist";
 import {Result} from "neverthrow";
-import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors.ts";
+import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
 
 /**
  * Interface representing the use case for retrieving a list of therapists.

@@ -1,5 +1,5 @@
-﻿import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity.ts";
-import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors.ts";
+﻿import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
+import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
 import {Result} from "neverthrow";
 
 /**

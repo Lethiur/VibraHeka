@@ -1,7 +1,7 @@
-import ISaveTemplateForActionUseCase from "@admin/emailTempaltes/Application/UseCases/SaveTemplateForAction/ISaveTemplateForActionUseCase";
-import { SaveTemplateForActionContext } from "@admin/emailTempaltes/Presentation/Context/SaveTemplateForActionContex";
-import { EmailTemplateForAction } from "@admin/emailTempaltes/Domain/Models/EmailTemplateForAction";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
+import ISaveTemplateForActionUseCase from "@admin/emailTemplates/Application/UseCases/SaveTemplateForAction/ISaveTemplateForActionUseCase";
+import { SaveTemplateForActionContext } from "@admin/emailTemplates/Presentation/Context/SaveTemplateForActionContex";
+import { EmailTemplateForAction } from "@admin/emailTemplates/Domain/Models/EmailTemplateForAction";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 import { Result } from "neverthrow";
 import { useContext, useState } from "react";

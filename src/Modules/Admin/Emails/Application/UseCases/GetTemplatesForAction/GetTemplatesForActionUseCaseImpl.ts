@@ -1,8 +1,8 @@
 import { Result } from "neverthrow";
-import { IGetTemplatesForActionUseCase } from "@admin/emailTempaltes/Application/UseCases/GetTemplatesForAction/IGetTemplatesForActionUseCase";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
-import IEmailTemplateSettingsRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateSettingsRepository";
-import { EmailTemplateForAction } from "@admin/emailTempaltes/Domain/Models/EmailTemplateForAction";
+import { IGetTemplatesForActionUseCase } from "@admin/emailTemplates/Application/UseCases/GetTemplatesForAction/IGetTemplatesForActionUseCase";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
+import IEmailTemplateSettingsRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateSettingsRepository";
+import { EmailTemplateForAction } from "@admin/emailTemplates/Domain/Models/EmailTemplateForAction";
 
 /**
  *  Implementation of the get templates for action use case.

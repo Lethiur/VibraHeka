@@ -1,4 +1,4 @@
-﻿import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors.ts";
+﻿import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
 import { TherapistAPIErrors } from "./TherapistAPIErrors";
 
 export const API_ERROR_MAP : Record<TherapistAPIErrors, TherapistsErrors> = {

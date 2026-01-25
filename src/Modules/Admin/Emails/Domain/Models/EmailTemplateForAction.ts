@@ -1,4 +1,4 @@
-import { ActionType } from "@admin/emailTempaltes/Domain/Models/ActionType";
+import { ActionType } from "@admin/emailTemplates/Domain/Models/ActionType";
 
 /**
  * Email template for action.

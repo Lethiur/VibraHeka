@@ -1,13 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import UseGetEmailTemplates from '@admin/emailTempaltes/Presentation/Hooks/UseGetEmailTemplates';
-import { EmailTemplate } from '@admin/emailTempaltes/Domain/Models/EmailTemplate';
-import SearchableDropdown from '@/Core/Presentation/Components/molecules/Dropdown/Dropdown';
-import ErrorBox from '@/Core/Presentation/Components/atoms/ErrorBox/ErrorBox';
-import UseSaveEmailTemplateForAction from '@admin/emailTempaltes/Presentation/Hooks/UseSaveEmailTemplateForAction';
-import { ActionType } from '@admin/emailTempaltes/Domain/Models/ActionType';
-import { EmailTemplateForAction } from '@admin/emailTempaltes/Domain/Models/EmailTemplateForAction';
-import UseGetEmailTemplatesForActions from '@admin/emailTempaltes/Presentation/Hooks/UseGetEmailTemplatesForActions';
-import PrimaryButton from '@/Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton';
+import UseGetEmailTemplates from '@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplates';
+import { EmailTemplate } from '@admin/emailTemplates/Domain/Models/EmailTemplate';
+import SearchableDropdown from '@core/Presentation/Components/molecules/Dropdown/Dropdown';
+import ErrorBox from '@core/Presentation/Components/atoms/ErrorBox/ErrorBox';
+import UseSaveEmailTemplateForAction from '@admin/emailTemplates/Presentation/Hooks/UseSaveEmailTemplateForAction';
+import { ActionType } from '@admin/emailTemplates/Domain/Models/ActionType';
+import { EmailTemplateForAction } from '@admin/emailTemplates/Domain/Models/EmailTemplateForAction';
+import UseGetEmailTemplatesForActions from '@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplatesForActions';
+import PrimaryButton from '@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton';
 
 import { Col, Row } from 'react-bootstrap';
 import { useEffect, useMemo, useState } from 'react';

@@ -1,10 +1,10 @@
 import { Result } from 'neverthrow';
-import {RegistrationData} from "../Models/RegistrationData.ts";
-import {RegistrationResult} from "../Models/RegistrationResult.ts";
-import {AuthErrorCodes} from "../Errors/AuthErrorCodes.ts";
-import {VerificationData} from "../Models/VerificationData.ts";
-import {LoginData} from "../Models/LoginData.ts";
-import {LoginResult} from "../Models/LoginResult.ts";
+import {RegistrationData} from "../Models/RegistrationData";
+import {RegistrationResult} from "../Models/RegistrationResult";
+import {AuthErrorCodes} from "../Errors/AuthErrorCodes";
+import {VerificationData} from "../Models/VerificationData";
+import {LoginData} from "../Models/LoginData";
+import {LoginResult} from "../Models/LoginResult";
 
 /**
  * Interface representing an authentication repository that provides methods

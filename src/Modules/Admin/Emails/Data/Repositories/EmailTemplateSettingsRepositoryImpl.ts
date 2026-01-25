@@ -1,9 +1,9 @@
-import IEmailTemplateSettingsRepository from "@admin/emailTempaltes/Domain/Repositories/IEmailTemplateSettingsRepository";
-import EmailTemplatesSettingsDatasource from "@admin/emailTempaltes/Data/Datasources/EmailTemplatesSettingsDatasource";
-import { EmailTemplateForAction } from "@admin/emailTempaltes/Domain/Models/EmailTemplateForAction";
+import IEmailTemplateSettingsRepository from "@admin/emailTemplates/Domain/Repositories/IEmailTemplateSettingsRepository";
+import EmailTemplatesSettingsDatasource from "@admin/emailTemplates/Data/Datasources/EmailTemplatesSettingsDatasource";
+import { EmailTemplateForAction } from "@admin/emailTemplates/Domain/Models/EmailTemplateForAction";
 import { Result } from "neverthrow";
-import { ActionType } from "@admin/emailTempaltes/Domain/Models/ActionType";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
+import { ActionType } from "@admin/emailTemplates/Domain/Models/ActionType";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 
 /**

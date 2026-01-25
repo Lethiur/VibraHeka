@@ -1,9 +1,9 @@
 ﻿import {useContext, useState} from "react";
-import {GetTherapistUseCaseContext} from "@admin/addTherapist/Presentation/Context/GetTherapistUseCaseContext.ts";
-import {IGetTherapistsUseCase} from "@admin/addTherapist/Application/UseCases/GetTherapist/IGetTherapistsUseCase.ts";
-import Therapist from "@admin/addTherapist/Domain/Entities/Therapist.ts";
+import {GetTherapistUseCaseContext} from "@admin/addTherapist/Presentation/Context/GetTherapistUseCaseContext";
+import {IGetTherapistsUseCase} from "@admin/addTherapist/Application/UseCases/GetTherapist/IGetTherapistsUseCase";
+import Therapist from "@admin/addTherapist/Domain/Entities/Therapist";
 import {Result} from "neverthrow";
-import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors.ts";
+import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
 
 
 interface UseTherapistReturn {

@@ -1,7 +1,7 @@
 import Beatriz from "../../../../../../Assets/images/Terapeutas/Beatriz.png"
-import SideImageBlock from "../../../../../../Core/Presentation/Components/organisms/SideImageBlock/SideImageBlock.tsx";
-import Terapia from "../../../../../../Core/Presentation/Components/molecules/Terapia/Terapia.tsx";
-import VideoPlayer from "../../../../../../Core/Presentation/Components/atoms/VideoPlayer/VideoPlayer.tsx";
+import SideImageBlock from "../../../../../../Core/Presentation/Components/organisms/SideImageBlock/SideImageBlock";
+import Terapia from "../../../../../../Core/Presentation/Components/molecules/Terapia/Terapia";
+import VideoPlayer from "../../../../../../Core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
 
 export default function BeatrizAlonso() {
     return (

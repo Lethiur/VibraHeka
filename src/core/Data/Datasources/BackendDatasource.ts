@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { err, ok, Result } from "neverthrow";
-import { ResponseEntity } from "@core/Domain/Entities/ResponseEntity.ts";
-import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService.ts";
-import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys.ts";
+import { ResponseEntity } from "@core/Domain/Entities/ResponseEntity";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
 const BASE_URL: string = import.meta.env.VITE_API_URL || "/api/v1";
 

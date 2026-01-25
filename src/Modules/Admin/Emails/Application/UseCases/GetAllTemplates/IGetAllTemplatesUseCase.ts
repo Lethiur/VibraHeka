@@ -1,6 +1,6 @@
 import { Result } from "neverthrow";
-import { EmailTemplate } from "@admin/emailTempaltes/Domain/Models/EmailTemplate";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
+import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 /**
  * Interface for the get all templates use case.

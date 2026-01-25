@@ -1,17 +1,17 @@
-import {RegistrationRequestDto} from "../DTOs/RegistrationRequestDTO.ts";
-import {RegisterResponseDto} from "../DTOs/RegistrationResponseDTO.ts";
-import AuthDatasource from "../Datasources/AuthDatasource.ts";
-import {AuthErrorCodes} from "../../Domain/Errors/AuthErrorCodes.ts";
-import {RegistrationResult} from "../../Domain/Models/RegistrationResult.ts";
+import {RegistrationRequestDto} from "../DTOs/RegistrationRequestDTO";
+import {RegisterResponseDto} from "../DTOs/RegistrationResponseDTO";
+import AuthDatasource from "../Datasources/AuthDatasource";
+import {AuthErrorCodes} from "../../Domain/Errors/AuthErrorCodes";
+import {RegistrationResult} from "../../Domain/Models/RegistrationResult";
 import {Result} from "neverthrow";
-import {IAuthRepository} from "../../Domain/Repositories/IAuthRepository.ts";
-import {RegistrationData} from "../../Domain/Models/RegistrationData.ts";
-import {VerificationData} from "../../Domain/Models/VerificationData.ts";
-import {VerificationRequestDTO} from "../DTOs/VerificationRequestDTO.ts";
-import {LoginData} from "../../Domain/Models/LoginData.ts";
-import {LoginResult} from "../../Domain/Models/LoginResult.ts";
-import {LoginResultDTO} from "../DTOs/LoginResultDTO.ts";
-import {LoginRequestDTO} from "../DTOs/LoginRequestDTO.ts";
+import {IAuthRepository} from "../../Domain/Repositories/IAuthRepository";
+import {RegistrationData} from "../../Domain/Models/RegistrationData";
+import {VerificationData} from "../../Domain/Models/VerificationData";
+import {VerificationRequestDTO} from "../DTOs/VerificationRequestDTO";
+import {LoginData} from "../../Domain/Models/LoginData";
+import {LoginResult} from "../../Domain/Models/LoginResult";
+import {LoginResultDTO} from "../DTOs/LoginResultDTO";
+import {LoginRequestDTO} from "../DTOs/LoginRequestDTO";
 
 export class AuthRepositoryImpl implements IAuthRepository {
 

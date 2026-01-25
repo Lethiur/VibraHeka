@@ -1,14 +1,14 @@
 ﻿import {Result} from "neverthrow";
 
-import {IRegisterUserUseCase} from "./IRegisterUserUseCase.ts";
+import {IRegisterUserUseCase} from "./IRegisterUserUseCase";
 
-import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository.ts";
-import {RegistrationResult} from "../../../Domain/Models/RegistrationResult.ts";
-import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
-import {RegistrationData} from "../../../Domain/Models/RegistrationData.ts";
-import RegistrationDataValidator from "../../Validators/RegistrationDataValidator.ts";
+import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository";
+import {RegistrationResult} from "../../../Domain/Models/RegistrationResult";
+import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
+import {RegistrationData} from "../../../Domain/Models/RegistrationData";
+import RegistrationDataValidator from "../../Validators/RegistrationDataValidator";
 import {ValidationErrors} from "fluentvalidation-ts";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 export default class RegisterUserUseCase implements IRegisterUserUseCase {
     

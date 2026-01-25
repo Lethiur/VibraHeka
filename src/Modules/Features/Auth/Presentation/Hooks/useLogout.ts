@@ -1,8 +1,8 @@
 ﻿import { useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
-import {isAuthenticatedAtom} from "../../../../../Core/Presentation/Storage/AuthAtom.ts";
-import useLocalStorage from "../../../../../Core/Presentation/Hooks/UseLocalStorage.ts";
-import {STORAGE_KEYS} from "../../../../../Core/Infrastructure/Storage/StorageKeys.ts";
+import {isAuthenticatedAtom} from "../../../../../Core/Presentation/Storage/AuthAtom";
+import useLocalStorage from "../../../../../Core/Presentation/Hooks/UseLocalStorage";
+import {STORAGE_KEYS} from "../../../../../Core/Infrastructure/Storage/StorageKeys";
 
 
 export const useLogout = () => {

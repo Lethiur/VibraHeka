@@ -1,5 +1,5 @@
 ﻿import { Table, Button, Card, Row, Col } from 'react-bootstrap';
-import Therapist from "@admin/addTherapist/Domain/Entities/Therapist.ts";
+import Therapist from "@admin/addTherapist/Domain/Entities/Therapist";
 import {useTranslation} from "react-i18next";
 // Supongamos que User es una entidad de tu dominio
 

@@ -1,5 +1,5 @@
-import {AuthErrorCodes} from "@auth/Domain/Errors/AuthErrorCodes.ts";
-import {AuthApplicationErrors} from "@auth/Application/Errors/AuthApplicationErrors.ts";
+import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
+import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
 
 
 export const es = {
@@ -37,14 +37,14 @@ export const es = {
                 title: "Administrar terapeutas",
                 description: "Gestiona aqui los terapeutas registrados en el sistema.",
                 list_title: "Lista de terapeutas",
-                list_id : "Identificador",
+                list_id: "Identificador",
                 list_name: "Nombre",
                 list_email: "Email",
                 list_role: "Rol",
                 list_actions: "Acciones",
-                options : {
-                    delete : "Eliminar",
-                    edit : "Editar"
+                options: {
+                    delete: "Eliminar",
+                    edit: "Editar"
                 },
                 form: {
                     title: "Agregar terapeuta",

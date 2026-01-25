@@ -1,4 +1,4 @@
-﻿import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity.ts";
+﻿import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
 import {Validator} from "fluentvalidation-ts";
 
 export default class CreateTherapistRequestValidator extends Validator<CreateTherapistEntity> {

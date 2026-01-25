@@ -1,22 +1,22 @@
 import { Routes, Route } from 'react-router-dom'
-import Navbar from './Core/Presentation/Components/organisms/NavBar/Navbar.tsx'
+import Navbar from './Core/Presentation/Components/organisms/NavBar/Navbar'
 
-import Registro from './Modules/Features/Auth/Presentation/pages/Registro/Registro.tsx'
-import Login from "./Modules/Features/Auth/Presentation/pages/Login/Login.tsx";
-import Verification from "./Modules/Features/Auth/Presentation/pages/Verification/Verification.tsx";
-import { isAuthenticatedAtom } from "./Core/Presentation/Storage/AuthAtom.ts";
+import Registro from './Modules/Features/Auth/Presentation/pages/Registro/Registro'
+import Login from "./Modules/Features/Auth/Presentation/pages/Login/Login";
+import Verification from "./Modules/Features/Auth/Presentation/pages/Verification/Verification";
+import { isAuthenticatedAtom } from "./Core/Presentation/Storage/AuthAtom";
 import { useAtomValue } from "jotai";
-import { useLogout } from "./Modules/Features/Auth/Presentation/Hooks/useLogout.ts";
-import LandingPage from "./Modules/Features/Landing/Presentation/Pages/Landing.tsx";
-import VeraLucya from "./Modules/Features/Therapist/Presentation/Pages/Individuales/VeraLucya.tsx";
-import TerapeutasHome from "./Modules/Features/Therapist/Presentation/Pages/TerapetuasHome.tsx";
-import BeatrizAlonso from "./Modules/Features/Therapist/Presentation/Pages/Individuales/BeatrizAlonso.tsx";
-import { STORAGE_KEYS } from "./Core/Infrastructure/Storage/StorageKeys.ts";
-import Dashboard from "./Modules/Admin/Dashboard/Presentation/Pages/Dashboard.tsx";
-import AdminLayout from "./Core/Presentation/Layouts/AdminLayout.tsx";
-import TherapistIndex from "./Modules/Admin/AddTherapist/Presentation/Pages/TherapistIndex.tsx";
-import Emails from './Modules/Admin/Emails/Presentation/Screens/EmailsForAction/Emails.tsx';
-import TemplateManagement from './Modules/Admin/Emails/Presentation/Screens/TemplatesManagement/TemplateManagement.tsx';
+import { useLogout } from "./Modules/Features/Auth/Presentation/Hooks/useLogout";
+import LandingPage from "./Modules/Features/Landing/Presentation/Pages/Landing";
+import VeraLucya from "./Modules/Features/Therapist/Presentation/Pages/Individuales/VeraLucya";
+import TerapeutasHome from "./Modules/Features/Therapist/Presentation/Pages/TerapetuasHome";
+import BeatrizAlonso from "./Modules/Features/Therapist/Presentation/Pages/Individuales/BeatrizAlonso";
+import { STORAGE_KEYS } from "./Core/Infrastructure/Storage/StorageKeys";
+import Dashboard from "./Modules/Admin/Dashboard/Presentation/Pages/Dashboard";
+import AdminLayout from "./Core/Presentation/Layouts/AdminLayout";
+import TherapistIndex from "./Modules/Admin/AddTherapist/Presentation/Pages/TherapistIndex";
+import Emails from './Modules/Admin/Emails/Presentation/Screens/EmailsForAction/Emails';
+import TemplateManagement from './Modules/Admin/Emails/Presentation/Screens/TemplatesManagement/TemplateManagement';
 
 function App() {
 

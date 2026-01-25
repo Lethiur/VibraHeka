@@ -1,6 +1,6 @@
-﻿import {VerificationData} from "../../../Domain/Models/VerificationData.ts";
+﻿import {VerificationData} from "../../../Domain/Models/VerificationData";
 import {Result} from "neverthrow";
-import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes.ts";
+import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
 
 /**
  * Interface representing the use case for verifying user authenticity.

@@ -1,13 +1,13 @@
-﻿import UseGetTherapistUseCase from "@admin/addTherapist/Presentation/Hooks/UseGetTherapistUseCase.ts";
+﻿import UseGetTherapistUseCase from "@admin/addTherapist/Presentation/Hooks/UseGetTherapistUseCase";
 import React from "react";
 import {ValidationErrors} from "fluentvalidation-ts";
-import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity.ts";
+import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
 import CreateTherapistForm
-    from "@admin/addTherapist/Presentation/Components/Organisms/CreateTherapistForm/CreateTherapistForm.tsx";
-import TherapistList from "@admin/addTherapist/Presentation/Components/Organisms/TherapistList/TherapistList.tsx";
-import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox.tsx";
-import UseAddTherapistUseCase from "@admin/addTherapist/Presentation/Hooks/UseAddTherapistUseCase.ts";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+    from "@admin/addTherapist/Presentation/Components/Organisms/CreateTherapistForm/CreateTherapistForm";
+import TherapistList from "@admin/addTherapist/Presentation/Components/Organisms/TherapistList/TherapistList";
+import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import UseAddTherapistUseCase from "@admin/addTherapist/Presentation/Hooks/UseAddTherapistUseCase";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 
 

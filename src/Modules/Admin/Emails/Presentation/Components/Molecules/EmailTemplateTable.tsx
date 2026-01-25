@@ -2,7 +2,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Stack from "react-bootstrap/Stack";
-import { EmailTemplate } from "@admin/emailTempaltes/Domain/Models/EmailTemplate";
+import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
 
 interface EmailTemplatesTableProps {
     templates: EmailTemplate[] | undefined;
@@ -35,6 +35,7 @@ export default function EmailTemplatesTable({
         <Table striped bordered hover responsive>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Creado</th>
                     <th>Última modificación</th>
@@ -45,8 +46,8 @@ export default function EmailTemplatesTable({
             <tbody>
                 {templates.map((template) => (
                     <tr key={template.ID}>
+                        <td>{template.ID}</td>
                         <td>{template.Name || <em className="text-muted">Sin nombre</em>}</td>
-
                         <td>{formatDate(template.Created)}</td>
                         <td>{formatDate(template.LastModified)}</td>
                         <td className="text-end">

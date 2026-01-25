@@ -1,14 +1,14 @@
 ﻿import { Result } from "neverthrow";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes.ts";
-import { LoginData } from "../../../Domain/Models/LoginData.ts";
-import { LoginResult } from "../../../Domain/Models/LoginResult.ts";
-import {ILoginUserUseCase} from "./ILoginUserUseCase.ts";
-import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository.ts";
-import LoginUserDataValidator from "../../Validators/LoginUserDataValidator.ts";
+import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
+import { LoginData } from "../../../Domain/Models/LoginData";
+import { LoginResult } from "../../../Domain/Models/LoginResult";
+import {ILoginUserUseCase} from "./ILoginUserUseCase";
+import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository";
+import LoginUserDataValidator from "../../Validators/LoginUserDataValidator";
 import {ValidationErrors} from "fluentvalidation-ts";
-import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
-import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService.ts";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError.ts";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 
 /**

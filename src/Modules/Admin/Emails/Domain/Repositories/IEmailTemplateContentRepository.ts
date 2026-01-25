@@ -9,8 +9,8 @@ export default interface IEmailTemplateContentRepository {
 
     /**
      * Gets the content of an email template.
-     * @param templateURL The URL of the email template.
+     * @param templateID The ID of the email template.
      * @returns A promise that resolves to a `Result` object containing either the email template content or an error message.
      */
-    GetEmailTemplateContent(templateURL: string): Promise<Result<string, string>>;
+    GetEmailTemplateContent(templateID: string): Promise<Result<string, EmailTemplateErrors>>;
 }

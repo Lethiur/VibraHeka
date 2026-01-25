@@ -1,8 +1,8 @@
 ﻿import {useContext, useState} from "react";
-import {CreateTherapistUseCaseContext} from "@admin/addTherapist/Presentation/Context/CreateTherapistUseCaseContext.ts";
-import {IAddTherapistUseCase} from "@admin/addTherapist/Application/UseCases/AddTherapist/IAddTherapistUseCase.ts";
-import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity.ts";
-import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors.ts";
+import {CreateTherapistUseCaseContext} from "@admin/addTherapist/Presentation/Context/CreateTherapistUseCaseContext";
+import {IAddTherapistUseCase} from "@admin/addTherapist/Application/UseCases/AddTherapist/IAddTherapistUseCase";
+import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
+import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
 import {Result} from "neverthrow";
 
 /**

@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { IGetAllTemplatesUseCase } from "@admin/emailTempaltes/Application/UseCases/GetAllTemplates/IGetAllTemplatesUseCase";
+import { IGetAllTemplatesUseCase } from "@admin/emailTemplates/Application/UseCases/GetAllTemplates/IGetAllTemplatesUseCase";
 import { GetEmailTemplatsContext } from "@/Modules/Admin/Emails/Presentation/Context/GetEmailTemplatesContext";
-import { EmailTemplate } from "@admin/emailTempaltes/Domain/Models/EmailTemplate";
-import { EmailTemplateErrors } from "@admin/emailTempaltes/Domain/Errors/EmailTemplateErrors";
+import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 import { Result } from "neverthrow";
 
 

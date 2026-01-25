@@ -1,6 +1,7 @@
 import { Result } from "neverthrow";
 import IEmailTemplateContentRepository from "../../Domain/Repositories/IEmailTemplateContentRepository";
 import EmailTemplateContentDatasource from "../Datasources/EmailTemplateContentDatasource";
+import { EmailTemplateErrors } from "../../Domain/Errors/EmailTemplateErrors";
 
 /**
  * Implementation of the email template content repository.
@@ -17,7 +18,8 @@ export default class EmailTemplateContentRepositoryImpl implements IEmailTemplat
      * @param templateURL The URL of the email template.
      * @returns A promise that resolves to a `Result` object containing either the email template content or an error message.
      */
-    public async GetEmailTemplateContent(templateURL: string): Promise<Result<string, string>> {
-        return this.Datasource.GetEmailTemplateContent(templateURL);
+    public async GetEmailTemplateContent(templateURL: string): Promise<Result<string, EmailTemplateErrors>> {
+        const result: Result<string, string> = await this.Datasource.GetEmailTemplateContent(templateURL);
+        return result.mapErr((error) => error as EmailTemplateErrors);
     }
 }   
