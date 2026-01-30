@@ -29,7 +29,7 @@ interface EmailTemplateEditorProps {
  * @returns The rendered component.
  */
 export default function EmailTemplateEditor({ template, onSave, onUploadMedia }: EmailTemplateEditorProps) {
-    const { content, loading, error, GetContent } = UseGetEmailTemplateContent();
+    const { content, loading, GetContent } = UseGetEmailTemplateContent();
 
     useEffect(() => {
         GetContent(template.ID);

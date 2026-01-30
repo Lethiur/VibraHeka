@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LoginData } from "../../../Domain/Models/LoginData";
+import { LoginData } from "@auth/Domain/Models/LoginData";
 import { ValidationErrors } from "fluentvalidation-ts";
-import useLoginUser from "../../Hooks/useLoginUser";
-import LoginUserUseCase from "../../../Application/UseCases/LoginUser/LoginUserUseCase";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
-import { LoginResult } from "../../../Domain/Models/LoginResult";
+import useLoginUser from "@auth/Presentation/Hooks/useLoginUser";
+import LoginUserUseCase from "@auth/Application/UseCases/LoginUser/LoginUserUseCase";
+import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
+import { LoginResult } from "@auth/Domain/Models/LoginResult";
 import { Result } from "neverthrow";
 import { useSetAtom } from "jotai";
-import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom";
-import ErrorBox from "../../../../../../Core/Presentation/Components/atoms/ErrorBox/ErrorBox";
-import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
+import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 
