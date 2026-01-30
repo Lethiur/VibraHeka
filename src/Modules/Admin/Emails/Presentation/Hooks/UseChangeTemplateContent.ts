@@ -15,7 +15,7 @@ export default function UseChangeTemplateContent() {
     async function ChangeContent(templateId: string, content: JSONContent) {
         setLoading(true);
 
-        const jsonString = JSON.stringify(content, null) // opcional: pretty-print
+        const jsonString = JSON.stringify(content, null)
         const blob = new Blob([jsonString], { type: 'application/json' })
         const file = new File([blob], 'content.json', { type: 'application/json' });
         const result = await UseCase.Execute(templateId, file);
@@ -23,6 +23,7 @@ export default function UseChangeTemplateContent() {
             setError(result.error);
         }
         setLoading(false);
+        return result;
     }
 
     return {

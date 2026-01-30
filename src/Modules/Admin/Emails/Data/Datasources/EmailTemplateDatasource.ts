@@ -20,14 +20,14 @@ export default class EmailTempalteDatasource extends BackendDatasource {
      * @param {string} templateId - The ID of the email template.
      * @param {File} file - The file to add as an attachment.
      * @param {string} attachmentName - The name of the attachment.
-     * @returns {Promise<Result<void, string>>}
+     * @returns {Promise<Result<string, string>>}
      */
-    public async AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<void, string>> {
+    public async AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<string, string>> {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('attachmentName', attachmentName);
         formData.append('templateId', templateId);
-        return this.put<void>(`/email-templates/add-attachment`, formData, true, { headers: { 'Content-Type': 'multipart/form-data' } });
+        return this.put<string>(`/email-templates/add-attachment`, formData, true, { headers: { 'Content-Type': 'multipart/form-data' } });
     }
 
     /**
@@ -60,6 +60,15 @@ export default class EmailTempalteDatasource extends BackendDatasource {
      */
     public async GetTemplateContentUrl(templateId: string): Promise<Result<string, string>> {
         return this.get<string>(`/email-templates/url?TemplateID=${templateId}`, true);
+    }
+
+    /**
+     * @description Create a new email template skeleton.
+     * @param {string} templateName - The name of the email template.
+     * @returns {Promise<Result<string, string>>}
+     */
+    public CreateTemplateSkeleton(templateName: string): Promise<Result<string, string>> {
+        return this.put<string>(`/email-templates/create-skeleton?templateName=${templateName}`, {}, true);
     }
 
 }

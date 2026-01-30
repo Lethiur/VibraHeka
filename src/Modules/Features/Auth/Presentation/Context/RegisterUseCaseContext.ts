@@ -1,5 +1,5 @@
-﻿import {Context, createContext} from "react";
+﻿import { Context, createContext } from "react";
 import RegisterUserUseCase from "../../Application/UseCases/RegisterUser/RegisterUserUseCase";
-import {registerUserUseCase} from "../../../../../Core/Domain/Composition/AuthComposition";
+import { registerUserUseCase } from "../../../../../core/Domain/Composition/AuthComposition";
 
-export const RegisterUseCaseContext : Context<RegisterUserUseCase> = createContext(registerUserUseCase);
+export const RegisterUseCaseContext: Context<RegisterUserUseCase> = createContext(registerUserUseCase);

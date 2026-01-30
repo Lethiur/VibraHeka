@@ -13,19 +13,19 @@
         "skipLibCheck": true,
         /* Bundler mode */
         "moduleResolution": "bundler",
-        "baseUrl": ".",
+        "baseUrl": "./",
         "paths": {
             "@/*": [
                 "src/*"
             ],
             "@auth/*": [
-                "./src/Modules/Features/Auth/*"
+                "src/Modules/Features/Auth/*"
             ],
             "@admin/addTherapist/*": [
-                "./src/Modules/Admin/AddTherapist/*"
+                "src/Modules/Admin/AddTherapist/*"
             ],
             "@core/*": [
-                "src/Core/*"
+                "src/core/*"
             ],
             "@admin/emailTemplates/*": [
                 "src/Modules/Admin/Emails/*"

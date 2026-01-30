@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { err, ok, Result } from "neverthrow";
-import { ResponseEntity } from "@core/Domain/Entities/ResponseEntity";
+import { ResponseEntity } from "@/core/Domain/Entities/ResponseEntity";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
@@ -52,6 +52,7 @@ export default class BackendDatasource {
                 };
             }
             const response: AxiosResponse<ResponseEntity<T>> = await this.AxiosInstance.request(config);
+
             if (response.data.success) {
                 return ok(response.data.content!);
             }
