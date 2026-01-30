@@ -5,7 +5,7 @@ import EmailTemplateDatasource from "@admin/emailTemplates/Data/Datasources/Emai
 import AddAttachmentToTemplateUseCaseImpl from "@admin/emailTemplates/Application/UseCases/AddAttachment/AddAttachmentToTemplateUseCaseImpl";
 
 /**
- * @description Composition root for the add attachment to template use case.
+ * Composition root for the add attachment to template use case.
  */
 const datasource: EmailTemplateDatasource = new EmailTemplateDatasource();
 const repository: IEmailTemplateRepository = new EmailTemplateRepositoryImpl(datasource);

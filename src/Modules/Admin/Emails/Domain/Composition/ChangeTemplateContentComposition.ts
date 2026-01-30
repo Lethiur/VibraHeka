@@ -5,7 +5,7 @@ import ChangeTemplateContentUseCaseImpl from "@admin/emailTemplates/Application/
 import EmailTemplateRepositoryImpl from "@admin/emailTemplates/Data/Repositories/EmailTemplateRepositoryImpl";
 
 /**
- * @description Composition root for the change template content use case.
+ * Composition root for the change template content use case.
  */
 const datasource: EmailTemplateDatasource = new EmailTemplateDatasource();
 const repository: IEmailTemplateRepository = new EmailTemplateRepositoryImpl(datasource);

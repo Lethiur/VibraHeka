@@ -1,19 +1,34 @@
-import TextEditor from "@/Core/Presentation/Components/organisms/TextEditor/TextEditor";
+import TextEditor from "@core/Presentation/Components/organisms/TextEditor/TextEditor";
 import { EmailTemplate } from "@/Modules/Admin/Emails/Domain/Models/EmailTemplate";
 import { UseGetEmailTemplateContent } from "@/Modules/Admin/Emails/Presentation/Hooks/UseGetEmailTemplateContent";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { JSONContent } from "@tiptap/react";
 
+/**
+ * Props for the EmailTemplateEditor component.
+ */
 interface EmailTemplateEditorProps {
+    /**
+     * The email template to edit.
+     */
     template: EmailTemplate;
+    /**
+     * Callback function to save the editor content.
+     */
     onSave: (json: JSONContent) => void;
+    /**
+     * Callback function to handle media uploads within the editor.
+     */
     onUploadMedia: (file: File) => Promise<string>;
 }
 
-
+/**
+ * Editor component for modifying email template content using a rich text editor.
+ * @param props The component props.
+ * @returns The rendered component.
+ */
 export default function EmailTemplateEditor({ template, onSave, onUploadMedia }: EmailTemplateEditorProps) {
-
     const { content, loading, error, GetContent } = UseGetEmailTemplateContent();
 
     useEffect(() => {

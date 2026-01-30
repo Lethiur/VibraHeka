@@ -2,15 +2,15 @@ import { Result } from "neverthrow";
 import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 /**
- * @description Interface for the add attachment to template use case.
+ * Interface for the add attachment to template use case.
  */
 export interface IAddAttachmentToTemplateUseCase {
     /**
-     * @description Adds an attachment to an email template.
-     * @param {string} templateId - The ID of the email template.
-     * @param {File} file - The file to add as an attachment.
-     * @param {string} attachmentName - The name of the attachment.
-     * @returns {Promise<Result<void, EmailTemplateErrors>>}
+     * Adds an attachment to an email template.
+     * @param templateId The ID of the email template.
+     * @param file The file to add as an attachment.
+     * @param attachmentName The name of the attachment.
+     * @returns A promise that resolves to a Result object containing either void or an error message.
      */
     Execute(templateId: string, file: File, attachmentName: string): Promise<Result<string, EmailTemplateErrors>>;
 }

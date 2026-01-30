@@ -4,16 +4,16 @@ import IEmailTemplateRepository from "@admin/emailTemplates/Domain/Repositories/
 import IChangeTemplateContentUseCase from "@admin/emailTemplates/Application/UseCases/ChangeTemplateContent/IChangeTemplateContentUseCase";
 
 /**
- * @description Implementation of the change template content use case.
+ * Implementation of the change template content use case.
  */
 export default class ChangeTemplateContentUseCaseImpl implements IChangeTemplateContentUseCase {
     constructor(private repository: IEmailTemplateRepository) { }
 
     /**
-     * @description Changes the content of an email template.
-     * @param {string} templateId - The ID of the email template.
-     * @param {File} newContent - The new content of the email template.
-     * @returns {Promise<Result<void, EmailTemplateErrors>>}
+     * Changes the content of an email template.
+     * @param templateId The ID of the email template.
+     * @param newContent The new content of the email template.
+     * @returns A promise that resolves to a Result object containing either void or an error message.
      */
     public async Execute(templateId: string, newContent: File): Promise<Result<void, EmailTemplateErrors>> {
         return this.repository.EditTemplateContent(templateId, newContent);

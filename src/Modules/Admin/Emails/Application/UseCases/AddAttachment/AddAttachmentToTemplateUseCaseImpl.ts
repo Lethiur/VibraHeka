@@ -7,11 +7,11 @@ export default class AddAttachmentToTemplateUseCaseImpl implements IAddAttachmen
     constructor(private repository: IEmailTemplateRepository) { }
 
     /**
-     * @description Adds an attachment to an email template.
-     * @param {string} templateId - The ID of the email template.
-     * @param {File} file - The file to add as an attachment.
-     * @param {string} attachmentName - The name of the attachment.
-     * @returns {Promise<Result<void, EmailTemplateErrors>>}
+     * Adds an attachment to an email template.
+     * @param templateId The ID of the email template.
+     * @param file The file to add as an attachment.
+     * @param attachmentName The name of the attachment.
+     * @returns A promise that resolves to a Result object containing either void or an error message.
      */
     public async Execute(templateId: string, file: File, attachmentName: string): Promise<Result<string, EmailTemplateErrors>> {
         return this.repository.AddAttachment(templateId, file, attachmentName);

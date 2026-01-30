@@ -1,5 +1,5 @@
 
-import BackendDatasource from "@/Core/Data/Datasources/BackendDatasource";
+import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
 
 /**
