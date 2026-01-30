@@ -14,6 +14,16 @@ export default class EmailTemplateRepositoryImpl implements IEmailTemplateReposi
     }
 
     /**
+     * Creates a new email template skeleton.
+     * @param templateName The name of the email template.
+     * @returns A promise that resolves to a Result object containing either the ID of the new template or an error message.
+     */
+    public async CreateTemplateSkeleton(templateName: string): Promise<Result<string, EmailTemplateErrors>> {
+        const result: Result<string, string> = await this.Datasource.CreateTemplateSkeleton(templateName);
+        return result.mapErr((error) => error as EmailTemplateErrors);
+    }
+
+    /**
      * Gets the URL of the content of an email template.
      * @param templateId The ID of the email template.
      * @returns A promise that resolves to a Result object containing either the URL of the content or an error message.
@@ -31,7 +41,7 @@ export default class EmailTemplateRepositoryImpl implements IEmailTemplateReposi
      * @returns A promise that resolves to a Result object containing either void or an error message.
      */
     public async AddAttachment(templateId: string, file: File, attachmentName: string): Promise<Result<string, EmailTemplateErrors>> {
-        const result: Result<void, string> = await this.Datasource.AddAttachment(templateId, file, attachmentName);
+        const result: Result<string, string> = await this.Datasource.AddAttachment(templateId, file, attachmentName);
         return result.mapErr((error) => error as EmailTemplateErrors);
     }
 

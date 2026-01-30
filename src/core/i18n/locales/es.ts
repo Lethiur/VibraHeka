@@ -31,7 +31,30 @@ export const es = {
 
         pages: {
             admin: {
-                title: "Panel de administracion"
+                title: "Panel de administracion",
+                emails: {
+                    title: "Plantillas de correo",
+                    loading: "Cargando...",
+                    count_text: "Hay: {{count}} plantillas",
+                    templates_list_title: "Plantillas",
+                    messages: {
+                        saved_title: "Guardado",
+                        saved_content: "Contenido guardado correctamente",
+                        created_title: "Éxito",
+                        created_content: "Plantilla creada correctamente",
+                        upload_success_title: "Éxito",
+                        upload_success_content: "Archivo adjunto subido",
+                        error_title: "Error",
+                        save_error: "Error al guardar el contenido",
+                        upload_error: "Error al subir adjunto",
+                        no_template_selected: "No se seleccionó ninguna plantilla"
+                    },
+                    form: {
+                        create_title: "Crear plantilla",
+                        name_label: "Nombre",
+                        submit_button: "Crear plantilla"
+                    }
+                }
             },
             therapists: {
                 title: "Administrar terapeutas",

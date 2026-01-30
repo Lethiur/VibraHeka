@@ -4,7 +4,7 @@ import { RegistrationRequestDto } from "../DTOs/RegistrationRequestDTO";
 import { VerificationRequestDTO } from "../DTOs/VerificationRequestDTO";
 import { LoginResultDTO } from "../DTOs/LoginResultDTO";
 import { LoginRequestDTO } from "../DTOs/LoginRequestDTO";
-import BackendDatasource from "../../../../../Core/Data/Datasources/BackendDatasource";
+import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 
 /**
  * Represents an authentication data source responsible for handling

@@ -47,4 +47,11 @@ export default interface IEmailTemplateRepository {
      * @returns A promise that resolves to a Result object containing either the URL of the content or an error message.
      */
     GetTemplateContentUrl(templateId: string): Promise<Result<string, EmailTemplateErrors>>;
+
+    /**
+     * Creates a new email template skeleton.
+     * @param templateName The name of the email template.
+     * @returns A promise that resolves to a Result object containing either the ID of the new template or an error message.
+     */
+    CreateTemplateSkeleton(templateName: string): Promise<Result<string, EmailTemplateErrors>>;
 }

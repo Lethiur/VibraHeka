@@ -1,4 +1,4 @@
-import { ResponseEntity } from "@/Core/Domain/Entities/ResponseEntity";
+import { ResponseEntity } from "@/core/Domain/Entities/ResponseEntity";
 import LocalStorageService from "@/Core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@/Core/Infrastructure/Storage/StorageKeys";
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from "axios";

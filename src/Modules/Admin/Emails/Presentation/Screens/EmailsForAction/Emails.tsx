@@ -14,8 +14,8 @@ import { useEffect, useMemo, useState } from 'react';
 import './Emails.scss'
 
 /**
- * Emails configuration screen.
- * @returns Emails configuration screen.
+ * Emails configuration screen for mapping templates to system actions.
+ * @returns The rendered screen.
  */
 export default function EmailsConfiguration() {
 

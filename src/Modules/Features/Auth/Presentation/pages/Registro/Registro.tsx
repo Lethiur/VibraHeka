@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { ValidationErrors } from "fluentvalidation-ts";
 import { useTranslation } from "react-i18next";
-import { RegistrationData } from "../../../Domain/Models/RegistrationData";
-import { useRegisterUser } from "../../Hooks/useRegisterUser";
-import RegisterUserUseCase from "../../../Application/UseCases/RegisterUser/RegisterUserUseCase";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
-import { RegistrationResult } from "../../../Domain/Models/RegistrationResult";
+import { RegistrationData } from "@auth/Domain/Models/RegistrationData";
+import { useRegisterUser } from "@auth/Presentation/Hooks/useRegisterUser";
+import RegisterUserUseCase from "@auth/Application/UseCases/RegisterUser/RegisterUserUseCase";
+import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
+import { RegistrationResult } from "@auth/Domain/Models/RegistrationResult";
 import { Result } from "neverthrow";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage";
-import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService";
-import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys";
-import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 export default function Registro() {
