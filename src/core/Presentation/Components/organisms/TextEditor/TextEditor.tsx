@@ -45,7 +45,6 @@ import { TextAlign } from 'reactjs-tiptap-editor/textalign';
 import { TextDirection } from 'reactjs-tiptap-editor/textdirection';
 import { TextUnderline } from 'reactjs-tiptap-editor/textunderline';
 import { Video } from 'reactjs-tiptap-editor/video';
-import { Callout } from 'reactjs-tiptap-editor/callout';
 
 import {
     RichTextBubbleColumns,
@@ -70,7 +69,7 @@ import { useEffect } from 'react';
 
 import 'reactjs-tiptap-editor/style.css';
 import '@tiptap/extension-text-style';
-import { EMOJI_ITEM_LIST, EMOJI_LIST } from '@/Core/Presentation/Components/organisms/TextEditor/Emojis';
+import { EMOJI_ITEM_LIST, EMOJI_LIST } from '@core/Presentation/Components/organisms/TextEditor/Emojis';
 import { Count } from './Extensions/Count';
 import { EditorToolbar } from './Toolbar';
 import PrimaryButton from '../../atoms/PrimaryButton/PrimaryButton';
@@ -143,21 +142,18 @@ const extensions = [
     MultipleColumnNode,
     Table,
     TextDirection,
-    Attachment,
-    Callout
+    Attachment
 ];
 
 interface TextEditorProps {
     content: string;
-    onChange: (content: JSONContent) => void;
-    onSave: (content: JSONContent) => void;
+    onChange: (content: string) => void;
+    onSave: (content: string) => void;
     onMediaUpload: (content: File) => Promise<string>;
     characterLimit?: number;
 }
 
 export default function TextEditor({ content, onChange, onSave, onMediaUpload, characterLimit = LIMIT }: TextEditorProps) {
-
-    console.log(content);
     const editor = useEditor({
         textDirection: 'auto',
         extensions: [...extensions,
@@ -167,12 +163,14 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
         ),
         Video.configure({
             upload: onMediaUpload,
+            resourceVideo: "both"
+
         }),
         ],
-        content: JSON.parse(content == "" ? "{}" : content),
+        content: content,
         immediatelyRender: false,
         onUpdate: ({ editor }) => {
-            onChange(editor.getJSON())
+            onChange(editor.getHTML())
         },
     });
 
@@ -192,7 +190,7 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
                             <div className="absolute top-0 z-10 bg-background border-b">
                                 <div className="flex justify-end p-2">
                                     <EditorToolbar />
-                                    <PrimaryButton onClick={() => onSave(editor.getJSON())} label='Guardar' />
+                                    <PrimaryButton onClick={() => onSave(editor.getHTML())} label='Guardar' />
                                 </div>
                             </div>
 

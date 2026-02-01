@@ -1,5 +1,6 @@
 import { Result } from "neverthrow";
 import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
+import { JSONContent } from "@tiptap/react";
 
 /**
  * Interface for the change template content use case.
@@ -11,5 +12,5 @@ export default interface IChangeTemplateContentUseCase {
      * @param newContent The new content of the email template.
      * @returns A promise that resolves to a Result object containing either void or an error message.
      */
-    Execute(templateId: string, newContent: File): Promise<Result<void, EmailTemplateErrors>>;
+    Execute(templateId: string, newContent: string): Promise<Result<void, EmailTemplateErrors>>;
 }   

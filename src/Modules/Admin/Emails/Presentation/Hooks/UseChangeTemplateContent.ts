@@ -2,7 +2,6 @@ import IChangeTemplateContentUseCase from "../../Application/UseCases/ChangeTemp
 import { useContext } from "react";
 import { ChangeTemplateContentContext } from "../Context/ChangeTemplateContentContext";
 import { useState } from "react";
-import { JSONContent } from "@tiptap/react";
 import { EmailTemplateErrors } from "../../Domain/Errors/EmailTemplateErrors";
 
 export default function UseChangeTemplateContent() {
@@ -12,13 +11,10 @@ export default function UseChangeTemplateContent() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<EmailTemplateErrors | null>(null);
 
-    async function ChangeContent(templateId: string, content: JSONContent) {
+    async function ChangeContent(templateId: string, content: string) {
         setLoading(true);
 
-        const jsonString = JSON.stringify(content, null)
-        const blob = new Blob([jsonString], { type: 'application/json' })
-        const file = new File([blob], 'content.json', { type: 'application/json' });
-        const result = await UseCase.Execute(templateId, file);
+        const result = await UseCase.Execute(templateId, content);
         if (result.isErr()) {
             setError(result.error);
         }

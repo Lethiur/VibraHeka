@@ -26,7 +26,6 @@ export default class BackendDatasource {
     private AxiosInstance: AxiosInstance;
 
     constructor(private StorageService: LocalStorageService = new LocalStorageService()) {
-        console.log('ApiDatasource initialized with Base URL:', BASE_URL);
         this.AxiosInstance = axios.create({
             baseURL: BASE_URL,
             headers: {

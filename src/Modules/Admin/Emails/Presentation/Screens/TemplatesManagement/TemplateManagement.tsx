@@ -42,7 +42,7 @@ export default function TemplateManagement(): JSX.Element {
         console.log("View", template);
     };
 
-    const onSaveTemplateContent = async (content: JSONContent) => {
+    const onSaveTemplateContent = async (content: string) => {
         if (!emailTemplateSelected) return;
         const result = await ChangeContent(emailTemplateSelected.ID, content);
         if (result.isOk()) {

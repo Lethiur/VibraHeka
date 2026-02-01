@@ -16,7 +16,7 @@ interface EmailTemplateEditorProps {
     /**
      * Callback function to save the editor content.
      */
-    onSave: (json: JSONContent) => void;
+    onSave: (json: string) => void;
     /**
      * Callback function to handle media uploads within the editor.
      */
@@ -44,7 +44,7 @@ export default function EmailTemplateEditor({ template, onSave, onUploadMedia }:
     return (
         <div>
             <h1>Email Template Editor {template.Name}</h1>
-            <TextEditor content={content} onChange={console.log} onSave={onSave} onMediaUpload={onUploadMedia} />
+            <TextEditor content={content} onChange={() => { }} onSave={onSave} onMediaUpload={onUploadMedia} />
         </div>
     );
 }

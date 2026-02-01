@@ -1,5 +1,5 @@
 
-import BackendDatasource from "@/Core/Data/Datasources/BackendDatasource";
+import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 import { EmailTemplateDTO } from "../DTOs/EmailTemplateDTO";
 import { Result } from "neverthrow";
 

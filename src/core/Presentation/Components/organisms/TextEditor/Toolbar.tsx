@@ -24,7 +24,6 @@ import { RichTextBlockquote } from 'reactjs-tiptap-editor/blockquote';
 import { RichTextHorizontalRule } from 'reactjs-tiptap-editor/horizontalrule';
 import { RichTextColumn } from 'reactjs-tiptap-editor/column';
 import { RichTextTable } from 'reactjs-tiptap-editor/table';
-import { RichTextCallout } from 'reactjs-tiptap-editor/callout';
 
 import './Toolbar.scss';
 
@@ -58,7 +57,6 @@ export const EditorToolbar = () => {
             <RichTextHorizontalRule />
             <RichTextColumn />
             <RichTextTable />
-            <RichTextCallout />
         </div>
     );
 };

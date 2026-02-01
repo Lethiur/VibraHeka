@@ -1,6 +1,6 @@
 import { NotificationVariant } from '@/core/Domain/Notifications/INotificationProvider';
 import ToastContext from '@/core/Presentation/Context/ToastContext';
-import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import { useState, ReactNode, useCallback } from 'react';
 import { Toast, ToastContainer } from 'react-bootstrap';
 
 interface ToastMessage {

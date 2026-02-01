@@ -15,7 +15,8 @@ export default class ChangeTemplateContentUseCaseImpl implements IChangeTemplate
      * @param newContent The new content of the email template.
      * @returns A promise that resolves to a Result object containing either void or an error message.
      */
-    public async Execute(templateId: string, newContent: File): Promise<Result<void, EmailTemplateErrors>> {
-        return this.repository.EditTemplateContent(templateId, newContent);
+    public async Execute(templateId: string, newContent: string): Promise<Result<void, EmailTemplateErrors>> {
+        const file = new File([newContent], 'content.html', { type: 'application/html' });
+        return this.repository.EditTemplateContent(templateId, file);
     }
 }
