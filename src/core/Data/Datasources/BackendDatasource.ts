@@ -63,7 +63,6 @@ export default class BackendDatasource {
 
                     if (axiosError.response.data) {
                         const errorData = axiosError.response.data as ResponseEntity<T>;
-                        console.log(errorData);
                         return err(errorData.errorCode || 'UNKNOWN_ERROR');
                     } else {
                         if (axiosError.response.status == 401) {

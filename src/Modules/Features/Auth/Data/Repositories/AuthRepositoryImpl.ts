@@ -1,17 +1,17 @@
-import {RegistrationRequestDto} from "../DTOs/RegistrationRequestDTO";
-import {RegisterResponseDto} from "../DTOs/RegistrationResponseDTO";
+import { RegistrationRequestDto } from "../DTOs/RegistrationRequestDTO";
+import { RegisterResponseDto } from "../DTOs/RegistrationResponseDTO";
 import AuthDatasource from "../Datasources/AuthDatasource";
-import {AuthErrorCodes} from "../../Domain/Errors/AuthErrorCodes";
-import {RegistrationResult} from "../../Domain/Models/RegistrationResult";
-import {Result} from "neverthrow";
-import {IAuthRepository} from "../../Domain/Repositories/IAuthRepository";
-import {RegistrationData} from "../../Domain/Models/RegistrationData";
-import {VerificationData} from "../../Domain/Models/VerificationData";
-import {VerificationRequestDTO} from "../DTOs/VerificationRequestDTO";
-import {LoginData} from "../../Domain/Models/LoginData";
-import {LoginResult} from "../../Domain/Models/LoginResult";
-import {LoginResultDTO} from "../DTOs/LoginResultDTO";
-import {LoginRequestDTO} from "../DTOs/LoginRequestDTO";
+import { AuthErrorCodes } from "../../Domain/Errors/AuthErrorCodes";
+import { RegistrationResult } from "../../Domain/Models/RegistrationResult";
+import { Result } from "neverthrow";
+import { IAuthRepository } from "../../Domain/Repositories/IAuthRepository";
+import { RegistrationData } from "../../Domain/Models/RegistrationData";
+import { VerificationData } from "../../Domain/Models/VerificationData";
+import { VerificationRequestDTO } from "../DTOs/VerificationRequestDTO";
+import { LoginData } from "../../Domain/Models/LoginData";
+import { LoginResult } from "../../Domain/Models/LoginResult";
+import { LoginResultDTO } from "../DTOs/LoginResultDTO";
+import { LoginRequestDTO } from "../DTOs/LoginRequestDTO";
 
 export class AuthRepositoryImpl implements IAuthRepository {
 
@@ -32,8 +32,8 @@ export class AuthRepositoryImpl implements IAuthRepository {
         }
 
         const result: Result<LoginResultDTO, string> = await this.datasource.Login(dto);
-        
-        return result.map<LoginResult>((loginResult : LoginResultDTO) => {
+
+        return result.map<LoginResult>((loginResult: LoginResultDTO) => {
             return {
                 UserID: loginResult.userID,
                 Token: loginResult.accessToken,
@@ -80,4 +80,17 @@ export class AuthRepositoryImpl implements IAuthRepository {
             needsConfirmation: value.needsConfirmation,
         })).mapErr((error) => error as AuthErrorCodes);
     }
+
+    /**
+     * Resends the verification code to the specified email address.
+     *
+     * @param {string} email - The email address to resend the verification code to.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with a `Result` containing either a success or error message.
+     */
+    public async ResendVerificationCode(email: string): Promise<Result<void, AuthErrorCodes>> {
+        const result: Result<void, string> = await this.datasource.ResendVerificationCode(email);
+
+        return result.mapErr(error => error as AuthErrorCodes);
+    }
+
 }
