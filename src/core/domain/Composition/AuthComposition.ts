@@ -1,15 +1,17 @@
-﻿import AuthDatasource from "../../../Modules/Features/Auth/Data/Datasources/AuthDatasource";
+﻿import AuthDatasource from "@auth/Data/Datasources/AuthDatasource";
 import { AuthRepositoryImpl } from "@auth/Data/Repositories/AuthRepositoryImpl";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
-import LoginUserDataValidator from "../../../Modules/Features/Auth/Application/Validators/LoginUserDataValidator";
-import LoginUserUseCase from "../../../Modules/Features/Auth/Application/UseCases/LoginUser/LoginUserUseCase";
+import LoginUserDataValidator from "@auth/Application/Validators/LoginUserDataValidator";
+import LoginUserUseCase from "@auth/Application/UseCases/LoginUser/LoginUserUseCase";
 import VerificationDataValidator
-    from "../../../Modules/Features/Auth/Application/Validators/VerificationDataValidator";
+    from "@auth/Application/Validators/VerificationDataValidator";
 import RegistrationDataValidator
-    from "../../../Modules/Features/Auth/Application/Validators/RegistrationDataValidator";
+    from "@auth/Application/Validators/RegistrationDataValidator";
 import RegisterUserUseCase
-    from "../../../Modules/Features/Auth/Application/UseCases/RegisterUser/RegisterUserUseCase";
-import LocalStorageService from "../../Infrastructure/Storage/LocalStorageService";
+    from "@auth/Application/UseCases/RegisterUser/RegisterUserUseCase";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import ResendVerificationCodeUseCase from "@auth/Application/UseCases/ResendVerificationCode/ResendVerificationCodeUseCaseImpl";
+import { IResendVerificationCodeUseCase } from "@/Modules/Features/Auth/Application/UseCases/ResendVerificationCode/IResendVerificationCodeUseCase";
 
 const datasource = new AuthDatasource();
 const repository = new AuthRepositoryImpl(datasource);
@@ -19,3 +21,5 @@ export const registerUserUseCase = new RegisterUserUseCase(repository, new Regis
 export const verifyUserUseCase = new VerifyUserUseCaseImpl(repository, new VerificationDataValidator());
 
 export const loginUserUseCase = new LoginUserUseCase(repository, new LoginUserDataValidator(), new LocalStorageService());
+
+export const resendVerificationCodeUseCase: IResendVerificationCodeUseCase = new ResendVerificationCodeUseCase(repository);

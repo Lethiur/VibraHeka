@@ -41,4 +41,15 @@ export default class AuthDatasource extends BackendDatasource {
     async Login(dto: LoginRequestDTO): Promise<Result<LoginResultDTO, string>> {
         return await this.post<LoginResultDTO>('/auth/authenticate', dto);
     }
+
+    /**
+     * Resends the verification code to the specified email address.
+     *
+     * @param {string} email - The email address to resend the verification code to.
+     * @return {Promise<Result<void, string>>} A promise that resolves with a `Result` containing either a success or error message.
+     */
+    async ResendVerificationCode(email: string): Promise<Result<void, string>> {
+        const encodedEmail: string = encodeURIComponent(email);
+        return await this.get<void>(`/auth/resend-confirmation-code?email=${encodedEmail}`);
+    }
 }

@@ -12,6 +12,10 @@ import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import useLocalStorage from "@/core/Presentation/Hooks/UseLocalStorage";
+import LocalStorageService from "@/core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@/core/Infrastructure/Storage/StorageKeys";
 
 
 export default function Login() {
@@ -20,7 +24,8 @@ export default function Login() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState<ValidationErrors<LoginData>>({})
     const { t } = useTranslation();
-
+    const localStorage: LocalStorageService = useLocalStorage();
+    const navigate: NavigateFunction = useNavigate();
     const loginUserUseCase: LoginUserUseCase = useLoginUser();
     const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
 
@@ -39,6 +44,10 @@ export default function Login() {
             if (authResult.isOk()) {
                 setIsAuthenticated(true);
             } else {
+                if (authResult.error == AuthErrorCodes.USER_NOT_CONFIRMED) {
+                    localStorage.setString(STORAGE_KEYS.EMAIL, formData.get('email') as string);
+                    navigate('/verify');
+                }
                 setGlobalError(authResult.error);
             }
 

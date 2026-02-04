@@ -1,10 +1,10 @@
 import { Result } from 'neverthrow';
-import {RegistrationData} from "../Models/RegistrationData";
-import {RegistrationResult} from "../Models/RegistrationResult";
-import {AuthErrorCodes} from "../Errors/AuthErrorCodes";
-import {VerificationData} from "../Models/VerificationData";
-import {LoginData} from "../Models/LoginData";
-import {LoginResult} from "../Models/LoginResult";
+import { RegistrationData } from "../Models/RegistrationData";
+import { RegistrationResult } from "../Models/RegistrationResult";
+import { AuthErrorCodes } from "../Errors/AuthErrorCodes";
+import { VerificationData } from "../Models/VerificationData";
+import { LoginData } from "../Models/LoginData";
+import { LoginResult } from "../Models/LoginResult";
 
 /**
  * Interface representing an authentication repository that provides methods
@@ -34,5 +34,13 @@ export interface IAuthRepository {
      * @param {LoginData} data - The login data containing the user's credentials and any required information for authentication.
      * @return {Promise<Result<LoginResult, AuthErrorCodes>>} A promise that resolves with the authentication result, which is either a `LoginResult` object on success or an `AuthErrorCodes` error on failure.
      */
-    Login(data: LoginData) : Promise<Result<LoginResult, AuthErrorCodes>>;
+    Login(data: LoginData): Promise<Result<LoginResult, AuthErrorCodes>>;
+
+    /**
+     * Resends the verification code to the specified email address.
+     *
+     * @param {string} email - The email address to resend the verification code to.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with a `Result` containing either a success or error message.
+     */
+    ResendVerificationCode(email: string): Promise<Result<void, AuthErrorCodes>>;
 }

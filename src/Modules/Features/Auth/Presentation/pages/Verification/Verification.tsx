@@ -7,11 +7,13 @@ import { VerificationData } from "../../../Domain/Models/VerificationData";
 import { ValidationErrors } from "fluentvalidation-ts";
 import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
 import { Result } from "neverthrow";
-import useLocalStorage from "../../../../../../Core/Presentation/Hooks/UseLocalStorage";
-import LocalStorageService from "../../../../../../Core/Infrastructure/Storage/LocalStorageService";
-import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys";
-import PrimaryButton from "../../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
+import useResendVerificationCode from "../../Hooks/useResendVerificationCode";
+import { AuxButton } from "@/Core/Presentation/Components/atoms/AuxButton/AuxButton";
 
 
 export default function Verification() {
@@ -20,7 +22,7 @@ export default function Verification() {
     const [errors, setErrors] = useState<ValidationErrors<VerificationData>>({});
     const [globalError, setGlobalError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+    const { ResendVerificationCode, error, loading } = useResendVerificationCode();
     const verifyUserUseCase: VerifyUserUseCaseImpl = useVerifyUser();
     const localStorage: LocalStorageService = useLocalStorage();
     const navigate: NavigateFunction = useNavigate();
@@ -30,8 +32,12 @@ export default function Verification() {
         if (email == null || email === '') {
             navigate('/')
         }
-    })
+    }, []);
 
+    /**
+     * 
+     * @param event 
+     */
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -57,6 +63,10 @@ export default function Verification() {
         }
     }
 
+    async function handleResendVerificationCode() {
+        await ResendVerificationCode(localStorage.getString(STORAGE_KEYS.EMAIL) || "");
+    }
+
     return (
         <div>
             <h1>{t('pages.verification.title')}</h1>
@@ -79,11 +89,23 @@ export default function Verification() {
                             <div id="verificationCodeHelp"
                                 className="form-text">{t('pages.verification.form.code_help')}</div>
                         </div>
+                        <div className="mb-3">
+                            <PrimaryButton
+                                label={t('pages.verification.form.resend_button')}
+                                type="button"
+                                variant="secondary"
+                                onClick={handleResendVerificationCode}
+                                disabled={isSubmitting || loading}
+                                fullWidth={false}
+                            />
+                        </div>
+
+
                         <PrimaryButton
                             label={isSubmitting ? t('pages.verification.form.submitting_button') : t('pages.verification.form.submit_button')}
                             type="submit"
                             variant="primary"
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || loading}
                             fullWidth={true}
                         />
                     </form>
