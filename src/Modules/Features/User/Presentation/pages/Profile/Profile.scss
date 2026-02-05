@@ -1,0 +1,83 @@
+@use "../../../../../../assets/styles/base/variables" as vars;
+
+.profile-page {
+  padding: 2rem 0;
+  background-color: vars.$color-background;
+  min-height: 100vh;
+
+  .profile-card {
+    border: none;
+    // border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+
+    .card-header {
+      background-color: vars.$color-primary;
+      color: vars.$color-on-primary;
+      padding: 1.5rem;
+      border-bottom: none;
+      text-align: center;
+      position: relative;
+
+      h2 {
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .user-details {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: vars.$color-earth;
+        text-align: center;
+        display: flex;
+        justify-content: left;
+        flex-direction: column;
+
+        div {
+          padding: 2;
+        }
+
+      }
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .avatar-container {
+      display: flex;
+      justify-content: left;
+      margin-bottom: 1.5rem;
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border: 4px solid vars.$color-on-primary;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: vars.$color-soft-gray;
+      }
+    }
+
+    .profile-info {
+      .info-label {
+        color: vars.$color-earth;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .info-value {
+        color: vars.$color-dark;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    .edit-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+}

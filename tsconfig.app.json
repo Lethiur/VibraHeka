@@ -21,14 +21,26 @@
             "@auth/*": [
                 "src/Modules/Features/Auth/*"
             ],
+            "@therapist/*": [
+                "src/Modules/Features/Therapist/*"
+            ],
+            "@landing/*": [
+                "src/Modules/Features/Landing/*"
+            ],
             "@admin/addTherapist/*": [
                 "src/Modules/Admin/AddTherapist/*"
             ],
             "@core/*": [
                 "src/core/*"
             ],
+            "@admin/dashboard/*": [
+                "src/Modules/Admin/Dashboard/*"
+            ],
             "@admin/emailTemplates/*": [
                 "src/Modules/Admin/Emails/*"
+            ],
+            "@users/*": [
+                "src/Modules/Features/User/*"
             ]
         },
         "allowImportingTsExtensions": true,

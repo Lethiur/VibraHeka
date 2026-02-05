@@ -3,10 +3,10 @@
  * @enum
  */
 export enum NotificationVariant {
-    Success,
-    Error,
-    Warning,
-    Info,
+    Success = "success",
+    Error = "error",
+    Warning = "warning",
+    Info = "info",
 }
 
 
