@@ -1,12 +1,12 @@
 import LoginUserUseCase from "@auth/Application/UseCases/LoginUser/LoginUserUseCase";
 import MockAuthRepository from "../../../../Domain/Repositories/MockAuthRepository";
 import MockLoginUserDataValidator from "../../../Validators/MockLoginUserDataValidator";
-import MockLocalStorageService from "../../../../../../../core/Infrastructure/Storage/MockLocalStorageService";
+import MockLocalStorageService from "../../../../../../../core/infrastructure/Storage/MockLocalStorageService";
 import { LoginData } from "@auth/Domain/Models/LoginData";
 import { LoginResult } from "@auth/Domain/Models/LoginResult";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
-import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
 
 describe('LoginUserUseCase', () => {
     describe('execute', () => {

@@ -1,6 +1,6 @@
 
-import Bea from '../../../../../Assets/images/Terapeutas/Beatriz.png'
-import Terapeuta from "../../../../../Core/Presentation/Components/molecules/Terapeuta/Terapeuta";
+import Bea from "@assets/images/Terapeutas/Beatriz.png"
+import Terapeuta from "@core/Presentation/Components/molecules/Terapeuta/Terapeuta";
 
 export default function TerapeutasHome() {
     return (

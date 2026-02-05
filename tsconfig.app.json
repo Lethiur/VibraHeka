@@ -41,6 +41,9 @@
             ],
             "@users/*": [
                 "src/Modules/Features/User/*"
+            ],
+            "@assets/*": [
+                "src/assets/*"
             ]
         },
         "allowImportingTsExtensions": true,

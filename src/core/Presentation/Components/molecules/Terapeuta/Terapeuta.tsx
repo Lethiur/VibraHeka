@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import PrimaryButton from "../../atoms/PrimaryButton/PrimaryButton";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 
 interface TerapeutaProps {
     title: string;

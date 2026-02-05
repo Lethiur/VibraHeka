@@ -1,5 +1,5 @@
-import { NotificationVariant } from '@/core/Domain/Notifications/INotificationProvider';
-import ToastContext from '@/core/Presentation/Context/ToastContext';
+import { NotificationVariant } from '@core/Domain/Notifications/INotificationProvider';
+import ToastContext from '@core/Presentation/Context/ToastContext';
 import { useState, ReactNode, useCallback } from 'react';
 import { Toast, ToastContainer } from 'react-bootstrap';
 

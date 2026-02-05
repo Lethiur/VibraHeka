@@ -1,4 +1,4 @@
-import { INotificationProvider } from "@/core/Domain/Notifications/INotificationProvider";
+import { INotificationProvider } from "@core/Domain/Notifications/INotificationProvider";
 import { useContext } from "react";
 import ToastContext from "../Context/ToastContext";
 

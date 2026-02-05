@@ -1,9 +1,9 @@
 import { Result } from "neverthrow";
-import { RegisterResponseDto } from "../DTOs/RegistrationResponseDTO";
-import { RegistrationRequestDto } from "../DTOs/RegistrationRequestDTO";
-import { VerificationRequestDTO } from "../DTOs/VerificationRequestDTO";
-import { LoginResultDTO } from "../DTOs/LoginResultDTO";
-import { LoginRequestDTO } from "../DTOs/LoginRequestDTO";
+import { RegisterResponseDto } from "@auth/Data/DTOs/RegistrationResponseDTO";
+import { RegistrationRequestDto } from "@auth/Data/DTOs/RegistrationRequestDTO";
+import { VerificationRequestDTO } from "@auth/Data/DTOs/VerificationRequestDTO";
+import { LoginResultDTO } from "@auth/Data/DTOs/LoginResultDTO";
+import { LoginRequestDTO } from "@auth/Data/DTOs/LoginRequestDTO";
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 
 /**

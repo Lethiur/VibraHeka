@@ -1,4 +1,4 @@
-﻿import BackendDatasource from "@/Core/Data/Datasources/BackendDatasource";
+﻿import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
 import { TherapistAPIErrors } from "@admin/addTherapist/Data/Errors/TherapistAPIErrors";
 import { TherapistDTO } from "@admin/addTherapist/Data/Models/TherapistDTO";

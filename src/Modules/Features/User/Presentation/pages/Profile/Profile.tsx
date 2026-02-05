@@ -3,15 +3,15 @@ import { Container, Row, Col, Card, Button, Form, Image } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next';
 import { Pencil, Save, X } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import EditableField from '@/core/Presentation/Components/molecules/EditableField/EditableField';
+import EditableField from '@core/Presentation/Components/molecules/EditableField/EditableField';
 import './Profile.scss';
 import { IUserprofile } from '@users/Domain/Entities/IUserProfile';
 import UseGetProfile from '@users/Presentation/Hooks/UseGetProfile';
-import useLocalStorage from '@/core/Presentation/Hooks/UseLocalStorage';
-import { STORAGE_KEYS } from '@/core/Infrastructure/Storage/StorageKeys';
+import useLocalStorage from '@core/Presentation/Hooks/UseLocalStorage';
+import { STORAGE_KEYS } from '@/core/infrastructure/Storage/StorageKeys';
 import UseUpdateUserProfile from '@users/Presentation/Hooks/UseUpdateProfile';
-import { UseToast } from '@/core/Presentation/Hooks/UseToast';
-import { NotificationVariant } from '@/core/Domain/Notifications/INotificationProvider';
+import { UseToast } from '@core/Presentation/Hooks/UseToast';
+import { NotificationVariant } from '@core/Domain/Notifications/INotificationProvider';
 
 export default function Profile(): ReactElement {
     const { t } = useTranslation();
@@ -20,8 +20,8 @@ export default function Profile(): ReactElement {
     const localStorage = useLocalStorage();
     const { ShowNotification } = UseToast()
         ;
-    const { profile, loading, error, getProfile } = UseGetProfile();
-    const { UpdateProfile, loading: updateLoading, error: updateError } = UseUpdateUserProfile();
+    const { profile, loading, getProfile } = UseGetProfile();
+    const { UpdateProfile, loading: updateLoading } = UseUpdateUserProfile();
 
 
     const [isEditing, setIsEditing] = useState(false);

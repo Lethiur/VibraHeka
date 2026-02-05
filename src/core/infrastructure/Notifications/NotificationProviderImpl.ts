@@ -1,4 +1,4 @@
-import { INotificationProvider, NotificationVariant } from "@/core/Domain/Notifications/INotificationProvider";
+import { INotificationProvider, NotificationVariant } from "@core/Domain/Notifications/INotificationProvider";
 
 export type ToastVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
 

@@ -1,6 +1,7 @@
 
 
 import { Result } from "neverthrow";
+import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
 
 /**
  * Interface for email template content repository.

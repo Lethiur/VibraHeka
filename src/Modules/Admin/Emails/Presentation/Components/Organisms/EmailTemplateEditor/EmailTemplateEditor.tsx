@@ -3,7 +3,6 @@ import { EmailTemplate } from "@/Modules/Admin/Emails/Domain/Models/EmailTemplat
 import { UseGetEmailTemplateContent } from "@/Modules/Admin/Emails/Presentation/Hooks/UseGetEmailTemplateContent";
 import { useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import { JSONContent } from "@tiptap/react";
 
 /**
  * Props for the EmailTemplateEditor component.

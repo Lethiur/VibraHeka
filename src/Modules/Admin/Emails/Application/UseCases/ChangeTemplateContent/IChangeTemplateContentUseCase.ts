@@ -1,6 +1,5 @@
 import { Result } from "neverthrow";
 import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
-import { JSONContent } from "@tiptap/react";
 
 /**
  * Interface for the change template content use case.

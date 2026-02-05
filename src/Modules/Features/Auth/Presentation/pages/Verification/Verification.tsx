@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import VerifyUserUseCaseImpl from "../../../Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
-import useVerifyUser from "../../Hooks/useVerifyUser";
+import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
+import useVerifyUser from "@auth/Presentation/Hooks/useVerifyUser";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { VerificationData } from "../../../Domain/Models/VerificationData";
+import { VerificationData } from "@auth/Domain/Models/VerificationData";
 import { ValidationErrors } from "fluentvalidation-ts";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
+import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { Result } from "neverthrow";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
-import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
-import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import useResendVerificationCode from "../../Hooks/useResendVerificationCode";
-import { AuxButton } from "@/Core/Presentation/Components/atoms/AuxButton/AuxButton";
 
 
 export default function Verification() {
@@ -22,7 +21,7 @@ export default function Verification() {
     const [errors, setErrors] = useState<ValidationErrors<VerificationData>>({});
     const [globalError, setGlobalError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { ResendVerificationCode, error, loading } = useResendVerificationCode();
+    const { ResendVerificationCode, loading } = useResendVerificationCode();
     const verifyUserUseCase: VerifyUserUseCaseImpl = useVerifyUser();
     const localStorage: LocalStorageService = useLocalStorage();
     const navigate: NavigateFunction = useNavigate();

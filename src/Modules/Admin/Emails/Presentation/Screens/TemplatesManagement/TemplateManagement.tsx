@@ -4,7 +4,6 @@ import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import EmailTemplatesTable from "@admin/emailTemplates/Presentation/Components/Molecules/EmailTemplateTable";
 import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
 import EmailTemplateEditor from "@admin/emailTemplates/Presentation/Components/Organisms/EmailTemplateEditor/EmailTemplateEditor";
-import { JSONContent } from "@tiptap/react";
 import UseChangeTemplateContent from "@admin/emailTemplates/Presentation/Hooks/UseChangeTemplateContent";
 import UseAddAttachmentToTemplate from "@admin/emailTemplates/Presentation/Hooks/UseAddAttachmentToTemplate";
 import CreateTemplateForm from "@admin/emailTemplates/Presentation/Components/Organisms/CreateTemplateForm/CreateTemplateForm";

@@ -49,7 +49,6 @@ export default function CreateTemplateForm({ onTemplateSaved }: CreateTemplateFo
                 <Row md={12}>
                     <div className="p-4">
                         <PrimaryTextInput
-                            id="templateName"
                             label={t("pages.admin.emails.form.name_label")}
                             name="templateName"
                             disabled={loading}

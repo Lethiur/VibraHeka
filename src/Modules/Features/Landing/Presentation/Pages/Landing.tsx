@@ -7,10 +7,10 @@ import conciencia from "../../../../../Assets/images/conciencia.png"
 
 import "./Landing.scss";
 import { useState } from "react";
-import SideImageBlock from "../../../../../Core/Presentation/Components/organisms/SideImageBlock/SideImageBlock";
-import Logo from "../../../../../Core/Presentation/Components/atoms/Logo/Logo";
-import VideoPlayer from "../../../../../Core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
-import PrimaryButton from "../../../../../Core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import SideImageBlock from "@core/Presentation/Components/organisms/SideImageBlock/SideImageBlock";
+import Logo from "@core/Presentation/Components/atoms/Logo/Logo";
+import VideoPlayer from "@core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 
 export default function LandingPage() {
     const [name, setName] = useState("");

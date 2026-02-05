@@ -1,4 +1,4 @@
-import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
 
 export default class MockLocalStorageService extends LocalStorageService {
     public setString = jest.fn<void, [string, string]>();

@@ -9,7 +9,7 @@ import RegistrationDataValidator
     from "@auth/Application/Validators/RegistrationDataValidator";
 import RegisterUserUseCase
     from "@auth/Application/UseCases/RegisterUser/RegisterUserUseCase";
-import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
 import ResendVerificationCodeUseCase from "@auth/Application/UseCases/ResendVerificationCode/ResendVerificationCodeUseCaseImpl";
 import { IResendVerificationCodeUseCase } from "@/Modules/Features/Auth/Application/UseCases/ResendVerificationCode/IResendVerificationCodeUseCase";
 

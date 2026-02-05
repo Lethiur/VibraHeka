@@ -1,10 +1,11 @@
 import RegisterUserUseCase from "@auth/Application/UseCases/RegisterUser/RegisterUserUseCase";
-import MockAuthRepository from "../../../../../Domain/Repositories/MockAuthRepository";
+
 import MockRegistrationDataValidator from "../../../Validators/MockRegistrationDataValidator";
 import { RegistrationData } from "@auth/Domain/Models/RegistrationData";
 import { RegistrationResult } from "@auth/Domain/Models/RegistrationResult";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
+import MockAuthRepository from "tests/Modules/Features/Auth/Domain/Repositories/MockAuthRepository";
 
 describe('RegisterUserUseCase', () => {
     describe('execute', () => {

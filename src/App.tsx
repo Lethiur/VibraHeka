@@ -11,7 +11,7 @@ import LandingPage from "@landing/Presentation/Pages/Landing";
 import VeraLucya from "@therapist/Presentation/Pages/Individuales/VeraLucya";
 import TerapeutasHome from "@therapist/Presentation/Pages/TerapetuasHome";
 import BeatrizAlonso from "@therapist/Presentation/Pages/Individuales/BeatrizAlonso";
-import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
 import Dashboard from "@admin/dashboard/Presentation/Pages/Dashboard";
 import AdminLayout from "@core/Presentation/Layouts/AdminLayout";
 import TherapistIndex from "@admin/addTherapist/Presentation/Pages/TherapistIndex";
