@@ -56,7 +56,7 @@ export default function TherapistList({ users, onDelete, onEdit, isLoading }: Us
                             users.map((user) => (
                                 <tr key={user.Id}>
                                     <td>{user.Id.substring(0, 8)}...</td>
-                                    <td>{user.FirstName + " " + user.LastName}</td>
+                                    <td>{user.FirstName + " " + user.MiddleName + " " + user.LastName}</td>
                                     <td>{user.Email}</td>
                                     <td>{user.TimezoneID}</td>
 

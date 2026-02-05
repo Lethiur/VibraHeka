@@ -8,10 +8,10 @@ interface TerapeutaProps {
     image: string;
 }
 
-export default function Terapeuta({ title, route, children, image }: TerapeutaProps) {
+export default function TherapistCard({ title, route, children, image }: TerapeutaProps) {
     return (
         <div className='row gx-25 gy-3 d-flex justify-content-center p-5 align-items-center'>
-            <img src={image} className='col col-lg-3 col-md-5 col-sm-12 rounded-circle' />
+            <img src={image} className='col col-lg-3 col-md-5 col-sm-12' style={{ objectFit: 'cover', aspectRatio: '1/1', maxHeight: '350px', maxWidth: '350px' }} />
             <div className='col col-lg-8 col-md-6 col-sm-12'>
                 <div className='p-2'>
                     <h2>{title}</h2>

@@ -8,9 +8,7 @@ import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import { useAtomValue } from "jotai";
 import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import LandingPage from "@landing/Presentation/Pages/Landing";
-import VeraLucya from "@therapist/Presentation/Pages/Individuales/VeraLucya";
 import TerapeutasHome from "@therapist/Presentation/Pages/TerapetuasHome";
-import BeatrizAlonso from "@therapist/Presentation/Pages/Individuales/BeatrizAlonso";
 import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
 import Dashboard from "@admin/dashboard/Presentation/Pages/Dashboard";
 import AdminLayout from "@core/Presentation/Layouts/AdminLayout";
@@ -18,6 +16,7 @@ import TherapistIndex from "@admin/addTherapist/Presentation/Pages/TherapistInde
 import Emails from '@admin/emailTemplates/Presentation/Screens/EmailsForAction/Emails';
 import TemplateManagement from '@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement';
 import Profile from '@users/Presentation/pages/Profile/Profile';
+import TherapistPage from '@therapist/Presentation/Pages/TherapistPage/TherapistPage';
 
 function App() {
 
@@ -70,8 +69,7 @@ function App() {
 
                     <Route path="/profile/:id" element={<Profile />} />
                     <Route path="/terapeutas" element={<TerapeutasHome />} />
-                    <Route path="/terapeutas/beatriz-alonso" element={<BeatrizAlonso />} />
-                    <Route path="/terapeutas/vera-lucya" element={<VeraLucya />} />
+                    <Route path="/terapeutas/:id" element={<TherapistPage />} />
                 </Routes>
             </div>
 
