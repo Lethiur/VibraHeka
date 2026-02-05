@@ -2,7 +2,7 @@
 import { Result } from "neverthrow";
 import { TherapistAPIErrors } from "@admin/addTherapist/Data/Errors/TherapistAPIErrors";
 import { TherapistDTO } from "@admin/addTherapist/Data/Models/TherapistDTO";
-import { CreateTherapistDTO } from "@admin/addTherapist/Data/Models/CreateTherapistDTO";
+import { ICreateTherapistDTO } from "@/Modules/Admin/AddTherapist/Data/Models/ICreateTherapistDTO";
 
 
 /**
@@ -27,10 +27,10 @@ export default class TherapistDatasource extends BackendDatasource {
     /**
      * Creates a new therapist using the provided data.
      *
-     * @param {CreateTherapistDTO} data - The data required to create a therapist.
+     * @param {ICreateTherapistDTO} data - The data required to create a therapist.
      * @return {Promise<Result<string, TherapistAPIErrors>>} A promise that resolves to a result containing either the ID of the created therapist or an error of type TherapistAPIErrors.
      */
-    public async CreateTherapist(data: CreateTherapistDTO): Promise<Result<string, TherapistAPIErrors>> {
+    public async CreateTherapist(data: ICreateTherapistDTO): Promise<Result<string, TherapistAPIErrors>> {
         const result: Result<string, string> = await this.put<string>('/admin/addTherapist', data, true);
         return result.mapErr(e => e as TherapistAPIErrors);
     }

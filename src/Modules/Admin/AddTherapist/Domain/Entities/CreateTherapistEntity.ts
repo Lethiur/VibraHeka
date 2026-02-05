@@ -1,4 +1,8 @@
 ﻿export interface CreateTherapistEntity {
-    Name: string;
     Email: string;
+    FirstName: string;
+    MiddleName: string;
+    LastName: string;
+    PhoneNumber: string;
+    Bio: string;
 }

@@ -4,7 +4,11 @@
  * This interface is used to encapsulate the data related to a therapist in a structured format.
  */
 export interface TherapistDTO {
-    id : string
+    id: string
     email: string
-    fullName: string
+    firstName: string
+    lastName: string
+    middleName: string
+    bio: string
+    phoneNumber: string
 }
