@@ -5,4 +5,5 @@
     email: string;
     phoneNumber: string;
     bio: string;
+    timezoneID: string;
 }

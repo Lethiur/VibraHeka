@@ -11,4 +11,5 @@ export interface TherapistDTO {
     middleName: string
     bio: string
     phoneNumber: string
+    timezoneID: string
 }

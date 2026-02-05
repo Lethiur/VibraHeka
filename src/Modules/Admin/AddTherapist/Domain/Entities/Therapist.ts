@@ -10,6 +10,7 @@
     public PhoneNumber: string = "";
     public Bio: string = "";
     public AvatarUrl: string = "";
+    public TimezoneID: string = "";
 
     constructor(therapistOrId: Partial<Therapist>) {
         this.Id = therapistOrId.Id ?? "";
@@ -21,5 +22,6 @@
         this.PhoneNumber = therapistOrId.PhoneNumber ?? "";
         this.Bio = therapistOrId.Bio ?? "";
         this.AvatarUrl = therapistOrId.AvatarUrl ?? "";
+        this.TimezoneID = therapistOrId.TimezoneID ?? "";
     }
 } 

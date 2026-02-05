@@ -76,9 +76,9 @@ export default class EmailTemplateRepositoryImpl implements IEmailTemplateReposi
 
         return result.map((templates) => templates.map((template) => {
             return {
-                ID: template.id,
-                Name: template.name,
-                Created: template.created,
+                ID: template.templateID,
+                Name: template.templateName,
+                Created: template.createdAt,
                 LastModified: template.lastModified
             }
         })).mapErr((error) => error as EmailTemplateErrors);

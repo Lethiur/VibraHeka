@@ -1,9 +1,11 @@
-﻿import {useContext, useState} from "react";
-import {CreateTherapistUseCaseContext} from "@admin/addTherapist/Presentation/Context/CreateTherapistUseCaseContext";
-import {IAddTherapistUseCase} from "@admin/addTherapist/Application/UseCases/AddTherapist/IAddTherapistUseCase";
-import {CreateTherapistEntity} from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
-import {TherapistsErrors} from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
-import {Result} from "neverthrow";
+﻿import { useContext, useState } from "react";
+import { CreateTherapistUseCaseContext } from "@admin/addTherapist/Presentation/Context/CreateTherapistUseCaseContext";
+import { IAddTherapistUseCase } from "@admin/addTherapist/Application/UseCases/AddTherapist/IAddTherapistUseCase";
+import { CreateTherapistEntity } from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
+import { TherapistsErrors } from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
+import { Result } from "neverthrow";
+import { ValidationErrors } from "fluentvalidation-ts";
+import InvalidEntityError from "@/core/Application/Errors/InvalidEntityError";
 
 /**
  * Interface representing the return structure of the UseAddTherapist hook.
@@ -13,12 +15,14 @@ import {Result} from "neverthrow";
  * @property {boolean} loading Indicates whether the therapist creation process is currently in progress.
  * @property {string} therapistID The unique identifier for the newly created therapist.
  * @property {TherapistsErrors | null} error Represents potential errors encountered during the therapist creation process.
+ * @property {ValidationErrors<CreateTherapistEntity>} formErrors Object containing validation errors for the form fields.
  * @property {(data: CreateTherapistEntity) => Promise<void>} AddTherapist Function to initiate the therapist creation process.
  */
 interface UseAddTherapistReturn {
     loading: boolean;
     therapistID: string;
     error: TherapistsErrors | null;
+    formErrors: ValidationErrors<CreateTherapistEntity>;
     AddTherapist: (data: CreateTherapistEntity) => Promise<void>;
 }
 
@@ -29,20 +33,35 @@ interface UseAddTherapistReturn {
  * @return {UseAddTherapistReturn} An object containing the current loading state, the therapist ID, any error encountered,
  *                                 and a method to add a therapist.
  */
-export default function UseAddTherapistUseCase() : UseAddTherapistReturn {
+export default function UseAddTherapistUseCase(): UseAddTherapistReturn {
+
+    const context: IAddTherapistUseCase = useContext(CreateTherapistUseCaseContext);
 
     const [loading, setLoading] = useState<boolean>(false);
     const [therapistID, setTherapistID] = useState<string>("");
-    const context: IAddTherapistUseCase = useContext(CreateTherapistUseCaseContext);
     const [error, setError] = useState<TherapistsErrors | null>(null);
+    const [formErrors, setFormErrors] = useState<ValidationErrors<CreateTherapistEntity>>({});
 
     async function AddTherapist(data: CreateTherapistEntity): Promise<void> {
         setLoading(true);
-        const result: Result<string, TherapistsErrors> = await context.execute(data);
-        result.match(therapists => setTherapistID(therapists), (err) => setError(err));
+        try {
+            const result: Result<string, TherapistsErrors> = await context.execute(data);
+
+            result.match(therapists => {
+                setTherapistID(therapists);
+                setFormErrors({});
+            }, (err) => setError(err));
+        } catch (error: any) {
+            if (error instanceof InvalidEntityError) {
+                setFormErrors(error.fieldErrors);
+            } else {
+                setError(error.message);
+            }
+        }
+
         setLoading(false);
-    }
-    
-    return {loading, therapistID, error, AddTherapist};
+    };
+
+    return { loading, therapistID, formErrors, error, AddTherapist };
 
 }
