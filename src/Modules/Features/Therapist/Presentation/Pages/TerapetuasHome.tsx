@@ -1,5 +1,5 @@
 
-import TherapistCard from "@/Modules/Features/Therapist/Presentation/Components/Atoms/Terapeuta/Terapeuta";
+import TherapistCard from "@/Modules/Features/Therapist/Presentation/Components/Molecules/Terapeuta/TherapistCard";
 import { THERAPISTS_LIST } from "../../Data/TherapistsList";
 
 export default function TerapeutasHome() {

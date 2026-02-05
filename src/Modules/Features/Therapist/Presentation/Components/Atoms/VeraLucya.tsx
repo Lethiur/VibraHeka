@@ -24,7 +24,6 @@ export default function VeraLucya() {
                 <p>¿Eres brillante, efectiva y poderosa, pero sientes que la auto-exigencia y el control te han desconectado de tu intuición, tu placer y tu paz?Terapia de Energía Sanadora</p>
                 <p>¿Has vivido en modo "lucha” (exceso de energía masculina) y ahora sientes el agotamiento, la culpa y la desconexión con tu cuerpo?</p>
                 <p>A menudo, este exceso de energía masculina se refleja también en tu cuerpo con desequilibrios como el Síndrome de Ovarios Poliquísticos (SOP), resistencia a la insulina, o niveles altos de testosterona.</p>
-
             </Terapia>
         </div>
     );
