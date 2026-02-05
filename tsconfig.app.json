@@ -29,6 +29,9 @@
             ],
             "@admin/emailTemplates/*": [
                 "src/Modules/Admin/Emails/*"
+            ],
+            "@users/*": [
+                "src/Modules/Features/User/*"
             ]
         },
         "allowImportingTsExtensions": true,

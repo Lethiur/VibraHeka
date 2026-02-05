@@ -17,6 +17,7 @@ import AdminLayout from "./Core/Presentation/Layouts/AdminLayout";
 import TherapistIndex from "./Modules/Admin/AddTherapist/Presentation/Pages/TherapistIndex";
 import Emails from './Modules/Admin/Emails/Presentation/Screens/EmailsForAction/Emails';
 import TemplateManagement from './Modules/Admin/Emails/Presentation/Screens/TemplatesManagement/TemplateManagement';
+import Profile from './Modules/Features/User/Presentation/pages/Profile/Profile';
 
 function App() {
 
@@ -67,7 +68,7 @@ function App() {
                         )
                     }
 
-
+                    <Route path="/profile/:id" element={<Profile />} />
                     <Route path="/terapeutas" element={<TerapeutasHome />} />
                     <Route path="/terapeutas/beatriz-alonso" element={<BeatrizAlonso />} />
                     <Route path="/terapeutas/vera-lucya" element={<VeraLucya />} />
