@@ -12,7 +12,11 @@ export default defineConfig({
             }
         }
     },
+    build: {
+        sourcemap: true
+    },
     server: {
+
         proxy: {
             '/api': {
                 target: 'https://localhost:5001',

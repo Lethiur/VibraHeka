@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import { Col, Row, Image } from "react-bootstrap";
+
+import "./TherapistCard.scss"
 
 interface TerapeutaProps {
     title: string;
@@ -10,15 +13,32 @@ interface TerapeutaProps {
 
 export default function TherapistCard({ title, route, children, image }: TerapeutaProps) {
     return (
-        <div className='row gx-25 gy-3 d-flex justify-content-center p-5 align-items-center'>
-            <img src={image} className='col col-lg-3 col-md-5 col-sm-12' style={{ objectFit: 'cover', aspectRatio: '1/1', maxHeight: '350px', maxWidth: '350px' }} />
-            <div className='col col-lg-8 col-md-6 col-sm-12'>
-                <div className='p-2'>
-                    <h2>{title}</h2>
-                    {children}
-                    <PrimaryButton label="Descubre mi espacio" to={route} variant="primary" disabled={false} fullWidth={true} ></PrimaryButton>
-                </div>
-            </div>
-        </div>
+
+        <Row>
+            <Col lg={3} md={12} sm={12} className="text-center">
+                <Image src={image}
+                    fluid
+                    rounded
+                    style={{ aspectRatio: '1 / 1', objectFit: 'cover' }}
+                />
+            </Col>
+
+            <Col
+                lg={9}
+                md={12}
+                sm={12}
+                className="d-flex flex-column justify-content-center mt-md-0 mt-3"
+            >
+                <h2>{title}</h2>
+                {children}
+                <PrimaryButton
+                    label="Descubre mi espacio"
+                    to={route}
+                    variant="primary"
+                    fullWidth
+                />
+            </Col>
+        </Row>
+
     )
 }
