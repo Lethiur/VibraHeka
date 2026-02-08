@@ -2,8 +2,22 @@ import SideImageBlock from "@core/Presentation/Components/organisms/SideImageBlo
 import Terapia from "@core/Presentation/Components/molecules/Terapia/Terapia";
 import VideoPlayer from "@core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
 import { Container } from "react-bootstrap";
+import { useState } from "react";
+import { BookingModal } from "@core/Presentation/Components/organisms/BookingModal/BookingModal";
 
 export default function BeatrizAlonso() {
+    const [showBookingModal, setShowBookingModal] = useState(false);
+    const [selectedTherapy, setSelectedTherapy] = useState<{ therapyId: string, therapistId: string } | null>(null);
+
+    const handleOpenBooking = (therapyId: string, therapistId: string) => {
+        setSelectedTherapy({ therapyId, therapistId });
+        setShowBookingModal(true);
+    };
+
+    const handleCloseBooking = () => {
+        setShowBookingModal(false);
+        setSelectedTherapy(null);
+    };
     return (
         <Container>
             <h1>Beatriz Alonso</h1>
@@ -24,7 +38,7 @@ export default function BeatrizAlonso() {
             <p className="subtitle">Ofrezco acompañamiento (sesiones individuales) y formación en:</p>
             <div className="row d-flex justify-content-center align-items-center">
 
-                <Terapia title="Comunicación Animal Telepática" therapyId="comunicacion-animal" therapistId="02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e" buttonOnClick={() => { }}>
+                <Terapia title="Comunicación Animal Telepática" therapyId="comunicacion-animal" therapistId="02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e" buttonOnClick={() => handleOpenBooking("comunicacion-animal", "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e")}>
                     <Terapia.Text>
                         <ul>
                             <li>Escuchar, comprender y responder a lo que tu animal siente, piensa y necesita. Actuar de
@@ -54,8 +68,7 @@ export default function BeatrizAlonso() {
                 </Terapia>
 
 
-                <Terapia title="Cirugía / Limpieza energética para animales." therapyId="cirugia-energetica" therapistId="02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e" buttonOnClick={() => {
-                }}>
+                <Terapia title="Cirugía / Limpieza energética para animales." therapyId="cirugia-energetica" therapistId="02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e" buttonOnClick={() => handleOpenBooking("cirugia-energetica", "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e")}>
                     <Terapia.Text>
                         <ul>
                             <li>Libera memorias energéticas, traumas y cargas que afectan el comportamiento o la
@@ -79,6 +92,15 @@ export default function BeatrizAlonso() {
 
 
             </div>
+
+            {selectedTherapy && (
+                <BookingModal
+                    show={showBookingModal}
+                    onHide={handleCloseBooking}
+                    therapyId={selectedTherapy.therapyId}
+                    therapistId={selectedTherapy.therapistId}
+                />
+            )}
         </Container >
     );
 }
