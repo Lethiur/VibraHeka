@@ -31,7 +31,7 @@
                 "src/Modules/Admin/AddTherapist/*"
             ],
             "@core/*": [
-                "src/Core/*"
+                "src/core/*"
             ],
             "@admin/dashboard/*": [
                 "src/Modules/Admin/Dashboard/*"
