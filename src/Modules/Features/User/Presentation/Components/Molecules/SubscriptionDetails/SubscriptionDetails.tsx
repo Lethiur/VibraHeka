@@ -32,10 +32,10 @@ export default function SubscriptionDetails({ subscription, timeZone, handleSubs
 
     const formatEndDate = () => {
         const formato = new Intl.DateTimeFormat('es-ES', {
-            day: '2-digit', // "18 de febrero de 2026"
-            month: 'long', // "18 de febrero de 2026"
-            year: 'numeric', // "18 de febrero de 2026"
-            timeZone: timeZone // Detecta la zona local
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            timeZone: timeZone
         });
         return formato.format(new Date(subscription?.EndDate ?? ""));
     }

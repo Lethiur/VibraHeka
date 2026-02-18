@@ -32,7 +32,7 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
             );
 
             if (attempts >= 50) stopPolling(); // 3 segundos
-        }, 500);
+        }, 2000);
 
         const stopPolling = () => {
             clearInterval(interval);
