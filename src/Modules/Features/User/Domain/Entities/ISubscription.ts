@@ -1,5 +1,5 @@
-import { OrderStatus } from "@users/Domain/Entities/OrderStatus";
-import { SubscriptionStatus } from "@users/Domain/Entities/SubscriptionStatus";
+import { OrderStatus } from "@/Modules/Features/User/Domain/Enums/OrderStatus";
+import { SubscriptionStatus } from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
 
 export default interface ISubscription {
     StartDate: Date;

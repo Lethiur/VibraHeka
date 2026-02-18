@@ -27,7 +27,8 @@ export default class UserProfileRepositoryImpl implements IProfileRepository {
             email: user.Email,
             phoneNumber: user.Phone,
             bio: user.Bio,
-            avatarUrl: user.AvatarUrl
+            avatarUrl: user.AvatarUrl,
+            timeZoneID: user.TimeZone
         };
 
         const result = await this.getProfileDatasource.UpdateUserProfile(userDTO);
@@ -49,8 +50,13 @@ export default class UserProfileRepositoryImpl implements IProfileRepository {
             Email: user.email,
             Phone: user.phoneNumber,
             Bio: user.bio,
-            AvatarUrl: user.avatarUrl
+            AvatarUrl: user.avatarUrl,
+            TimeZone: user.timeZoneID
         })).mapErr(e => e as ProfileErrors);
     }
+
+
+
+
 
 }

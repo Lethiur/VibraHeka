@@ -1,32 +1,27 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SubscribeContext } from "@users/Presentation/Context/SubscribeContext";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
+import { useMutation } from "@tanstack/react-query";
 
 export default function UseSubscribe() {
 
     const useCase = useContext(SubscribeContext);
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<SubscriptionErrors | null>(null);
-    const [checkoutURL, setCheckoutURL] = useState<string | null>(null);
-
-    const subscribe = async () => {
-        setLoading(true);
-        const result = await useCase.Execute();
-        result.match(
-            (url) => {
-                setCheckoutURL(url);
-                setError(null);
-            },
-            (error) => setError(error)
-        );
-        setLoading(false);
-    };
+    const mutation = useMutation<string, SubscriptionErrors, void>({
+        mutationFn: async () => {
+            const result = await useCase.Execute();
+            return result.match(
+                (url) => url,
+                (error) => { return Promise.reject(error); }
+            );
+        }
+    });
 
     return {
-        checkoutURL,
-        loading,
-        error,
-        subscribe
+        // Mapeamos las propiedades de React Query a tu nomenclatura anterior
+        checkoutURL: mutation.data ?? null,
+        loading: mutation.isPending, // En v5 se usa isPending en lugar de isLoading
+        error: mutation.error,
+        subscribe: mutation.mutate // O mutation.mutateAsync si necesitas esperar el resultado
     };
 }

@@ -52,4 +52,9 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
         return result.mapErr(error => error as SubscriptionErrors);
     }
 
+    public async GetSubscriptionPortal(): Promise<Result<string, SubscriptionErrors>> {
+        const result: Result<string, string> = await this.subscriptionDatasource.GetSubscriptionPortal();
+        return result.mapErr(error => error as SubscriptionErrors);
+    }
+
 }

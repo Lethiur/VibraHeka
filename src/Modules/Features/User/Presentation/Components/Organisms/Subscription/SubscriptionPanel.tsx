@@ -1,21 +1,34 @@
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import UseCancelSubscription from "@users/Presentation/Hooks/UseCancelSubscription";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
-import { useEffect } from "react";
-import { SubscriptionErrors } from "@/Modules/Features/User/Domain/Errors/SubscriptionErrors";
+import { useEffect, useState } from "react";
+import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
+import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
+import UseGetSubscriptionPanel from "@users/Presentation/Hooks/UseGetSubscriptionPanel";
+import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import UseRefreshSubscription from "@users/Presentation/Hooks/UseRefreshSubscription";
+import { OrderStatus } from "@users/Domain/Enums/OrderStatus";
+import SubscriptionDetails from "../Molecules/SubscriptionDetails/SubscriptionDetails";
 
-export default function SubscriptionPanel() {
+interface SubscriptionPanelProps {
+    timeZone: string;
+}
+
+export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) {
+
+    const [waitingForStripe, setWaitingForStripe] = useState(false);
 
     const { checkoutURL, loading, error, subscribe } = UseSubscribe();
     const { subscription, loading: subscriptionLoading, error: subscriptionError, getSubscription } = UseGetSubscription();
     const { cancelSubscription, loading: cancelSubscriptionLoading, error: cancelSubscriptionError } = UseCancelSubscription();
+    const { getSubscriptionPanel, loading: getSubscriptionPanelLoading, error: getSubscriptionPanelError, subscriptionPanel } = UseGetSubscriptionPanel();
+    const { isProcessing: isPaymentPending } = UseRefreshSubscription(waitingForStripe);
 
 
     useEffect(() => {
-        if (!subscription) {
+        if (!subscription)
             getSubscription();
-        }
     }, []);
 
     useEffect(() => {
@@ -24,77 +37,62 @@ export default function SubscriptionPanel() {
         }
     }, [checkoutURL]);
 
+    useEffect(() => {
+        if (subscriptionPanel) {
+            window.open(subscriptionPanel, "_blank", "noopener,noreferrer");
+        }
+    }, [subscriptionPanel]);
+
     const handleSubscribe = () => {
         subscribe();
+        setWaitingForStripe(true);
     };
 
     const handleCancelSubscription = () => {
         cancelSubscription();
+        getSubscription();
     };
 
-    console.log(subscription)
+    const handleGetSubscriptionPanel = () => {
+        getSubscriptionPanel();
+    };
 
-    const renderSubDetails = () => {
-        if (subscriptionError === SubscriptionErrors.SUBSCRIPTION_NOT_FOUND) {
-            return <Row className='justify-content-center align-items-center d-flex'>
-                <Col md={6} sm={12} lg={6} className='mt-sm-2'>
-                    <span>Estado: No tienes una suscripción activa</span>
-                </Col>
-                <Col md={6} sm={12} lg={6}>
-                    <Row className='justify-content-center align-items-center d-flex'>
-                        <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
-                            <Button variant="primary" onClick={handleSubscribe}>Suscribirse</Button>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        } else {
-            return <Row className='justify-content-center align-items-center d-flex'>
-                <Col md={4} sm={12} lg={4} className='mt-sm-2'>
-                    <span>Estado: Activa</span>
-                </Col>
-                <Col md={4} sm={12} lg={4} className='mt-sm-2'>
-                    <span>Fecha de renovacion: 2026-02-13</span>
-                </Col>
-                <Col md={4} sm={12} lg={4}>
-                    <Row className='justify-content-center align-items-center d-flex'>
-                        <Col md={4} sm={12} lg={4} className='mt-2 mt-sm-2'>
-                            <Button variant="danger" onClick={handleCancelSubscription}>Cancelar Suscripción</Button>
-                        </Col>
-                        <Col md={4} sm={12} lg={4} className='mt-2 mt-sm-2'>
-                            <Button variant="primary">Ver Facturas</Button>
-                        </Col>
-                        <Col md={4} sm={12} lg={4} className='mt-2 mt-sm-2'>
-                            <Button variant="primary">Gestionar Suscripción</Button>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        }
+
+    if (subscription?.Status === OrderStatus.PENDING && !waitingForStripe) {
+        setWaitingForStripe(true);
     }
 
-    if (loading || subscriptionLoading || cancelSubscriptionLoading) {
-        return (
-            <Row className='justify-content-center mt-5 align-items-center d-flex'>
-                <Col md={12} lg={12}>
-                    <Container>
-                        <Card className='profile-card'>
-                            <Card.Header>
-                                <h2>Mi Suscripción</h2>
-                            </Card.Header>
-                            <Card.Body>
-                                <Row className='justify-content-center align-items-center d-flex'>
-                                    <Col md={4} sm={12} lg={4} className='mt-sm-2'>
-                                        <span>Cargando...</span>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Container>
-                </Col>
-            </Row>
-        );
+    const isLoading = () => {
+        return subscriptionLoading || cancelSubscriptionLoading || getSubscriptionPanelLoading || loading || isPaymentPending;
     }
+
+
+    const renderCardBody = () => {
+        return <Row className='justify-content-center align-items-center d-flex'>
+            {subscriptionError !== SubscriptionErrors.SUBSCRIPTION_NOT_FOUND && <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
+                <ErrorBox message={subscriptionError || cancelSubscriptionError || getSubscriptionPanelError || error} variant="danger" />
+            </Col>}
+            <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
+
+                {isLoading() &&
+                    <div className="d-flex justify-content-center py-4">
+                        <Spinner animation="border" />
+                    </div>
+                }
+
+                {isPaymentPending &&
+                    <div className="d-flex justify-content-center py-4">
+                        Estamos procesando tu pago...
+                    </div>
+                }
+
+                {!isLoading() && <>
+                    <SubscriptionDetails subscription={subscription} timeZone={timeZone} handleSubscribe={handleSubscribe} handleCancelSubscription={handleCancelSubscription} handleGetSubscriptionPanel={handleGetSubscriptionPanel} />
+                </>}
+            </Col>
+        </Row>
+    }
+
 
     return (
         <Row className='justify-content-center mt-5 align-items-center d-flex'>
@@ -105,7 +103,8 @@ export default function SubscriptionPanel() {
                             <h2>Mi Suscripción</h2>
                         </Card.Header>
                         <Card.Body>
-                            {renderSubDetails()}
+
+                            {renderCardBody()}
                         </Card.Body>
                     </Card>
 

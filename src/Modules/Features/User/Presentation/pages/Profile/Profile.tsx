@@ -6,12 +6,14 @@ import { STORAGE_KEYS } from '@core/infrastructure/Storage/StorageKeys';
 import EditableProfile from '@users/Presentation/Components/Organisms/Profile/EditableProfile';
 import SubscriptionPanel from '../../Components/Organisms/Subscription/SubscriptionPanel';
 import { Col, Row } from 'react-bootstrap';
+import { useQuery } from '@tanstack/react-query';
+import UseGetProfile from '../../Hooks/UseGetProfile';
 
 export default function Profile(): ReactElement {
     const { id } = useParams<{ id: string }>(); // Use react-router-dom useParams
     const navigate = useNavigate();
     const localStorage = useLocalStorage();
-
+    const { profile, loading, getProfile } = UseGetProfile();
 
 
     // Mock logic to determine if it's the own profile
@@ -32,6 +34,13 @@ export default function Profile(): ReactElement {
         navigate('/login');
     }
 
+    useQuery({
+        queryKey: ["profile"],
+        queryFn: () => getProfile(userID),
+        enabled: !!getProfile
+    });
+
+
     const isOwnProfile = id === 'me';
 
     return (
@@ -41,7 +50,7 @@ export default function Profile(): ReactElement {
                     <EditableProfile UserID={isOwnProfile ? userID! : id!} IsOwnProfile={isOwnProfile} />
                 </Col>
             </Row>
-            {isOwnProfile && <SubscriptionPanel />}
+            {isOwnProfile && <SubscriptionPanel timeZone={profile!.TimeZone} />}
         </div>
     );
 };

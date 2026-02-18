@@ -36,4 +36,8 @@ export default class SubscriptionDatasource extends BackendDatasource {
         return this.put('/subscriptions', {}, true);
     }
 
+    public async GetSubscriptionPortal(): Promise<Result<string, string>> {
+        return this.get('/subscriptions/details', true);
+    }
+
 }

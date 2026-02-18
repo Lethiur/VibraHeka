@@ -1,33 +1,29 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GetSubscriptionContext } from "@users/Presentation/Context/GetSubscriptionContext";
 import ISubscription from "@users/Domain/Entities/ISubscription";
-import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
+import { useQuery } from "@tanstack/react-query";
 
 export default function UseGetSubscription() {
-
     const useCase = useContext(GetSubscriptionContext);
 
-    const [subscription, setSubscription] = useState<ISubscription | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<SubscriptionErrors | null>(null);
-
-    const getSubscription = async () => {
-        setLoading(true);
-        const result = await useCase.Execute();
-        result.match(
-            (subscription) => {
-                setSubscription(subscription);
-                setError(null);
-            },
-            (error) => setError(error)
-        );
-        setLoading(false);
-    };
+    // Usamos useQuery para gestionar el estado global de la suscripción
+    const { data, isLoading, error, refetch } = useQuery<ISubscription, string>({
+        queryKey: ["subscription"], // Esta clave es el "ID" en la caché
+        queryFn: async () => {
+            const result = await useCase.Execute();
+            return result.match(
+                (subscription) => subscription,
+                (err) => { throw err; } // Lanzamos para que React Query active 'isError'
+            );
+        },
+        retry: false,
+        refetchInterval: 1000 * 60 * 5, // Considerar los datos "frescos" por 5 min
+    });
 
     return {
-        subscription,
-        loading,
-        error,
-        getSubscription
+        subscription: data ?? null,
+        loading: isLoading,
+        error: error ?? null,
+        getSubscription: refetch // Reemplazamos tu función manual por el refetch de la librería
     };
 }

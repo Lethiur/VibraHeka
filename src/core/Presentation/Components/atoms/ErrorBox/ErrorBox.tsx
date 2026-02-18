@@ -14,7 +14,6 @@ interface FormAlertProps {
  * @return {JSX.Element|null} The JSX markup for the error box, or null if no message is provided.
  */
 export default function ErrorBox({ message, variant }: FormAlertProps = { variant: "danger", message: null }) {
-
     if (!message) return null;
 
     return (

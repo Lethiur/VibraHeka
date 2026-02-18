@@ -8,6 +8,7 @@ import { NotificationVariant } from "@core/Domain/Notifications/INotificationPro
 import { Button, Card, Col, Container, Form, Row, Image } from "react-bootstrap";
 import { Pencil, Save, X } from "lucide-react";
 import EditableField from "@core/Presentation/Components/molecules/EditableField/EditableField";
+import { useQuery } from "@tanstack/react-query";
 
 interface ProfileProps {
     UserID: string;
@@ -30,9 +31,11 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
     const [formData, setFormData] = useState<IUserprofile>();
 
 
-    useEffect(() => {
-        getProfile(UserID);
-    }, []);
+    useQuery({
+        queryKey: ["profile"],
+        queryFn: () => getProfile(UserID),
+    });
+
 
     useEffect(() => {
         if (profile) {
