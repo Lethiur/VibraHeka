@@ -41,13 +41,13 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
 
     useEffect(() => {
         if (checkoutURL) {
-            window.open(checkoutURL, "_blank", "noopener,noreferrer");
+            window.open(checkoutURL, "_self");
         }
     }, [checkoutURL]);
 
     useEffect(() => {
         if (subscriptionPanel) {
-            window.open(subscriptionPanel, "_blank", "noopener,noreferrer");
+            window.open(subscriptionPanel, "_self");
         }
     }, [subscriptionPanel]);
 
