@@ -1,0 +1,107 @@
+// ─────────────────────────────────────────────
+// Verification Page
+// ─────────────────────────────────────────────
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.verification-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: vars.$space-8 vars.$space-4;
+    background-color: vars.$color-background;
+}
+
+.verification-card {
+    width: 100%;
+    max-width: 420px;
+    padding: vars.$space-10;
+    background-color: vars.$color-surface;
+    border-radius: vars.$radius-xl;
+    box-shadow: vars.$shadow-lg;
+    border: 1px solid vars.$color-gray-200;
+    text-align: center;
+
+    &__icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto vars.$space-6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: vars.$color-primary-alpha;
+        border-radius: vars.$radius-full;
+        color: vars.$color-primary;
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    &__title {
+        font-family: fonts.$font-display;
+        font-size: fonts.$font-size-2xl;
+        font-weight: fonts.$font-weight-light;
+        color: vars.$color-dark;
+        margin-bottom: vars.$space-3;
+    }
+
+    &__subtitle {
+        font-size: fonts.$font-size-sm;
+        color: vars.$color-dark-muted;
+        line-height: fonts.$line-height-normal;
+        margin-bottom: vars.$space-8;
+
+        span {
+            color: vars.$color-primary;
+            font-weight: fonts.$font-weight-medium;
+        }
+    }
+
+    &__code-inputs {
+        display: flex;
+        justify-content: center;
+        gap: vars.$space-3;
+        margin-bottom: vars.$space-8;
+
+        input {
+            width: 48px;
+            height: 56px;
+            text-align: center;
+            font-family: fonts.$font-primary;
+            font-size: fonts.$font-size-xl;
+            font-weight: fonts.$font-weight-semibold;
+            color: vars.$color-dark;
+            background-color: vars.$color-gray-100;
+            border: 2px solid vars.$color-gray-200;
+            border-radius: vars.$radius-md;
+            transition: border-color vars.$transition-fast, box-shadow vars.$transition-fast;
+
+            &:focus {
+                outline: none;
+                background-color: vars.$color-surface;
+                border-color: vars.$color-primary;
+                box-shadow: 0 0 0 3px vars.$color-primary-alpha;
+            }
+        }
+    }
+
+    &__resend {
+        margin-top: vars.$space-6;
+        font-size: fonts.$font-size-sm;
+        color: vars.$color-dark-muted;
+
+        button {
+            background: none;
+            border: none;
+            color: vars.$color-primary;
+            font-weight: fonts.$font-weight-medium;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            padding: 0;
+        }
+    }
+}

@@ -1,28 +1,162 @@
-@use "../../../../../assets/styles/base/variables" as vars;
-@use "../../../../../assets/styles/base/fonts" as fonts;
+// ─────────────────────────────────────────────
+// Navbar — Organism
+// ─────────────────────────────────────────────
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
 
 .navbar {
-    background-color: vars.$color-primary;
-}
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    height: vars.$navbar-height;
 
-.nav-link {
-    color: vars.$color-on-primary !important;
-    font-family: fonts.$font-family-heading;
-    font-weight: fonts.$font-weight-light;
-    font-size: fonts.$font-size-heading;
-    letter-spacing: 1px;
-    margin-right: 0.2em;
+    display: flex;
+    align-items: center;
+    padding: 0 vars.$space-8;
 
+    background-color: rgba(vars.$color-surface, 0.92);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border-bottom: 1px solid vars.$color-gray-200;
+    box-shadow: vars.$shadow-sm;
+
+    transition: background-color vars.$transition-base;
 }
 
 .navbar-brand {
-    font-family: fonts.$font-family-heading;
-    font-weight: fonts.$font-weight-bold ;
-    font-size: fonts.$font-size-heading;
-    letter-spacing: 2px;
-    color: vars.$color-on-primary !important;
+    display: flex;
+    align-items: center;
+    gap: vars.$space-3;
+    text-decoration: none;
+
+    font-family: fonts.$font-display;
+    font-size: fonts.$font-size-xl;
+    font-weight: fonts.$font-weight-semibold;
+    letter-spacing: vars.$tracking-wide;
+    color: vars.$color-dark !important;
+
+    img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        color: vars.$color-primary !important;
+        text-decoration: none;
+    }
 }
 
-.side-block {
-    margin-bottom: 100px;
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: vars.$space-1;
+    margin-left: auto;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: vars.$space-2 vars.$space-3;
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-sm;
+    font-weight: fonts.$font-weight-medium;
+    letter-spacing: vars.$tracking-normal;
+    color: vars.$color-dark !important;
+    text-decoration: none;
+    border-radius: vars.$radius-md;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background-color vars.$transition-fast, color vars.$transition-fast;
+
+    &:hover {
+        background-color: vars.$color-gray-100;
+        color: vars.$color-primary !important;
+    }
+
+    &--active,
+    &.active {
+        color: vars.$color-primary !important;
+        background-color: vars.$color-primary-alpha;
+    }
+}
+
+// Toggler (mobile)
+.navbar-toggler {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: vars.$space-2;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+
+    span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background-color: vars.$color-dark;
+        border-radius: vars.$radius-full;
+        transition: transform vars.$transition-base, opacity vars.$transition-base;
+    }
+}
+
+.navbar-collapse {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    @media (max-width: 991px) {
+        &.collapse:not(.show) {
+            display: none;
+        }
+
+        &.show {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: fixed;
+            top: vars.$navbar-height;
+            left: 0;
+            right: 0;
+            padding: vars.$space-4 vars.$space-6 vars.$space-6;
+            background-color: vars.$color-surface;
+            border-bottom: 1px solid vars.$color-gray-200;
+            box-shadow: vars.$shadow-md;
+
+            .navbar-nav {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                gap: vars.$space-1;
+                margin-left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .nav-link {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-toggler {
+        display: flex;
+    }
 }

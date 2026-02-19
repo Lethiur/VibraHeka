@@ -1,83 +1,127 @@
-@use "../../../../../../assets/styles/base/variables" as vars;
+// ─────────────────────────────────────────────
+// Profile Page
+// ─────────────────────────────────────────────
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
 
 .profile-page {
-  padding: 2rem 0;
-  background-color: vars.$color-background;
+  padding: vars.$space-8 0 vars.$space-16;
   min-height: 100vh;
+  background-color: vars.$color-background;
+}
 
-  .profile-card {
-    border: none;
-    // border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+// ── Profile card (main container)
+.profile-card {
+  background-color: vars.$color-surface;
+  border: 1px solid vars.$color-gray-200;
+  border-radius: vars.$radius-xl;
+  overflow: hidden;
+  box-shadow: vars.$shadow-md;
 
-    .card-header {
-      background-color: vars.$color-primary;
+  // ── Card header (user banner)
+  .card-header {
+    background: linear-gradient(135deg, vars.$color-primary 0%, vars.$color-primary-dark 100%);
+    color: vars.$color-on-primary;
+    padding: vars.$space-8 vars.$space-8 vars.$space-12;
+    border-bottom: none;
+    position: relative;
+
+    h2 {
+      font-family: fonts.$font-display;
+      font-size: fonts.$font-size-2xl;
+      font-weight: fonts.$font-weight-regular;
+      margin: 0;
       color: vars.$color-on-primary;
-      padding: 1.5rem;
-      border-bottom: none;
-      text-align: center;
-      position: relative;
-
-      h2 {
-        margin: 0;
-        font-weight: 600;
-      }
-
-      .user-details {
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        color: vars.$color-earth;
-        text-align: center;
-        display: flex;
-        justify-content: left;
-        flex-direction: column;
-
-        div {
-          padding: 2;
-        }
-
-      }
     }
 
-    .card-body {
-      padding: 2rem;
-    }
-
-    .avatar-container {
+    .user-details {
+      margin-top: vars.$space-3;
       display: flex;
-      justify-content: left;
-      margin-bottom: 1.5rem;
+      flex-direction: column;
+      gap: vars.$space-1;
+      font-family: fonts.$font-primary;
+      font-size: fonts.$font-size-sm;
+      color: rgba(255, 255, 255, 0.8);
 
-      .profile-avatar {
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-        border: 4px solid vars.$color-on-primary;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: vars.$color-soft-gray;
+      div {
+        padding: 0;
       }
-    }
-
-    .profile-info {
-      .info-label {
-        color: vars.$color-earth;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-      }
-
-      .info-value {
-        color: vars.$color-dark;
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-      }
-    }
-
-    .edit-controls {
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-      margin-top: 1rem;
     }
   }
+
+  .card-body {
+    padding: vars.$space-6 vars.$space-8;
+
+    @media (max-width: 576px) {
+      padding: vars.$space-5 vars.$space-5;
+    }
+  }
+}
+
+// ── Avatar
+.avatar-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: calc(-1 * vars.$space-10);
+  margin-bottom: vars.$space-6;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: vars.$radius-full;
+  border: 4px solid vars.$color-surface;
+  box-shadow: vars.$shadow-md;
+  background-color: vars.$color-gray-200;
+  display: block;
+}
+
+// ── Info section
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$space-5;
+
+  .info-row {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$space-1;
+    padding-bottom: vars.$space-5;
+    border-bottom: 1px solid vars.$color-gray-200;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .info-label {
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-xs;
+    font-weight: fonts.$font-weight-semibold;
+    letter-spacing: vars.$tracking-wider;
+    text-transform: uppercase;
+    color: vars.$color-earth;
+    margin: 0;
+  }
+
+  .info-value {
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-md;
+    color: vars.$color-dark;
+    margin: 0;
+  }
+}
+
+// ── Edit controls
+.edit-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: vars.$space-3;
+  margin-top: vars.$space-6;
+  padding-top: vars.$space-6;
+  border-top: 1px solid vars.$color-gray-200;
 }

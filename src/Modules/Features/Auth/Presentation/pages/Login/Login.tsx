@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Login.scss";
 import { useTranslation } from "react-i18next";
 import { LoginData } from "@auth/Domain/Models/LoginData";
 import { ValidationErrors } from "fluentvalidation-ts";

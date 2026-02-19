@@ -1,4 +1,5 @@
 ﻿import React, { useState } from "react";
+import "./CreateTherapistForm.scss";
 import TimezoneSelect from 'react-timezone-select';
 import { ValidationErrors } from "fluentvalidation-ts";
 import { CreateTherapistEntity } from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";

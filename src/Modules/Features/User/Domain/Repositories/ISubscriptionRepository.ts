@@ -26,6 +26,17 @@ export default interface ISubscriptionRepository {
      */
     Subscribe(): Promise<Result<string, SubscriptionErrors>>;
 
+    /**
+     * GetSubscriptionPortal
+     * @description Get subscription portal
+     * @returns {Promise<Result<string, SubscriptionErrors>>}
+     */
+    GetSubscriptionPortal(): Promise<Result<string, SubscriptionErrors>>;
 
-    GetSubscriptionPortal(): Promise<Result<string, SubscriptionErrors>>
+    /**
+     * ReactivateSubscription
+     * @description Reactivate subscription
+     * @returns {Promise<Result<void, SubscriptionErrors>>}
+     */
+    ReactivateSubscription(): Promise<Result<void, SubscriptionErrors>>;
 }

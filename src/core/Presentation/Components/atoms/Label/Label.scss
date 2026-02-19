@@ -1,14 +1,24 @@
-/* components/label/label.scss */
+// ─────────────────────────────────────────────
+// Label — Atom
+// ─────────────────────────────────────────────
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
 
 .label {
-    font-size: 0.875rem; // text-sm
-    font-weight: 500; // font-medium
-    line-height: 1; // leading-none
+    display: inline-block;
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-sm;
+    font-weight: fonts.$font-weight-medium;
+    color: vars.$color-dark;
+    letter-spacing: vars.$tracking-wide;
+    line-height: 1;
+    cursor: default;
+    user-select: none;
 
-    /* Radix peer disabled support */
+    // Disabled peer support
     .peer:disabled~&,
     .peer[disabled]~& {
         cursor: not-allowed;
-        opacity: 0.7;
+        opacity: 0.5;
     }
 }

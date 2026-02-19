@@ -10,14 +10,10 @@ import { useQuery } from '@tanstack/react-query';
 import UseGetProfile from '../../Hooks/UseGetProfile';
 
 export default function Profile(): ReactElement {
-    const { id } = useParams<{ id: string }>(); // Use react-router-dom useParams
+    const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const localStorage = useLocalStorage();
     const { profile, loading, getProfile } = UseGetProfile();
-
-
-    // Mock logic to determine if it's the own profile
-    // In a real app, compare `id` with logged-in user's ID
 
     let userID: string;
 

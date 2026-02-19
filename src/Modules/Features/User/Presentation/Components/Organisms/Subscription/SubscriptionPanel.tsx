@@ -9,6 +9,7 @@ import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import UseRefreshSubscription from "@users/Presentation/Hooks/UseRefreshSubscription";
 import { OrderStatus } from "@users/Domain/Enums/OrderStatus";
 import SubscriptionDetails from "@/Modules/Features/User/Presentation/Components/Molecules/SubscriptionDetails/SubscriptionDetails";
+import UseReactivateSubscription from "../../../Hooks/UseReactivateSubscription";
 
 interface SubscriptionPanelProps {
     timeZone: string;
@@ -22,6 +23,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     const { subscription, loading: subscriptionLoading, error: subscriptionError, getSubscription } = UseGetSubscription();
     const { cancelSubscription, loading: cancelSubscriptionLoading, error: cancelSubscriptionError } = UseCancelSubscription();
     const { getSubscriptionPanel, loading: getSubscriptionPanelLoading, error: getSubscriptionPanelError, subscriptionPanel } = UseGetSubscriptionPanel();
+    const { reactivateSubscription, loading: reactivateSubscriptionLoading, error: reactivateSubscriptionError } = UseReactivateSubscription();
     const { isProcessing: isPaymentPending } = UseRefreshSubscription(waitingForStripe);
 
 
@@ -63,18 +65,24 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
         getSubscriptionPanel();
     };
 
+    const handleReactivateSubscription = () => {
+        reactivateSubscription().then(_ => {
+            getSubscription();
+        });
+    };
+
 
 
 
     const isLoading = () => {
-        return subscriptionLoading || cancelSubscriptionLoading || getSubscriptionPanelLoading || loading || isPaymentPending;
+        return subscriptionLoading || cancelSubscriptionLoading || getSubscriptionPanelLoading || loading || isPaymentPending || reactivateSubscriptionLoading;
     }
 
 
     const renderCardBody = () => {
         return <Row className='justify-content-center align-items-center d-flex'>
             {subscriptionError !== SubscriptionErrors.SUBSCRIPTION_NOT_FOUND && <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
-                <ErrorBox message={subscriptionError || cancelSubscriptionError || getSubscriptionPanelError || error} variant="danger" />
+                <ErrorBox message={subscriptionError || cancelSubscriptionError || getSubscriptionPanelError || error || reactivateSubscriptionError} variant="danger" />
             </Col>}
             <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
 
@@ -91,7 +99,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
                 }
 
                 {!isLoading() && <>
-                    <SubscriptionDetails subscription={subscription} timeZone={timeZone} handleSubscribe={handleSubscribe} handleCancelSubscription={handleCancelSubscription} handleGetSubscriptionPanel={handleGetSubscriptionPanel} />
+                    <SubscriptionDetails handleReactivateSubscription={handleReactivateSubscription} subscription={subscription} timeZone={timeZone} handleSubscribe={handleSubscribe} handleCancelSubscription={handleCancelSubscription} handleGetSubscriptionPanel={handleGetSubscriptionPanel} />
                 </>}
             </Col>
         </Row>

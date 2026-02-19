@@ -9,9 +9,10 @@ interface SubscriptionDetailsProps {
     handleSubscribe: () => void;
     handleCancelSubscription: () => void;
     handleGetSubscriptionPanel: () => void;
+    handleReactivateSubscription: () => void;
 }
 
-export default function SubscriptionDetails({ subscription, timeZone, handleSubscribe, handleCancelSubscription, handleGetSubscriptionPanel }: SubscriptionDetailsProps) {
+export default function SubscriptionDetails({ subscription, timeZone, handleSubscribe, handleCancelSubscription, handleGetSubscriptionPanel, handleReactivateSubscription }: SubscriptionDetailsProps) {
 
     const statusToString = () => {
         if (!subscription) {
@@ -42,9 +43,12 @@ export default function SubscriptionDetails({ subscription, timeZone, handleSubs
 
     const getSubscriptionButtons = () => {
 
-        if (!subscription) {
+        if (!subscription || subscription.SubscriptionStatus === SubscriptionStatus.CANCELLED) {
             return <> <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
                 <Button variant="primary" onClick={handleSubscribe}>Suscribirse</Button>
+                {subscription && subscription.SubscriptionStatus === SubscriptionStatus.CANCELLED && (
+                    <Button variant="primary" onClick={handleGetSubscriptionPanel}>Ver Facturas</Button>
+                )}
             </Col></>
         }
 
@@ -64,7 +68,7 @@ export default function SubscriptionDetails({ subscription, timeZone, handleSubs
                     <Button variant="primary" onClick={handleGetSubscriptionPanel}>Ver Facturas</Button>
                 </Col>
                     <Col md={4} sm={12} lg={6} className='mt-2 mt-sm-2'>
-                        <Button variant="success">Reactivar</Button>
+                        <Button variant="success" onClick={handleReactivateSubscription}>Reactivar</Button>
                     </Col></>;
             default:
                 return "Desconocido";

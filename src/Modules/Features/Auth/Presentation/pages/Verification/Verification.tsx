@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./Verification.scss";
 import { useTranslation } from "react-i18next";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
 import useVerifyUser from "@auth/Presentation/Hooks/useVerifyUser";

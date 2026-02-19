@@ -1,127 +1,58 @@
-/* components/popover/popover.scss */
+// ─────────────────────────────────────────────
+// Popover — Atom
+// ─────────────────────────────────────────────
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
 
 .popover-content {
-    z-index: 50;
-    width: 18rem; // w-72
-    padding: 1rem; // p-4
+    z-index: 100;
+    min-width: 14rem;
+    max-width: 22rem;
+    padding: vars.$space-4 vars.$space-5;
 
-    border-radius: 0.375rem; // rounded-md
-    border: 1px solid var(--border);
-    background-color: var(--popover);
-    color: var(--popover-foreground);
+    background-color: vars.$color-surface;
+    border: 1px solid vars.$color-gray-200;
+    border-radius: vars.$radius-lg;
+    box-shadow: vars.$shadow-lg;
 
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-        0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-sm;
+    color: vars.$color-dark;
 
     outline: none;
     transform-origin: var(--radix-popover-content-transform-origin);
 
-    /* Animations */
+    // ── Animations by state
     &[data-state='open'] {
-        animation: popover-fade-in 150ms ease-out,
-            popover-zoom-in 150ms ease-out;
+        animation: popoverIn 200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     &[data-state='closed'] {
-        animation: popover-fade-out 150ms ease-in,
-            popover-zoom-out 150ms ease-in;
-    }
-
-    &[data-side='bottom'] {
-        animation-name: popover-slide-from-top;
-    }
-
-    &[data-side='top'] {
-        animation-name: popover-slide-from-bottom;
-    }
-
-    &[data-side='left'] {
-        animation-name: popover-slide-from-right;
-    }
-
-    &[data-side='right'] {
-        animation-name: popover-slide-from-left;
+        animation: popoverOut 150ms ease-in forwards;
     }
 }
 
-/* Keyframes */
-
-@keyframes popover-fade-in {
+// ── Keyframes
+@keyframes popoverIn {
     from {
         opacity: 0;
+        transform: scale(0.96) translateY(-4px);
     }
 
     to {
         opacity: 1;
+        transform: scale(1) translateY(0);
     }
 }
 
-@keyframes popover-fade-out {
+@keyframes popoverOut {
     from {
         opacity: 1;
+        transform: scale(1) translateY(0);
     }
 
     to {
         opacity: 0;
-    }
-}
-
-@keyframes popover-zoom-in {
-    from {
-        transform: scale(0.95);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}
-
-@keyframes popover-zoom-out {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(0.95);
-    }
-}
-
-@keyframes popover-slide-from-top {
-    from {
-        transform: translateY(-0.5rem);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
-@keyframes popover-slide-from-bottom {
-    from {
-        transform: translateY(0.5rem);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
-@keyframes popover-slide-from-left {
-    from {
-        transform: translateX(-0.5rem);
-    }
-
-    to {
-        transform: translateX(0);
-    }
-}
-
-@keyframes popover-slide-from-right {
-    from {
-        transform: translateX(0.5rem);
-    }
-
-    to {
-        transform: translateX(0);
+        transform: scale(0.96) translateY(-4px);
     }
 }

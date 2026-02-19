@@ -1,7 +1,20 @@
+// ─────────────────────────────────────────────
+// VideoPlayer — Atom
+// ─────────────────────────────────────────────
+@use "../../../../../Assets/Styles/base/variables" as vars;
+
 .video-player {
+    width: 100%;
+    border-radius: vars.$radius-lg;
+    overflow: hidden;
+    box-shadow: vars.$shadow-lg;
+    background-color: vars.$color-dark;
+
     video {
-        border-radius: 8px;
-        max-width: 100%;
         display: block;
+        width: 100%;
+        height: auto;
+        max-height: 600px;
+        object-fit: cover;
     }
 }

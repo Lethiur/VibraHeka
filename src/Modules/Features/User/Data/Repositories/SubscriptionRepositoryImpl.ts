@@ -57,4 +57,14 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
         return result.mapErr(error => error as SubscriptionErrors);
     }
 
+    /**
+     * ReactivateSubscription
+     * @description Reactivate subscription
+     * @returns {Promise<Result<void, SubscriptionErrors>>}
+     */
+    public async ReactivateSubscription(): Promise<Result<void, SubscriptionErrors>> {
+        const result: Result<void, string> = await this.subscriptionDatasource.ReactivateSubscription();
+        return result.mapErr(error => error as SubscriptionErrors);
+    }
+
 }
