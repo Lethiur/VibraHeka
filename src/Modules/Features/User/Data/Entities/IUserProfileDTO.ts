@@ -1,4 +1,5 @@
 export default interface IUserDTO {
+    timeZoneID: string;
     id: string;
     firstName: string;
     middleName: string;

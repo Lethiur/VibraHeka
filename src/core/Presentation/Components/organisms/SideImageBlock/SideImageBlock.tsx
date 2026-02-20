@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import "./SideImageBlock.scss";
+import { Col, Row, Image } from "react-bootstrap";
 
 interface SideImageBlockProps {
     image: string;
@@ -7,20 +8,25 @@ interface SideImageBlockProps {
     children: ReactNode;
 }
 
+
 export default function SideImageBlock({
     image,
     imageLeft = true,
     children,
 }: SideImageBlockProps) {
     return (
-        <div className={`side-block ${imageLeft ? "left" : "right"}`}>
-            <div className="side-block__image">
-                <img src={image} alt="" />
-            </div>
+        <Row className={`side-block ${imageLeft ? "left" : "right"}`}>
 
-            <div className="side-block__content">
-                {children}
-            </div>
-        </div>
+            <Col lg={4} md={12} >
+                <Image className="side-block__image" src={image} />
+            </Col>
+            <Col lg={8} md={12}>
+                <div className="side-block__content">
+                    {children}
+                </div>
+            </Col>
+        </Row>
     );
 }
+
+

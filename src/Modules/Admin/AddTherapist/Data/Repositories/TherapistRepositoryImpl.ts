@@ -27,7 +27,15 @@ export default class TherapistRepositoryImpl implements ITherapistRepository {
 
         return getTherapistResult.map((dto: TherapistDTO[]) => {
             return dto.map(therapist => {
-                return new Therapist({ Id: therapist.id, FirstName: therapist.firstName, LastName: therapist.lastName, MiddleName: therapist.middleName, Bio: therapist.bio, Email: therapist.email })
+                return new Therapist({
+                    Id: therapist.id,
+                    FirstName: therapist.firstName,
+                    LastName: therapist.lastName,
+                    MiddleName: therapist.middleName,
+                    Bio: therapist.bio,
+                    Email: therapist.email,
+                    TimezoneID: therapist.timezoneID
+                })
             })
         }).mapErr(e => API_ERROR_MAP[e] ?? TherapistsErrors.GENERAL_ERROR);
 
@@ -48,6 +56,7 @@ export default class TherapistRepositoryImpl implements ITherapistRepository {
             lastName: therapist.LastName,
             phoneNumber: therapist.PhoneNumber,
             bio: therapist.Bio,
+            timezoneID: therapist.TimezoneID,
         };
 
         const result: Result<string, TherapistAPIErrors> = await this.Datasource.CreateTherapist(dto);

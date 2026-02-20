@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./Verification.scss";
 import { useTranslation } from "react-i18next";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
 import useVerifyUser from "@auth/Presentation/Hooks/useVerifyUser";
@@ -8,8 +9,8 @@ import { ValidationErrors } from "fluentvalidation-ts";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { Result } from "neverthrow";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
-import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
-import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import useResendVerificationCode from "../../Hooks/useResendVerificationCode";

@@ -1,46 +1,152 @@
-@use "../../../../../Assets/styles/base/fonts" as fonts;
-@use "../../../../../Assets/styles/base/variables" as vars;
+// ─────────────────────────────────────────────
+// Landing Page
+// ─────────────────────────────────────────────
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
 
+.landing {
+
+    // ── Page wrapper
+    &-page {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    // ── Hero section
+    &-hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: vars.$space-16 vars.$space-8 vars.$space-12;
+        text-align: center;
+    }
+
+    // ── Logo
+    &-logo {
+        margin-bottom: vars.$space-10;
+
+        img {
+            width: 120px;
+            height: auto;
+        }
+    }
+
+    // ── Sections wrapper
+    &-section {
+        padding: vars.$space-12 vars.$space-8;
+        max-width: vars.$container-max-width;
+        margin: 0 auto;
+
+        @media (max-width: 768px) {
+            padding: vars.$space-8 vars.$space-4;
+        }
+    }
+
+    // ── Alt background sections
+    &-section--alt {
+        background-color: vars.$color-gray-100;
+    }
+
+    // ── Section title decoration
+    &-section-title {
+        font-family: fonts.$font-display;
+        font-size: fonts.$font-size-3xl;
+        font-weight: fonts.$font-weight-light;
+        color: vars.$color-dark;
+        text-align: center;
+        margin-bottom: vars.$space-8;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(90deg, vars.$color-primary, vars.$color-secondary);
+            margin: vars.$space-4 auto 0;
+            border-radius: vars.$radius-full;
+        }
+    }
+}
+
+// ── Video area
 .video-player {
-    margin-bottom: 2rem;
+    margin: vars.$space-12 auto;
+    max-width: vars.$container-max-width;
+    padding: 0 vars.$space-8;
+
+    @media (max-width: 768px) {
+        padding: 0 vars.$space-4;
+    }
 }
 
-
-
-p {
-    font-family: fonts.$font-family-body;
-    letter-spacing: 1px;
-    line-height: 1.75em;
-    color: vars.$color-dark;
-}
-
-.subtitle {
-    font-weight: fonts.$font-weight-bold;
-    color: vars.$color-dark;
-    text-align: justify;
-}
-
+// ── CTA button holder
 .button-holder {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 100%;
     display: flex;
     justify-content: center;
-    padding: 3rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding: vars.$space-8;
+
+    .atom-button {
+        min-width: 280px;
+        font-size: fonts.$font-size-sm;
+    }
 }
 
-.container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
+// ── Sign-up form
 .sign-up-form {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    max-width: 560px;
+    margin: vars.$space-12 auto 0;
+    padding: vars.$space-10 vars.$space-10;
+    background-color: vars.$color-surface;
+    border-radius: vars.$radius-xl;
+    box-shadow: vars.$shadow-lg;
+    border: 1px solid vars.$color-gray-200;
+
+    h1 {
+        font-size: fonts.$font-size-2xl;
+        font-weight: fonts.$font-weight-light;
+        margin-bottom: vars.$space-8;
+        text-align: center;
+    }
+
+    @media (max-width: 480px) {
+        padding: vars.$space-8 vars.$space-6;
+    }
 }
 
-p {
-    text-align: justify;
+// ── Form groups (landing inline form)
+.form-group-modern {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$space-2;
+    margin-bottom: vars.$space-5;
+
+    label {
+        font-size: fonts.$font-size-sm;
+        font-weight: fonts.$font-weight-medium;
+        color: vars.$color-dark;
+        letter-spacing: vars.$tracking-wide;
+    }
+
+    input {
+        width: 100%;
+        padding: vars.$space-3 vars.$space-4;
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-base;
+        color: vars.$color-dark;
+        background-color: vars.$color-gray-100;
+        border: 1px solid vars.$color-gray-200;
+        border-radius: vars.$radius-md;
+        transition: border-color vars.$transition-fast, background-color vars.$transition-fast, box-shadow vars.$transition-fast;
+
+        &:focus {
+            outline: none;
+            background-color: vars.$color-surface;
+            border-color: vars.$color-primary;
+            box-shadow: 0 0 0 3px vars.$color-primary-alpha;
+        }
+
+        &::placeholder {
+            color: vars.$color-gray-500;
+        }
+    }
 }

@@ -1,0 +1,39 @@
+// ─────────────────────────────────────────────
+// Home Page
+// ─────────────────────────────────────────────
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.home-page {
+    padding-top: vars.$space-16;
+    min-height: 100vh;
+}
+
+.home-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: vars.$space-16 vars.$space-8;
+
+    &__title {
+        font-family: fonts.$font-display;
+        font-size: fonts.$font-size-4xl;
+        font-weight: fonts.$font-weight-light;
+        color: vars.$color-dark;
+        letter-spacing: vars.$tracking-tight;
+        margin-bottom: vars.$space-4;
+
+        @media (max-width: 768px) {
+            font-size: fonts.$font-size-3xl;
+        }
+    }
+
+
+    &__actions {
+        display: flex;
+        gap: vars.$space-4;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

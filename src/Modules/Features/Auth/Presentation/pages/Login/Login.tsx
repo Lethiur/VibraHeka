@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Login.scss";
 import { useTranslation } from "react-i18next";
 import { LoginData } from "@auth/Domain/Models/LoginData";
 import { ValidationErrors } from "fluentvalidation-ts";
@@ -14,8 +15,8 @@ import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/Pri
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
-import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
-import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
 
 export default function Login() {

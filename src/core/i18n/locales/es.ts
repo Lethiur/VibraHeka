@@ -65,6 +65,7 @@ export const es = {
                 list_email: "Email",
                 list_role: "Rol",
                 list_actions: "Acciones",
+                list_timezone: "Zona horaria",
                 options: {
                     delete: "Eliminar",
                     edit: "Editar"
@@ -73,8 +74,12 @@ export const es = {
                     title: "Agregar terapeuta",
                     description: "Agrega un nuevo terapeuta al sistema.",
                     name_label: "Nombre",
+                    middle_name_label: "Primer apellido",
+                    last_name_label: "Segundo apellido",
                     email_label: "Email",
+                    phone_label: "Telefono",
                     password_label: "Contraseña",
+                    timezone_label: "Zona horaria",
                     submit_button: "Crear Terapeuta",
                     submitting_button: "Creando..."
                 }

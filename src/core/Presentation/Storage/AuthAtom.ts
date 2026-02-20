@@ -1,5 +1,5 @@
 ﻿import { atom } from 'jotai';
-import { STORAGE_KEYS } from '@core/infrastructure/Storage/StorageKeys';
+import { STORAGE_KEYS } from '@core/Infrastructure/Storage/StorageKeys';
 
 const hasToken = !!localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
 

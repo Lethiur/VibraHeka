@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+// Bootstrap está cargado globalmente – los estilos propios se importan en Emails.scss
 import UseGetEmailTemplates from '@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplates';
 import { EmailTemplate } from '@admin/emailTemplates/Domain/Models/EmailTemplate';
 import SearchableDropdown from '@core/Presentation/Components/molecules/Dropdown/Dropdown';

@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
-import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
 
 export const useLogout = () => {

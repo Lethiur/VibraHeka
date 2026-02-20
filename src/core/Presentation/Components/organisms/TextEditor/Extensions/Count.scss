@@ -1,19 +1,28 @@
+// ─────────────────────────────────────────────
+// Character Count — TextEditor Extension
+// ─────────────────────────────────────────────
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
 .character-count {
-    align-items: center;
-    color: rgb(135, 135, 135);
     display: flex;
-    font-size: 0.75rem;
-    gap: 0.5rem;
-}
+    align-items: center;
+    gap: vars.$space-2;
+    padding: vars.$space-2 vars.$space-3;
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-xs;
+    color: vars.$color-gray-500;
 
-.character-count svg {
-    color: #5d01b8;
-}
+    svg {
+        color: vars.$color-primary;
+        flex-shrink: 0;
+    }
 
-.character-count--warning {
-    color: #ff0000;
-}
+    &--warning {
+        color: vars.$color-error;
 
-.character-count--warning svg {
-    color: #ff0000;
+        svg {
+            color: vars.$color-error;
+        }
+    }
 }

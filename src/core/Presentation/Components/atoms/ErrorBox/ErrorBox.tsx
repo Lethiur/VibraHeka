@@ -1,4 +1,4 @@
-﻿import 'bootstrap/dist/css/bootstrap.min.css';
+﻿import './ErrorBox.scss';
 
 interface FormAlertProps {
     message: string | null | undefined;
@@ -13,14 +13,12 @@ interface FormAlertProps {
  * @param {string} props.variant - The variant of the error box, which determines the styling. Defaults to "danger".
  * @return {JSX.Element|null} The JSX markup for the error box, or null if no message is provided.
  */
-export default function ErrorBox({ message, variant }: FormAlertProps = { variant: "danger", message: null }) {
-
+export default function ErrorBox({ message, variant = 'danger' }: FormAlertProps = { variant: "danger", message: null }) {
     if (!message) return null;
 
     return (
-        <div className={`alert alert-${variant}`} role="alert">
-            {message}
+        <div className={`error-box error-box--${variant}`} role="alert">
+            <span className="error-box__message">{message}</span>
         </div>
     );
-
 }

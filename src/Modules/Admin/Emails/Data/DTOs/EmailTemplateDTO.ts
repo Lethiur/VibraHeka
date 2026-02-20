@@ -2,8 +2,8 @@
  * Email template data transfer object
  */
 export interface EmailTemplateDTO {
-    id: string,
-    name: string,
-    created: string,
+    templateID: string,
+    templateName: string,
+    createdAt: string,
     lastModified: string
 }

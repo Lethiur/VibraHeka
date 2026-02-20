@@ -1,6 +1,7 @@
 ﻿import { Table, Button, Card, Row, Col } from 'react-bootstrap';
 import Therapist from "@admin/addTherapist/Domain/Entities/Therapist";
 import { useTranslation } from "react-i18next";
+import './TherapistList.scss';
 // Supongamos que User es una entidad de tu dominio
 
 
@@ -45,7 +46,7 @@ export default function TherapistList({ users, onDelete, onEdit, isLoading }: Us
                             <th>{t('pages.therapists.list_id')}</th>
                             <th>{t('pages.therapists.list_name')}</th>
                             <th>{t('pages.therapists.list_email')}</th>
-                            <th>{t('pages.therapists.list_role')}</th>
+                            <th>{t('pages.therapists.list_timezone')}</th>
                             <th className="text-center">{t('pages.therapists.list_actions')}</th>
                         </tr>
                     </thead>
@@ -56,13 +57,10 @@ export default function TherapistList({ users, onDelete, onEdit, isLoading }: Us
                             users.map((user) => (
                                 <tr key={user.Id}>
                                     <td>{user.Id.substring(0, 8)}...</td>
-                                    <td>{user.FirstName + " " + user.LastName}</td>
+                                    <td>{user.FirstName + " " + user.MiddleName + " " + user.LastName}</td>
                                     <td>{user.Email}</td>
-                                    <td>
-                                        <span className={`badge ${user.Role === 1 ? 'bg-danger' : 'bg-info'}`}>
-                                            {user.Role === 1 ? 'Admin' : 'User'}
-                                        </span>
-                                    </td>
+                                    <td>{user.TimezoneID}</td>
+
                                     <td className="text-center">
                                         <Button
                                             variant="outline-secondary"

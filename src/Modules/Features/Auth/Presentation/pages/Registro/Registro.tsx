@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./Registro.scss";
 import { ValidationErrors } from "fluentvalidation-ts";
 import { useTranslation } from "react-i18next";
 import { RegistrationData } from "@auth/Domain/Models/RegistrationData";
@@ -9,8 +10,8 @@ import { RegistrationResult } from "@auth/Domain/Models/RegistrationResult";
 import { Result } from "neverthrow";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
-import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
-import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
