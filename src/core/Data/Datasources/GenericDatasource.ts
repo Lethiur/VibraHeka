@@ -1,6 +1,6 @@
 import { ResponseEntity } from "@core/Domain/Entities/ResponseEntity";
-import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
-import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from "axios";
 import { err, ok, Result } from "neverthrow";
 

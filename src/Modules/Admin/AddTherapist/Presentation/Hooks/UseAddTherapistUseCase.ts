@@ -5,7 +5,7 @@ import { CreateTherapistEntity } from "@admin/addTherapist/Domain/Entities/Creat
 import { TherapistsErrors } from "@admin/addTherapist/Domain/Errors/TherapistsErrors";
 import { Result } from "neverthrow";
 import { ValidationErrors } from "fluentvalidation-ts";
-import InvalidEntityError from "@/core/Application/Errors/InvalidEntityError";
+import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 /**
  * Interface representing the return structure of the UseAddTherapist hook.

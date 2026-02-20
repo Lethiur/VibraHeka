@@ -8,17 +8,19 @@ interface SideImageBlockProps {
     children: ReactNode;
 }
 
+
 export default function SideImageBlock({
     image,
     imageLeft = true,
     children,
 }: SideImageBlockProps) {
     return (
-        <Row>
-            <Col md={4} className={`side-block ${imageLeft ? "left" : "right"}`} >
+        <Row className={`side-block ${imageLeft ? "left" : "right"}`}>
+
+            <Col lg={4} md={12} >
                 <Image className="side-block__image" src={image} />
             </Col>
-            <Col md={8}>
+            <Col lg={8} md={12}>
                 <div className="side-block__content">
                     {children}
                 </div>
@@ -26,3 +28,5 @@ export default function SideImageBlock({
         </Row>
     );
 }
+
+

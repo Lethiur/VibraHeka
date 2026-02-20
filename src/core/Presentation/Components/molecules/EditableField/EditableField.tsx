@@ -1,5 +1,5 @@
 import React from 'react';
-import PrimaryTextInput from '../PrimaryTextInput/PrimaryTextInput';
+import PrimaryTextInput from '@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput';
 
 interface EditableFieldProps {
     label: string;

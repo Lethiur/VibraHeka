@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 import PrimaryButton from "../../atoms/PrimaryButton/PrimaryButton";
 import { Card, Col } from "react-bootstrap";
 import React from "react";
@@ -12,18 +12,18 @@ interface TerapiaProps {
 }
 
 
-function Text({ children, type = "text" }: { children: ReactNode, type?: string }) {
+function Text({ children }: { children: ReactNode }) {
     return <>{children}</>
 }
 
 
-function Benefits({ children, type = "Benefits" }: { children: ReactNode, type?: string }) {
+function Benefits({ children }: { children: ReactNode }) {
     return <>{children}</>
 }
 
 
 
-function Terapia({ title, children, buttonOnClick, therapyId, therapistId }: TerapiaProps) {
+function Terapia({ title, children, buttonOnClick }: TerapiaProps) {
     const textContent: ReactNode[] = [];
     const benefitsContent: ReactNode[] = [];
 

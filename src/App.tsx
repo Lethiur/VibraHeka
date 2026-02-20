@@ -1,22 +1,27 @@
 import { Routes, Route } from 'react-router-dom'
-import Navbar from '@core/Presentation/Components/organisms/NavBar/Navbar'
+import VHNavbar from '@core/Presentation/Components/organisms/NavBar/Navbar'
 
-import Registro from '@auth/Presentation/pages/Registro/Registro'
-import Login from "@auth/Presentation/pages/Login/Login";
-import Verification from "@auth/Presentation/pages/Verification/Verification";
+
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import { useAtomValue } from "jotai";
 import { useLogout } from "@auth/Presentation/Hooks/useLogout";
-import LandingPage from "@landing/Presentation/Pages/Landing";
-import TerapeutasHome from "@therapist/Presentation/Pages/TerapetuasHome";
-import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
-import Dashboard from "@admin/dashboard/Presentation/Pages/Dashboard";
-import AdminLayout from "@core/Presentation/Layouts/AdminLayout";
-import TherapistIndex from "@admin/addTherapist/Presentation/Pages/TherapistIndex";
-import Emails from '@admin/emailTemplates/Presentation/Screens/EmailsForAction/Emails';
-import TemplateManagement from '@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement';
-import Profile from '@users/Presentation/pages/Profile/Profile';
-import TherapistPage from '@therapist/Presentation/Pages/TherapistPage/TherapistPage';
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import { lazy, Suspense } from 'react';
+
+
+
+const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
+const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
+const Verification = lazy(() => import("@auth/Presentation/pages/Verification/Verification"))
+const Dashboard = lazy(() => import("@admin/dashboard/Presentation/Pages/Dashboard"))
+const AdminLayout = lazy(() => import("@core/Presentation/Layouts/AdminLayout"))
+const TherapistIndex = lazy(() => import("@admin/addTherapist/Presentation/Pages/TherapistIndex"))
+const Emails = lazy(() => import('@admin/emailTemplates/Presentation/Screens/EmailsForAction/Emails'))
+const TemplateManagement = lazy(() => import('@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement'))
+const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
+const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
+const LandingPage = lazy(() => import('@landing/Presentation/Pages/Landing'))
+const TerapeutasHome = lazy(() => import('@therapist/Presentation/Pages/TerapetuasHome'))
 
 function App() {
 
@@ -30,47 +35,49 @@ function App() {
 
     return (
         <>
-            <Navbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()} />
+            <VHNavbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()} />
 
             <div className="mt-6">
-                <Routes>
-                    <Route path="/" element={<LandingPage />} />
-                    {
-                        !isAuthenticated && (
-                            <>
-                                <Route path="/registro" element={<Registro />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/verify" element={<Verification />} />
-                            </>)
-                    }
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Routes>
+                        <Route path="/" element={<LandingPage />} />
+                        {
+                            !isAuthenticated && (
+                                <>
+                                    <Route path="/registro" element={<Registro />} />
+                                    <Route path="/login" element={<Login />} />
+                                    <Route path="/verify" element={<Verification />} />
+                                </>)
+                        }
 
-                    {
-                        isAuthenticated && (
-                            <>
-                                <Route path="/talleres" element={<TerapeutasHome />}>
-                                </Route>
-                            </>
+                        {
+                            isAuthenticated && (
+                                <>
+                                    <Route path="/talleres" element={<TerapeutasHome />}>
+                                    </Route>
+                                </>
 
-                        )
-                    }
+                            )
+                        }
 
-                    {
-                        getRole() === 1 && (
-                            <>
-                                <Route path="/admin" element={<AdminLayout />}>
-                                    <Route path="/admin/dashboard" element={<Dashboard />} />
-                                    <Route path="/admin/therapists" element={<TherapistIndex />} />
-                                    <Route path="/admin/emails" element={<Emails />} />
-                                    <Route path="/admin/emails/templates" element={<TemplateManagement />} />
-                                </Route>
-                            </>
-                        )
-                    }
+                        {
+                            getRole() === 1 && (
+                                <>
+                                    <Route path="/admin" element={<AdminLayout />}>
+                                        <Route path="/admin/dashboard" element={<Dashboard />} />
+                                        <Route path="/admin/therapists" element={<TherapistIndex />} />
+                                        <Route path="/admin/emails" element={<Emails />} />
+                                        <Route path="/admin/emails/templates" element={<TemplateManagement />} />
+                                    </Route>
+                                </>
+                            )
+                        }
 
-                    <Route path="/profile/:id" element={<Profile />} />
-                    <Route path="/terapeutas" element={<TerapeutasHome />} />
-                    <Route path="/terapeutas/:id" element={<TherapistPage />} />
-                </Routes>
+                        <Route path="/profile/:id" element={<Profile />} />
+                        <Route path="/terapeutas" element={<TerapeutasHome />} />
+                        <Route path="/terapeutas/:id" element={<TherapistPage />} />
+                    </Routes>
+                </Suspense>
             </div>
 
         </>

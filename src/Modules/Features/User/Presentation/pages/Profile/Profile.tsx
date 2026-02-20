@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './Profile.scss';
 import useLocalStorage from '@core/Presentation/Hooks/UseLocalStorage';
-import { STORAGE_KEYS } from '@core/infrastructure/Storage/StorageKeys';
+import { STORAGE_KEYS } from '@core/Infrastructure/Storage/StorageKeys';
 import EditableProfile from '@users/Presentation/Components/Organisms/Profile/EditableProfile';
 import SubscriptionPanel from '../../Components/Organisms/Subscription/SubscriptionPanel';
 import { Col, Row } from 'react-bootstrap';
@@ -13,7 +13,7 @@ export default function Profile(): ReactElement {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const localStorage = useLocalStorage();
-    const { profile, loading, getProfile } = UseGetProfile();
+    const { profile, getProfile } = UseGetProfile();
 
     let userID: string;
 

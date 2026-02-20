@@ -64,13 +64,32 @@
     align-items: center;
 }
 
+
+button {
+    display: inline-flex;
+    align-items: center;
+    padding: vars.$space-2 vars.$space-3;
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-lg;
+    font-weight: fonts.$font-weight-semibold;
+    letter-spacing: vars.$tracking-normal;
+    color: vars.$color-dark !important;
+    text-decoration: none;
+    border-radius: vars.$radius-md;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background-color vars.$transition-fast, color vars.$transition-fast;
+
+}
+
 .nav-link {
     display: inline-flex;
     align-items: center;
     padding: vars.$space-2 vars.$space-3;
     font-family: fonts.$font-primary;
-    font-size: fonts.$font-size-sm;
-    font-weight: fonts.$font-weight-medium;
+    font-size: fonts.$font-size-lg;
+    font-weight: fonts.$font-weight-semibold;
     letter-spacing: vars.$tracking-normal;
     color: vars.$color-dark !important;
     text-decoration: none;
@@ -96,20 +115,31 @@
 .navbar-toggler {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     padding: vars.$space-2;
     background: none;
     border: none;
     cursor: pointer;
     margin-left: auto;
+    background-color: vars.$color-primary-light !important;
 
     span {
         display: block;
         width: 22px;
-        height: 2px;
-        background-color: vars.$color-dark;
+        // height: 2px;
+
         border-radius: vars.$radius-full;
         transition: transform vars.$transition-base, opacity vars.$transition-base;
+    }
+}
+
+.navbar-brand {
+    span {
+        font-family: fonts.$font-display;
+        font-size: fonts.$font-size-3xl;
+        font-weight: fonts.$font-weight-light;
+        letter-spacing: vars.$tracking-tight;
+        color: vars.$color-dark !important;
     }
 }
 

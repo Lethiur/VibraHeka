@@ -6,8 +6,8 @@ import { ILoginUserUseCase } from "@auth/Application/UseCases/LoginUser/ILoginUs
 import { IAuthRepository } from "@auth/Domain/Repositories/IAuthRepository";
 import LoginUserDataValidator from "@auth/Application/Validators/LoginUserDataValidator";
 import { ValidationErrors } from "fluentvalidation-ts";
-import { STORAGE_KEYS } from "@core/infrastructure/Storage/StorageKeys";
-import LocalStorageService from "@core/infrastructure/Storage/LocalStorageService";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 
 

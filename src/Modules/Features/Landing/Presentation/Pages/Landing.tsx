@@ -11,6 +11,7 @@ import SideImageBlock from "@core/Presentation/Components/organisms/SideImageBlo
 import Logo from "@core/Presentation/Components/atoms/Logo/Logo";
 import VideoPlayer from "@core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import { Container } from "react-bootstrap";
 
 export default function LandingPage() {
     const [name, setName] = useState("");
@@ -22,7 +23,7 @@ export default function LandingPage() {
         console.log("Form submitted:", { name, email, password });
     };
     return (
-        <div className="container display-flex flex-column align-items-center">
+        <Container className="w-100">
             <Logo
                 src="http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png"
                 alt="VibraHeka Logo"
@@ -31,9 +32,9 @@ export default function LandingPage() {
 
             <SideImageBlock image={meditacion_cristales} imageLeft={true}>
 
-                <p className="subtitle">
+                <h2>
                     Tu espacio para parar, respirar y volver a ti.<br />
-                </p>
+                </h2>
 
                 <p>     Una comunidad online pensada para cuidar tu bienestar interior, paso a paso
                     y con calma.</p>
@@ -75,12 +76,12 @@ export default function LandingPage() {
                     height="auto" />
             </div>
             <div className="button-holder">
-                <PrimaryButton label={"Quiero unirme y probar gratis"} onClick={() => { }} variant="primary" disabled={false} fullWidth={true} ></PrimaryButton>
+                <PrimaryButton label={"Quiero unirme y probar gratis"} onClick={() => { }} variant="secondary" disabled={false} fullWidth={true} ></PrimaryButton>
             </div>
             <div className="side-block-holder">
                 <SideImageBlock image={flor_de_loto} imageLeft={false}>
-                    <p>¿Qué es VibraHeka?</p>
-                    <b>Un espacio digital con alma humana.</b>
+                    <h2>¿Qué es VibraHeka?</h2>
+                    <p className="subtitle">Un espacio digital con alma humana.</p>
                     <p>En Vibraheka creemos que el bienestar no se trata de desconectarse del mundo, sino de recontectarse consigo mismo.</p>
                     <p>Creamos una comunidad done puedes aprender, compartir y crecer junto a otros que también buscan equilibro</p>
                     <p>Sin juicios. Sin etiquetas. Solo presencia y práctica.</p>
@@ -97,8 +98,7 @@ export default function LandingPage() {
             </SideImageBlock>
             <SideImageBlock image={ascension} imageLeft={false}>
                 <h1>¿Por qué unirte a esta Comunidad?</h1>
-                <br />
-                <p>Porque mereces sentirte acompañado/a de personas que vibran como tú</p>
+                <p className="subtitle">Porque mereces sentirte acompañado/a de personas que vibran como tú</p>
                 <p>Vibraheka es una comunidad consciente donde encontrarás apoyo, calma y conexión real.</p>
                 <p>En comunidad, el bienestar deja de ser un esfuerzo y se convierte en una práctica natural</p>
                 <p>Sin juicios. Sin etiquetas. Solo presencia y práctica.</p>
@@ -172,11 +172,11 @@ export default function LandingPage() {
                                 />
                             </div>
                         </div>
-                        <PrimaryButton label="Unirme y probar gratis" onClick={() => handleSubmit()} variant="primary" disabled={false} fullWidth={true} />
+                        <PrimaryButton label="Unirme y probar gratis" onClick={() => handleSubmit()} variant="secondary" disabled={false} fullWidth={true} />
                     </form>
                 </div>
             </div>
-        </div>
+        </Container>
 
     )
 }

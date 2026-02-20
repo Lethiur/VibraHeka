@@ -1,104 +1,59 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import './Navbar.scss'
-
+import { Navbar, Container, Image, Nav } from "react-bootstrap";
 interface NavbarProps {
     isAuthenticated: boolean;
     onLogout: () => void;
     role: number
 }
 
-export default function Navbar({ isAuthenticated, onLogout, role }: NavbarProps) {
-
+export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProps) {
 
     return (
-        <nav className="navbar navbar-expand-lg px-3">
-            <Link className="navbar-brand" to="/">
-                <img
-                    src="http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png"
-                    alt="Logo"
-                    style={{ width: "48px", height: "48px", marginRight: "8px" }}
-                />
-                VibraHeka
-            </Link>
+        <Navbar expand="lg" className="bg-body-tertiary" collapseOnSelect>
+            <Container>
+                {/* Marca y Logo */}
+                <Navbar.Brand as={Link} to="/">
+                    <Image
+                        src="http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png"
+                        alt="logo"
+                        style={{ width: "90px", height: "90px", marginRight: "8px" }}
+                    />
+                    <span>Vibra Heka</span>
+                </Navbar.Brand>
 
-            <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span className="navbar-toggler-icon"></span>
-            </button>
+                {/* BOTÓN HAMBURGUESA: React Bootstrap lo gestiona internamente */}
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-            <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav ms-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/">
-                            Inicio
-                        </Link>
-                    </li>
+                {/* CONTENIDO COLAPSABLE: Debe ser Navbar.Collapse */}
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="ms-auto">
+                        <Nav.Link as={NavLink} to="/">Inicio</Nav.Link>
+                        <Nav.Link as={NavLink} to="/terapeutas">Terapeutas</Nav.Link>
 
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/terapeutas">
-                            Terapeutas
-                        </Link>
-                    </li>
-
-
-
-                    {
-                        !isAuthenticated && (
+                        {!isAuthenticated && (
                             <>
-
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/registro">
-                                        Registrarse
-                                    </Link>
-                                </li>
-
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/login">
-                                        Identificarse
-                                    </Link>
-                                </li>
+                                <Nav.Link as={NavLink} to="/registro">Registrarse</Nav.Link>
+                                <Nav.Link as={NavLink} to="/login">Identificarse</Nav.Link>
                             </>
-                        )
-                    }
+                        )}
 
-                    {
-                        role === 1 && (<>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/admin">
-                                    Admin
-                                </Link>
-                            </li>
-                        </>)
-                    }
+                        {role === 1 && (
+                            <Nav.Link as={NavLink} to="/admin">Admin</Nav.Link>
+                        )}
 
-                    {
-                        isAuthenticated && (<>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/profile/me">
-                                    Mi Perfil
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/talleres">
-                                    Talleres
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <button onClick={onLogout} className="nav-link btn btn-link">
+                        {isAuthenticated && (
+                            <>
+                                <Nav.Link as={NavLink} to="/profile/me">Mi Perfil</Nav.Link>
+                                <Nav.Link as={NavLink} to="/talleres">Talleres</Nav.Link>
+                                <button onClick={onLogout} className="nav-link">
                                     Cerrar sesión
                                 </button>
-                            </li>
-                        </>)
-                    }
-                </ul>
-            </div>
-        </nav>
+                            </>
+                        )}
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 }

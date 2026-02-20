@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────
 
 // ── Brand Colors
-$color-primary: #898dca; // Lavanda principal
+$color-primary: #8a81d4; // Lavanda principal
 $color-primary-dark: #6c71b0; // Lavanda oscurecida para hover
 $color-primary-light: #b8bbdf; // Lavanda clara
 $color-primary-alpha: rgba(137, 141, 202, 0.12);
@@ -26,6 +26,7 @@ $color-gray-100: #f8f7fb;
 $color-gray-200: #eeedf4;
 $color-gray-300: #DCDBE0;
 $color-gray-500: #9896a0;
+$color-black: #000;
 
 // ── Feedback
 $color-error: #e05c6a;
@@ -86,4 +87,4 @@ $tracking-widest: 0.1em;
 // Layout
 // ─────────────────────────────────────────────
 $container-max-width: 1200px;
-$navbar-height: 64px;
+$navbar-height: 100px;

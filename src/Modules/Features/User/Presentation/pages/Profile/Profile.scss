@@ -14,17 +14,18 @@
 .profile-card {
   background-color: vars.$color-surface;
   border: 1px solid vars.$color-gray-200;
-  border-radius: vars.$radius-xl;
+  border-radius: vars.$radius-md;
   overflow: hidden;
   box-shadow: vars.$shadow-md;
 
   // ── Card header (user banner)
   .card-header {
-    background: linear-gradient(135deg, vars.$color-primary 0%, vars.$color-primary-dark 100%);
+    background: linear-gradient(135deg, vars.$color-primary 0%, vars.$color-primary-light 100%);
     color: vars.$color-on-primary;
-    padding: vars.$space-8 vars.$space-8 vars.$space-12;
+    padding: vars.$space-6 vars.$space-6 vars.$space-6;
     border-bottom: none;
     position: relative;
+    text-align: center;
 
     h2 {
       font-family: fonts.$font-display;
@@ -32,6 +33,7 @@
       font-weight: fonts.$font-weight-regular;
       margin: 0;
       color: vars.$color-on-primary;
+      letter-spacing: vars.$tracking-wider;
     }
 
     .user-details {

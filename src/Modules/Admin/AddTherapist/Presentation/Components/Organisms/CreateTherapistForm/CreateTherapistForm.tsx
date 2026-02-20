@@ -6,7 +6,7 @@ import { CreateTherapistEntity } from "@admin/addTherapist/Domain/Entities/Creat
 import { useTranslation } from "react-i18next";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import { Col, Form, Row } from "react-bootstrap";
-import PrimaryTextInput from "@/core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
+import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 
 
 export interface CreateTherapistFormProps {

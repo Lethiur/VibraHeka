@@ -29,13 +29,6 @@
         }
     }
 
-    &__subtitle {
-        font-size: fonts.$font-size-md;
-        color: vars.$color-dark-muted;
-        max-width: 540px;
-        line-height: fonts.$line-height-loose;
-        margin-bottom: vars.$space-8;
-    }
 
     &__actions {
         display: flex;

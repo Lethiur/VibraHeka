@@ -1,6 +1,7 @@
 // ─────────────────────────────────────────────
 // ErrorBox — Atom
 // ─────────────────────────────────────────────
+@use "sass:color";
 @use "../../../../../Assets/Styles/base/variables" as vars;
 @use "../../../../../Assets/Styles/base/fonts" as fonts;
 
@@ -28,14 +29,14 @@
     &--success {
         background-color: vars.$color-success-surface;
         border: 1px solid rgba(vars.$color-success, 0.25);
-        color: darken(vars.$color-success, 10%);
+        color: color.adjust(vars.$color-success, $lightness: -10%);
     }
 
     // ── Warning
     &--warning {
         background-color: rgba(vars.$color-warning, 0.10);
         border: 1px solid rgba(vars.$color-warning, 0.30);
-        color: darken(vars.$color-warning, 20%);
+        color: color.adjust(vars.$color-warning, $lightness: -20%);
     }
 
     &__icon {
