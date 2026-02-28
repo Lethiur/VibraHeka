@@ -25,39 +25,12 @@
         margin-bottom: vars.$space-5 !important;
     }
 
-    .form-label {
+    .timezone-field .form-label {
         font-size: fonts.$font-size-sm;
         font-weight: fonts.$font-weight-medium;
         color: vars.$color-dark;
         letter-spacing: vars.$tracking-wide;
         margin-bottom: vars.$space-2;
-    }
-
-    .form-control {
-        background-color: vars.$color-gray-100;
-        border: 1px solid vars.$color-gray-200;
-        border-radius: vars.$radius-md;
-        padding: vars.$space-3 vars.$space-4;
-        font-family: fonts.$font-primary;
-        font-size: fonts.$font-size-base;
-        color: vars.$color-dark;
-        transition: border-color vars.$transition-fast, box-shadow vars.$transition-fast;
-
-        &:focus {
-            background-color: vars.$color-surface;
-            border-color: vars.$color-primary;
-            box-shadow: 0 0 0 3px vars.$color-primary-alpha;
-            outline: none;
-        }
-
-        &.is-invalid {
-            border-color: vars.$color-error;
-        }
-    }
-
-    .invalid-feedback {
-        font-size: fonts.$font-size-xs;
-        color: vars.$color-error;
     }
 
     // Timezone select override

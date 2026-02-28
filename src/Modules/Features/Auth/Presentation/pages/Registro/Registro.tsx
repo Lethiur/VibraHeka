@@ -14,9 +14,9 @@ import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageServic
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
-
-import "./Registro.scss";
-import PrimaryTextInput from "@/Core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
+import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
+import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 
 export default function Registro() {
     const { t } = useTranslation();
@@ -26,7 +26,7 @@ export default function Registro() {
 
     const registerUserUseCase: RegisterUserUseCase = useRegisterUser();
     const localStorage: LocalStorageService = useLocalStorage();
-    const naviagate: NavigateFunction = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -44,20 +44,17 @@ export default function Registro() {
 
 
         try {
-            console.log(data);
             setIsSubmitting(true);
             const result: Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
             if (result.isOk()) {
                 localStorage.setString(STORAGE_KEYS.EMAIL, data.email);
-                naviagate('/verify');
+                navigate('/verify');
             } else {
                 setGlobalError(t(`errors.auth.${result.error}`));
             }
 
         } catch (error) {
             if (error instanceof InvalidEntityError) {
-                console.log(error.fieldErrors);
-                console.log(errors.email?.toString())
                 setErrors(error.fieldErrors);
             }
         }
@@ -67,37 +64,26 @@ export default function Registro() {
     }
 
     return (
-        <div className="registro-page">
-            <div className="auth-card">
-                <div className="auth-card__head">
-                    <h1>{t('pages.register.title')}</h1>
-                    <p className="subtitle auth-card__subtitle">{t('pages.register.description')}</p>
+        <AuthLayout title={t('pages.register.title')} subtitle={t('pages.register.description')}>
+            <ErrorBox message={globalError} />
+
+            <form onSubmit={handleSubmit} noValidate>
+                <PrimaryTextInput label={t('pages.register.form.email_label')} name="email" disabled={isSubmitting} error={errors.email?.toString()} />
+                <PrimaryTextInput label={t('pages.register.form.name_label')} name="firstName" disabled={isSubmitting} error={errors.firstName?.toString()} />
+                <PrimaryTextInput label={t('pages.register.form.middle_name_label')} name="middleName" disabled={isSubmitting} error={errors.middleName?.toString()} />
+                <PrimaryTextInput label={t('pages.register.form.last_name_label')} name="lastName" disabled={isSubmitting} error={errors.lastName?.toString()} />
+                <PrimaryTextInput label={t('pages.register.form.password_label')} name="password" disabled={isSubmitting} type="password" error={errors.password?.toString()} />
+
+                <div className="auth-form__submit">
+                    <PrimaryButton
+                        label={isSubmitting ? t('pages.register.form.submitting_button') : t('pages.register.form.submit_button')}
+                        type="submit"
+                        variant="outline"
+                        disabled={isSubmitting}
+                        fullWidth={true}
+                    />
                 </div>
-
-                {globalError && (
-                    <div className="alert alert-danger" role="alert">
-                        {globalError}
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit} noValidate>
-                    <PrimaryTextInput label={t('pages.register.form.email_label')} name="email" disabled={isSubmitting} onChange={() => { }} error={errors.email?.toString()} />
-                    <PrimaryTextInput label={t('pages.register.form.name_label')} name="firstName" disabled={isSubmitting} onChange={() => { }} error={errors.firstName?.toString()} />
-                    <PrimaryTextInput label={t('pages.register.form.middle_name_label')} name="middleName" disabled={isSubmitting} onChange={() => { }} error={errors.middleName?.toString()} />
-                    <PrimaryTextInput label={t('pages.register.form.last_name_label')} name="lastName" disabled={isSubmitting} onChange={() => { }} error={errors.lastName?.toString()} />
-                    <PrimaryTextInput label={t('pages.register.form.password_label')} name="password" disabled={isSubmitting} type="password" onChange={() => { }} error={errors.password?.toString()} />
-
-                    <div className="auth-card__submit">
-                        <PrimaryButton
-                            label={isSubmitting ? t('pages.register.form.submitting_button') : t('pages.register.form.submit_button')}
-                            type="submit"
-                            variant="outline"
-                            disabled={isSubmitting}
-                            fullWidth={true}
-                        />
-                    </div>
-                </form>
-            </div>
-        </div>
+            </form>
+        </AuthLayout>
     )
 }

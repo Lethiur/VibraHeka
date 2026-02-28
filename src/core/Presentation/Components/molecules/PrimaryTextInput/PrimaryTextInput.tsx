@@ -1,4 +1,5 @@
 import { Form } from 'react-bootstrap';
+import "./PrimaryTextInput.scss";
 
 type PrimaryTextInputProps = {
     name: string
@@ -31,10 +32,9 @@ export default function PrimaryTextInput({
     className,
     helpText
 }: PrimaryTextInputProps) {
-    console.log(error);
     return (
         <>
-            <Form.Group className={`mb-3 ${className || ''}`} controlId={name}>
+            <Form.Group className={`primary-text-input ${className || ''}`} controlId={name}>
                 <Form.Label>{label}</Form.Label>
                 <Form.Control
                     as={as}

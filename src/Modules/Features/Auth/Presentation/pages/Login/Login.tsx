@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Login.scss";
 import { useTranslation } from "react-i18next";
 import { LoginData } from "@auth/Domain/Models/LoginData";
 import { ValidationErrors } from "fluentvalidation-ts";
@@ -17,6 +16,8 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
+import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 
 
 export default function Login() {
@@ -63,42 +64,39 @@ export default function Login() {
     }
 
     return (
-        <div className="login-page">
-            <div className="auth-card">
-                <div className="auth-card__head">
-                    <h1>{t('pages.login.title')}</h1>
-                    <p>{t('pages.login.description')}</p>
+        <AuthLayout title={t('pages.login.title')} subtitle={t('pages.login.description')}>
+            {globalError && (
+                <ErrorBox message={globalError} variant="danger" />
+            )}
+
+            <form onSubmit={handleSubmit} noValidate>
+                <PrimaryTextInput
+                    label={t('pages.login.form.email_label')}
+                    name="email"
+                    type="email"
+                    disabled={isSubmitting}
+                    helpText={t('pages.login.form.email_help')}
+                    error={errors.email ? t(`errors.auth.${errors.email}`) : undefined}
+                />
+                <PrimaryTextInput
+                    label={t('pages.login.form.password_label')}
+                    name="password"
+                    type="password"
+                    disabled={isSubmitting}
+                    helpText={t('pages.login.form.password_help')}
+                    error={errors.password ? t(`errors.auth.${errors.password}`) : undefined}
+                />
+
+                <div className="auth-form__submit">
+                    <PrimaryButton
+                        label={isSubmitting ? t('pages.login.form.submitting_button') : t('pages.login.form.submit_button')}
+                        type="submit"
+                        variant="primary"
+                        disabled={isSubmitting}
+                        fullWidth={true}
+                    />
                 </div>
-                {globalError && (
-                    <ErrorBox message={globalError} variant="danger" />
-                )}
-
-                <form onSubmit={handleSubmit} noValidate>
-                    <div className='auth-card__field'>
-                        <label htmlFor="email">{t('pages.login.form.email_label')}</label>
-                        <input type="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`} name="email" id="email" aria-describedby="emailHelp" />
-                        <span id="emailHelp" className="form-text">{t('pages.login.form.email_help')}</span>
-                        {errors.email && <span className="invalid-feedback">{t(`errors.auth.${errors.email}`)}</span>}
-                    </div>
-
-                    <div className='auth-card__field'>
-                        <label htmlFor="password">{t('pages.login.form.password_label')}</label>
-                        <input type="password" className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="password" name="password" />
-                        <span id="passwordHelp" className="form-text">{t('pages.login.form.password_help')}</span>
-                        {errors.password && <span className="invalid-feedback">{t(`errors.auth.${errors.password}`)}</span>}
-                    </div>
-
-                    <div className="auth-card__submit">
-                        <PrimaryButton
-                            label={isSubmitting ? t('pages.login.form.submitting_button') : t('pages.login.form.submit_button')}
-                            type="submit"
-                            variant="primary"
-                            disabled={isSubmitting}
-                            fullWidth={true}
-                        />
-                    </div>
-                </form>
-            </div>
-        </div>
+            </form>
+        </AuthLayout>
     )
 }

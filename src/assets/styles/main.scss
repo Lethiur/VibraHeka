@@ -8,7 +8,7 @@
 // ── Subtitle
 .subtitle {
     font-family: fonts.$font-display;
-    font-size: fonts.$font-size-2xl;
+    font-size: var(--type-subtitle-size);
     font-weight: fonts.$font-weight-light;
     font-style: italic;
     color: vars.$color-primary-dark;
@@ -18,7 +18,7 @@
 
 
 .subtitle-2 {
-    font-size: fonts.$font-size-md;
+    font-size: var(--type-body-size);
     color: rgba(vars.$color-primary-dark, 0.85);
     max-width: 540px;
     line-height: fonts.$line-height-loose;
@@ -26,8 +26,8 @@
 }
 
 p {
-    font-size: fonts.$font-size-base;
-    color: vars.$color-earth;
+    font-size: var(--type-body-size);
+    color: vars.$color-dark;
     line-height: fonts.$line-height-loose;
     margin-bottom: vars.$space-8;
 }
