@@ -4,6 +4,7 @@ import { Col, Row, Image } from "react-bootstrap";
 
 interface SideImageBlockProps {
     image: string;
+    imageAlt?: string;
     imageLeft?: boolean;
     children: ReactNode;
 }
@@ -11,16 +12,20 @@ interface SideImageBlockProps {
 
 export default function SideImageBlock({
     image,
+    imageAlt = "Section image",
     imageLeft = true,
     children,
 }: SideImageBlockProps) {
-    return (
-        <Row className={`side-block ${imageLeft ? "left" : "right"}`}>
+    const imageOrderClass = imageLeft ? "order-1" : "order-1 order-lg-2";
+    const contentOrderClass = imageLeft ? "order-2" : "order-2 order-lg-1";
 
-            <Col lg={4} md={12} >
-                <Image className="side-block__image" src={image} />
+    return (
+        <Row className="side-block align-items-center g-4 g-lg-5 w-100 mx-0">
+
+            <Col lg={5} md={12} className={`side-block__image-col d-flex ${imageOrderClass}`}>
+                <Image className="side-block__image" src={image} alt={imageAlt} />
             </Col>
-            <Col lg={8} md={12}>
+            <Col lg={7} md={12} className={`side-block__content-col ${contentOrderClass}`}>
                 <div className="side-block__content">
                     {children}
                 </div>

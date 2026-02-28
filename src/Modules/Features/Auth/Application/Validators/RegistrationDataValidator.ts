@@ -1,15 +1,27 @@
 import { Validator } from "fluentvalidation-ts";
-import {RegistrationData} from "../../Domain/Models/RegistrationData";
-import {AuthApplicationErrors} from "../Errors/AuthApplicationErrors";
+import { RegistrationData } from "../../Domain/Models/RegistrationData";
+import { AuthApplicationErrors } from "../Errors/AuthApplicationErrors";
 
 export default class RegistrationDataValidator extends Validator<RegistrationData> {
     constructor() {
         super();
-        this.ruleFor('fullName')
+        this.ruleFor('firstName')
             .notEmpty()
-            .withMessage(AuthApplicationErrors.FULL_NAME_NOT_PRESENT)
+            .withMessage(AuthApplicationErrors.FIRST_NAME_NOT_PRESENT)
             .minLength(2)
-            .withMessage(AuthApplicationErrors.FULL_NAME_TOO_SHORT);
+            .withMessage(AuthApplicationErrors.FIRST_NAME_TOO_SHORT);
+
+        this.ruleFor('middleName')
+            .notEmpty()
+            .withMessage(AuthApplicationErrors.MIDDLE_NAME_NOT_PRESENT)
+            .minLength(2)
+            .withMessage(AuthApplicationErrors.MIDDLE_NAME_TOO_SHORT);
+
+        this.ruleFor('lastName')
+            .notEmpty()
+            .withMessage(AuthApplicationErrors.LAST_NAME_NOT_PRESENT)
+            .minLength(2)
+            .withMessage(AuthApplicationErrors.LAST_NAME_TOO_SHORT);
 
         this.ruleFor('email')
             .notEmpty()

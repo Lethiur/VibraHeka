@@ -11,7 +11,7 @@
     font-size: fonts.$font-size-2xl;
     font-weight: fonts.$font-weight-light;
     font-style: italic;
-    color: vars.$color-dark;
+    color: vars.$color-primary-dark;
     line-height: fonts.$line-height-tight;
     letter-spacing: vars.$tracking-tight;
 }
@@ -19,7 +19,7 @@
 
 .subtitle-2 {
     font-size: fonts.$font-size-md;
-    color: vars.$color-dark-muted;
+    color: rgba(vars.$color-primary-dark, 0.85);
     max-width: 540px;
     line-height: fonts.$line-height-loose;
     margin-bottom: vars.$space-8;

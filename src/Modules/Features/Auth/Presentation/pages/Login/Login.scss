@@ -5,7 +5,7 @@
 @use "../../../../../../Assets/Styles/base/fonts" as fonts;
 
 .login-page {
-    min-height: 100vh;
+    min-height: calc(100vh - 120px);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -7,9 +7,6 @@ import { useAtomValue } from "jotai";
 import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import { lazy, Suspense } from 'react';
-
-
-
 const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const Verification = lazy(() => import("@auth/Presentation/pages/Verification/Verification"))
@@ -32,6 +29,10 @@ function App() {
         return parseInt(localStorage.getItem(STORAGE_KEYS.ROLE) ?? "0");
     }
 
+    function isAdmin(): boolean {
+        return getRole() === 1 && isAuthenticated;
+    }
+    
 
     return (
         <>
@@ -61,7 +62,7 @@ function App() {
                         }
 
                         {
-                            getRole() === 1 && (
+                            isAdmin() && (
                                 <>
                                     <Route path="/admin" element={<AdminLayout />}>
                                         <Route path="/admin/dashboard" element={<Dashboard />} />

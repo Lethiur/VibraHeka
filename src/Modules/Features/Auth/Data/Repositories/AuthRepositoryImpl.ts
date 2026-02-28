@@ -70,7 +70,10 @@ export class AuthRepositoryImpl implements IAuthRepository {
         const dto: RegistrationRequestDto = {
             email: data.email,
             password: data.password,
-            fullName: data.fullName,
+            firstName: data.firstName,
+            middleName: data.middleName,
+            lastName: data.lastName,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         };
 
         const result: Result<RegisterResponseDto, string> = await this.datasource.register(dto);

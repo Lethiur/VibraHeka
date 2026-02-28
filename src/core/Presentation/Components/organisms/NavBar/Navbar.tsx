@@ -8,7 +8,7 @@ interface NavbarProps {
 }
 
 export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProps) {
-
+    
     return (
         <Navbar expand="lg" className="bg-body-tertiary" collapseOnSelect>
             <Container>
@@ -38,11 +38,11 @@ export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProp
                             </>
                         )}
 
-                        {role === 1 && (
+                        {(role === 1 && isAuthenticated) && (
                             <Nav.Link as={NavLink} to="/admin">Admin</Nav.Link>
                         )}
 
-                        {isAuthenticated && (
+                        { isAuthenticated && (
                             <>
                                 <Nav.Link as={NavLink} to="/profile/me">Mi Perfil</Nav.Link>
                                 <Nav.Link as={NavLink} to="/talleres">Talleres</Nav.Link>

@@ -31,6 +31,7 @@ export default function PrimaryTextInput({
     className,
     helpText
 }: PrimaryTextInputProps) {
+    console.log(error);
     return (
         <>
             <Form.Group className={`mb-3 ${className || ''}`} controlId={name}>
@@ -44,9 +45,10 @@ export default function PrimaryTextInput({
                     disabled={disabled}
                     rows={rows}
                     required={required}
+                    isInvalid={!!error}
                 />
                 {helpText && <Form.Text className="text-muted">{helpText}</Form.Text>}
-                {error && <div className="invalid-feedback">{error}</div>}
+                {error && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>}
 
             </Form.Group>
         </>

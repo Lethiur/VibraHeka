@@ -66,13 +66,12 @@
 
     // ── Secondary variant
     &--secondary {
-        background-color: vars.$color-secondary-dark;
+        background-color: vars.$color-secondary-light;
         color: vars.$color-on-secondary;
         border-color: vars.$color-secondary-dark;
 
         &:hover:not(:disabled) {
-            background-color: vars.$color-dark;
-            border-color: vars.$color-secondary-dark;
+            background-color: vars.$color-secondary-dark;
         }
     }
 
@@ -96,5 +95,13 @@
         &:hover:not(:disabled) {
             background-color: vars.$color-gray-200;
         }
+    }
+}
+
+@media (max-width: 768px) {
+    .atom-button {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
     }
 }

@@ -8,7 +8,7 @@
 // Solo sobreescribimos lo específico de Registro
 
 .registro-page {
-    min-height: 100vh;
+    min-height: calc(100vh - 120px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,12 +25,19 @@
     padding: vars.$space-10;
     background-color: vars.$color-surface;
     border-radius: vars.$radius-xl;
-    box-shadow: vars.$shadow-lg;
+    box-shadow: vars.$shadow-xl;
     border: 1px solid vars.$color-gray-200;
 
     @media (max-width: 480px) {
         padding: vars.$space-8 vars.$space-6;
         border-radius: vars.$radius-lg;
+    }
+
+    &__subtitle {
+        margin-top: vars.$space-4;
+        font-style: italic;
+        font-family: fonts.$font-display;
+        font-size: fonts.$font-size-lg !important;
     }
 
     &__head {
