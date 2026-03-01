@@ -23,6 +23,10 @@ export const es = {
                 [AuthApplicationErrors.EMAIL_INVALID]: "Debe ingresar un email válido",
                 [AuthApplicationErrors.PASSWORD_NOT_PRESENT]: "La contraseña es obligatoria",
                 [AuthApplicationErrors.PASSWORD_TOO_SHORT]: "La contraseña debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.RESET_PASSWORD_TOKEN_NOT_PRESENT]: "El token de recuperacion no es valido o no existe.",
+                [AuthApplicationErrors.PASSWORD_CONFIRMATION_NOT_PRESENT]: "La confirmacion de contraseña es obligatoria",
+                [AuthApplicationErrors.PASSWORD_CONFIRMATION_TOO_SHORT]: "La confirmacion debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH]: "Las contraseñas no coinciden",
                 [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT]: "El código de verificación debe tener al menos 6 caracteres",
                 [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT]: "El código de verificación es obligatorio"
             }
@@ -128,6 +132,20 @@ export const es = {
                     submitting_button: "Enviando...",
                     success_message: "Si el email existe, te hemos enviado las instrucciones de recuperación.",
                     back_to_login: "Volver a identificarse"
+                }
+            },
+            reset_password: {
+                title: "Restablece tu contraseña",
+                description: "Define una nueva contraseña para recuperar el acceso a tu cuenta.",
+                form: {
+                    password_label: "Nueva contraseña",
+                    password_help: "Debe tener al menos 6 caracteres",
+                    password_confirmation_label: "Confirmar nueva contraseña",
+                    password_confirmation_help: "Repite la nueva contraseña",
+                    submit_button: "Guardar nueva contraseña",
+                    submitting_button: "Guardando...",
+                    success_message: "Tu contraseña ha sido actualizada. Ya puedes iniciar sesion.",
+                    back_to_login: "Ir a iniciar sesion"
                 }
             }
         }

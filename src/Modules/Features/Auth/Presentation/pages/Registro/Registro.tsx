@@ -72,7 +72,7 @@ export default function Registro() {
                 <PrimaryTextInput label={t('pages.register.form.name_label')} name="firstName" disabled={isSubmitting} error={errors.firstName?.toString()} />
                 <PrimaryTextInput label={t('pages.register.form.middle_name_label')} name="middleName" disabled={isSubmitting} error={errors.middleName?.toString()} />
                 <PrimaryTextInput label={t('pages.register.form.last_name_label')} name="lastName" disabled={isSubmitting} error={errors.lastName?.toString()} />
-                <PrimaryTextInput label={t('pages.register.form.password_label')} name="password" disabled={isSubmitting} type="password" error={errors.password?.toString()} />
+                <PrimaryTextInput label={t('pages.register.form.password_label')} name="password" disabled={isSubmitting} type="password" showPasswordToggle={true} error={errors.password?.toString()} />
 
                 <div className="auth-form__submit">
                     <PrimaryButton

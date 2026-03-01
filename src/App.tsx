@@ -11,6 +11,7 @@ import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoad
 const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const ForgotPassword = lazy(() => import("@auth/Presentation/pages/ForgotPassword/ForgotPassword"))
+const ResetPassword = lazy(() => import("@auth/Presentation/pages/ResetPassword/ResetPassword"))
 const Verification = lazy(() => import("@auth/Presentation/pages/Verification/Verification"))
 const Dashboard = lazy(() => import("@admin/dashboard/Presentation/Pages/Dashboard"))
 const AdminLayout = lazy(() => import("@core/Presentation/Layouts/AdminLayout"))
@@ -50,6 +51,7 @@ function App() {
                                     <Route path="/registro" element={<Registro />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/forgot-password" element={<ForgotPassword />} />
+                                    <Route path="/recover-password" element={<ResetPassword />} />
                                     <Route path="/verify" element={<Verification />} />
                                 </>)
                         }

@@ -14,6 +14,8 @@ import { LoginResultDTO } from "../DTOs/LoginResultDTO";
 import { LoginRequestDTO } from "../DTOs/LoginRequestDTO";
 import { ForgotPasswordData } from "../../Domain/Models/ForgotPasswordData";
 import { ForgotPasswordRequestDTO } from "../DTOs/ForgotPasswordRequestDTO";
+import { ResetPasswordData } from "../../Domain/Models/ResetPasswordData";
+import { ResetPasswordRequestDTO } from "../DTOs/ResetPasswordRequestDTO";
 
 export class AuthRepositoryImpl implements IAuthRepository {
 
@@ -111,6 +113,23 @@ export class AuthRepositoryImpl implements IAuthRepository {
 
         const result: Result<void, string> = await this.datasource.ForgotPassword(dto);
 
+        return result.mapErr(error => error as AuthErrorCodes);
+    }
+
+    /**
+     * Completes forgot-password confirmation with token and new password.
+     *
+     * @param {ResetPasswordData} data - The values required to set the new password.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an auth error code.
+     */
+    public async ResetPassword(data: ResetPasswordData): Promise<Result<void, AuthErrorCodes>> {
+        const dto: ResetPasswordRequestDTO = {
+            encryptedToken: data.encryptedToken,
+            newPassword: data.newPassword,
+            newPasswordConfirmation: data.newPasswordConfirmation
+        };
+
+        const result: Result<void, string> = await this.datasource.ConfirmForgotPassword(dto);
         return result.mapErr(error => error as AuthErrorCodes);
     }
 

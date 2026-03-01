@@ -82,6 +82,7 @@ export default function Login() {
                     label={t('pages.login.form.password_label')}
                     name="password"
                     type="password"
+                    showPasswordToggle={true}
                     disabled={isSubmitting}
                     helpText={t('pages.login.form.password_help')}
                     error={errors.password ? t(`errors.auth.${errors.password}`) : undefined}

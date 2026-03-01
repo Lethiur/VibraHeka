@@ -16,6 +16,9 @@ import ForgotPasswordUseCaseImpl
     from "@auth/Application/UseCases/ForgotPassword/ForgotPasswordUseCaseImpl";
 import ForgotPasswordDataValidator from "@auth/Application/Validators/ForgotPasswordDataValidator";
 import { IForgotPasswordUseCase } from "@auth/Application/UseCases/ForgotPassword/IForgotPasswordUseCase";
+import ResetPasswordUseCaseImpl from "@auth/Application/UseCases/ResetPassword/ResetPasswordUseCaseImpl";
+import { IResetPasswordUseCase } from "@auth/Application/UseCases/ResetPassword/IResetPasswordUseCase";
+import ResetPasswordDataValidator from "@auth/Application/Validators/ResetPasswordDataValidator";
 
 const datasource = new AuthDatasource();
 const repository = new AuthRepositoryImpl(datasource);
@@ -31,4 +34,9 @@ export const resendVerificationCodeUseCase: IResendVerificationCodeUseCase = new
 export const forgotPasswordUseCase: IForgotPasswordUseCase = new ForgotPasswordUseCaseImpl(
     repository,
     new ForgotPasswordDataValidator()
+);
+
+export const resetPasswordUseCase: IResetPasswordUseCase = new ResetPasswordUseCaseImpl(
+    repository,
+    new ResetPasswordDataValidator()
 );
