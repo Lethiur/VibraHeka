@@ -7,6 +7,7 @@ import { useAtomValue } from "jotai";
 import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import { lazy, Suspense } from 'react';
+import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
 const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const Verification = lazy(() => import("@auth/Presentation/pages/Verification/Verification"))
@@ -39,7 +40,7 @@ function App() {
             <VHNavbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()} />
 
             <div className="mt-6">
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<AppLoader />}>
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
                         {

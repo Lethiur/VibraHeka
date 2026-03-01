@@ -1,0 +1,16 @@
+@use "../../../../../Assets/Styles/base/variables" as vars;
+
+.vh-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-block: vars.$space-4;
+}
+
+.vh-logo__image {
+    display: block;
+    max-width: min(100%, 260px);
+    height: auto;
+    object-fit: contain;
+}

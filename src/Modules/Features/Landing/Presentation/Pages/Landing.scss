@@ -1,12 +1,23 @@
 ﻿@use "../../../../../Assets/Styles/base/variables" as vars;
 @use "../../../../../Assets/Styles/base/fonts" as fonts;
+@use "sass:color";
 
 .landing-page {
     --landing-overlay-top: rgba(20, 6, 32, 0.64);
     --landing-overlay-bottom: rgba(55, 1, 54, 0.42);
+    --reveal-distance: 28px;
+    --reveal-duration: 680ms;
+    --reveal-ease: cubic-bezier(0.2, 0.8, 0.22, 1);
 
     .landing {
         min-height: 100vh;
+
+        > .landing-reveal {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding-inline: vars.$space-4;
+        }
 
         &::before {
             content: "";
@@ -33,8 +44,12 @@
             position: relative;
             z-index: 1;
             max-width: 760px;
-            background: rgba(vars.$color-on-primary, 0.12);
-            backdrop-filter: blur(2px);
+            width: 100%;
+            margin-inline: auto;
+            background: rgba(vars.$color-surface, 0.15);
+            border: 1px solid rgba(vars.$color-on-primary, 0.22);
+            backdrop-filter: blur(5px);
+            box-shadow: vars.$shadow-lg;
 
             img {
                 width: clamp(128px, 32vw, 230px);
@@ -50,23 +65,33 @@
             line-height: fonts.$line-height-tight;
             letter-spacing: vars.$tracking-tight;
             color: vars.$color-on-primary;
+            opacity: 1;
             text-wrap: balance;
+            text-shadow: 0 8px 24px rgba(vars.$color-black, 0.45);
         }
 
         .subtitle {
-            font-size: var(--type-subtitle-size);
-            line-height: 1.45;
-            color: rgba(vars.$color-on-primary, 0.94);
-            max-width: 36ch;
+            color: color.adjust(vars.$color-dark, $lightness: 10%);
         }
 
         .cta-wrapper .atom-button {
             width: min(100%, 26rem);
-            //max-width: 100%;
             white-space: normal;
             text-align: center;
             line-height: 1.3;
             padding-inline: clamp(1rem, 4vw, 2rem);
+            box-shadow: vars.$shadow-md;
+            opacity: 1 !important;
+            background-color: vars.$color-primary !important;
+            border-color: vars.$color-primary !important;
+            color: vars.$color-on-primary !important;
+            filter: none !important;
+        }
+
+        .cta-wrapper .atom-button.atom-button--primary:hover:not(:disabled) {
+            background-color: vars.$color-primary-dark !important;
+            border-color: vars.$color-primary-dark !important;
+            color: vars.$color-on-primary !important;
         }
     }
 
@@ -216,22 +241,59 @@
         padding: vars.$space-12;
         border-radius: vars.$radius-xl;
         background: rgba(vars.$color-black, 0.04);
-        box-shadow: 0 15px 40px rgba(vars.$color-black, 0.08);
+        box-shadow: vars.$shadow-lg;
         font-size: var(--type-body-size);
         line-height: 1.6;
         height: 100%;
+    }
+
+    .landing-reveal {
+        opacity: 0;
+        transform: translate3d(0, var(--reveal-distance), 0);
+        transition:
+            opacity var(--reveal-duration) var(--reveal-ease),
+            transform var(--reveal-duration) var(--reveal-ease);
+        transition-delay: var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+    }
+
+    .landing-reveal[data-reveal="left"] {
+        transform: translate3d(calc(-1 * var(--reveal-distance)), 0, 0);
+    }
+
+    .landing-reveal[data-reveal="right"] {
+        transform: translate3d(var(--reveal-distance), 0, 0);
+    }
+
+    .landing-reveal[data-reveal="scale"] {
+        transform: translate3d(0, 14px, 0) scale(0.985);
+    }
+
+    .landing-reveal.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
     }
 }
 
 @media (max-width: 768px) {
     .landing-page {
+        --reveal-distance: 16px;
+        --reveal-duration: 480ms;
+
         .landing {
             min-height: 92vh;
 
+            .landing-inner {
+                margin: vars.$space-4
+            }
             &::before {
                 background-position: center 25%;
                 filter: blur(3px) opacity(0.7);
                 transform: scale(1.02);
+            }
+
+            > .landing-reveal {
+                padding-inline: vars.$space-3;
             }
         }
 
@@ -266,6 +328,7 @@
 
     }
 }
+
 
 @media (max-width: 480px) {
     .landing-page {

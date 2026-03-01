@@ -1,0 +1,33 @@
+@use "../../../../../Assets/Styles/base/variables" as vars;
+
+.app-loader {
+    min-height: calc(100vh - vars.$navbar-height - vars.$space-12);
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: vars.$space-2;
+    padding: vars.$space-8 vars.$space-4;
+    text-align: center;
+}
+
+.app-loader__logo .vh-logo__image {
+    filter: drop-shadow(0 6px 18px rgba(vars.$color-primary, 0.35));
+    animation: app-loader-pulse 1.8s ease-in-out infinite;
+}
+
+.app-loader__text {
+    margin: 0;
+    color: vars.$color-primary-dark;
+}
+
+@keyframes app-loader-pulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    50% {
+        transform: scale(1.04);
+        opacity: 1;
+    }
+}
