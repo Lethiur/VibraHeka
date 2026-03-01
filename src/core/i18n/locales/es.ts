@@ -102,6 +102,7 @@ export const es = {
                     code_label: "Código de verificación",
                     code_help: "Introduce el código que te ha llegado a tu correo",
                     submit_button: "Verificar",
+                    resend_button: "Reenviar codigo",
                     submitting_button: "Verificando..."
                 }
             },

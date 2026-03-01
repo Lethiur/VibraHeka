@@ -14,11 +14,6 @@
     &__card {
         width: 100%;
         max-width: min(100%, var(--auth-layout-card-max-width));
-        background-color: rgba(vars.$color-surface, 0.94);
-        border-radius: vars.$radius-xl;
-        box-shadow: vars.$shadow-xl;
-        border: 1px solid vars.$color-gray-200;
-        backdrop-filter: blur(4px);
     }
 
     &__card-body {

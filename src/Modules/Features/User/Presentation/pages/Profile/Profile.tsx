@@ -5,7 +5,7 @@ import useLocalStorage from '@core/Presentation/Hooks/UseLocalStorage';
 import { STORAGE_KEYS } from '@core/Infrastructure/Storage/StorageKeys';
 import EditableProfile from '@users/Presentation/Components/Organisms/Profile/EditableProfile';
 import SubscriptionPanel from '../../Components/Organisms/Subscription/SubscriptionPanel';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 
 export default function Profile(): ReactElement {
     const { id } = useParams<{ id: string }>();
@@ -31,13 +31,13 @@ export default function Profile(): ReactElement {
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     return (
-        <div className="profile-page">
+        <Container className="profile-page vh-page-section">
             <Row>
                 <Col md={12} lg={12}>
                     <EditableProfile UserID={isOwnProfile ? userID! : id!} IsOwnProfile={isOwnProfile} />
                 </Col>
             </Row>
             {isOwnProfile && <SubscriptionPanel timeZone={userTimeZone} />}
-        </div>
+        </Container>
     );
 };

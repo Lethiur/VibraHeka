@@ -166,6 +166,105 @@ b {
     color: vars.$color-dark-muted;
 }
 
+.vh-surface-card {
+    background-color: rgba(vars.$color-surface, 0.94);
+    border: 1px solid vars.$color-gray-200;
+    border-radius: vars.$radius-lg;
+    box-shadow: vars.$shadow-md;
+    backdrop-filter: blur(2px);
+}
+
+.vh-page-section {
+    padding-block: vars.$space-8 vars.$space-12;
+    min-height: calc(100vh - vars.$navbar-height);
+}
+
+.vh-panel {
+    overflow: hidden;
+
+    > .card-header {
+        background: linear-gradient(135deg, rgba(vars.$color-primary, 0.9), rgba(vars.$color-primary-light, 0.85));
+        color: vars.$color-on-primary;
+        padding: vars.$space-6;
+        border-bottom: 0;
+        text-align: center;
+
+        h2 {
+            font-family: fonts.$font-display;
+            font-size: var(--type-title-size);
+            font-weight: fonts.$font-weight-regular;
+            line-height: fonts.$line-height-tight;
+            letter-spacing: vars.$tracking-tight;
+            color: vars.$color-on-primary;
+            margin: 0;
+        }
+    }
+
+    > .card-body {
+        padding: vars.$space-8;
+    }
+}
+
+.vh-skeleton {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background-color: vars.$color-gray-200;
+    border-radius: vars.$radius-md;
+}
+
+.vh-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(vars.$color-surface, 0.55), transparent);
+    animation: vh-skeleton-shimmer 1.2s infinite;
+}
+
+.vh-skeleton-title {
+    height: 2rem;
+    width: min(22rem, 70%);
+    margin: 0 auto;
+}
+
+.vh-skeleton-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: vars.$radius-full;
+}
+
+.vh-skeleton-line {
+    height: 1rem;
+    width: 100%;
+}
+
+.vh-skeleton-input {
+    height: 3rem;
+    width: 100%;
+}
+
+.vh-skeleton-textarea {
+    height: 6rem;
+    width: 100%;
+}
+
+.vh-skeleton-pill {
+    height: 1.25rem;
+    width: 100%;
+}
+
+.vh-skeleton-button {
+    height: 2.5rem;
+    width: 100%;
+}
+
+@keyframes vh-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 // ── Links
 a {
     color: vars.$color-primary;
@@ -232,6 +331,14 @@ ol {
 }
 
 @media (max-width: 768px) {
+    .vh-page-section {
+        padding-block: vars.$space-6 vars.$space-10;
+    }
+
+    .vh-panel > .card-body {
+        padding: vars.$space-6;
+    }
+
     body {
         text-align: justify;
         text-justify: inter-word;

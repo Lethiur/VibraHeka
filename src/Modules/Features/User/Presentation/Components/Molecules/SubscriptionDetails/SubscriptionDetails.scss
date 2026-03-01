@@ -37,11 +37,11 @@
 }
 
 .subscription-kpi__value.is-active {
-    color: #2f7a4b;
+    color: vars.$color-success;
 }
 
 .subscription-kpi__value.is-pending {
-    color: #9a6a00;
+    color: vars.$color-warning;
 }
 
 .subscription-kpi__value.is-cancelled {
@@ -74,6 +74,6 @@
 }
 
 .subscription-action-btn.is-success {
-    border-color: rgba(#2f7a4b, 0.45) !important;
-    color: #2f7a4b !important;
+    border-color: rgba(vars.$color-success, 0.45) !important;
+    color: vars.$color-success !important;
 }

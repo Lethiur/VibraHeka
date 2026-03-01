@@ -1,4 +1,4 @@
-import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import UseCancelSubscription from "@users/Presentation/Hooks/UseCancelSubscription";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
@@ -16,7 +16,6 @@ interface SubscriptionPanelProps {
 }
 
 export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) {
-
     const [waitingForStripe, setWaitingForStripe] = useState(false);
 
     const { checkoutURL, loading, error, subscribe } = UseSubscribe();
@@ -26,12 +25,11 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     const { reactivateSubscription, loading: reactivateSubscriptionLoading, error: reactivateSubscriptionError } = UseReactivateSubscription();
     const { isProcessing: isPaymentPending } = UseRefreshSubscription(waitingForStripe);
 
-
     useEffect(() => {
-        if (!subscription)
+        if (!subscription) {
             getSubscription();
+        }
     }, []);
-
 
     useEffect(() => {
         if (subscription?.Status === OrderStatus.PENDING) {
@@ -66,83 +64,79 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     };
 
     const handleReactivateSubscription = () => {
-        reactivateSubscription().then(_ => {
+        reactivateSubscription().then((_) => {
             getSubscription();
         });
     };
 
-
-
-
     const isInitialLoading = subscriptionLoading && !subscription;
     const isLoading = () => {
-        return subscriptionLoading || cancelSubscriptionLoading || getSubscriptionPanelLoading || loading || isPaymentPending || reactivateSubscriptionLoading;
+        return (
+            subscriptionLoading ||
+            cancelSubscriptionLoading ||
+            getSubscriptionPanelLoading ||
+            loading ||
+            isPaymentPending ||
+            reactivateSubscriptionLoading
+        );
     };
 
     const renderSubscriptionSkeleton = () => (
-        <Row className='justify-content-center align-items-center d-flex'>
+        <Row className="g-3 justify-content-center align-items-center">
             <Col md={12} lg={12}>
-                <div className="skeleton skeleton-line mb-3"></div>
+                <div className="vh-skeleton vh-skeleton-line mb-3"></div>
             </Col>
-            <Col md={4} sm={12} lg={4} className='mt-sm-2'>
-                <div className="skeleton skeleton-pill"></div>
+            <Col md={4} sm={12} lg={4}>
+                <div className="vh-skeleton vh-skeleton-pill"></div>
             </Col>
-            <Col md={4} sm={12} lg={4} className='mt-sm-2'>
-                <div className="skeleton skeleton-pill"></div>
+            <Col md={4} sm={12} lg={4}>
+                <div className="vh-skeleton vh-skeleton-pill"></div>
             </Col>
-            <Col md={4} sm={12} lg={4} className='mt-sm-2'>
-                <div className="skeleton skeleton-button"></div>
+            <Col md={4} sm={12} lg={4}>
+                <div className="vh-skeleton vh-skeleton-button"></div>
             </Col>
         </Row>
     );
 
-
     const renderCardBody = () => {
-        if (isInitialLoading) {
+        if (isInitialLoading || isLoading()) {
             return renderSubscriptionSkeleton();
         }
 
-        return <Row className='justify-content-center align-items-center d-flex'>
-            {subscriptionError !== SubscriptionErrors.SUBSCRIPTION_NOT_FOUND && <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
-                <ErrorBox message={subscriptionError || cancelSubscriptionError || getSubscriptionPanelError || error || reactivateSubscriptionError} variant="danger" />
-            </Col>}
-            <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
+        return (
+            <Row className="g-3 justify-content-center align-items-center">
+                {subscriptionError !== SubscriptionErrors.SUBSCRIPTION_NOT_FOUND && (
+                    <Col md={12} sm={12} lg={12}>
+                        <ErrorBox
+                            message={subscriptionError || cancelSubscriptionError || getSubscriptionPanelError || error || reactivateSubscriptionError}
+                            variant="danger"
+                        />
+                    </Col>
+                )}
 
-                {isLoading() &&
-                    <div className="d-flex justify-content-center py-4">
-                        <Spinner animation="border" />
-                    </div>
-                }
-
-                {isPaymentPending &&
-                    <div className="d-flex justify-content-center py-4">
-                        Estamos procesando tu pago...
-                    </div>
-                }
-
-                {!isLoading() && <>
-                    <SubscriptionDetails handleReactivateSubscription={handleReactivateSubscription} subscription={subscription} timeZone={timeZone} handleSubscribe={handleSubscribe} handleCancelSubscription={handleCancelSubscription} handleGetSubscriptionPanel={handleGetSubscriptionPanel} />
-                </>}
-            </Col>
-        </Row>
-    }
-
+                <Col md={12} sm={12} lg={12}>
+                    <SubscriptionDetails
+                        handleReactivateSubscription={handleReactivateSubscription}
+                        subscription={subscription}
+                        timeZone={timeZone}
+                        handleSubscribe={handleSubscribe}
+                        handleCancelSubscription={handleCancelSubscription}
+                        handleGetSubscriptionPanel={handleGetSubscriptionPanel}
+                    />
+                </Col>
+            </Row>
+        );
+    };
 
     return (
-        <Row className='justify-content-center mt-5 align-items-center d-flex'>
+        <Row className="justify-content-center align-items-center mt-2 mt-md-4">
             <Col md={12} lg={12}>
-                <Container>
-                    <Card className='profile-card'>
-                        <Card.Header>
-                            <h2>Mi Suscripción</h2>
-                        </Card.Header>
-                        <Card.Body>
-
-                            {renderCardBody()}
-                        </Card.Body>
-                    </Card>
-
-                </Container>
+                <Card className="profile-card vh-panel vh-surface-card">
+                    <Card.Header>
+                        <h2>Mi Suscripcion</h2>
+                    </Card.Header>
+                    <Card.Body>{renderCardBody()}</Card.Body>
+                </Card>
             </Col>
         </Row>
     );

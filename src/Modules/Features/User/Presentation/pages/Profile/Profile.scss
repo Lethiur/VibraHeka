@@ -1,44 +1,8 @@
 @use "../../../../../../Assets/Styles/base/variables" as vars;
-@use "../../../../../../Assets/Styles/base/fonts" as fonts;
 
 .profile-page {
-  padding: vars.$space-8 0 vars.$space-12;
-  min-height: calc(100vh - vars.$navbar-height);
-}
-
-.profile-card {
-  background-color: rgba(vars.$color-surface, 0.94);
-  border: 1px solid vars.$color-gray-200;
-  border-radius: vars.$radius-lg;
-  overflow: hidden;
-  box-shadow: vars.$shadow-md;
-  backdrop-filter: blur(2px);
-
-  .card-header {
-    background: linear-gradient(135deg, rgba(vars.$color-primary, 0.9), rgba(vars.$color-primary-light, 0.85));
-    color: vars.$color-on-primary;
-    padding: vars.$space-6;
-    border-bottom: 0;
-    text-align: center;
-
-    h2 {
-      font-family: fonts.$font-display;
-      font-size: var(--type-title-size);
-      font-weight: fonts.$font-weight-regular;
-      line-height: fonts.$line-height-tight;
-      letter-spacing: vars.$tracking-tight;
-      color: vars.$color-on-primary;
-      margin: 0;
-    }
-  }
-
-  .card-body {
-    padding: vars.$space-8;
-
-    @media (max-width: 768px) {
-      padding: vars.$space-6;
-    }
-  }
+  display: grid;
+  gap: vars.$space-8;
 }
 
 .avatar-container {
@@ -74,68 +38,4 @@
   margin-top: vars.$space-6;
   padding-top: vars.$space-6;
   border-top: 1px solid vars.$color-gray-200;
-}
-
-.profile-card--skeleton .card-header {
-  background: vars.$color-gray-200;
-}
-
-.skeleton {
-  display: block;
-  position: relative;
-  overflow: hidden;
-  background-color: vars.$color-gray-200;
-  border-radius: vars.$radius-md;
-}
-
-.skeleton::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(vars.$color-surface, 0.55), transparent);
-  animation: skeleton-shimmer 1.2s infinite;
-}
-
-.skeleton-title {
-  height: 2rem;
-  width: min(22rem, 70%);
-  margin: 0 auto;
-}
-
-.skeleton-avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: vars.$radius-full;
-}
-
-.skeleton-line {
-  height: 1rem;
-  width: 100%;
-}
-
-.skeleton-input {
-  height: 3rem;
-  width: 100%;
-}
-
-.skeleton-textarea {
-  height: 6rem;
-  width: 100%;
-}
-
-.skeleton-pill {
-  height: 1.25rem;
-  width: 100%;
-}
-
-.skeleton-button {
-  height: 2.5rem;
-  width: 100%;
-}
-
-@keyframes skeleton-shimmer {
-  100% {
-    transform: translateX(100%);
-  }
 }
