@@ -1,8 +1,8 @@
 ﻿import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import Reveal from "@core/Presentation/Components/molecules/Reveal/Reveal";
 import SideImageBlock from "@core/Presentation/Components/organisms/SideImageBlock/SideImageBlock";
 import "./Landing.scss";
 import Logo from "@core/Presentation/Components/atoms/Logo/Logo";
-import { ReactNode, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import fotoPag1 from "../../../../../Assets/Images/foto pag 1.jpg";
@@ -12,55 +12,7 @@ import fotoPag4 from "../../../../../Assets/Images/foto pag 4.jpg";
 import fotoPag5 from "../../../../../Assets/Images/foto pag 5.jpg";
 import fotoPag7 from "../../../../../Assets/Images/foto pag 7.jpg";
 
-interface RevealProps {
-    children: ReactNode;
-    delay?: number;
-    variant?: "up" | "left" | "right" | "scale";
-    className?: string;
-}
-
-function Reveal({ children, delay = 0, variant = "up", className = "" }: RevealProps) {
-    return (
-        <div
-            className={`landing-reveal ${className}`.trim()}
-            data-reveal={variant}
-            style={{ ["--reveal-delay" as string]: `${delay}ms` }}
-        >
-            {children}
-        </div>
-    );
-}
-
 export default function LandingPage() {
-    useEffect(() => {
-        const revealElements = Array.from(document.querySelectorAll<HTMLElement>(".landing-reveal"));
-        if (revealElements.length === 0) return;
-
-        const revealInView = () => {
-            const trigger = window.innerHeight * 0.88;
-            revealElements.forEach((element) => {
-                if (element.classList.contains("is-visible")) return;
-                const { top } = element.getBoundingClientRect();
-                if (top <= trigger) {
-                    element.classList.add("is-visible");
-                }
-            });
-        };
-
-        const onScroll = () => revealInView();
-
-        window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", onScroll);
-        window.addEventListener("orientationchange", onScroll);
-        requestAnimationFrame(revealInView);
-
-        return () => {
-            window.removeEventListener("scroll", onScroll);
-            window.removeEventListener("resize", onScroll);
-            window.removeEventListener("orientationchange", onScroll);
-        };
-    }, []);
-
     return (
         <div className="landing-page">
             <section className="landing position-relative d-flex align-items-center justify-content-center overflow-hidden text-center py-4 py-md-5">
@@ -72,7 +24,7 @@ export default function LandingPage() {
                         paz, enfoque y energía en tu vida diaria
                     </h1>
 
-                    <p className="subtitle mx-auto mb-0">
+                    <p className="hero-subtitle mx-auto mb-0">
                         Baja el ruido mental, recupera tu centro y avanza con apoyo real desde el primer día.
                     </p>
 
@@ -150,7 +102,7 @@ export default function LandingPage() {
 
                                 <Col lg={6}>
                                     <div className="subtitle">
-                                        Aqu&iacute; encontrar&aacute;s un espacio seguro y humano para soltar carga emocional y volver a sentir estabilidad.
+                                        Aqu&iacute; encontrarás un espacio seguro y humano para soltar carga emocional y volver a sentir estabilidad.
                                     </div>
                                 </Col>
                                 <Col lg={12}>
@@ -198,7 +150,7 @@ export default function LandingPage() {
                             <div className="landing-copy">
                                 <h2>Tu camino empieza aqu&iacute;</h2>
                                 <p className="section-subtitle">Con un proceso claro, humano y sostenible</p>
-                                <p>En VibraHeka te ofrecemos una comunidad de apoyo donde podr&aacute;s participar en multitud de actividades con el fin de hacerte m&aacute;s consciente de tus emociones y sensaciones. Adem&aacute;s no estar&aacute;s solo, recibir&aacute;s acompa&ntilde;amiento cuando lo ncesites. Todo esto para crear e integrar nuevos h&aacute;bitos que se sostengan en el tiempo.</p>
+                                <p>En VibraHeka te ofrecemos una comunidad de apoyo donde podrás participar en multitud de actividades con el fin de hacerte más consciente de tus emociones y sensaciones. Además no estarás solo, recibirás acompañamiento cuando lo necesites. Todo esto para crear e integrar nuevos hábitos que se sostengan en el tiempo.</p>
                                 <p className="section-emphasis">Inicia tu camino hacia la calma.</p>
                                 <PrimaryButton label="Quiero empezar hoy" fullWidth={true} variant="secondary" />
                             </div>
@@ -263,4 +215,3 @@ export default function LandingPage() {
         </div>
     );
 }
-

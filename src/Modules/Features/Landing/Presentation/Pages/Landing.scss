@@ -1,23 +1,12 @@
 ﻿@use "../../../../../Assets/Styles/base/variables" as vars;
 @use "../../../../../Assets/Styles/base/fonts" as fonts;
-@use "sass:color";
 
 .landing-page {
     --landing-overlay-top: rgba(20, 6, 32, 0.64);
     --landing-overlay-bottom: rgba(55, 1, 54, 0.42);
-    --reveal-distance: 28px;
-    --reveal-duration: 680ms;
-    --reveal-ease: cubic-bezier(0.2, 0.8, 0.22, 1);
 
     .landing {
         min-height: 100vh;
-
-        > .landing-reveal {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding-inline: vars.$space-4;
-        }
 
         &::before {
             content: "";
@@ -70,8 +59,16 @@
             text-shadow: 0 8px 24px rgba(vars.$color-black, 0.45);
         }
 
-        .subtitle {
-            color: color.adjust(vars.$color-dark, $lightness: 10%);
+        .hero-subtitle {
+            font-size: var(--type-subtitle-size);
+            line-height: 1.45;
+            color: vars.$color-on-primary;
+            opacity: 1;
+            font-style: normal;
+            font-weight: fonts.$font-weight-medium;
+            letter-spacing: vars.$tracking-normal;
+            max-width: 36ch;
+            text-shadow: 0 6px 18px rgba(vars.$color-black, 0.42);
         }
 
         .cta-wrapper .atom-button {
@@ -247,39 +244,10 @@
         height: 100%;
     }
 
-    .landing-reveal {
-        opacity: 0;
-        transform: translate3d(0, var(--reveal-distance), 0);
-        transition:
-            opacity var(--reveal-duration) var(--reveal-ease),
-            transform var(--reveal-duration) var(--reveal-ease);
-        transition-delay: var(--reveal-delay, 0ms);
-        will-change: opacity, transform;
-    }
-
-    .landing-reveal[data-reveal="left"] {
-        transform: translate3d(calc(-1 * var(--reveal-distance)), 0, 0);
-    }
-
-    .landing-reveal[data-reveal="right"] {
-        transform: translate3d(var(--reveal-distance), 0, 0);
-    }
-
-    .landing-reveal[data-reveal="scale"] {
-        transform: translate3d(0, 14px, 0) scale(0.985);
-    }
-
-    .landing-reveal.is-visible {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) scale(1);
-    }
 }
 
 @media (max-width: 768px) {
     .landing-page {
-        --reveal-distance: 16px;
-        --reveal-duration: 480ms;
-
         .landing {
             min-height: 92vh;
 
@@ -292,9 +260,6 @@
                 transform: scale(1.02);
             }
 
-            > .landing-reveal {
-                padding-inline: vars.$space-3;
-            }
         }
 
         .landing-body {
