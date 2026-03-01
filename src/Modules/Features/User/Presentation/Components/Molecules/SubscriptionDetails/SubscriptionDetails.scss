@@ -1,0 +1,79 @@
+@use "../../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.subscription-details {
+    &__summary {
+        margin-bottom: vars.$space-5;
+    }
+
+    &__actions {
+        padding-top: vars.$space-4;
+        border-top: 1px solid vars.$color-gray-200;
+    }
+}
+
+.subscription-kpi {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$space-2;
+    padding: vars.$space-4;
+    border-radius: vars.$radius-md;
+    background: rgba(vars.$color-gray-100, 0.9);
+    border: 1px solid vars.$color-gray-200;
+
+    &__label {
+        font-size: var(--type-caption-size);
+        letter-spacing: vars.$tracking-wider;
+        text-transform: uppercase;
+        color: vars.$color-dark-muted;
+    }
+
+    &__value {
+        font-family: fonts.$font-primary;
+        font-size: var(--type-body-size);
+        color: vars.$color-dark;
+        font-weight: fonts.$font-weight-semibold;
+    }
+}
+
+.subscription-kpi__value.is-active {
+    color: #2f7a4b;
+}
+
+.subscription-kpi__value.is-pending {
+    color: #9a6a00;
+}
+
+.subscription-kpi__value.is-cancelled {
+    color: vars.$color-error;
+}
+
+.subscription-kpi__value.is-neutral {
+    color: vars.$color-dark-muted;
+}
+
+.subscription-action-btn {
+    width: 100%;
+    border-radius: vars.$radius-full !important;
+    border: 1px solid vars.$color-primary !important;
+    background-color: vars.$color-surface !important;
+    color: vars.$color-primary-dark !important;
+    padding: vars.$space-3 vars.$space-4 !important;
+    font-size: var(--type-body-size) !important;
+    font-weight: fonts.$font-weight-medium !important;
+    margin-bottom: vars.$space-3;
+
+    &:hover {
+        background-color: vars.$color-primary-alpha !important;
+    }
+}
+
+.subscription-action-btn.is-danger {
+    border-color: rgba(vars.$color-error, 0.5) !important;
+    color: vars.$color-error !important;
+}
+
+.subscription-action-btn.is-success {
+    border-color: rgba(#2f7a4b, 0.45) !important;
+    color: #2f7a4b !important;
+}

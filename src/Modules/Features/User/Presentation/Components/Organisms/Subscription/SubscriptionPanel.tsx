@@ -74,12 +74,34 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
 
 
 
+    const isInitialLoading = subscriptionLoading && !subscription;
     const isLoading = () => {
         return subscriptionLoading || cancelSubscriptionLoading || getSubscriptionPanelLoading || loading || isPaymentPending || reactivateSubscriptionLoading;
-    }
+    };
+
+    const renderSubscriptionSkeleton = () => (
+        <Row className='justify-content-center align-items-center d-flex'>
+            <Col md={12} lg={12}>
+                <div className="skeleton skeleton-line mb-3"></div>
+            </Col>
+            <Col md={4} sm={12} lg={4} className='mt-sm-2'>
+                <div className="skeleton skeleton-pill"></div>
+            </Col>
+            <Col md={4} sm={12} lg={4} className='mt-sm-2'>
+                <div className="skeleton skeleton-pill"></div>
+            </Col>
+            <Col md={4} sm={12} lg={4} className='mt-sm-2'>
+                <div className="skeleton skeleton-button"></div>
+            </Col>
+        </Row>
+    );
 
 
     const renderCardBody = () => {
+        if (isInitialLoading) {
+            return renderSubscriptionSkeleton();
+        }
+
         return <Row className='justify-content-center align-items-center d-flex'>
             {subscriptionError !== SubscriptionErrors.SUBSCRIPTION_NOT_FOUND && <Col md={12} sm={12} lg={12} className='mt-2 mt-sm-2'>
                 <ErrorBox message={subscriptionError || cancelSubscriptionError || getSubscriptionPanelError || error || reactivateSubscriptionError} variant="danger" />

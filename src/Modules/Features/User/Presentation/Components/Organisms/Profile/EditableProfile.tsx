@@ -58,20 +58,43 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
         }) as IUserprofile);
     };
 
+    const renderProfileSkeleton = () => (
+        <Container>
+            <Row className="justify-content-center">
+                <Col md={12} lg={12}>
+                    <Card className="profile-card profile-card--skeleton">
+                        <Card.Header>
+                            <div className="skeleton skeleton-title"></div>
+                        </Card.Header>
+                        <Card.Body>
+                            <Row>
+                                <Col md={12} lg={2}>
+                                    <div className="avatar-container">
+                                        <div className="skeleton skeleton-avatar"></div>
+                                    </div>
+                                </Col>
+                                <Col md={12} lg={10}>
+                                    <div className="skeleton skeleton-line mb-3"></div>
+                                </Col>
+                            </Row>
+                            <Row className="g-3">
+                                <Col md={4}><div className="skeleton skeleton-input"></div></Col>
+                                <Col md={4}><div className="skeleton skeleton-input"></div></Col>
+                                <Col md={4}><div className="skeleton skeleton-input"></div></Col>
+                                <Col md={4}><div className="skeleton skeleton-input"></div></Col>
+                                <Col md={4}><div className="skeleton skeleton-input"></div></Col>
+                                <Col md={4}><div className="skeleton skeleton-input"></div></Col>
+                                <Col md={12}><div className="skeleton skeleton-textarea"></div></Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
+
     if (loading || updateLoading || !formData) {
-        return <div className='profile-page'>
-            <Container>
-                <Row className='justify-content-center'>
-                    <Col md={12} lg={12}>
-                        <Card className="profile-card">
-                            <Card.Header>
-                                <h2>Loading motherfucker.</h2>
-                            </Card.Header>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        </div>;
+        return renderProfileSkeleton();
     }
 
     return (

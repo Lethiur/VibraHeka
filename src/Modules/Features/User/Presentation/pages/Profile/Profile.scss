@@ -1,66 +1,46 @@
-// ─────────────────────────────────────────────
-// Profile Page
-// ─────────────────────────────────────────────
 @use "../../../../../../Assets/Styles/base/variables" as vars;
 @use "../../../../../../Assets/Styles/base/fonts" as fonts;
 
 .profile-page {
-  padding: vars.$space-8 0 vars.$space-16;
-  min-height: 100vh;
-  background-color: vars.$color-background;
+  padding: vars.$space-8 0 vars.$space-12;
+  min-height: calc(100vh - vars.$navbar-height);
 }
 
-// ── Profile card (main container)
 .profile-card {
-  background-color: vars.$color-surface;
+  background-color: rgba(vars.$color-surface, 0.94);
   border: 1px solid vars.$color-gray-200;
-  border-radius: vars.$radius-md;
+  border-radius: vars.$radius-lg;
   overflow: hidden;
   box-shadow: vars.$shadow-md;
+  backdrop-filter: blur(2px);
 
-  // ── Card header (user banner)
   .card-header {
-    background: linear-gradient(135deg, vars.$color-primary 0%, vars.$color-primary-light 100%);
+    background: linear-gradient(135deg, rgba(vars.$color-primary, 0.9), rgba(vars.$color-primary-light, 0.85));
     color: vars.$color-on-primary;
-    padding: vars.$space-6 vars.$space-6 vars.$space-6;
-    border-bottom: none;
-    position: relative;
+    padding: vars.$space-6;
+    border-bottom: 0;
     text-align: center;
 
     h2 {
       font-family: fonts.$font-display;
-      font-size: fonts.$font-size-2xl;
+      font-size: var(--type-title-size);
       font-weight: fonts.$font-weight-regular;
-      margin: 0;
+      line-height: fonts.$line-height-tight;
+      letter-spacing: vars.$tracking-tight;
       color: vars.$color-on-primary;
-      letter-spacing: vars.$tracking-wider;
-    }
-
-    .user-details {
-      margin-top: vars.$space-3;
-      display: flex;
-      flex-direction: column;
-      gap: vars.$space-1;
-      font-family: fonts.$font-primary;
-      font-size: fonts.$font-size-sm;
-      color: rgba(255, 255, 255, 0.8);
-
-      div {
-        padding: 0;
-      }
+      margin: 0;
     }
   }
 
   .card-body {
-    padding: vars.$space-6 vars.$space-8;
+    padding: vars.$space-8;
 
-    @media (max-width: 576px) {
-      padding: vars.$space-5 vars.$space-5;
+    @media (max-width: 768px) {
+      padding: vars.$space-6;
     }
   }
 }
 
-// ── Avatar
 .avatar-container {
   display: flex;
   justify-content: flex-start;
@@ -68,62 +48,94 @@
   margin-bottom: vars.$space-6;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 992px) {
+    justify-content: center;
+    margin-top: 0;
+  }
 }
 
 .profile-avatar {
-  width: 100px;
-  height: 100px;
+  width: 96px;
+  height: 96px;
   object-fit: cover;
   border-radius: vars.$radius-full;
-  border: 4px solid vars.$color-surface;
-  box-shadow: vars.$shadow-md;
+  border: 3px solid vars.$color-surface;
+  box-shadow: vars.$shadow-sm;
   background-color: vars.$color-gray-200;
-  display: block;
 }
 
-// ── Info section
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: vars.$space-5;
-
-  .info-row {
-    display: flex;
-    flex-direction: column;
-    gap: vars.$space-1;
-    padding-bottom: vars.$space-5;
-    border-bottom: 1px solid vars.$color-gray-200;
-
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-  }
-
-  .info-label {
-    font-family: fonts.$font-primary;
-    font-size: fonts.$font-size-xs;
-    font-weight: fonts.$font-weight-semibold;
-    letter-spacing: vars.$tracking-wider;
-    text-transform: uppercase;
-    color: vars.$color-earth;
-    margin: 0;
-  }
-
-  .info-value {
-    font-family: fonts.$font-primary;
-    font-size: fonts.$font-size-md;
-    color: vars.$color-dark;
-    margin: 0;
-  }
+.user-details {
+  font-size: var(--type-body-size);
+  color: vars.$color-dark-muted;
 }
 
-// ── Edit controls
 .edit-controls {
-  display: flex;
-  justify-content: flex-end;
-  gap: vars.$space-3;
   margin-top: vars.$space-6;
   padding-top: vars.$space-6;
   border-top: 1px solid vars.$color-gray-200;
+}
+
+.profile-card--skeleton .card-header {
+  background: vars.$color-gray-200;
+}
+
+.skeleton {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-color: vars.$color-gray-200;
+  border-radius: vars.$radius-md;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(vars.$color-surface, 0.55), transparent);
+  animation: skeleton-shimmer 1.2s infinite;
+}
+
+.skeleton-title {
+  height: 2rem;
+  width: min(22rem, 70%);
+  margin: 0 auto;
+}
+
+.skeleton-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: vars.$radius-full;
+}
+
+.skeleton-line {
+  height: 1rem;
+  width: 100%;
+}
+
+.skeleton-input {
+  height: 3rem;
+  width: 100%;
+}
+
+.skeleton-textarea {
+  height: 6rem;
+  width: 100%;
+}
+
+.skeleton-pill {
+  height: 1.25rem;
+  width: 100%;
+}
+
+.skeleton-button {
+  height: 2.5rem;
+  width: 100%;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
