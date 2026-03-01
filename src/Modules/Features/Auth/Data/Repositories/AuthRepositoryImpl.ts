@@ -12,6 +12,8 @@ import { LoginData } from "../../Domain/Models/LoginData";
 import { LoginResult } from "../../Domain/Models/LoginResult";
 import { LoginResultDTO } from "../DTOs/LoginResultDTO";
 import { LoginRequestDTO } from "../DTOs/LoginRequestDTO";
+import { ForgotPasswordData } from "../../Domain/Models/ForgotPasswordData";
+import { ForgotPasswordRequestDTO } from "../DTOs/ForgotPasswordRequestDTO";
 
 export class AuthRepositoryImpl implements IAuthRepository {
 
@@ -92,6 +94,22 @@ export class AuthRepositoryImpl implements IAuthRepository {
      */
     public async ResendVerificationCode(email: string): Promise<Result<void, AuthErrorCodes>> {
         const result: Result<void, string> = await this.datasource.ResendVerificationCode(email);
+
+        return result.mapErr(error => error as AuthErrorCodes);
+    }
+
+    /**
+     * Starts the forgot-password flow for the given email.
+     *
+     * @param {ForgotPasswordData} data - The data needed to request password recovery.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an auth error code.
+     */
+    public async ForgotPassword(data: ForgotPasswordData): Promise<Result<void, AuthErrorCodes>> {
+        const dto: ForgotPasswordRequestDTO = {
+            email: data.email
+        };
+
+        const result: Result<void, string> = await this.datasource.ForgotPassword(dto);
 
         return result.mapErr(error => error as AuthErrorCodes);
     }

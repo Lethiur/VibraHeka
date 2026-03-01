@@ -1,6 +1,5 @@
-import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
+﻿import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
-
 
 export const es = {
     translation: {
@@ -38,7 +37,7 @@ export const es = {
                     count_text: "Hay: {{count}} plantillas",
                     templates_list_title: "Plantillas",
                     messages: {
-                        saved_title: "Guardado",
+                        saved_title: "Éxito",
                         saved_content: "Contenido guardado correctamente",
                         created_title: "Éxito",
                         created_content: "Plantilla creada correctamente",
@@ -107,16 +106,28 @@ export const es = {
                 }
             },
             login: {
-                title: 'Identificarse',
-                description: 'Identificate para acceder a tu cuenta.',
+                title: "Identificarse",
+                description: "Identificate para acceder a tu cuenta.",
                 form: {
                     email_label: "Email",
                     email_help: "Introduce tu email",
                     password_label: "Contraseña",
                     password_help: "No compartas tu contraseña con nadie",
+                    forgot_password_link: "He olvidado mi contraseña",
                     submit_button: "Identificarse",
                     submitting_button: "Verificando..."
-
+                }
+            },
+            forgot_password: {
+                title: "Recupera tu contraseña",
+                description: "Introduce tu email y te enviaremos las instrucciones para recuperar el acceso.",
+                form: {
+                    email_label: "Email",
+                    email_help: "Introduce el correo asociado a tu cuenta",
+                    submit_button: "Enviar instrucciones",
+                    submitting_button: "Enviando...",
+                    success_message: "Si el email existe, te hemos enviado las instrucciones de recuperación.",
+                    back_to_login: "Volver a identificarse"
                 }
             }
         }

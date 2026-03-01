@@ -12,7 +12,7 @@ import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
@@ -86,6 +86,12 @@ export default function Login() {
                     helpText={t('pages.login.form.password_help')}
                     error={errors.password ? t(`errors.auth.${errors.password}`) : undefined}
                 />
+
+                <div className="d-flex justify-content-end mt-2">
+                    <Link to="/forgot-password" className="type-body text-decoration-none">
+                        {t('pages.login.form.forgot_password_link')}
+                    </Link>
+                </div>
 
                 <div className="auth-form__submit">
                     <PrimaryButton

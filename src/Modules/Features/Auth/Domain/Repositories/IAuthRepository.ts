@@ -5,6 +5,7 @@ import { AuthErrorCodes } from "../Errors/AuthErrorCodes";
 import { VerificationData } from "../Models/VerificationData";
 import { LoginData } from "../Models/LoginData";
 import { LoginResult } from "../Models/LoginResult";
+import { ForgotPasswordData } from "../Models/ForgotPasswordData";
 
 /**
  * Interface representing an authentication repository that provides methods
@@ -43,4 +44,12 @@ export interface IAuthRepository {
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with a `Result` containing either a success or error message.
      */
     ResendVerificationCode(email: string): Promise<Result<void, AuthErrorCodes>>;
+
+    /**
+     * Starts the forgot-password flow by sending a recovery email to the user.
+     *
+     * @param {ForgotPasswordData} data - The payload that contains the user's email.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an error code.
+     */
+    ForgotPassword(data: ForgotPasswordData): Promise<Result<void, AuthErrorCodes>>;
 }
