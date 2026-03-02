@@ -1,5 +1,7 @@
 ﻿import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
+import { ProfileApplicationErrors } from "@users/Application/Errors/ProfileApplicationErrors";
+import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 
 export const es = {
     translation: {
@@ -23,12 +25,37 @@ export const es = {
                 [AuthApplicationErrors.EMAIL_INVALID]: "Debe ingresar un email válido",
                 [AuthApplicationErrors.PASSWORD_NOT_PRESENT]: "La contraseña es obligatoria",
                 [AuthApplicationErrors.PASSWORD_TOO_SHORT]: "La contraseña debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.PASSWORD_REQUIRES_UPPERCASE]: "La contraseña debe incluir al menos una mayúscula.",
+                [AuthApplicationErrors.PASSWORD_REQUIRES_NUMBER]: "La contraseña debe incluir al menos un número.",
+                [AuthApplicationErrors.PASSWORD_REQUIRES_SYMBOL]: "La contraseña debe incluir al menos un símbolo.",
                 [AuthApplicationErrors.RESET_PASSWORD_TOKEN_NOT_PRESENT]: "El token de recuperacion no es valido o no existe.",
                 [AuthApplicationErrors.PASSWORD_CONFIRMATION_NOT_PRESENT]: "La confirmacion de contraseña es obligatoria",
                 [AuthApplicationErrors.PASSWORD_CONFIRMATION_TOO_SHORT]: "La confirmacion debe tener al menos 6 caracteres",
                 [AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH]: "Las contraseñas no coinciden",
                 [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT]: "El código de verificación debe tener al menos 6 caracteres",
-                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT]: "El código de verificación es obligatorio"
+                [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT]: "El código de verificación es obligatorio",
+                [AuthApplicationErrors.FIRST_NAME_NOT_PRESENT]: "El nombre es obligatorio",
+                [AuthApplicationErrors.FIRST_NAME_TOO_SHORT]: "El nombre debe tener al menos 2 caracteres",
+                [AuthApplicationErrors.MIDDLE_NAME_NOT_PRESENT]: "El primer apellido es obligatorio",
+                [AuthApplicationErrors.MIDDLE_NAME_TOO_SHORT]: "El primer apellido debe tener al menos 2 caracteres",
+                [AuthApplicationErrors.LAST_NAME_NOT_PRESENT]: "El segundo apellido es obligatorio",
+                [AuthApplicationErrors.LAST_NAME_TOO_SHORT]: "El segundo apellido debe tener al menos 2 caracteres"
+            },
+            profile: {
+                [ProfileErrors.INVALID_PROFILE_ID]: "El perfil indicado no es válido.",
+                [ProfileErrors.INVALID_PASSWORD]: "La nueva contraseña no cumple los criterios de seguridad.",
+                [ProfileErrors.NOT_AUTHORIZED]: "La contraseña actual no es válida.",
+                [ProfileErrors.RATE_LIMITED]: "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
+                [ProfileErrors.GENERIC_ERROR]: "Ha ocurrido un error inesperado. Inténtalo nuevamente.",
+                [ProfileApplicationErrors.CURRENT_PASSWORD_NOT_PRESENT]: "La contraseña actual es obligatoria.",
+                [ProfileApplicationErrors.NEW_PASSWORD_NOT_PRESENT]: "La nueva contraseña es obligatoria.",
+                [ProfileApplicationErrors.NEW_PASSWORD_TOO_SHORT]: "La nueva contraseña debe tener al menos 6 caracteres.",
+                [ProfileApplicationErrors.NEW_PASSWORD_REQUIRES_UPPERCASE]: "La nueva contraseña debe incluir al menos una mayúscula.",
+                [ProfileApplicationErrors.NEW_PASSWORD_REQUIRES_NUMBER]: "La nueva contraseña debe incluir al menos un número.",
+                [ProfileApplicationErrors.NEW_PASSWORD_REQUIRES_SYMBOL]: "La nueva contraseña debe incluir al menos un símbolo.",
+                [ProfileApplicationErrors.NEW_PASSWORD_CONFIRMATION_NOT_PRESENT]: "Debes confirmar la nueva contraseña.",
+                [ProfileApplicationErrors.NEW_PASSWORD_CONFIRMATION_TOO_SHORT]: "La confirmación debe tener al menos 6 caracteres.",
+                [ProfileApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH]: "Las contraseñas no coinciden."
             }
         },
         components: {
@@ -39,7 +66,14 @@ export const es = {
                     weak: "Debil",
                     medium: "Media",
                     good: "Buena",
-                    strong: "Fuerte"
+                    strong: "Fuerte",
+                    requirements: {
+                        title: "Requisitos",
+                        min_length: "Minimo {{count}} caracteres",
+                        uppercase: "Al menos una mayúscula",
+                        number: "Al menos un número",
+                        symbol: "Al menos un símbolo"
+                    }
                 }
             }
         },
@@ -104,8 +138,12 @@ export const es = {
                 description: "Registrate en vibraheka para poder disfrutar de todos los beneficios que ofrecemos.",
                 form: {
                     name_label: "Nombre",
+                    middle_name_label: "Primer apellido",
+                    last_name_label: "Segundo apellido",
                     email_label: "Email",
                     password_label: "Password",
+                    password_confirmation_label: "Confirmar contraseña",
+                    password_confirmation_help: "Repite la contraseña para confirmarla",
                     submit_button: "Registrarse",
                     submitting_button: "Registrando..."
                 }
@@ -163,3 +201,4 @@ export const es = {
         }
     }
 };
+

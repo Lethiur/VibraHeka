@@ -1,6 +1,7 @@
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
 import IUserDTO from "../Entities/IUserProfileDTO";
+import IChangePasswordDTO from "../Entities/IChangePasswordDTO";
 
 
 /**
@@ -25,6 +26,15 @@ export default class ProfileDatasource extends BackendDatasource {
      */
     public async UpdateUserProfile(user: IUserDTO): Promise<Result<void, string>> {
         return await this.patch<void>(`users/update-profile`, user, true);
+    }
+
+    /**
+     * @description Cambia la contrasena del usuario autenticado
+     * @param data Datos del cambio de contrasena
+     * @returns Resultado de la operacion
+     */
+    public async ChangePassword(data: IChangePasswordDTO): Promise<Result<void, string>> {
+        return await this.patch<void>(`auth/change-password`, data, true);
     }
 
 }

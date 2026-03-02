@@ -3,13 +3,12 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
-import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import useResetPassword from "@auth/Presentation/Hooks/useResetPassword";
 import { ResetPasswordData } from "@auth/Domain/Models/ResetPasswordData";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
-import PasswordStrengthIndicator
-    from "@auth/Presentation/Components/Molecules/PasswordStrengthIndicator/PasswordStrengthIndicator";
+import PasswordConfirmationFields
+    from "@auth/Presentation/Components/Molecules/PasswordConfirmationFields/PasswordConfirmationFields";
 import { useState } from "react";
 
 export default function ResetPassword() {
@@ -19,6 +18,7 @@ export default function ResetPassword() {
     const hasToken: boolean = token.trim().length > 0;
     const { resetPassword, formErrors, error, loading, success } = useResetPassword();
     const [newPassword, setNewPassword] = useState("");
+    const [newPasswordConfirmation, setNewPasswordConfirmation] = useState("");
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -43,26 +43,20 @@ export default function ResetPassword() {
             <ErrorBox message={success ? t("pages.reset_password.form.success_message") : null} variant="success" />
 
             <form onSubmit={handleSubmit} noValidate>
-                <PrimaryTextInput
-                    label={t("pages.reset_password.form.password_label")}
-                    name="newPassword"
-                    type="password"
-                    showPasswordToggle={true}
-                    onChange={(event) => setNewPassword(event.target.value)}
+                <PasswordConfirmationFields
+                    passwordName="newPassword"
+                    passwordLabel={t("pages.reset_password.form.password_label")}
+                    passwordValue={newPassword}
+                    onPasswordChange={(event) => setNewPassword(event.target.value)}
+                    passwordHelpText={t("pages.reset_password.form.password_help")}
+                    passwordError={formErrors.newPassword ? t(`errors.auth.${formErrors.newPassword}`) : undefined}
+                    confirmationName="newPasswordConfirmation"
+                    confirmationLabel={t("pages.reset_password.form.password_confirmation_label")}
+                    confirmationValue={newPasswordConfirmation}
+                    onConfirmationChange={(event) => setNewPasswordConfirmation(event.target.value)}
+                    confirmationHelpText={t("pages.reset_password.form.password_confirmation_help")}
+                    confirmationError={formErrors.newPasswordConfirmation ? t(`errors.auth.${formErrors.newPasswordConfirmation}`) : undefined}
                     disabled={loading || !hasToken}
-                    helpText={t("pages.reset_password.form.password_help")}
-                    error={formErrors.newPassword ? t(`errors.auth.${formErrors.newPassword}`) : undefined}
-                />
-                <PasswordStrengthIndicator password={newPassword} />
-
-                <PrimaryTextInput
-                    label={t("pages.reset_password.form.password_confirmation_label")}
-                    name="newPasswordConfirmation"
-                    type="password"
-                    showPasswordToggle={true}
-                    disabled={loading || !hasToken}
-                    helpText={t("pages.reset_password.form.password_confirmation_help")}
-                    error={formErrors.newPasswordConfirmation ? t(`errors.auth.${formErrors.newPasswordConfirmation}`) : undefined}
                 />
 
                 <div className="auth-form__submit">

@@ -68,7 +68,7 @@ const Button: React.FC<ButtonProps> = ({
     return (
         <button
             type={type}
-            className={`fs-4 fs-md-5 fs-sm-6 atom-button atom-button--${normalizedVariant} ${fullWidth ? "atom-button--full" : ""
+            className={`atom-button atom-button--${normalizedVariant} ${fullWidth ? "atom-button--full" : ""
                 }`}
             onClick={handleClick}
             disabled={disabled}
