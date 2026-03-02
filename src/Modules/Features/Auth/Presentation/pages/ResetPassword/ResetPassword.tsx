@@ -8,6 +8,9 @@ import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/Pri
 import useResetPassword from "@auth/Presentation/Hooks/useResetPassword";
 import { ResetPasswordData } from "@auth/Domain/Models/ResetPasswordData";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
+import PasswordStrengthIndicator
+    from "@auth/Presentation/Components/Molecules/PasswordStrengthIndicator/PasswordStrengthIndicator";
+import { useState } from "react";
 
 export default function ResetPassword() {
     const { t } = useTranslation();
@@ -15,6 +18,7 @@ export default function ResetPassword() {
     const token: string = searchParams.get("token") || "";
     const hasToken: boolean = token.trim().length > 0;
     const { resetPassword, formErrors, error, loading, success } = useResetPassword();
+    const [newPassword, setNewPassword] = useState("");
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -44,10 +48,12 @@ export default function ResetPassword() {
                     name="newPassword"
                     type="password"
                     showPasswordToggle={true}
+                    onChange={(event) => setNewPassword(event.target.value)}
                     disabled={loading || !hasToken}
                     helpText={t("pages.reset_password.form.password_help")}
                     error={formErrors.newPassword ? t(`errors.auth.${formErrors.newPassword}`) : undefined}
                 />
+                <PasswordStrengthIndicator password={newPassword} />
 
                 <PrimaryTextInput
                     label={t("pages.reset_password.form.password_confirmation_label")}

@@ -1,5 +1,4 @@
 import UseGetEmailTemplates from "@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplates";
-import './TemplateManagement.scss';
 import { useEffect, useState } from "react";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import EmailTemplatesTable from "@admin/emailTemplates/Presentation/Components/Molecules/EmailTemplateTable";

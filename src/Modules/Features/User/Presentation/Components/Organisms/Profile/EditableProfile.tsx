@@ -5,10 +5,11 @@ import { IUserprofile } from "@users/Domain/Entities/IUserProfile";
 import { UseToast } from "@core/Presentation/Hooks/UseToast";
 import { useTranslation } from "react-i18next";
 import { NotificationVariant } from "@core/Domain/Notifications/INotificationProvider";
-import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
+import { Card, Col, Form, Image, Row } from "react-bootstrap";
 import { Pencil, Save, X } from "lucide-react";
 import EditableField from "@core/Presentation/Components/molecules/EditableField/EditableField";
 import { useQuery } from "@tanstack/react-query";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 
 interface ProfileProps {
     UserID: string;
@@ -206,20 +207,26 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                             {IsOwnProfile && (
                                 <div className="edit-controls justify-content-end d-flex gap-2">
                                     {!isEditing ? (
-                                        <Button variant="primary" onClick={() => setIsEditing(true)}>
-                                            <Pencil size={18} className="me-2" />
-                                            {t("pages.profile.edit_button", "Edit Profile")}
-                                        </Button>
+                                        <PrimaryButton
+                                            label={t("pages.profile.edit_button", "Edit Profile")}
+                                            variant="primary"
+                                            iconLeft={<Pencil size={18} />}
+                                            onClick={() => setIsEditing(true)}
+                                        />
                                     ) : (
                                         <>
-                                            <Button variant="outline-secondary" onClick={() => setIsEditing(false)}>
-                                                <X size={18} className="me-2" />
-                                                {t("common.cancel", "Cancel")}
-                                            </Button>
-                                            <Button variant="primary" type="submit">
-                                                <Save size={18} className="me-2" />
-                                                {t("common.save", "Save Changes")}
-                                            </Button>
+                                            <PrimaryButton
+                                                label={t("common.cancel", "Cancel")}
+                                                variant="outline-danger"
+                                                iconLeft={<X size={18} />}
+                                                onClick={() => setIsEditing(false)}
+                                            />
+                                            <PrimaryButton
+                                                label={t("common.save", "Save Changes")}
+                                                variant="success"
+                                                type="submit"
+                                                iconLeft={<Save size={18} />}
+                                            />
                                         </>
                                     )}
                                 </div>

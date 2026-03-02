@@ -17,12 +17,15 @@ import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
+import PasswordStrengthIndicator
+    from "@auth/Presentation/Components/Molecules/PasswordStrengthIndicator/PasswordStrengthIndicator";
 
 export default function Registro() {
     const { t } = useTranslation();
     const [errors, setErrors] = useState<ValidationErrors<RegistrationData>>({});
     const [globalError, setGlobalError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [password, setPassword] = useState("");
 
     const registerUserUseCase: RegisterUserUseCase = useRegisterUser();
     const localStorage: LocalStorageService = useLocalStorage();
@@ -72,7 +75,16 @@ export default function Registro() {
                 <PrimaryTextInput label={t('pages.register.form.name_label')} name="firstName" disabled={isSubmitting} error={errors.firstName?.toString()} />
                 <PrimaryTextInput label={t('pages.register.form.middle_name_label')} name="middleName" disabled={isSubmitting} error={errors.middleName?.toString()} />
                 <PrimaryTextInput label={t('pages.register.form.last_name_label')} name="lastName" disabled={isSubmitting} error={errors.lastName?.toString()} />
-                <PrimaryTextInput label={t('pages.register.form.password_label')} name="password" disabled={isSubmitting} type="password" showPasswordToggle={true} error={errors.password?.toString()} />
+                <PrimaryTextInput
+                    label={t('pages.register.form.password_label')}
+                    name="password"
+                    disabled={isSubmitting}
+                    type="password"
+                    showPasswordToggle={true}
+                    onChange={(event) => setPassword(event.target.value)}
+                    error={errors.password?.toString()}
+                />
+                <PasswordStrengthIndicator password={password} />
 
                 <div className="auth-form__submit">
                     <PrimaryButton

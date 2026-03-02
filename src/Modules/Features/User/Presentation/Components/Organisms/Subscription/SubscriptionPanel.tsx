@@ -45,7 +45,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
 
     useEffect(() => {
         if (subscriptionPanel) {
-            window.open(subscriptionPanel, "_self");
+            window.open(subscriptionPanel, "_blank");
         }
     }, [subscriptionPanel]);
 
@@ -76,7 +76,6 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
             cancelSubscriptionLoading ||
             getSubscriptionPanelLoading ||
             loading ||
-            isPaymentPending ||
             reactivateSubscriptionLoading
         );
     };
@@ -99,7 +98,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     );
 
     const renderCardBody = () => {
-        if (isInitialLoading || isLoading()) {
+        if (isInitialLoading || (isLoading() && !isPaymentPending)) {
             return renderSubscriptionSkeleton();
         }
 

@@ -52,28 +52,11 @@
     color: vars.$color-dark-muted;
 }
 
-.subscription-action-btn {
-    width: 100%;
-    border-radius: vars.$radius-full !important;
-    border: 1px solid vars.$color-primary !important;
-    background-color: vars.$color-surface !important;
-    color: vars.$color-primary-dark !important;
-    padding: vars.$space-3 vars.$space-4 !important;
-    font-size: var(--type-body-size) !important;
-    font-weight: fonts.$font-weight-medium !important;
-    margin-bottom: vars.$space-3;
-
-    &:hover {
-        background-color: vars.$color-primary-alpha !important;
-    }
-}
-
-.subscription-action-btn.is-danger {
-    border-color: rgba(vars.$color-error, 0.5) !important;
-    color: vars.$color-error !important;
-}
-
-.subscription-action-btn.is-success {
-    border-color: rgba(vars.$color-success, 0.45) !important;
-    color: vars.$color-success !important;
+.subscription-note {
+    padding: vars.$space-3 vars.$space-4;
+    border-radius: vars.$radius-md;
+    border: 1px solid rgba(vars.$color-warning, 0.35);
+    background-color: rgba(vars.$color-warning, 0.12);
+    color: vars.$color-dark;
+    font-size: var(--type-caption-size);
 }

@@ -1,9 +1,11 @@
 import ISubscriptionRepository from "@users/Domain/Repositories/ISubscriptionRepository";
-import { Result } from "neverthrow";
+import { err, ok, Result } from "neverthrow";
 import ISubscription from "@users/Domain/Entities/ISubscription";
+import ISubscriptionCreation from "@users/Domain/Entities/ISubscriptionCreation";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
 import SubscriptionDatasource from "@users/Data/Datasources/SubscriptionDatasource";
 import ISubscriptionDetailsDTO from "@users/Data/Entities/ISubscriptionDetailsDTO";
+import ISubscriptionCreationDTO from "@users/Data/Entities/ISubscriptionCreationDTO";
 
 /**
  * SubscriptionRepositoryImpl
@@ -27,7 +29,9 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
                 StartDate: subscription.startDate,
                 EndDate: subscription.endDate,
                 Status: subscription.status,
-                SubscriptionStatus: subscription.subscriptionStatus
+                SubscriptionStatus: subscription.subscriptionStatus,
+                CheckoutSessionUrl: subscription.checkoutSessionUrl ?? null,
+                CheckoutSessionExpiresAt: subscription.checkoutSessionExpiresAt ?? null
             }
         }).mapErr(error => error as SubscriptionErrors);
     }
@@ -45,11 +49,24 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
     /**
      * Subscribe
      * @description Subscribe to a plan
-     * @returns {Promise<Result<string, SubscriptionErrors>>}
+     * @returns {Promise<Result<ISubscriptionCreation, SubscriptionErrors>>}
      */
-    public async Subscribe(): Promise<Result<string, SubscriptionErrors>> {
-        const result: Result<string, string> = await this.subscriptionDatasource.Subscribe();
-        return result.mapErr(error => error as SubscriptionErrors);
+    public async Subscribe(): Promise<Result<ISubscriptionCreation, SubscriptionErrors>> {
+        const result: Result<ISubscriptionCreationDTO, string> = await this.subscriptionDatasource.Subscribe();
+
+        if (result.isErr()) {
+            return err(result.error as SubscriptionErrors);
+        }
+
+        const dto = result.value;
+        if (!dto.url || dto.url.length === 0) {
+            return err("INVALID_SUBSCRIBE_RESPONSE" as SubscriptionErrors);
+        }
+
+        return ok({
+            Url: dto.url,
+            ExpiresAt: new Date(dto.expiresAt)
+        });
     }
 
     public async GetSubscriptionPortal(): Promise<Result<string, SubscriptionErrors>> {

@@ -1,5 +1,4 @@
-﻿import UseGetTherapistUseCase from "@admin/addTherapist/Presentation/Hooks/UseGetTherapistUseCase";
-import "./TherapistIndex.scss";
+import UseGetTherapistUseCase from "@admin/addTherapist/Presentation/Hooks/UseGetTherapistUseCase";
 import { useEffect, useRef } from "react";
 import { CreateTherapistEntity } from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
 import CreateTherapistForm

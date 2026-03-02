@@ -16,15 +16,6 @@
     letter-spacing: vars.$tracking-tight;
 }
 
-
-.subtitle-2 {
-    font-size: var(--type-body-size);
-    color: rgba(vars.$color-primary-dark, 0.85);
-    max-width: 540px;
-    line-height: fonts.$line-height-loose;
-    margin-bottom: vars.$space-8;
-}
-
 p {
     font-size: var(--type-body-size);
     color: vars.$color-dark;

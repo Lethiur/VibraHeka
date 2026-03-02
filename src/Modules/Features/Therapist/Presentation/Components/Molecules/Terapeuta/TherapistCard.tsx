@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import { Col, Row, Image } from "react-bootstrap";
 
-import "./TherapistCard.scss"
 
 interface TerapeutaProps {
     title: string;

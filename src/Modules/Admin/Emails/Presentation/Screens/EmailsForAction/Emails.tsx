@@ -1,4 +1,3 @@
-// Bootstrap está cargado globalmente – los estilos propios se importan en Emails.scss
 import UseGetEmailTemplates from '@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplates';
 import { EmailTemplate } from '@admin/emailTemplates/Domain/Models/EmailTemplate';
 import SearchableDropdown from '@core/Presentation/Components/molecules/Dropdown/Dropdown';
@@ -11,7 +10,6 @@ import PrimaryButton from '@core/Presentation/Components/atoms/PrimaryButton/Pri
 
 import { Col, Row } from 'react-bootstrap';
 import { useEffect, useMemo, useState } from 'react';
-import './Emails.scss'
 
 /**
  * Emails configuration screen for mapping templates to system actions.

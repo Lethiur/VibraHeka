@@ -3,7 +3,6 @@ import TherapistCard from "@/Modules/Features/Therapist/Presentation/Components/
 import { THERAPISTS_LIST } from "../../Data/TherapistsList";
 import { Col, Container, Row } from "react-bootstrap";
 
-import "./TerapeutasHome.scss"
 
 export default function TerapeutasHome() {
     return (

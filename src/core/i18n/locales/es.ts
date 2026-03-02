@@ -31,6 +31,18 @@ export const es = {
                 [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT]: "El código de verificación es obligatorio"
             }
         },
+        components: {
+            auth: {
+                password_strength: {
+                    title: "Fuerza de contraseña",
+                    empty: "Sin definir",
+                    weak: "Debil",
+                    medium: "Media",
+                    good: "Buena",
+                    strong: "Fuerte"
+                }
+            }
+        },
 
         pages: {
             admin: {

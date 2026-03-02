@@ -1,6 +1,8 @@
 import { SubscriptionStatus } from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
+import { OrderStatus } from "@/Modules/Features/User/Domain/Enums/OrderStatus";
 import ISubscription from "@users/Domain/Entities/ISubscription";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import "./SubscriptionDetails.scss";
 
 interface SubscriptionDetailsProps {
@@ -22,6 +24,7 @@ export default function SubscriptionDetails({
 }: SubscriptionDetailsProps) {
     const getStatusText = () => {
         if (!subscription) return "Sin suscripcion activa";
+        if (subscription.Status === OrderStatus.PENDING) return "Pendiente de pago";
         switch (subscription.SubscriptionStatus) {
             case SubscriptionStatus.ACTIVE:
                 return "Activa";
@@ -36,6 +39,7 @@ export default function SubscriptionDetails({
 
     const getStatusClass = () => {
         if (!subscription) return "is-neutral";
+        if (subscription.Status === OrderStatus.PENDING) return "is-pending";
         switch (subscription.SubscriptionStatus) {
             case SubscriptionStatus.ACTIVE:
                 return "is-active";
@@ -59,17 +63,45 @@ export default function SubscriptionDetails({
         return formatter.format(new Date(subscription.EndDate));
     };
 
+    const formatCheckoutExpiration = () => {
+        if (!subscription?.CheckoutSessionExpiresAt) return "Sin fecha de expiracion";
+        const formatter = new Intl.DateTimeFormat("es-ES", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZone,
+        });
+        return formatter.format(new Date(subscription.CheckoutSessionExpiresAt));
+    };
+
     const renderActionButtons = () => {
+        const canResumeCheckout =
+            subscription?.Status === OrderStatus.PENDING &&
+            !!subscription.CheckoutSessionUrl;
+
+        if (canResumeCheckout) {
+            return (
+                <Col md={12}>
+                    <PrimaryButton
+                        label="Reanudar pago"
+                        variant="success"
+                        fullWidth={true}
+                        onClick={() => window.open(subscription.CheckoutSessionUrl as string, "_self")}
+                    />
+                </Col>
+            );
+        }
+
         if (!subscription || subscription.SubscriptionStatus === SubscriptionStatus.CANCELLED) {
             return (
                 <Col md={12}>
-                    <Button className="subscription-action-btn" variant="light" onClick={handleSubscribe}>
-                        Suscribirme
-                    </Button>
+                    <PrimaryButton label="Suscribirme" variant="primary" fullWidth={true} onClick={handleSubscribe} />
                     {subscription?.SubscriptionStatus === SubscriptionStatus.CANCELLED && (
-                        <Button className="subscription-action-btn" variant="light" onClick={handleGetSubscriptionPanel}>
-                            Ver facturas
-                        </Button>
+                        <div className="mt-3">
+                            <PrimaryButton label="Ver facturas" variant="outline-secondary" fullWidth={true} onClick={handleGetSubscriptionPanel} />
+                        </div>
                     )}
                 </Col>
             );
@@ -79,19 +111,13 @@ export default function SubscriptionDetails({
             return (
                 <>
                     <Col md={4} sm={12}>
-                        <Button className="subscription-action-btn is-danger" variant="light" onClick={handleCancelSubscription}>
-                            Cancelar suscripcion
-                        </Button>
+                        <PrimaryButton label="Cancelar suscripcion" variant="danger-outline" fullWidth={true} onClick={handleCancelSubscription} />
                     </Col>
                     <Col md={4} sm={12}>
-                        <Button className="subscription-action-btn" variant="light" onClick={handleGetSubscriptionPanel}>
-                            Ver facturas
-                        </Button>
+                        <PrimaryButton label="Ver facturas" variant="outline" fullWidth={true} onClick={handleGetSubscriptionPanel} />
                     </Col>
                     <Col md={4} sm={12}>
-                        <Button className="subscription-action-btn" variant="light" onClick={handleGetSubscriptionPanel}>
-                            Gestionar suscripcion
-                        </Button>
+                        <PrimaryButton label="Gestionar suscripcion" variant="outline-primary" fullWidth={true} onClick={handleGetSubscriptionPanel} />
                     </Col>
                 </>
             );
@@ -101,14 +127,10 @@ export default function SubscriptionDetails({
             return (
                 <>
                     <Col md={6} sm={12}>
-                        <Button className="subscription-action-btn" variant="light" onClick={handleGetSubscriptionPanel}>
-                            Ver facturas
-                        </Button>
+                        <PrimaryButton label="Ver facturas" variant="outline-secondary" fullWidth={true} onClick={handleGetSubscriptionPanel} />
                     </Col>
                     <Col md={6} sm={12}>
-                        <Button className="subscription-action-btn is-success" variant="light" onClick={handleReactivateSubscription}>
-                            Reactivar
-                        </Button>
+                        <PrimaryButton label="Reactivar" variant="secondary" fullWidth={true} onClick={handleReactivateSubscription} />
                     </Col>
                 </>
             );
@@ -132,6 +154,13 @@ export default function SubscriptionDetails({
                         <span className="subscription-kpi__value">{formatEndDate()}</span>
                     </div>
                 </Col>
+                {subscription?.Status === OrderStatus.PENDING && (
+                    <Col md={12} sm={12}>
+                        <div className="subscription-note">
+                            Tu sesion de pago sigue activa hasta el {formatCheckoutExpiration()}.
+                        </div>
+                    </Col>
+                )}
             </Row>
             <Row className="g-3 subscription-details__actions">
                 {renderActionButtons()}

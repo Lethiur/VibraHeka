@@ -2,6 +2,7 @@ import ISubscriptionRepository from "@users/Domain/Repositories/ISubscriptionRep
 import { Result } from "neverthrow";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
 import ISubscribeUseCase from "@users/Application/UseCases/Subscribe/ISubscribeUseCase";
+import ISubscriptionCreation from "@users/Domain/Entities/ISubscriptionCreation";
 
 /**
  * SubscribeUseCase
@@ -16,9 +17,9 @@ export default class SubscribeUseCase implements ISubscribeUseCase {
     /**
      * Execute
      * @description Execute subscribe use case
-     * @returns {Promise<Result<string, SubscriptionErrors>>}
+     * @returns {Promise<Result<ISubscriptionCreation, SubscriptionErrors>>}
      */
-    Execute(): Promise<Result<string, SubscriptionErrors>> {
+    Execute(): Promise<Result<ISubscriptionCreation, SubscriptionErrors>> {
         return this.subscriptionRepository.Subscribe();
     }
 }
