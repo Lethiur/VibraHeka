@@ -1,10 +1,10 @@
-import { Form, Row } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import UseCreateTemplateSkeleton from "@admin/emailTemplates/Presentation/Hooks/UseCreateTemplateSkeleton";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import { useTranslation } from "react-i18next";
-
+import { useEffect, useRef } from "react";
 
 /**
  * Props for the CreateTemplateForm component.
@@ -25,47 +25,40 @@ interface CreateTemplateFormProps {
 export default function CreateTemplateForm({ onTemplateSaved }: CreateTemplateFormProps) {
     const { t } = useTranslation();
     const { CreateTemplateSkeleton, loading, error, validationErrors, templateId } = UseCreateTemplateSkeleton();
+    const processedTemplateIdRef = useRef<string | null>(null);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    useEffect(() => {
+        if (templateId && templateId !== processedTemplateIdRef.current) {
+            processedTemplateIdRef.current = templateId;
+            onTemplateSaved(templateId);
+        }
+    }, [templateId, onTemplateSaved]);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        CreateTemplateSkeleton(event.currentTarget.templateName.value).then(() => {
-            if (templateId) {
-                onTemplateSaved(templateId);
-            }
-        });
+
+        const templateName = event.currentTarget.templateName.value;
+        await CreateTemplateSkeleton(templateName);
     };
 
     return (
-        <>
-            <Row md={12}>
-                <h1>{t("pages.admin.emails.form.create_title")}</h1>
-            </Row>
-            <Row md={12}>
-                <ErrorBox message={error} />
-            </Row>
+        <Form noValidate onSubmit={handleSubmit} className="d-flex flex-column gap-3">
+            <ErrorBox message={error} />
 
-            <Form noValidate onSubmit={handleSubmit}>
+            <PrimaryTextInput
+                label={t("pages.admin.emails.form.name_label")}
+                name="templateName"
+                disabled={loading}
+                error={validationErrors.Name?.toString()}
+            />
 
-                <Row md={12}>
-                    <div className="p-4">
-                        <PrimaryTextInput
-                            label={t("pages.admin.emails.form.name_label")}
-                            name="templateName"
-                            disabled={loading}
-                            error={validationErrors.Name?.toString()}
-                        />
-                        <div className="p-1"></div>
-                        <PrimaryButton
-                            label={t("pages.admin.emails.form.submit_button")}
-                            type="submit"
-                            variant="primary"
-                            disabled={loading}
-                            fullWidth={true}
-                        />
-                    </div>
-                </Row>
-            </Form >
-
-        </>
-    )
+            <PrimaryButton
+                label={t("pages.admin.emails.form.submit_button")}
+                type="submit"
+                variant="primary"
+                disabled={loading}
+                fullWidth={true}
+            />
+        </Form>
+    );
 }

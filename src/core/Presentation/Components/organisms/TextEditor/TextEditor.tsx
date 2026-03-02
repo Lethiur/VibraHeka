@@ -142,7 +142,7 @@ const extensions = [
     MultipleColumnNode,
     Table,
     TextDirection,
-    Attachment
+    Attachment,
 ];
 
 interface TextEditorProps {
@@ -227,3 +227,4 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
         </>
     );
 }
+

@@ -1,0 +1,18 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.emails-config-page {
+    width: 100%;
+    max-width: none;
+}
+
+.emails-config-header {
+    padding: vars.$space-6 vars.$space-8;
+    border: 0;
+}
+
+@media (max-width: 768px) {
+    .emails-config-header {
+        padding: vars.$space-5 vars.$space-4;
+    }
+}

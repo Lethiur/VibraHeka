@@ -1,99 +1,133 @@
-import UseGetEmailTemplates from '@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplates';
-import { EmailTemplate } from '@admin/emailTemplates/Domain/Models/EmailTemplate';
-import SearchableDropdown from '@core/Presentation/Components/molecules/Dropdown/Dropdown';
-import ErrorBox from '@core/Presentation/Components/atoms/ErrorBox/ErrorBox';
-import UseSaveEmailTemplateForAction from '@admin/emailTemplates/Presentation/Hooks/UseSaveEmailTemplateForAction';
-import { ActionType } from '@admin/emailTemplates/Domain/Models/ActionType';
-import { EmailTemplateForAction } from '@admin/emailTemplates/Domain/Models/EmailTemplateForAction';
-import UseGetEmailTemplatesForActions from '@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplatesForActions';
-import PrimaryButton from '@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton';
+import UseGetEmailTemplates from "@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplates";
+import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
+import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import UseSaveEmailTemplateForAction from "@admin/emailTemplates/Presentation/Hooks/UseSaveEmailTemplateForAction";
+import { ActionType } from "@admin/emailTemplates/Domain/Models/ActionType";
+import { EmailTemplateForAction } from "@admin/emailTemplates/Domain/Models/EmailTemplateForAction";
+import UseGetEmailTemplatesForActions from "@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplatesForActions";
+import EmailActionTemplateSelector
+    from "@admin/emailTemplates/Presentation/Components/Molecules/EmailActionTemplateSelector";
+import { Container, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import "./Emails.scss";
 
-import { Col, Row } from 'react-bootstrap';
-import { useEffect, useMemo, useState } from 'react';
+interface ActionTemplateConfig {
+    actionType: ActionType;
+    title: string;
+    description: string;
+    selectorLabel: string;
+}
 
-/**
- * Emails configuration screen for mapping templates to system actions.
- * @returns The rendered screen.
- */
+const actionTemplateConfigs: ActionTemplateConfig[] = [
+    {
+        actionType: ActionType.UserVerification,
+        title: "Verificacion de cuenta",
+        description: "Email que se envia cuando el usuario necesita validar su cuenta.",
+        selectorLabel: "Selecciona el template para verificacion",
+    },
+    {
+        actionType: ActionType.UserRegistered,
+        title: "Bienvenida",
+        description: "Email inicial que confirma el registro y presenta el siguiente paso.",
+        selectorLabel: "Selecciona el template de bienvenida",
+    },
+    {
+        actionType: ActionType.PasswordReset,
+        title: "Recuperacion de contrasena",
+        description: "Email para restablecer el acceso cuando el usuario olvida su contrasena.",
+        selectorLabel: "Selecciona el template de recuperacion",
+    },
+];
+
 export default function EmailsConfiguration() {
-
     const { templates, loading: templatesLoading, error, GetTemplates } = UseGetEmailTemplates();
     const { SaveTemplateForAction, loading: saveLoading, error: saveError } = UseSaveEmailTemplateForAction();
-    const { templates: templatesForActions, loading: templatesForActionsLoading, error: templatesForActionsError, GetTemplatesForActions } = UseGetEmailTemplatesForActions();
+    const {
+        templates: templatesForActions,
+        loading: templatesForActionsLoading,
+        error: templatesForActionsError,
+        GetTemplatesForActions,
+    } = UseGetEmailTemplatesForActions();
 
-
-    const [selectedTemplate, setSelectedTemplate] = useState<EmailTemplate | null>(null);
-    const [selectedRegistrationTemplate, setSelectedRegistrationTemplate] = useState<EmailTemplate | null>(null);
+    const [selectedByActionType, setSelectedByActionType] = useState<Record<number, EmailTemplate | null>>({
+        [ActionType.UserVerification]: null,
+        [ActionType.UserRegistered]: null,
+        [ActionType.PasswordReset]: null,
+    });
 
     useEffect(() => {
         GetTemplates();
         GetTemplatesForActions();
     }, []);
 
-    const nomralizedTemplatesForActions = useMemo<EmailTemplate | null>(() => {
+    function getTemplateByActionType(actionType: ActionType): EmailTemplate | null {
+        const templateForAction: EmailTemplateForAction | undefined = templatesForActions.find(
+            (tpl: EmailTemplateForAction) => tpl.ActionType === actionType
+        );
 
-        if (selectedTemplate != null) {
-            return selectedTemplate;
-        }
-
-        const templateForAction: EmailTemplateForAction | undefined = templatesForActions.find((tpl: EmailTemplateForAction) => tpl.ActionType === ActionType.UserVerification);
-
-        if (templateForAction == undefined) {
+        if (templateForAction === undefined) {
             return null;
         }
 
-        const template: EmailTemplate | null = templates.find((item: EmailTemplate) => item.ID === templateForAction.TemplateID) ?? null
-        console.log(template);
-        return template;
-    }, [templatesForActions, templates, selectedTemplate]);
+        return templates.find((item: EmailTemplate) => item.ID === templateForAction.TemplateID) ?? null;
+    }
 
+    function getSelectorValue(actionType: ActionType): EmailTemplate | null {
+        return selectedByActionType[actionType] ?? getTemplateByActionType(actionType);
+    }
 
+    function getCurrentTemplateName(actionType: ActionType): string {
+        return getTemplateByActionType(actionType)?.Name ?? "Sin configurar";
+    }
 
-    return <div className="flex flex-col flex-1 min-h-0">
-        <ErrorBox message={error ?? saveError ?? templatesForActionsError} />
-        <h1 className="shrink-0 p-4">Emails configuration</h1>
+    function updateSelectedTemplate(actionType: ActionType, template: EmailTemplate): void {
+        setSelectedByActionType((prevState) => ({
+            ...prevState,
+            [actionType]: template,
+        }));
+    }
 
-        <div className="flex-1 min-h-0">
-            <Row className='g-3'>
-                <Col md={3}>
-                    <SearchableDropdown<EmailTemplate>
-                        label="Selecciona el template para enviar el codigo de verificacion"
+    function saveActionTemplate(actionType: ActionType): void {
+        const selectedTemplate = selectedByActionType[actionType];
+        if (selectedTemplate == null) return;
+
+        SaveTemplateForAction({
+            ActionType: actionType,
+            TemplateID: selectedTemplate.ID,
+        });
+    }
+
+    const selectorsLoading = templatesLoading || templatesForActionsLoading;
+
+    return (
+        <Container fluid className="emails-config-page py-4 py-md-5">
+            <ErrorBox message={error ?? saveError ?? templatesForActionsError} />
+
+            <div className="emails-config-header vh-surface-card mb-4 mb-md-5">
+                <h1 className="mb-2">Emails transaccionales</h1>
+                <p className="mb-0">
+                    Configura que mensaje se envia en cada momento clave del journey del usuario.
+                </p>
+            </div>
+
+            <Row className="g-4">
+                {actionTemplateConfigs.map((config: ActionTemplateConfig) => (
+                    <EmailActionTemplateSelector
+                        key={config.actionType}
+                        title={config.title}
+                        description={config.description}
+                        label={config.selectorLabel}
+                        selectedTemplateName={getCurrentTemplateName(config.actionType)}
                         options={templates}
-                        isLoading={templatesLoading || templatesForActionsLoading}
-                        value={nomralizedTemplatesForActions}
-                        getId={(item) => item.ID}
-                        getLabel={(item) => item.Name}
-                        onChange={setSelectedTemplate}
+                        isLoading={selectorsLoading}
+                        isSaving={saveLoading}
+                        value={getSelectorValue(config.actionType)}
+                        saveDisabled={selectedByActionType[config.actionType] == null}
+                        onChange={(template) => updateSelectedTemplate(config.actionType, template)}
+                        onSave={() => saveActionTemplate(config.actionType)}
                     />
-                </Col>
-                <Col md={3}>
-                    <PrimaryButton
-                        label="Guardar"
-                        fullWidth={true}
-                        disabled={selectedTemplate == null || saveLoading}
-                        onClick={() => SaveTemplateForAction({ ActionType: ActionType.UserVerification, TemplateID: selectedTemplate?.ID ?? "" })}
-                    />
-                </Col>
-                <Col md={3}>
-                    <SearchableDropdown<EmailTemplate>
-                        label="Selecciona un template para el correo de bienvenida"
-                        options={templates}
-                        isLoading={templatesLoading || templatesForActionsLoading}
-                        getId={(item) => item.ID}
-                        value={null}
-                        getLabel={(item) => item.Name}
-                        onChange={setSelectedRegistrationTemplate}
-                    />
-                </Col>
-                <Col md={3}>
-                    <PrimaryButton
-                        label="Guardar"
-                        fullWidth={true}
-                        onClick={() => SaveTemplateForAction({ ActionType: ActionType.UserRegistered, TemplateID: selectedRegistrationTemplate?.ID ?? "" })}
-                    />
-                </Col>
+                ))}
             </Row>
-        </div>
-
-    </div>
+        </Container>
+    );
 }

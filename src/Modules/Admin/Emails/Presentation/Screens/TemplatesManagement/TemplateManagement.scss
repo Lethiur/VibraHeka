@@ -1,0 +1,134 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.template-management-page {
+    width: 100%;
+    max-width: none;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: vars.$space-6;
+        border: 0;
+        padding: vars.$space-6 vars.$space-8;
+
+        h1 {
+            font-family: fonts.$font-display;
+            font-size: var(--type-title-size);
+            line-height: fonts.$line-height-tight;
+            color: vars.$color-dark;
+        }
+
+        p {
+            color: vars.$color-dark-muted;
+            max-width: 76ch;
+            margin: 0;
+        }
+    }
+
+    &__status {
+        display: inline-flex;
+        align-items: center;
+        gap: vars.$space-3;
+        color: vars.$color-dark-muted;
+        white-space: nowrap;
+
+        .badge {
+            border-radius: vars.$radius-full;
+            padding: vars.$space-2 vars.$space-4;
+            font-size: var(--type-caption-size);
+            letter-spacing: vars.$tracking-wide;
+            text-transform: uppercase;
+        }
+    }
+
+    &__panel,
+    &__editor {
+        border: 0;
+        padding: vars.$space-6;
+    }
+
+    &__panel {
+        h2 {
+            font-family: fonts.$font-display;
+            font-size: var(--type-subtitle-size);
+            line-height: fonts.$line-height-tight;
+            color: vars.$color-dark;
+            margin-bottom: vars.$space-2;
+        }
+    }
+
+    &__panel-copy {
+        color: vars.$color-dark-muted;
+        margin-bottom: vars.$space-5;
+    }
+
+    &__editor-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: vars.$space-4;
+        border-bottom: 1px solid vars.$color-gray-200;
+        padding-bottom: vars.$space-5;
+        margin-bottom: vars.$space-5;
+
+        h2 {
+            font-family: fonts.$font-display;
+            font-size: var(--type-subtitle-size);
+            color: vars.$color-dark;
+        }
+
+        p {
+            color: vars.$color-primary-dark;
+        }
+    }
+
+    &__editor-body {
+        .editor-wrapper {
+            border-radius: vars.$radius-lg;
+        }
+    }
+
+    .table {
+        margin-bottom: 0;
+        border-color: vars.$color-gray-200;
+
+        thead th {
+            font-size: var(--type-caption-size);
+            letter-spacing: vars.$tracking-wide;
+            text-transform: uppercase;
+            color: vars.$color-dark-muted;
+            background-color: vars.$color-gray-100;
+            border-bottom-width: 1px;
+        }
+
+        tbody td {
+            vertical-align: middle;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .template-management-page {
+        &__header {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: vars.$space-5 vars.$space-4;
+        }
+
+        &__status {
+            white-space: normal;
+        }
+
+        &__panel,
+        &__editor {
+            padding: vars.$space-5 vars.$space-4;
+        }
+
+        &__editor-top {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+}
