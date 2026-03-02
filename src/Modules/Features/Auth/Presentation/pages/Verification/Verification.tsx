@@ -14,6 +14,10 @@ import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import useResendVerificationCode from "../../Hooks/useResendVerificationCode";
+import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
+import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
+import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import { Row, Col } from "react-bootstrap";
 
 
 export default function Verification() {
@@ -68,39 +72,30 @@ export default function Verification() {
     }
 
     return (
-        <div>
-            <h1>{t('pages.verification.title')}</h1>
-            <p>{t('pages.verification.description')}</p>
-            <div className="container-fluid justify-content-center">
-                <div>
-                    {globalError && (<div className="alert alert-danger" role="alert">{globalError}</div>)}
+        <AuthLayout title={t('pages.verification.title')} subtitle={t('pages.verification.description')}>
+            <ErrorBox message={globalError} variant="danger" />
 
-                    <form onSubmit={handleSubmit} noValidate>
-                        <div className="mb-3">
-                            <label htmlFor="verificationCode"
-                                className="form-label">{t('pages.verification.form.code_label')}</label>
-                            <input type="text" className={`form-control ${errors.code ? 'is-invalid' : ''}`}
-                                id="verificationCode" name="verificationCode"
-                                aria-describedby="verificationCodeHelp" />
-                            {
-                                errors.code && (
-                                    <div className="invalid-feedback" role="alert">{t(`errors.auth.${errors.code}`)}</div>)
-                            }
-                            <div id="verificationCodeHelp"
-                                className="form-text">{t('pages.verification.form.code_help')}</div>
-                        </div>
-                        <div className="mb-3">
-                            <PrimaryButton
-                                label={t('pages.verification.form.resend_button')}
-                                type="button"
-                                variant="secondary"
-                                onClick={handleResendVerificationCode}
-                                disabled={isSubmitting || loading}
-                                fullWidth={false}
-                            />
-                        </div>
+            <form onSubmit={handleSubmit} noValidate>
+                <PrimaryTextInput
+                    label={t('pages.verification.form.code_label')}
+                    name="verificationCode"
+                    disabled={isSubmitting || loading}
+                    helpText={t('pages.verification.form.code_help')}
+                    error={errors.code ? t(`errors.auth.${errors.code}`) : undefined}
+                />
 
-
+                <Row className="g-3 verification-actions">
+                    <Col xs={12} md={6}>
+                        <PrimaryButton
+                            label={t('pages.verification.form.resend_button')}
+                            type="button"
+                            variant="secondary"
+                            onClick={handleResendVerificationCode}
+                            disabled={isSubmitting || loading}
+                            fullWidth={true}
+                        />
+                    </Col>
+                    <Col xs={12} md={6}>
                         <PrimaryButton
                             label={isSubmitting ? t('pages.verification.form.submitting_button') : t('pages.verification.form.submit_button')}
                             type="submit"
@@ -108,10 +103,9 @@ export default function Verification() {
                             disabled={isSubmitting || loading}
                             fullWidth={true}
                         />
-                    </form>
-                </div>
-
-            </div>
-        </div>
+                    </Col>
+                </Row>
+            </form>
+        </AuthLayout>
     )
 }

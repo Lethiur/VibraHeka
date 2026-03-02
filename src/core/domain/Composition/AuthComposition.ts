@@ -12,6 +12,13 @@ import RegisterUserUseCase
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import ResendVerificationCodeUseCase from "@auth/Application/UseCases/ResendVerificationCode/ResendVerificationCodeUseCaseImpl";
 import { IResendVerificationCodeUseCase } from "@/Modules/Features/Auth/Application/UseCases/ResendVerificationCode/IResendVerificationCodeUseCase";
+import ForgotPasswordUseCaseImpl
+    from "@auth/Application/UseCases/ForgotPassword/ForgotPasswordUseCaseImpl";
+import ForgotPasswordDataValidator from "@auth/Application/Validators/ForgotPasswordDataValidator";
+import { IForgotPasswordUseCase } from "@auth/Application/UseCases/ForgotPassword/IForgotPasswordUseCase";
+import ResetPasswordUseCaseImpl from "@auth/Application/UseCases/ResetPassword/ResetPasswordUseCaseImpl";
+import { IResetPasswordUseCase } from "@auth/Application/UseCases/ResetPassword/IResetPasswordUseCase";
+import ResetPasswordDataValidator from "@auth/Application/Validators/ResetPasswordDataValidator";
 
 const datasource = new AuthDatasource();
 const repository = new AuthRepositoryImpl(datasource);
@@ -23,3 +30,13 @@ export const verifyUserUseCase = new VerifyUserUseCaseImpl(repository, new Verif
 export const loginUserUseCase = new LoginUserUseCase(repository, new LoginUserDataValidator(), new LocalStorageService());
 
 export const resendVerificationCodeUseCase: IResendVerificationCodeUseCase = new ResendVerificationCodeUseCase(repository);
+
+export const forgotPasswordUseCase: IForgotPasswordUseCase = new ForgotPasswordUseCaseImpl(
+    repository,
+    new ForgotPasswordDataValidator()
+);
+
+export const resetPasswordUseCase: IResetPasswordUseCase = new ResetPasswordUseCaseImpl(
+    repository,
+    new ResetPasswordDataValidator()
+);

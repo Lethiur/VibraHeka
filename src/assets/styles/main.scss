@@ -8,26 +8,17 @@
 // ── Subtitle
 .subtitle {
     font-family: fonts.$font-display;
-    font-size: fonts.$font-size-2xl;
+    font-size: var(--type-subtitle-size);
     font-weight: fonts.$font-weight-light;
     font-style: italic;
-    color: vars.$color-dark;
+    color: vars.$color-primary-dark;
     line-height: fonts.$line-height-tight;
     letter-spacing: vars.$tracking-tight;
 }
 
-
-.subtitle-2 {
-    font-size: fonts.$font-size-md;
-    color: vars.$color-dark-muted;
-    max-width: 540px;
-    line-height: fonts.$line-height-loose;
-    margin-bottom: vars.$space-8;
-}
-
 p {
-    font-size: fonts.$font-size-base;
-    color: vars.$color-earth;
+    font-size: var(--type-body-size);
+    color: vars.$color-dark;
     line-height: fonts.$line-height-loose;
     margin-bottom: vars.$space-8;
 }

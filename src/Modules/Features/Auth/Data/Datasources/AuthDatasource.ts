@@ -4,6 +4,8 @@ import { RegistrationRequestDto } from "@auth/Data/DTOs/RegistrationRequestDTO";
 import { VerificationRequestDTO } from "@auth/Data/DTOs/VerificationRequestDTO";
 import { LoginResultDTO } from "@auth/Data/DTOs/LoginResultDTO";
 import { LoginRequestDTO } from "@auth/Data/DTOs/LoginRequestDTO";
+import { ForgotPasswordRequestDTO } from "@auth/Data/DTOs/ForgotPasswordRequestDTO";
+import { ResetPasswordRequestDTO } from "@auth/Data/DTOs/ResetPasswordRequestDTO";
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 
 /**
@@ -51,5 +53,25 @@ export default class AuthDatasource extends BackendDatasource {
     async ResendVerificationCode(email: string): Promise<Result<void, string>> {
         const encodedEmail: string = encodeURIComponent(email);
         return await this.get<void>(`/auth/resend-confirmation-code?email=${encodedEmail}`);
+    }
+
+    /**
+     * Starts the forgot-password flow by requesting a recovery email.
+     *
+     * @param {ForgotPasswordRequestDTO} dto - The DTO containing the user's email.
+     * @return {Promise<Result<void, string>>} A promise that resolves with success or an error code.
+     */
+    async ForgotPassword(dto: ForgotPasswordRequestDTO): Promise<Result<void, string>> {
+        return await this.post<void>('/auth/forgot-password', dto);
+    }
+
+    /**
+     * Completes the forgot-password flow by confirming token and new password.
+     *
+     * @param {ResetPasswordRequestDTO} dto - Token and new password payload.
+     * @return {Promise<Result<void, string>>} A promise that resolves with success or an error code.
+     */
+    async ConfirmForgotPassword(dto: ResetPasswordRequestDTO): Promise<Result<void, string>> {
+        return await this.post<void>('/auth/forgot-password/confirm', dto);
     }
 }

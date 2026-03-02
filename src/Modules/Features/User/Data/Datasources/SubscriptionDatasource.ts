@@ -1,5 +1,6 @@
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 import ISubscriptionDetailsDTO from "@users/Data/Entities/ISubscriptionDetailsDTO";
+import ISubscriptionCreationDTO from "@users/Data/Entities/ISubscriptionCreationDTO";
 import { Result } from "neverthrow";
 
 
@@ -30,10 +31,10 @@ export default class SubscriptionDatasource extends BackendDatasource {
     /**
      * Subscribe
      * @description Subscribe to a plan
-     * @returns {Promise<Result<string, string>>}
+     * @returns {Promise<Result<ISubscriptionCreationDTO, string>>}
      */
-    public async Subscribe(): Promise<Result<string, string>> {
-        return this.put('/subscriptions', {}, true);
+    public async Subscribe(): Promise<Result<ISubscriptionCreationDTO, string>> {
+        return this.put<ISubscriptionCreationDTO>('/subscriptions', {}, true);
     }
 
     /**

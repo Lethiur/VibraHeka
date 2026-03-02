@@ -1,6 +1,5 @@
-import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
+﻿import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
-
 
 export const es = {
     translation: {
@@ -24,8 +23,24 @@ export const es = {
                 [AuthApplicationErrors.EMAIL_INVALID]: "Debe ingresar un email válido",
                 [AuthApplicationErrors.PASSWORD_NOT_PRESENT]: "La contraseña es obligatoria",
                 [AuthApplicationErrors.PASSWORD_TOO_SHORT]: "La contraseña debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.RESET_PASSWORD_TOKEN_NOT_PRESENT]: "El token de recuperacion no es valido o no existe.",
+                [AuthApplicationErrors.PASSWORD_CONFIRMATION_NOT_PRESENT]: "La confirmacion de contraseña es obligatoria",
+                [AuthApplicationErrors.PASSWORD_CONFIRMATION_TOO_SHORT]: "La confirmacion debe tener al menos 6 caracteres",
+                [AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH]: "Las contraseñas no coinciden",
                 [AuthApplicationErrors.VERIFICATION_CODE_TOO_SHORT]: "El código de verificación debe tener al menos 6 caracteres",
                 [AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT]: "El código de verificación es obligatorio"
+            }
+        },
+        components: {
+            auth: {
+                password_strength: {
+                    title: "Fuerza de contraseña",
+                    empty: "Sin definir",
+                    weak: "Debil",
+                    medium: "Media",
+                    good: "Buena",
+                    strong: "Fuerte"
+                }
             }
         },
 
@@ -38,7 +53,7 @@ export const es = {
                     count_text: "Hay: {{count}} plantillas",
                     templates_list_title: "Plantillas",
                     messages: {
-                        saved_title: "Guardado",
+                        saved_title: "Éxito",
                         saved_content: "Contenido guardado correctamente",
                         created_title: "Éxito",
                         created_content: "Plantilla creada correctamente",
@@ -102,20 +117,47 @@ export const es = {
                     code_label: "Código de verificación",
                     code_help: "Introduce el código que te ha llegado a tu correo",
                     submit_button: "Verificar",
+                    resend_button: "Reenviar codigo",
                     submitting_button: "Verificando..."
                 }
             },
             login: {
-                title: 'Identificarse',
-                description: 'Identificate para acceder a tu cuenta.',
+                title: "Identificarse",
+                description: "Identificate para acceder a tu cuenta.",
                 form: {
                     email_label: "Email",
                     email_help: "Introduce tu email",
                     password_label: "Contraseña",
                     password_help: "No compartas tu contraseña con nadie",
+                    forgot_password_link: "He olvidado mi contraseña",
                     submit_button: "Identificarse",
                     submitting_button: "Verificando..."
-
+                }
+            },
+            forgot_password: {
+                title: "Recupera tu contraseña",
+                description: "Introduce tu email y te enviaremos las instrucciones para recuperar el acceso.",
+                form: {
+                    email_label: "Email",
+                    email_help: "Introduce el correo asociado a tu cuenta",
+                    submit_button: "Enviar instrucciones",
+                    submitting_button: "Enviando...",
+                    success_message: "Si el email existe, te hemos enviado las instrucciones de recuperación.",
+                    back_to_login: "Volver a identificarse"
+                }
+            },
+            reset_password: {
+                title: "Restablece tu contraseña",
+                description: "Define una nueva contraseña para recuperar el acceso a tu cuenta.",
+                form: {
+                    password_label: "Nueva contraseña",
+                    password_help: "Debe tener al menos 6 caracteres",
+                    password_confirmation_label: "Confirmar nueva contraseña",
+                    password_confirmation_help: "Repite la nueva contraseña",
+                    submit_button: "Guardar nueva contraseña",
+                    submitting_button: "Guardando...",
+                    success_message: "Tu contraseña ha sido actualizada. Ya puedes iniciar sesion.",
+                    back_to_login: "Ir a iniciar sesion"
                 }
             }
         }

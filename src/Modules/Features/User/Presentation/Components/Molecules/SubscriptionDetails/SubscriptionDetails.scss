@@ -1,0 +1,62 @@
+@use "../../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.subscription-details {
+    &__summary {
+        margin-bottom: vars.$space-5;
+    }
+
+    &__actions {
+        padding-top: vars.$space-4;
+        border-top: 1px solid vars.$color-gray-200;
+    }
+}
+
+.subscription-kpi {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$space-2;
+    padding: vars.$space-4;
+    border-radius: vars.$radius-md;
+    background: rgba(vars.$color-gray-100, 0.9);
+    border: 1px solid vars.$color-gray-200;
+
+    &__label {
+        font-size: var(--type-caption-size);
+        letter-spacing: vars.$tracking-wider;
+        text-transform: uppercase;
+        color: vars.$color-dark-muted;
+    }
+
+    &__value {
+        font-family: fonts.$font-primary;
+        font-size: var(--type-body-size);
+        color: vars.$color-dark;
+        font-weight: fonts.$font-weight-semibold;
+    }
+}
+
+.subscription-kpi__value.is-active {
+    color: vars.$color-success;
+}
+
+.subscription-kpi__value.is-pending {
+    color: vars.$color-warning;
+}
+
+.subscription-kpi__value.is-cancelled {
+    color: vars.$color-error;
+}
+
+.subscription-kpi__value.is-neutral {
+    color: vars.$color-dark-muted;
+}
+
+.subscription-note {
+    padding: vars.$space-3 vars.$space-4;
+    border-radius: vars.$radius-md;
+    border: 1px solid rgba(vars.$color-warning, 0.35);
+    background-color: rgba(vars.$color-warning, 0.12);
+    color: vars.$color-dark;
+    font-size: var(--type-caption-size);
+}

@@ -32,7 +32,7 @@ export default function EmailTemplateEditor({ template, onSave, onUploadMedia }:
 
     useEffect(() => {
         GetContent(template.ID);
-    }, []);
+    }, [template.ID]);
 
     if (loading) {
         return <div className="d-flex justify-content-center py-4">
@@ -41,9 +41,11 @@ export default function EmailTemplateEditor({ template, onSave, onUploadMedia }:
     }
 
     return (
-        <div>
-            <h1>Email Template Editor {template.Name}</h1>
-            <TextEditor content={content} onChange={() => { }} onSave={onSave} onMediaUpload={onUploadMedia} />
-        </div>
+        <TextEditor
+            content={content}
+            onChange={() => { }}
+            onSave={onSave}
+            onMediaUpload={onUploadMedia}
+        />
     );
 }

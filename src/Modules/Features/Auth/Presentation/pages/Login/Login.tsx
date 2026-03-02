@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Login.scss";
 import { useTranslation } from "react-i18next";
 import { LoginData } from "@auth/Domain/Models/LoginData";
 import { ValidationErrors } from "fluentvalidation-ts";
@@ -13,10 +12,12 @@ import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
+import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 
 
 export default function Login() {
@@ -63,33 +64,46 @@ export default function Login() {
     }
 
     return (
-        <div>
-            <h1>{t('pages.login.title')}</h1>
-            <p>{t('pages.login.description')}</p>
-            <ErrorBox message={globalError} variant="danger" />
+        <AuthLayout title={t('pages.login.title')} subtitle={t('pages.login.description')}>
+            {globalError && (
+                <ErrorBox message={globalError} variant="danger" />
+            )}
+
             <form onSubmit={handleSubmit} noValidate>
-                <div className='mb-3'>
-                    <label htmlFor="email" className="form-label">{t('pages.login.form.email_label')}</label>
-                    <input type="email" className={`form-control ${errors.email ? 'is-invalid' : ''}`} name="email" id="email" aria-describedby="emailHelp" />
-                    <div id="emailHelp" className="form-text">{t('pages.login.form.email_help')}</div>
-                    {errors.email && <div className="invalid-feedback">{t(`errors.auth.${errors.email}`)}</div>}
-                </div>
-
-                <div className='mb-3'>
-                    <label htmlFor="password" className="form-label">{t('pages.login.form.password_label')}</label>
-                    <input type="password" className={`form-control ${errors.password ? 'is-invalid' : ''}`} id="password" name="password" />
-                    <div id="passwordHelp" className="form-text">{t('pages.login.form.password_help')}</div>
-                    {errors.password && <div className="invalid-feedback">{t(`errors.auth.${errors.password}`)}</div>}
-                </div>
-
-                <PrimaryButton
-                    label={isSubmitting ? t('pages.login.form.submitting_button') : t('pages.login.form.submit_button')}
-                    type="submit"
-                    variant="primary"
+                <PrimaryTextInput
+                    label={t('pages.login.form.email_label')}
+                    name="email"
+                    type="email"
                     disabled={isSubmitting}
-                    fullWidth={true}
+                    helpText={t('pages.login.form.email_help')}
+                    error={errors.email ? t(`errors.auth.${errors.email}`) : undefined}
                 />
+                <PrimaryTextInput
+                    label={t('pages.login.form.password_label')}
+                    name="password"
+                    type="password"
+                    showPasswordToggle={true}
+                    disabled={isSubmitting}
+                    helpText={t('pages.login.form.password_help')}
+                    error={errors.password ? t(`errors.auth.${errors.password}`) : undefined}
+                />
+
+                <div className="d-flex justify-content-end mt-2">
+                    <Link to="/forgot-password" className="type-body text-decoration-none">
+                        {t('pages.login.form.forgot_password_link')}
+                    </Link>
+                </div>
+
+                <div className="auth-form__submit">
+                    <PrimaryButton
+                        label={isSubmitting ? t('pages.login.form.submitting_button') : t('pages.login.form.submit_button')}
+                        type="submit"
+                        variant="primary"
+                        disabled={isSubmitting}
+                        fullWidth={true}
+                    />
+                </div>
             </form>
-        </div>
+        </AuthLayout>
     )
 }

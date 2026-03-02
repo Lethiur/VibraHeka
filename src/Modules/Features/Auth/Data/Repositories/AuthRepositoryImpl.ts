@@ -12,6 +12,10 @@ import { LoginData } from "../../Domain/Models/LoginData";
 import { LoginResult } from "../../Domain/Models/LoginResult";
 import { LoginResultDTO } from "../DTOs/LoginResultDTO";
 import { LoginRequestDTO } from "../DTOs/LoginRequestDTO";
+import { ForgotPasswordData } from "../../Domain/Models/ForgotPasswordData";
+import { ForgotPasswordRequestDTO } from "../DTOs/ForgotPasswordRequestDTO";
+import { ResetPasswordData } from "../../Domain/Models/ResetPasswordData";
+import { ResetPasswordRequestDTO } from "../DTOs/ResetPasswordRequestDTO";
 
 export class AuthRepositoryImpl implements IAuthRepository {
 
@@ -70,7 +74,10 @@ export class AuthRepositoryImpl implements IAuthRepository {
         const dto: RegistrationRequestDto = {
             email: data.email,
             password: data.password,
-            fullName: data.fullName,
+            firstName: data.firstName,
+            middleName: data.middleName,
+            lastName: data.lastName,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         };
 
         const result: Result<RegisterResponseDto, string> = await this.datasource.register(dto);
@@ -90,6 +97,39 @@ export class AuthRepositoryImpl implements IAuthRepository {
     public async ResendVerificationCode(email: string): Promise<Result<void, AuthErrorCodes>> {
         const result: Result<void, string> = await this.datasource.ResendVerificationCode(email);
 
+        return result.mapErr(error => error as AuthErrorCodes);
+    }
+
+    /**
+     * Starts the forgot-password flow for the given email.
+     *
+     * @param {ForgotPasswordData} data - The data needed to request password recovery.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an auth error code.
+     */
+    public async ForgotPassword(data: ForgotPasswordData): Promise<Result<void, AuthErrorCodes>> {
+        const dto: ForgotPasswordRequestDTO = {
+            email: data.email
+        };
+
+        const result: Result<void, string> = await this.datasource.ForgotPassword(dto);
+
+        return result.mapErr(error => error as AuthErrorCodes);
+    }
+
+    /**
+     * Completes forgot-password confirmation with token and new password.
+     *
+     * @param {ResetPasswordData} data - The values required to set the new password.
+     * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an auth error code.
+     */
+    public async ResetPassword(data: ResetPasswordData): Promise<Result<void, AuthErrorCodes>> {
+        const dto: ResetPasswordRequestDTO = {
+            encryptedToken: data.encryptedToken,
+            newPassword: data.newPassword,
+            newPasswordConfirmation: data.newPasswordConfirmation
+        };
+
+        const result: Result<void, string> = await this.datasource.ConfirmForgotPassword(dto);
         return result.mapErr(error => error as AuthErrorCodes);
     }
 

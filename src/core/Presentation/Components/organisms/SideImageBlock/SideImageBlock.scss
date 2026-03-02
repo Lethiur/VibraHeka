@@ -1,55 +1,44 @@
-// ─────────────────────────────────────────────
-// SideImageBlock — Organism
-// ─────────────────────────────────────────────
-@use "../../../../../Assets/Styles/base/variables" as vars;
+﻿@use "../../../../../Assets/Styles/base/variables" as vars;
 @use "../../../../../Assets/Styles/base/fonts" as fonts;
 
 .side-block {
-    display: flex;
-    align-items: center;
-    // gap: vars.$space-1;
-    padding: vars.$space-12 0;
+    width: 100%;
+    margin: 0;
+    padding-block: vars.$space-10;
 
     @media (max-width: 768px) {
-        flex-direction: column;
-        gap: vars.$space-8;
-        padding: vars.$space-8 0;
+        padding-block: vars.$space-6;
     }
 
-    // ── Image column
     &__image-col {
-        flex-shrink: 0;
-        width: 360px;
-
-        @media (max-width: 1024px) {
-            width: 280px;
-        }
-
-        @media (max-width: 768px) {
-            width: 100%;
-            max-width: 340px;
-            margin: 0 auto;
-        }
+        justify-content: center;
     }
 
     &__image {
         width: 100%;
-        height: auto;
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 4 / 3;
+        max-height: none;
         object-fit: cover;
         border-radius: vars.$radius-md;
         box-shadow: vars.$shadow-md;
         display: block;
+
+        @media (max-width: 768px) {
+            aspect-ratio: 16 / 10;
+        }
     }
 
-    // ── Content column
+    &__content-col {
+        display: flex;
+    }
+
     &__content {
-        flex: 1;
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: vars.$space-5;
-        text-align: justify;
-        letter-spacing: vars.$tracking-wide;
+        text-align: left;
+        letter-spacing: vars.$tracking-normal;
 
         h1,
         h2 {
@@ -66,21 +55,10 @@
             }
         }
 
-
-
         strong,
         b {
             color: vars.$color-dark;
             font-weight: fonts.$font-weight-semibold;
-        }
-    }
-
-    // ── Right variant (image right)
-    &.right {
-        flex-direction: row-reverse;
-
-        @media (max-width: 768px) {
-            flex-direction: column;
         }
     }
 }

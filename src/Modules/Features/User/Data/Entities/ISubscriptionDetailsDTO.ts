@@ -3,4 +3,6 @@ export default interface ISubscriptionDetailsDTO {
     endDate: Date;
     status: number;
     subscriptionStatus: number;
+    checkoutSessionUrl?: string | null;
+    checkoutSessionExpiresAt?: Date | null;
 }

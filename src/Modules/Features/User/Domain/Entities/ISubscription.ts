@@ -6,4 +6,6 @@ export default interface ISubscription {
     EndDate: Date;
     Status: OrderStatus;
     SubscriptionStatus: SubscriptionStatus;
+    CheckoutSessionUrl?: string | null;
+    CheckoutSessionExpiresAt?: Date | null;
 }

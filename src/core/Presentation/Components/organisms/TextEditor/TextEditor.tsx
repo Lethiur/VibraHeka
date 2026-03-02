@@ -1,5 +1,6 @@
 import { RichTextProvider } from 'reactjs-tiptap-editor'
 import { EditorContent, useEditor } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
 
 // Base Kit
 import { Document } from '@tiptap/extension-document';
@@ -72,6 +73,7 @@ import '@tiptap/extension-text-style';
 import { EMOJI_ITEM_LIST, EMOJI_LIST } from '@core/Presentation/Components/organisms/TextEditor/Emojis';
 import { Count } from './Extensions/Count';
 import { EditorToolbar } from './Toolbar';
+import { EMAIL_CTA_EDIT_EVENT, EmailButton, type EmailButtonAttributes } from './Extensions/EmailButton';
 import PrimaryButton from '../../atoms/PrimaryButton/PrimaryButton';
 
 const DocumentColumn = Document.extend({
@@ -142,7 +144,8 @@ const extensions = [
     MultipleColumnNode,
     Table,
     TextDirection,
-    Attachment
+    Attachment,
+    EmailButton,
 ];
 
 interface TextEditorProps {
@@ -179,6 +182,71 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
         window['editor'] = editor;
     }, [editor]);
 
+    const getSelectedEmailButton = () => {
+        if (!editor) return null;
+        const { from } = editor.state.selection;
+        const directNode = editor.state.doc.nodeAt(from);
+        const beforeNode = from > 0 ? editor.state.doc.nodeAt(from - 1) : null;
+        const nodeAfter = editor.state.selection.$from.nodeAfter;
+
+        if (directNode?.type.name === 'emailButton') {
+            return {
+                pos: from,
+                attrs: directNode.attrs as EmailButtonAttributes,
+                size: directNode.nodeSize,
+            };
+        }
+
+        if (beforeNode?.type.name === 'emailButton') {
+            return {
+                pos: from - beforeNode.nodeSize,
+                attrs: beforeNode.attrs as EmailButtonAttributes,
+                size: beforeNode.nodeSize,
+            };
+        }
+
+        if (nodeAfter?.type.name === 'emailButton') {
+            return {
+                pos: from,
+                attrs: nodeAfter.attrs as EmailButtonAttributes,
+                size: nodeAfter.nodeSize,
+            };
+        }
+
+        return null;
+    };
+
+    const handleEditEmailButton = () => {
+        const selected = getSelectedEmailButton();
+        if (!selected) return;
+
+        window.dispatchEvent(
+            new CustomEvent(EMAIL_CTA_EDIT_EVENT, {
+                detail: {
+                    label: String(selected.attrs.label ?? ''),
+                    url: String(selected.attrs.url ?? ''),
+                    pos: selected.pos,
+                    fontSize: Number(selected.attrs.fontSize ?? 16),
+                },
+            }),
+        );
+    };
+
+    const handleDeleteEmailButton = () => {
+        if (!editor) return;
+        const selected = getSelectedEmailButton();
+        if (!selected) return;
+
+        editor
+            .chain()
+            .focus()
+            .command(({ tr }) => {
+                tr.delete(selected.pos, selected.pos + selected.size);
+                return true;
+            })
+            .run();
+    };
+
     if (!editor) return null
     return (
         <>
@@ -189,13 +257,40 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
                         <div className="flex max-h-full w-full flex-col">
                             <div className="absolute top-0 z-10 bg-background border-b">
                                 <div className="flex justify-end p-2">
-                                    <EditorToolbar />
+                                    <EditorToolbar editor={editor} />
                                     <PrimaryButton onClick={() => onSave(editor.getHTML())} label='Guardar' />
                                 </div>
                             </div>
 
 
                             <EditorContent editor={editor} />
+                            <BubbleMenu
+                                editor={editor}
+                                shouldShow={({ editor }: { editor: any }) => {
+                                    const pos = editor.state.selection.from;
+                                    const node = editor.state.doc.nodeAt(pos);
+                                    return node?.type.name === 'emailButton';
+                                }}
+                            >
+                                <div className="email-editor-cta-bubble">
+                                    <button
+                                        type="button"
+                                        className="email-editor-cta-bubble__action"
+                                        onMouseDown={(event) => event.preventDefault()}
+                                        onClick={handleEditEmailButton}
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="email-editor-cta-bubble__action email-editor-cta-bubble__action--danger"
+                                        onMouseDown={(event) => event.preventDefault()}
+                                        onClick={handleDeleteEmailButton}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </BubbleMenu>
                             <RichTextBubbleColumns />
                             <RichTextBubbleDrawer />
                             <RichTextBubbleExcalidraw />
@@ -227,3 +322,5 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
         </>
     );
 }
+
+

@@ -48,3 +48,10 @@
         margin: 0 vars.$space-1;
     }
 }
+.editor-toolbar__btn--cta {
+    min-width: 3rem;
+    padding-inline: 0.5rem;
+    font-weight: 600;
+    background-color: vars.$color-primary-alpha;
+    color: vars.$color-primary-dark;
+}

@@ -1,31 +1,54 @@
-﻿import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { Link, Outlet } from "react-router-dom";
+import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import "./AdminLayout.scss";
 
+interface AdminNavItem {
+    label: string;
+    to: string;
+    end?: boolean;
+}
+
+const adminNavItems: AdminNavItem[] = [
+    { label: "Dashboard", to: "/admin/dashboard", end: true },
+    { label: "Terapeutas", to: "/admin/therapists", end: true },
+    { label: "Emails transaccionales", to: "/admin/emails", end: true },
+    { label: "Plantillas de correo", to: "/admin/emails/templates" },
+];
 
 export default function AdminLayout() {
     const { t } = useTranslation();
+
     return (
-        <div className="admin-wrapper" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', width: '100%' }}>
-            <Navbar bg="dark" variant="dark" expand="lg">
+        <div className="admin-layout">
+            <Navbar expand="lg" className="admin-layout__topbar">
                 <Container fluid>
-                    <Navbar.Brand as={Link} to="/admin">{t('pages.admin.title')}</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/admin/dashboard" className="admin-layout__brand">
+                        {t("pages.admin.title")}
+                    </Navbar.Brand>
                 </Container>
             </Navbar>
 
-            <Container fluid className="flex-grow-1">
-                <Row style={{ minHeight: 'calc(100vh - 56px)' }}>
-                    <Col md={2} className="bg-light d-none d-md-block sidebar py-4 border-end">
-                        <Nav className="flex-column px-2">
-                            <Nav.Link as={Link} to="/admin" className="text-dark">📊 Dashboard</Nav.Link>
-                            <Nav.Link as={Link} to="/admin/therapists" className="text-dark">👥 Terapeutas</Nav.Link>
-                            <Nav.Link as={Link} to="/admin/therapies" className="text-dark">👥 Terapias</Nav.Link>
-                            <Nav.Link as={Link} to="/admin/emails" className="text-dark">⚙️ Correos electornicos</Nav.Link>
-                            <Nav.Link as={Link} to="/admin/emails/templates" className="text-dark">⚙️ Admin. Plantillas correo</Nav.Link>
+            <Container fluid className="admin-layout__content">
+                <Row className="g-0 h-100">
+                    <Col md={3} lg={2} className="d-none d-md-block admin-layout__sidebar">
+                        <Nav className="flex-column admin-layout__nav">
+                            {adminNavItems.map((item: AdminNavItem) => (
+                                <Nav.Link
+                                    key={item.to}
+                                    as={NavLink}
+                                    to={item.to}
+                                    end={item.end}
+                                    className="admin-layout__nav-link"
+                                >
+                                    {item.label}
+                                </Nav.Link>
+                            ))}
                         </Nav>
                     </Col>
-                    <Col md={10} className="py-4 px-4 bg-white">
-                        <main>
+
+                    <Col md={9} lg={10} className="admin-layout__main-col">
+                        <main className="admin-layout__main">
                             <Outlet />
                         </main>
                     </Col>

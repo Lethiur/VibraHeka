@@ -95,7 +95,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
                 </Col>
             </Row>
             <Row className="mt-2 mb-3">
-                <Form.Group>
+                <Form.Group className="timezone-field">
                     <Form.Label>{t('pages.therapists.form.timezone_label')}</Form.Label>
                     <TimezoneSelect
                         form="createTherapistForm"
