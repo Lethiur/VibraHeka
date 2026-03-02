@@ -72,6 +72,7 @@ import '@tiptap/extension-text-style';
 import { EMOJI_ITEM_LIST, EMOJI_LIST } from '@core/Presentation/Components/organisms/TextEditor/Emojis';
 import { Count } from './Extensions/Count';
 import { EditorToolbar } from './Toolbar';
+import { EmailButton } from './Extensions/EmailButton';
 import PrimaryButton from '../../atoms/PrimaryButton/PrimaryButton';
 
 const DocumentColumn = Document.extend({
@@ -143,6 +144,7 @@ const extensions = [
     Table,
     TextDirection,
     Attachment,
+    EmailButton,
 ];
 
 interface TextEditorProps {
@@ -189,7 +191,7 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
                         <div className="flex max-h-full w-full flex-col">
                             <div className="absolute top-0 z-10 bg-background border-b">
                                 <div className="flex justify-end p-2">
-                                    <EditorToolbar />
+                                    <EditorToolbar editor={editor} />
                                     <PrimaryButton onClick={() => onSave(editor.getHTML())} label='Guardar' />
                                 </div>
                             </div>
@@ -227,4 +229,5 @@ export default function TextEditor({ content, onChange, onSave, onMediaUpload, c
         </>
     );
 }
+
 
