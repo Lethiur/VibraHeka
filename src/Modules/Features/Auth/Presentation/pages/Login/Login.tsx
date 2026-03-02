@@ -66,7 +66,7 @@ export default function Login() {
     return (
         <AuthLayout title={t('pages.login.title')} subtitle={t('pages.login.description')}>
             {globalError && (
-                <ErrorBox message={globalError} variant="danger" />
+                <ErrorBox message={t(`errors.auth.${globalError}`, { defaultValue: globalError })} variant="danger" />
             )}
 
             <form onSubmit={handleSubmit} noValidate>

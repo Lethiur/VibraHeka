@@ -6,10 +6,11 @@ import { UseToast } from "@core/Presentation/Hooks/UseToast";
 import { useTranslation } from "react-i18next";
 import { NotificationVariant } from "@core/Domain/Notifications/INotificationProvider";
 import { Card, Col, Form, Image, Row } from "react-bootstrap";
-import { Pencil, Save, X } from "lucide-react";
+import { KeyRound, Pencil, Save, X } from "lucide-react";
 import EditableField from "@core/Presentation/Components/molecules/EditableField/EditableField";
 import { useQuery } from "@tanstack/react-query";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 interface ProfileProps {
     UserID: string;
@@ -24,6 +25,7 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
 
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState<IUserprofile>();
+    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
 
     useQuery({
         queryKey: ["profile", UserID],
@@ -205,14 +207,22 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                             />
 
                             {IsOwnProfile && (
-                                <div className="edit-controls justify-content-end d-flex gap-2">
+                                <div className="edit-controls">
                                     {!isEditing ? (
-                                        <PrimaryButton
-                                            label={t("pages.profile.edit_button", "Edit Profile")}
-                                            variant="primary"
-                                            iconLeft={<Pencil size={18} />}
-                                            onClick={() => setIsEditing(true)}
-                                        />
+                                        <>
+                                            <PrimaryButton
+                                                label={t("pages.profile.edit_button", "Edit Profile")}
+                                                variant="primary"
+                                                iconLeft={<Pencil size={18} />}
+                                                onClick={() => setIsEditing(true)}
+                                            />
+                                            <PrimaryButton
+                                                label="Cambiar contrasena"
+                                                variant="outline-secondary"
+                                                iconLeft={<KeyRound size={18} />}
+                                                onClick={() => setShowChangePasswordModal(true)}
+                                            />
+                                        </>
                                     ) : (
                                         <>
                                             <PrimaryButton
@@ -232,6 +242,11 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                 </div>
                             )}
                         </Form>
+
+                        <ChangePasswordModal
+                            show={showChangePasswordModal}
+                            onHide={() => setShowChangePasswordModal(false)}
+                        />
                     </Card.Body>
                 </Card>
             </Col>

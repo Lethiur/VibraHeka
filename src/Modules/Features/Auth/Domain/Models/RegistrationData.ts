@@ -5,4 +5,5 @@ export interface RegistrationData {
     lastName: string;
     email: string;
     password: string;
+    passwordConfirmation: string;
 }

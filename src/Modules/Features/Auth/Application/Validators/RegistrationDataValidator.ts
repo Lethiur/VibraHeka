@@ -1,6 +1,12 @@
 import { Validator } from "fluentvalidation-ts";
 import { RegistrationData } from "../../Domain/Models/RegistrationData";
 import { AuthApplicationErrors } from "../Errors/AuthApplicationErrors";
+import {
+    hasNumber,
+    hasSymbol,
+    hasUppercase,
+    PASSWORD_MIN_LENGTH
+} from "@core/Application/Validation/PasswordPolicy";
 
 export default class RegistrationDataValidator extends Validator<RegistrationData> {
     constructor() {
@@ -32,7 +38,21 @@ export default class RegistrationDataValidator extends Validator<RegistrationDat
         this.ruleFor('password')
             .notEmpty()
             .withMessage(AuthApplicationErrors.PASSWORD_NOT_PRESENT)
-            .minLength(6)
-            .withMessage(AuthApplicationErrors.PASSWORD_TOO_SHORT);
+            .minLength(PASSWORD_MIN_LENGTH)
+            .withMessage(AuthApplicationErrors.PASSWORD_TOO_SHORT)
+            .must((password) => hasUppercase(password))
+            .withMessage(AuthApplicationErrors.PASSWORD_REQUIRES_UPPERCASE)
+            .must((password) => hasNumber(password))
+            .withMessage(AuthApplicationErrors.PASSWORD_REQUIRES_NUMBER)
+            .must((password) => hasSymbol(password))
+            .withMessage(AuthApplicationErrors.PASSWORD_REQUIRES_SYMBOL);
+
+        this.ruleFor("passwordConfirmation")
+            .notEmpty()
+            .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_NOT_PRESENT)
+            .minLength(PASSWORD_MIN_LENGTH)
+            .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_TOO_SHORT)
+            .must((passwordConfirmation, model) => passwordConfirmation === model.password)
+            .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH);
     }
 }

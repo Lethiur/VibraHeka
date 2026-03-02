@@ -1,4 +1,4 @@
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Modal, Row } from "react-bootstrap";
 import UseCancelSubscription from "@users/Presentation/Hooks/UseCancelSubscription";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
 import UseGetSubscriptionPanel from "@users/Presentation/Hooks/UseGetSubscriptionPanel";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import UseRefreshSubscription from "@users/Presentation/Hooks/UseRefreshSubscription";
 import { OrderStatus } from "@users/Domain/Enums/OrderStatus";
 import SubscriptionDetails from "@/Modules/Features/User/Presentation/Components/Molecules/SubscriptionDetails/SubscriptionDetails";
@@ -17,6 +18,7 @@ interface SubscriptionPanelProps {
 
 export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) {
     const [waitingForStripe, setWaitingForStripe] = useState(false);
+    const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
 
     const { checkoutURL, loading, error, subscribe } = UseSubscribe();
     const { subscription, loading: subscriptionLoading, error: subscriptionError, getSubscription } = UseGetSubscription();
@@ -55,8 +57,20 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     };
 
     const handleCancelSubscription = () => {
-        cancelSubscription();
-        getSubscription();
+        setShowCancelConfirmation(true);
+    };
+
+    const handleCloseCancelConfirmation = () => {
+        if (cancelSubscriptionLoading) return;
+        setShowCancelConfirmation(false);
+    };
+
+    const handleConfirmCancelSubscription = async () => {
+        const success = await cancelSubscription();
+        if (success) {
+            await getSubscription();
+            setShowCancelConfirmation(false);
+        }
     };
 
     const handleGetSubscriptionPanel = () => {
@@ -128,15 +142,41 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     };
 
     return (
-        <Row className="justify-content-center align-items-center mt-2 mt-md-4">
-            <Col md={12} lg={12}>
-                <Card className="profile-card vh-panel vh-surface-card">
-                    <Card.Header>
-                        <h2>Mi Suscripcion</h2>
-                    </Card.Header>
-                    <Card.Body>{renderCardBody()}</Card.Body>
-                </Card>
-            </Col>
-        </Row>
+        <>
+            <Row className="justify-content-center align-items-center mt-2 mt-md-4">
+                <Col md={12} lg={12}>
+                    <Card className="profile-card vh-panel vh-surface-card">
+                        <Card.Header>
+                            <h2>Mi Suscripcion</h2>
+                        </Card.Header>
+                        <Card.Body>{renderCardBody()}</Card.Body>
+                    </Card>
+                </Col>
+            </Row>
+
+            <Modal show={showCancelConfirmation} onHide={handleCloseCancelConfirmation} centered>
+                <Modal.Header closeButton={!cancelSubscriptionLoading}>
+                    <Modal.Title>Confirmar cancelacion</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Tu suscripcion se mantendra activa hasta el final del periodo actual. Quieres continuar con la
+                    cancelacion?
+                </Modal.Body>
+                <Modal.Footer>
+                    <PrimaryButton
+                        label="No, mantener suscripcion"
+                        variant="outline-secondary"
+                        onClick={handleCloseCancelConfirmation}
+                        disabled={cancelSubscriptionLoading}
+                    />
+                    <PrimaryButton
+                        label={cancelSubscriptionLoading ? "Cancelando..." : "Si, cancelar suscripcion"}
+                        variant="danger"
+                        onClick={handleConfirmCancelSubscription}
+                        disabled={cancelSubscriptionLoading}
+                    />
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 }

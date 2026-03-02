@@ -1,27 +1,18 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { evaluatePasswordPolicy, PASSWORD_MIN_LENGTH } from "@core/Application/Validation/PasswordPolicy";
 import "./PasswordStrengthIndicator.scss";
 
 interface PasswordStrengthIndicatorProps {
     password: string;
 }
 
-function calculateStrength(password: string): number {
-    let score = 0;
-
-    if (password.length >= 8) score += 1;
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score += 1;
-    if (/\d/.test(password)) score += 1;
-    if (/[^a-zA-Z0-9]/.test(password)) score += 1;
-
-    return score;
-}
-
 export default function PasswordStrengthIndicator({ password }: PasswordStrengthIndicatorProps) {
     const { t } = useTranslation();
 
-    const strength = useMemo(() => calculateStrength(password), [password]);
-    const ratio = (strength / 4) * 100;
+    const policy = useMemo(() => evaluatePasswordPolicy(password), [password]);
+    const strength = policy.strengthScore;
+    const ratio = policy.strengthRatio;
 
     const tone =
         strength <= 1 ? "weak"
@@ -35,6 +26,29 @@ export default function PasswordStrengthIndicator({ password }: PasswordStrength
                 : strength === 2 ? "components.auth.password_strength.medium"
                     : strength === 3 ? "components.auth.password_strength.good"
                         : "components.auth.password_strength.strong";
+
+    const requirements = [
+        {
+            key: "min_length",
+            label: t("components.auth.password_strength.requirements.min_length", { count: PASSWORD_MIN_LENGTH }),
+            met: policy.minLength
+        },
+        {
+            key: "uppercase",
+            label: t("components.auth.password_strength.requirements.uppercase"),
+            met: policy.uppercase
+        },
+        {
+            key: "number",
+            label: t("components.auth.password_strength.requirements.number"),
+            met: policy.number
+        },
+        {
+            key: "symbol",
+            label: t("components.auth.password_strength.requirements.symbol"),
+            met: policy.symbol
+        }
+    ];
 
     return (
         <div className="password-strength-indicator" aria-live="polite">
@@ -51,6 +65,20 @@ export default function PasswordStrengthIndicator({ password }: PasswordStrength
                     style={{ width: `${ratio}%` }}
                 />
             </div>
+
+            <div className="password-strength-indicator__requirements-title">
+                {t("components.auth.password_strength.requirements.title")}
+            </div>
+            <ul className="password-strength-indicator__requirements-list">
+                {requirements.map((requirement) => (
+                    <li
+                        key={requirement.key}
+                        className={`password-strength-indicator__requirement ${requirement.met ? "password-strength-indicator__requirement--met" : ""}`}
+                    >
+                        {requirement.label}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

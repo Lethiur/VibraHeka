@@ -17,8 +17,8 @@ import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
-import PasswordStrengthIndicator
-    from "@auth/Presentation/Components/Molecules/PasswordStrengthIndicator/PasswordStrengthIndicator";
+import PasswordConfirmationFields
+    from "@auth/Presentation/Components/Molecules/PasswordConfirmationFields/PasswordConfirmationFields";
 
 export default function Registro() {
     const { t } = useTranslation();
@@ -26,6 +26,7 @@ export default function Registro() {
     const [globalError, setGlobalError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [password, setPassword] = useState("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
     const registerUserUseCase: RegisterUserUseCase = useRegisterUser();
     const localStorage: LocalStorageService = useLocalStorage();
@@ -42,7 +43,8 @@ export default function Registro() {
             middleName: (formData.get('middleName') as string) || "",
             lastName: (formData.get('lastName') as string) || "",
             email: (formData.get('email') as string) || "",
-            password: (formData.get('password') as string) || ""
+            password: (formData.get('password') as string) || "",
+            passwordConfirmation: (formData.get('passwordConfirmation') as string) || ""
         };
 
 
@@ -71,20 +73,46 @@ export default function Registro() {
             <ErrorBox message={globalError} />
 
             <form onSubmit={handleSubmit} noValidate>
-                <PrimaryTextInput label={t('pages.register.form.email_label')} name="email" disabled={isSubmitting} error={errors.email?.toString()} />
-                <PrimaryTextInput label={t('pages.register.form.name_label')} name="firstName" disabled={isSubmitting} error={errors.firstName?.toString()} />
-                <PrimaryTextInput label={t('pages.register.form.middle_name_label')} name="middleName" disabled={isSubmitting} error={errors.middleName?.toString()} />
-                <PrimaryTextInput label={t('pages.register.form.last_name_label')} name="lastName" disabled={isSubmitting} error={errors.lastName?.toString()} />
                 <PrimaryTextInput
-                    label={t('pages.register.form.password_label')}
-                    name="password"
+                    label={t('pages.register.form.email_label')}
+                    name="email"
                     disabled={isSubmitting}
-                    type="password"
-                    showPasswordToggle={true}
-                    onChange={(event) => setPassword(event.target.value)}
-                    error={errors.password?.toString()}
+                    error={errors.email ? t(`errors.auth.${errors.email}`, { defaultValue: errors.email.toString() }) : undefined}
                 />
-                <PasswordStrengthIndicator password={password} />
+                <PrimaryTextInput
+                    label={t('pages.register.form.name_label')}
+                    name="firstName"
+                    disabled={isSubmitting}
+                    error={errors.firstName ? t(`errors.auth.${errors.firstName}`, { defaultValue: errors.firstName.toString() }) : undefined}
+                />
+                <PrimaryTextInput
+                    label={t('pages.register.form.middle_name_label')}
+                    name="middleName"
+                    disabled={isSubmitting}
+                    error={errors.middleName ? t(`errors.auth.${errors.middleName}`, { defaultValue: errors.middleName.toString() }) : undefined}
+                />
+                <PrimaryTextInput
+                    label={t('pages.register.form.last_name_label')}
+                    name="lastName"
+                    disabled={isSubmitting}
+                    error={errors.lastName ? t(`errors.auth.${errors.lastName}`, { defaultValue: errors.lastName.toString() }) : undefined}
+                />
+                <PasswordConfirmationFields
+                    passwordName="password"
+                    passwordLabel={t("pages.register.form.password_label")}
+                    passwordValue={password}
+                    onPasswordChange={(event) => setPassword(event.target.value)}
+                    passwordError={errors.password ? t(`errors.auth.${errors.password}`, { defaultValue: errors.password.toString() }) : undefined}
+                    confirmationName="passwordConfirmation"
+                    confirmationLabel={t("pages.register.form.password_confirmation_label")}
+                    confirmationValue={passwordConfirmation}
+                    onConfirmationChange={(event) => setPasswordConfirmation(event.target.value)}
+                    confirmationHelpText={t("pages.register.form.password_confirmation_help")}
+                    confirmationError={errors.passwordConfirmation
+                        ? t(`errors.auth.${errors.passwordConfirmation}`, { defaultValue: errors.passwordConfirmation.toString() })
+                        : undefined}
+                    disabled={isSubmitting}
+                />
 
                 <div className="auth-form__submit">
                     <PrimaryButton
