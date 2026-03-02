@@ -1,6 +1,7 @@
 import type { Editor } from "@tiptap/react";
 import { useEffect, useRef, useState } from "react";
 import { Button, Form, Overlay, Popover } from "react-bootstrap";
+import { EMAIL_CTA_EDIT_EVENT, type EmailButtonAttributes } from "./Extensions/EmailButton";
 import "./EmailButtonTool.scss";
 
 interface EmailButtonToolProps {
@@ -11,23 +12,56 @@ interface EmailCtaEditEventDetail {
     label: string;
     url: string;
     pos: number;
+    fontSize?: number;
 }
-
-const EMAIL_CTA_EDIT_EVENT = "vh:email-cta-edit";
 
 export default function EmailButtonTool({ editor }: EmailButtonToolProps) {
     const [showPopover, setShowPopover] = useState<boolean>(false);
     const [label, setLabel] = useState<string>("Quiero empezar");
     const [url, setUrl] = useState<string>("https://");
+    const [fontSize, setFontSize] = useState<number>(16);
     const [error, setError] = useState<string>("");
     const [editingPos, setEditingPos] = useState<number | null>(null);
     const targetRef = useRef<HTMLButtonElement | null>(null);
+
+    const resolveCurrentAlign = (): NonNullable<EmailButtonAttributes["align"]> => {
+        if (!editor) return "center";
+
+        const selectionAlign = editor.state.selection.$from.parent.attrs?.textAlign;
+        if (selectionAlign === "left" || selectionAlign === "center" || selectionAlign === "right") {
+            return selectionAlign;
+        }
+
+        const paragraphAlign = editor.getAttributes("paragraph")?.textAlign;
+        if (paragraphAlign === "left" || paragraphAlign === "center" || paragraphAlign === "right") {
+            return paragraphAlign;
+        }
+
+        const headingAlign = editor.getAttributes("heading")?.textAlign;
+        if (headingAlign === "left" || headingAlign === "center" || headingAlign === "right") {
+            return headingAlign;
+        }
+
+        const { from } = editor.state.selection;
+        const resolvedPos = editor.state.doc.resolve(from);
+
+        for (let depth = resolvedPos.depth; depth >= 0; depth -= 1) {
+            const node = resolvedPos.node(depth) as { attrs?: Record<string, unknown> };
+            const align = node.attrs?.textAlign;
+            if (align === "left" || align === "center" || align === "right") {
+                return align;
+            }
+        }
+
+        return "center";
+    };
 
     useEffect(() => {
         const onEditEvent = (event: Event) => {
             const customEvent = event as CustomEvent<EmailCtaEditEventDetail>;
             setLabel(customEvent.detail.label);
             setUrl(customEvent.detail.url);
+            setFontSize(customEvent.detail.fontSize && customEvent.detail.fontSize >= 12 ? customEvent.detail.fontSize : 16);
             setEditingPos(customEvent.detail.pos);
             setShowPopover(true);
             setError("");
@@ -53,9 +87,18 @@ export default function EmailButtonTool({ editor }: EmailButtonToolProps) {
                 .chain()
                 .focus()
                 .command(({ tr }) => {
+                    const currentNode = tr.doc.nodeAt(editingPos);
+                    const currentAlign = currentNode?.attrs?.align;
+                    const safeAlign =
+                        currentAlign === "left" || currentAlign === "right" || currentAlign === "center"
+                            ? currentAlign
+                            : "center";
+
                     tr.setNodeMarkup(editingPos, undefined, {
                         label: trimmedLabel,
                         url: trimmedUrl,
+                        align: safeAlign,
+                        fontSize,
                     });
                     return true;
                 })
@@ -64,6 +107,8 @@ export default function EmailButtonTool({ editor }: EmailButtonToolProps) {
             editor.commands.setEmailButton({
                 label: trimmedLabel,
                 url: trimmedUrl,
+                align: resolveCurrentAlign(),
+                fontSize,
             });
         }
 
@@ -96,8 +141,10 @@ export default function EmailButtonTool({ editor }: EmailButtonToolProps) {
                 ref={targetRef}
                 type="button"
                 className="editor-toolbar__btn editor-toolbar__btn--cta"
+                onMouseDown={(event) => event.preventDefault()}
                 onClick={() => {
                     setEditingPos(null);
+                    setFontSize(16);
                     setShowPopover((prevState) => !prevState);
                 }}
                 title="Insertar boton CTA"
@@ -135,6 +182,20 @@ export default function EmailButtonTool({ editor }: EmailButtonToolProps) {
                                 onChange={(event) => setUrl(event.target.value)}
                                 placeholder="https://"
                             />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="ctaFontSize">
+                            <Form.Label>Tamano de fuente</Form.Label>
+                            <Form.Select
+                                value={fontSize}
+                                onChange={(event) => setFontSize(Number(event.target.value))}
+                            >
+                                <option value={14}>14 px</option>
+                                <option value={16}>16 px</option>
+                                <option value={18}>18 px</option>
+                                <option value={20}>20 px</option>
+                                <option value={22}>22 px</option>
+                            </Form.Select>
                         </Form.Group>
 
                         {error && <small className="email-button-tool__error">{error}</small>}

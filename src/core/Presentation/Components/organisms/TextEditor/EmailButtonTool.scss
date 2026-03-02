@@ -32,10 +32,6 @@
     margin: vars.$space-4 0;
 }
 
-.email-editor-cta-node {
-    position: relative;
-}
-
 .email-editor-cta {
     display: inline-block;
     background-color: vars.$color-primary !important;
@@ -59,30 +55,38 @@
     pointer-events: none;
 }
 
-.email-editor-cta-actions {
-    display: none;
-    justify-content: center;
+.email-editor-cta-bubble {
+    display: inline-flex;
+    align-items: center;
     gap: vars.$space-2;
-    margin-top: vars.$space-2;
+    background: vars.$color-surface;
+    border: 1px solid vars.$color-gray-200;
+    border-radius: vars.$radius-md;
+    box-shadow: vars.$shadow-md;
+    padding: vars.$space-1;
 }
 
-.email-editor-cta-node.is-open .email-editor-cta-actions {
-    display: flex;
-}
-
-.email-editor-cta-action-btn {
+.email-editor-cta-bubble__action {
     border: 1px solid vars.$color-gray-300;
     border-radius: vars.$radius-sm;
-    background-color: vars.$color-surface;
+    background: vars.$color-surface;
     color: vars.$color-dark;
     padding: vars.$space-1 vars.$space-3;
     font-size: fonts.$font-size-xs;
     font-weight: fonts.$font-weight-semibold;
     line-height: 1.2;
     cursor: pointer;
+
+    &:hover {
+        background-color: vars.$color-gray-100;
+    }
 }
 
-.email-editor-cta-action-btn--danger {
+.email-editor-cta-bubble__action--danger {
     border-color: vars.$color-error;
     color: vars.$color-error;
+
+    &:hover {
+        background-color: vars.$color-error-surface;
+    }
 }

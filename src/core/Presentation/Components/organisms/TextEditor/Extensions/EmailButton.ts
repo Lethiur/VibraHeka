@@ -3,9 +3,12 @@
 export interface EmailButtonAttributes {
     label: string;
     url: string;
+    align?: 'left' | 'center' | 'right';
+    fontSize: number;
+    [key: string]: unknown;
 }
 
-const EMAIL_CTA_EDIT_EVENT = 'vh:email-cta-edit';
+export const EMAIL_CTA_EDIT_EVENT = 'vh:email-cta-edit';
 
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {
@@ -32,6 +35,23 @@ export const EmailButton = Node.create({
             url: {
                 default: 'https://',
             },
+            align: {
+                default: 'center',
+                parseHTML: (element) => {
+                    const value = element.getAttribute('data-email-align');
+                    if (value === 'left' || value === 'right' || value === 'center') {
+                        return value;
+                    }
+                    return 'center';
+                },
+            },
+            fontSize: {
+                default: 16,
+                parseHTML: (element) => {
+                    const raw = Number(element.getAttribute('data-email-font-size'));
+                    return Number.isFinite(raw) && raw >= 12 && raw <= 32 ? raw : 16;
+                },
+            },
         };
     },
 
@@ -46,44 +66,30 @@ export const EmailButton = Node.create({
     renderHTML({ HTMLAttributes }) {
         const safeLabel = String(HTMLAttributes.label ?? 'Quiero empezar');
         const safeUrl = String(HTMLAttributes.url ?? 'https://');
+        const rawAlign = String(HTMLAttributes.align ?? 'center');
+        const safeAlign = rawAlign === 'left' || rawAlign === 'right' ? rawAlign : 'center';
+        const rawFontSize = Number(HTMLAttributes.fontSize ?? 16);
+        const safeFontSize = Number.isFinite(rawFontSize) && rawFontSize >= 12 && rawFontSize <= 32 ? rawFontSize : 16;
 
         return [
             'div',
             {
                 'data-email-button': 'true',
+                'data-email-align': safeAlign,
+                'data-email-font-size': String(safeFontSize),
                 class: 'email-editor-cta-wrap',
-                style: 'text-align:center;margin:16px 0;',
+                style: `text-align:${safeAlign};margin:16px 0;`,
             },
             [
-                'table',
+                'a',
                 {
-                    role: 'presentation',
-                    border: '0',
-                    cellpadding: '0',
-                    cellspacing: '0',
-                    align: 'center',
-                    style: 'margin:0 auto;',
+                    href: safeUrl,
+                    target: '_blank',
+                    rel: 'noopener noreferrer',
+                    class: 'email-editor-cta',
+                    style: `display:inline-block;background-color:#8a81d4;color:#ffffff;text-decoration:none;font-weight:700;padding:14px 28px;border-radius:999px;border:0;outline:none;line-height:1.2;font-size:${safeFontSize}px;`,
                 },
-                [
-                    'tr',
-                    [
-                        'td',
-                        {
-                            align: 'center',
-                        },
-                        [
-                            'a',
-                            {
-                                href: safeUrl,
-                                target: '_blank',
-                                rel: 'noopener noreferrer',
-                                class: 'email-editor-cta',
-                                style: 'display:inline-block;background-color:#8a81d4;color:#ffffff;text-decoration:none;font-weight:700;padding:14px 28px;border-radius:999px;',
-                            },
-                            safeLabel,
-                        ],
-                    ],
-                ],
+                safeLabel,
             ],
         ];
     },
@@ -102,102 +108,6 @@ export const EmailButton = Node.create({
                 () =>
                 ({ commands }) =>
                     commands.deleteNode(this.name),
-        };
-    },
-
-    addNodeView() {
-        return ({ node, getPos, editor }) => {
-            const dom = document.createElement('div');
-            dom.className = 'email-editor-cta-wrap email-editor-cta-node';
-            dom.setAttribute('data-email-button', 'true');
-
-            const link = document.createElement('a');
-            link.className = 'email-editor-cta';
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-
-            const actions = document.createElement('div');
-            actions.className = 'email-editor-cta-actions';
-
-            const editButton = document.createElement('button');
-            editButton.type = 'button';
-            editButton.className = 'email-editor-cta-action-btn';
-            editButton.textContent = 'Editar';
-
-            const deleteButton = document.createElement('button');
-            deleteButton.type = 'button';
-            deleteButton.className = 'email-editor-cta-action-btn email-editor-cta-action-btn--danger';
-            deleteButton.textContent = 'Eliminar';
-
-            actions.appendChild(editButton);
-            actions.appendChild(deleteButton);
-            dom.appendChild(link);
-            dom.appendChild(actions);
-
-            const sync = (attrs: EmailButtonAttributes) => {
-                link.textContent = attrs.label;
-                link.href = attrs.url;
-            };
-
-            const toggleActions = (show: boolean) => {
-                dom.classList.toggle('is-open', show);
-            };
-
-            sync(node.attrs as EmailButtonAttributes);
-
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                toggleActions(true);
-            });
-
-            dom.addEventListener('click', (event) => {
-                event.stopPropagation();
-                toggleActions(true);
-            });
-
-            editButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                const pos = typeof getPos === 'function' ? getPos() : getPos;
-                if (pos === undefined) return;
-                window.dispatchEvent(
-                    new CustomEvent(EMAIL_CTA_EDIT_EVENT, {
-                        detail: {
-                            label: String(node.attrs.label ?? ''),
-                            url: String(node.attrs.url ?? ''),
-                            pos,
-                        },
-                    }),
-                );
-            });
-
-            deleteButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                const pos = typeof getPos === 'function' ? getPos() : getPos;
-                if (pos === undefined) return;
-                editor
-                    .chain()
-                    .focus()
-                    .command(({ tr }) => {
-                        tr.delete(pos, pos + node.nodeSize);
-                        return true;
-                    })
-                    .run();
-            });
-
-            document.addEventListener('click', () => toggleActions(false));
-
-            return {
-                dom,
-                update: (updatedNode) => {
-                    if (updatedNode.type.name !== this.name) return false;
-                    sync(updatedNode.attrs as EmailButtonAttributes);
-                    return true;
-                },
-                ignoreMutation: () => true,
-            };
         };
     },
 });
