@@ -112,7 +112,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     );
 
     const renderCardBody = () => {
-        if (isInitialLoading || (isLoading() && !isPaymentPending)) {
+        if (waitingForStripe || isInitialLoading || (isLoading() && !isPaymentPending)) {
             return renderSubscriptionSkeleton();
         }
 

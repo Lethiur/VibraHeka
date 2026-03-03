@@ -1,7 +1,7 @@
-import { SubscriptionStatus } from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
-import { OrderStatus } from "@/Modules/Features/User/Domain/Enums/OrderStatus";
+import {SubscriptionStatus} from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
+import {OrderStatus} from "@/Modules/Features/User/Domain/Enums/OrderStatus";
 import ISubscription from "@users/Domain/Entities/ISubscription";
-import { Col, Row } from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import "./SubscriptionDetails.scss";
 
@@ -150,7 +150,7 @@ export default function SubscriptionDetails({
                 </Col>
                 <Col md={6} sm={12}>
                     <div className="subscription-kpi">
-                        <span className="subscription-kpi__label">Renovacion</span>
+                        <span className="subscription-kpi__label">{subscription?.SubscriptionStatus === SubscriptionStatus.TO_BE_CANCELLED ? "Se cancelara" : "Renovacion"}</span>
                         <span className="subscription-kpi__value">{formatEndDate()}</span>
                     </div>
                 </Col>
