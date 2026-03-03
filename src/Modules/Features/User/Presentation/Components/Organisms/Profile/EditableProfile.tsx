@@ -10,7 +10,8 @@ import { KeyRound, Pencil, Save, X } from "lucide-react";
 import EditableField from "@core/Presentation/Components/molecules/EditableField/EditableField";
 import { useQuery } from "@tanstack/react-query";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
-import ChangePasswordModal from "./ChangePasswordModal";
+import ChangePasswordModal from "@users/Presentation/Components/Organisms/ChangePasswordModal/ChangePasswordModal.tsx";
+
 
 interface ProfileProps {
     UserID: string;

@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Stack from "react-bootstrap/Stack";
 import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
+import {FormatDate} from "@core/Utils/Utils.ts";
 
 /**
  * Props for the EmailTemplatesTable component.
@@ -24,10 +25,7 @@ interface EmailTemplatesTableProps {
      * Callback function for deleting a template.
      */
     onDelete?: (template: EmailTemplate) => void;
-    /**
-     * Callback function for viewing a template.
-     */
-    onView?: (template: EmailTemplate) => void;
+
 }
 
 /**
@@ -39,8 +37,7 @@ export default function EmailTemplatesTable({
     templates,
     isLoading,
     onEdit,
-    onDelete,
-    onView,
+    onDelete
 }: EmailTemplatesTableProps) {
     if (isLoading) {
         return (
@@ -71,19 +68,10 @@ export default function EmailTemplatesTable({
                     <tr key={template.ID}>
                         <td>{template.ID}</td>
                         <td>{template.Name || <em className="text-muted">Sin nombre</em>}</td>
-                        <td>{formatDate(template.Created)}</td>
-                        <td>{formatDate(template.LastModified)}</td>
+                        <td>{FormatDate(template.Created)}</td>
+                        <td>{FormatDate(template.LastModified)}</td>
                         <td className="text-end">
                             <Stack direction="horizontal" gap={2} className="justify-content-end">
-                                {onView && (
-                                    <Button
-                                        size="sm"
-                                        variant="outline-secondary"
-                                        onClick={() => onView(template)}
-                                    >
-                                        Ver
-                                    </Button>
-                                )}
                                 {onEdit && (
                                     <Button
                                         size="sm"
@@ -109,21 +97,4 @@ export default function EmailTemplatesTable({
             </tbody>
         </Table>
     );
-}
-
-/* ============
-   Utils
-   ============ */
-
-/**
- * Formats a date string for display in the table.
- * @param date The date string to format.
- * @returns The formatted date string or a dash if the date is invalid or empty.
- */
-function formatDate(date: string): string {
-    if (!date || date.startsWith("0001-01-01")) {
-        return "—";
-    }
-
-    return new Date(date).toLocaleDateString();
 }
