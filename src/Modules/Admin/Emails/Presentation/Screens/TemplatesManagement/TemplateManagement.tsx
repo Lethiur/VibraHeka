@@ -1,7 +1,6 @@
 import UseGetEmailTemplates from "@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplates";
 import { useCallback, useEffect, useState } from "react";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
-import EmailTemplatesTable from "@admin/emailTemplates/Presentation/Components/Molecules/EmailTemplateTable";
 import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
 import EmailTemplateEditor from "@admin/emailTemplates/Presentation/Components/Organisms/EmailTemplateEditor/EmailTemplateEditor";
 import UseChangeTemplateContent from "@admin/emailTemplates/Presentation/Hooks/UseChangeTemplateContent";
@@ -13,6 +12,8 @@ import { useTranslation } from "react-i18next";
 import { Badge, Col, Container, Row } from "react-bootstrap";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import "./TemplateManagement.scss";
+import EmailTemplatesTable
+    from "@admin/emailTemplates/Presentation/Components/Molecules/EmailTemplateTable/EmailTemplateTable.tsx";
 
 /**
  * Screen for managing email templates, including creation, listing, and content editing.
@@ -41,11 +42,7 @@ export default function TemplateManagement(): JSX.Element {
     const handleDelete = (template: EmailTemplate) => {
         console.log("Delete", template);
     };
-
-    const handleView = (template: EmailTemplate) => {
-        console.log("View", template);
-    };
-
+    
     const onSaveTemplateContent = async (content: string) => {
         if (!emailTemplateSelected) return;
 
@@ -166,7 +163,6 @@ export default function TemplateManagement(): JSX.Element {
                                 isLoading={templatesLoading}
                                 onEdit={handleEdit}
                                 onDelete={handleDelete}
-                                onView={handleView}
                             />
                         </section>
                     </Col>

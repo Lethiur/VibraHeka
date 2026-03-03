@@ -4,7 +4,7 @@ import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTex
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import { useTranslation } from "react-i18next";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 /**
  * Props for the CreateTemplateForm component.

@@ -1,5 +1,5 @@
-@use "../../../../../../Assets/Styles/base/variables" as vars;
-@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+@use "../../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../../Assets/Styles/base/fonts" as fonts;
 
 .email-action-card {
     transition: transform vars.$transition-base, box-shadow vars.$transition-base;

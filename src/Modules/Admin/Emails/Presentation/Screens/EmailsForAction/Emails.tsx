@@ -5,11 +5,11 @@ import UseSaveEmailTemplateForAction from "@admin/emailTemplates/Presentation/Ho
 import { ActionType } from "@admin/emailTemplates/Domain/Models/ActionType";
 import { EmailTemplateForAction } from "@admin/emailTemplates/Domain/Models/EmailTemplateForAction";
 import UseGetEmailTemplatesForActions from "@admin/emailTemplates/Presentation/Hooks/UseGetEmailTemplatesForActions";
-import EmailActionTemplateSelector
-    from "@admin/emailTemplates/Presentation/Components/Molecules/EmailActionTemplateSelector";
 import { Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import "./Emails.scss";
+import EmailActionTemplateSelector
+    from "@admin/emailTemplates/Presentation/Components/Molecules/EmailActionTemplateSelector/EmailActionTemplateSelector.tsx";
 
 interface ActionTemplateConfig {
     actionType: ActionType;
@@ -123,7 +123,7 @@ export default function EmailsConfiguration() {
                         isSaving={saveLoading}
                         value={getSelectorValue(config.actionType)}
                         saveDisabled={selectedByActionType[config.actionType] == null}
-                        onChange={(template) => updateSelectedTemplate(config.actionType, template)}
+                        onChange={(template : EmailTemplate) => updateSelectedTemplate(config.actionType, template)}
                         onSave={() => saveActionTemplate(config.actionType)}
                     />
                 ))}
