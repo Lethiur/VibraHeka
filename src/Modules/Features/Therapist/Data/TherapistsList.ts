@@ -42,16 +42,16 @@ export const THERAPISTS_LIST: Therapist[] = [
         role: "Terapeuta Bioenergético Integral. Especializado en la armonización multidimensional de personas y espacios.",
         description: "Creo en el poder de la energía bien ordenada para transformar vidas y espacios."
     },
-    {
-        id: "32f524c4-10a1-7048-2988-f00c4a242a77",
-        handle: "marina-garrido",
-        title: "Marina Garrido",
-        route: "/terapeutas/marina-garrido",
-        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/profilepicture.png",
-        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/video.mp4",
-        role: "Terapeuta Holística",
-        description: "Hace cosas"
-    },
+    // {
+    //     id: "32f524c4-10a1-7048-2988-f00c4a242a77",
+    //     handle: "marina-garrido",
+    //     title: "Marina Garrido",
+    //     route: "/terapeutas/marina-garrido",
+    //     image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/profilepicture.png",
+    //     video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/video.mp4",
+    //     role: "Terapeuta Holística",
+    //     description: "Hace cosas"
+    // },
     {
         id: "a26534b4-d0c1-7057-5b42-bbecb887d165",
         handle: "olga-lucy",

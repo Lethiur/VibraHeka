@@ -50,6 +50,18 @@ variable "environment_variables" {
   default     = {}
 }
 
+variable "enable_api_proxy" {
+  description = "Enable Amplify reverse proxy for /api/* requests"
+  type        = bool
+  default     = true
+}
+
+variable "api_proxy_origin" {
+  description = "Origin for API proxy, without trailing slash. Example: https://xxxxx.execute-api.eu-west-1.amazonaws.com"
+  type        = string
+  default     = "https://d0wlq5t865.execute-api.eu-west-1.amazonaws.com"
+}
+
 variable "tags" {
   description = "Tags for Amplify resources"
   type        = map(string)

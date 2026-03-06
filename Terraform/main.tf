@@ -21,8 +21,17 @@ resource "aws_amplify_app" "this" {
 
   environment_variables = var.environment_variables
 
+  dynamic "custom_rule" {
+    for_each = var.enable_api_proxy ? [1] : []
+    content {
+      source = "/api/<*>"
+      target = "${var.api_proxy_origin}/api/<*>"
+      status = "200"
+    }
+  }
+
   custom_rule {
-    source = "/<*>"
+    source = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|jpeg|js|mjs|png|txt|svg|woff|woff2|ttf|map|json|webp)$)([^.]+$)/>"
     target = "/index.html"
     status = "200"
   }
