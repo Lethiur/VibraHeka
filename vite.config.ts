@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
 
             proxy: {
                 '/api': {
-                    target: 'https://localhost:5001',
+                    target: 'https://d0wlq5t865.execute-api.eu-west-1.amazonaws.com',
                     changeOrigin: true,
                     secure: false,
                 },

@@ -133,3 +133,4 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
         </Modal>
     );
 }
+

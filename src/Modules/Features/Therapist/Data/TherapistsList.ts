@@ -17,8 +17,8 @@ export const THERAPISTS_LIST: Therapist[] = [
         handle: "beatriz",
         title: "Beatriz",
         route: "/terapeutas/beatriz-alonso",
-        image: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/BeatrizAlonso/profilepicture.png",
-        video: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/BeatrizAlonso/video.mp4",
+        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/BeatrizAlonso/profilepicture.png",
+        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/BeatrizAlonso/video.mp4",
         role: "Terapeuta y Comunicadora Animal",
         description: "Te acompaño a descubrir lo que tu animal siente, piensa y necesita para mejorar la convivencia y el bienestar mutuo."
     },
@@ -27,28 +27,18 @@ export const THERAPISTS_LIST: Therapist[] = [
         handle: "belen-angella",
         title: "Belén Angella",
         route: "/terapeutas/belen-angella",
-        image: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/BelenAngela/profilepicture.png",
-        video: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/BelenAngela/video.mp4",
+        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/BelenAngela/profilepicture.png",
+        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/BelenAngela/video.mp4",
         role: "Yoga Terapéutico",
         description: "En un mundo ruidoso y rápido, te ayudo a volver a tu cuerpo y a calmar tu mente. “El yoga se adapta a tí, no tú al yoga” - Krishnamacharya"
-    },
-    {
-        id: "42059454-6031-7033-0b9f-c4f1297179ad",
-        video: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/CarmenCost/video.mp4",
-        image: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/CarmenCost/profilepicture.png",
-        handle: "carmen-cost",
-        title: "Carmen Cost",
-        route: "/terapeutas/carmen-cost",
-        role: "Alquimista Integrativa (Terapeuta Holística)",
-        description: "Mi propósito es acompañarte a transmutar tu dolor en fortaleza y despertar tu capacidad de superación para alcanzar el bienestar integral en tu día a día."
     },
     {
         id: "32f57464-b0b1-70a2-57cf-b6771655ad93",
         handle: "luis-galvis",
         title: "Luis Galvis",
         route: "/terapeutas/luis-galvis",
-        video: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/LuisGalvis/video.mp4",
-        image: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/LuisGalvis/profilepicture.png",
+        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/LuisGalvis/video.mp4",
+        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/LuisGalvis/profilepicture.png",
         role: "Terapeuta Bioenergético Integral. Especializado en la armonización multidimensional de personas y espacios.",
         description: "Creo en el poder de la energía bien ordenada para transformar vidas y espacios."
     },
@@ -57,8 +47,8 @@ export const THERAPISTS_LIST: Therapist[] = [
         handle: "marina-garrido",
         title: "Marina Garrido",
         route: "/terapeutas/marina-garrido",
-        image: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/Marina/profilepicture.png",
-        video: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/Marina/video.mp4",
+        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/profilepicture.png",
+        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/video.mp4",
         role: "Terapeuta Holística",
         description: "Hace cosas"
     },
@@ -67,8 +57,8 @@ export const THERAPISTS_LIST: Therapist[] = [
         handle: "olga-lucy",
         title: "Olga Lucy López López",
         route: "/terapeutas/olga-lucy-lopez-lopez",
-        image: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/OlgaLucy/profilepicture.png",
-        video: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/OlgaLucy/video.mp4",
+        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/OlgaLucy/profilepicture.png",
+        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/OlgaLucy/video.mp4",
         role: "Energía Sanadora",
         description: "“Tu campo se limpia, se sana y se protege. Tu  historia se ordena. Tu camino se abre.” Olga Lucy López López"
     },
@@ -77,8 +67,8 @@ export const THERAPISTS_LIST: Therapist[] = [
         handle: "vera-lucya",
         title: "Vera Lucya",
         route: "/terapeutas/vera-lucya",
-        image: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/Vera/profilepicture.png",
-        video: "https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/Vera/video.mp4",
+        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Vera/profilepicture.png",
+        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Vera/video.mp4",
         role: "Maestra de Empoderamiento Holístico, coach de feminidad para mujeres con mucha energía Yan, fundadora de la Escuela Prisma Vera",
         description: "Te acompaño a equilibrar tu energía femenina y masculina, para alcanzar tus más altos propósitos y lidiar con el Síndrome de Ovarios Poliquísticos y otras dolencias asociadas a tu centro de creación."
     }

@@ -4,3 +4,4 @@ import { INotificationProvider } from "@core/Domain/Notifications/INotificationP
 const ToastContext = createContext<INotificationProvider | undefined>(undefined);
 
 export default ToastContext;
+

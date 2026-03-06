@@ -1,4 +1,4 @@
-﻿import { useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
@@ -16,7 +16,7 @@ export const useLogout = () => {
         localStorage.remove(STORAGE_KEYS.REFRESH_TOKEN);
         localStorage.remove(STORAGE_KEYS.USER_ID);
 
-        // 2. Notificar a la aplicación (Reactividad)
+        // 2. Notificar a la aplicaci�n (Reactividad)
         setIsAuthenticated(false);
 
         // 3. Redirigir

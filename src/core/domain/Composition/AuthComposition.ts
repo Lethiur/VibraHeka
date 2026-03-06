@@ -1,4 +1,4 @@
-﻿import AuthDatasource from "@auth/Data/Datasources/AuthDatasource";
+import AuthDatasource from "@auth/Data/Datasources/AuthDatasource";
 import { AuthRepositoryImpl } from "@auth/Data/Repositories/AuthRepositoryImpl";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
 import LoginUserDataValidator from "@auth/Application/Validators/LoginUserDataValidator";
@@ -40,3 +40,4 @@ export const resetPasswordUseCase: IResetPasswordUseCase = new ResetPasswordUseC
     repository,
     new ResetPasswordDataValidator()
 );
+

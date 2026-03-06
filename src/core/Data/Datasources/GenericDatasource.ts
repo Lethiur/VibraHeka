@@ -87,3 +87,4 @@ export default class GenericDatasource {
         return this.request<T>({ ...config, method: 'PATCH', url, data }, includeToken);
     }
 }
+
