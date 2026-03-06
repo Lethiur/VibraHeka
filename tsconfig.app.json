@@ -43,7 +43,7 @@
                 "src/Modules/Features/User/*"
             ],
             "@assets/*": [
-                "src/assets/*"
+                "src/Assets/*"
             ]
         },
         "allowImportingTsExtensions": true,
@@ -63,3 +63,4 @@
         "src"
     ]
 }
+

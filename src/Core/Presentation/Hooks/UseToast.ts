@@ -10,3 +10,4 @@ export const UseToast = (): INotificationProvider => {
     }
     return context;
 };
+

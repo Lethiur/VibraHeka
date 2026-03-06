@@ -19,11 +19,10 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
             attempts++;
             const result = await useCase.Execute();
 
+            result.andTee(value => console.log(value.Status))
             result.match(
                 (details) => {
-                    // Si el estado cambió (ej. de 'pending' a 'active')
                     if (details.Status !== OrderStatus.PENDING) {
-                        // MAGIC: Actualizamos la caché global con la clave que usa el Hook inicial
                         queryClient.setQueryData(["subscription"], details);
                         stopPolling();
                     }
@@ -31,8 +30,16 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
                 () => { /* Ignoramos errores de red durante el polling */ }
             );
 
-            if (attempts >= 50) stopPolling(); // 3 segundos
-        }, 2000);
+            if (attempts >= 30) {
+                stopPolling();
+                result.andTee(value => {
+                    if (value.Status === OrderStatus.PENDING) {
+                        value.Status = OrderStatus.ENABLED_FOR_RETRY;
+                        queryClient.setQueryData(["subscription"], value);
+                    }
+                })
+            }; // 3 segundos
+        }, 200);
 
         const stopPolling = () => {
             clearInterval(interval);

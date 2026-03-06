@@ -25,7 +25,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     const { cancelSubscription, loading: cancelSubscriptionLoading, error: cancelSubscriptionError } = UseCancelSubscription();
     const { getSubscriptionPanel, loading: getSubscriptionPanelLoading, error: getSubscriptionPanelError, subscriptionPanel } = UseGetSubscriptionPanel();
     const { reactivateSubscription, loading: reactivateSubscriptionLoading, error: reactivateSubscriptionError } = UseReactivateSubscription();
-    const { isProcessing: isPaymentPending } = UseRefreshSubscription(waitingForStripe);
+    UseRefreshSubscription(waitingForStripe);
 
     useEffect(() => {
         if (!subscription) {
@@ -36,6 +36,8 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     useEffect(() => {
         if (subscription?.Status === OrderStatus.PENDING) {
             setWaitingForStripe(true);
+        } else {
+            setWaitingForStripe(false);
         }
     }, [subscription]);
 
@@ -95,24 +97,33 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     };
 
     const renderSubscriptionSkeleton = () => (
-        <Row className="g-3 justify-content-center align-items-center">
-            <Col md={12} lg={12}>
-                <div className="vh-skeleton vh-skeleton-line mb-3"></div>
-            </Col>
-            <Col md={4} sm={12} lg={4}>
-                <div className="vh-skeleton vh-skeleton-pill"></div>
-            </Col>
-            <Col md={4} sm={12} lg={4}>
-                <div className="vh-skeleton vh-skeleton-pill"></div>
-            </Col>
-            <Col md={4} sm={12} lg={4}>
-                <div className="vh-skeleton vh-skeleton-button"></div>
-            </Col>
-        </Row>
+        <>
+            <Row className="g-3 justify-content-center align-items-center">
+                <Col md={12} lg={12}>
+                    <div className="vh-skeleton vh-skeleton-line mb-3"></div>
+                </Col>
+                <Col md={4} sm={12} lg={4}>
+                    <div className="vh-skeleton vh-skeleton-pill"></div>
+                </Col>
+                <Col md={4} sm={12} lg={4}>
+                    <div className="vh-skeleton vh-skeleton-pill"></div>
+                </Col>
+                <Col md={4} sm={12} lg={4}>
+                    <div className="vh-skeleton vh-skeleton-button"></div>
+                </Col>
+            </Row>
+            {waitingForStripe && subscription?.Status === OrderStatus.PENDING && (
+                <Row className="g-3 justify-content-center align-items-center">
+                    <Col md={12} lg={12}>
+                        <PrimaryButton label="Si no has completado el pago pulsa aqui" variant="primary" onClick={() => window.open(subscription?.CheckoutSessionUrl!, "_self")} />
+                    </Col>
+                </Row>
+            )}
+        </>
     );
 
     const renderCardBody = () => {
-        if (waitingForStripe || isInitialLoading || (isLoading() && !isPaymentPending)) {
+        if (isInitialLoading || (isLoading())) {
             return renderSubscriptionSkeleton();
         }
 

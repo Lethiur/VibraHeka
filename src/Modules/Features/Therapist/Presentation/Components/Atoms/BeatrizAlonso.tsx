@@ -21,7 +21,7 @@ export default function BeatrizAlonso() {
     return (
         <Container>
             <h1>Beatriz Alonso</h1>
-            <SideImageBlock image="https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/BeatrizAlonso/profilepicture.png" imageLeft={true}>
+            <SideImageBlock image="https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/beatriz/profilepicture.png" imageLeft={true}>
                 <p>Terapeuta y Comunicadora Animal, formadora y autora del libro Tu Alma Animal. Con más de 10 años de
                     experiencia acompañando familias inter especies a mejorar su convivencia y formando personas
                     (particulares, voluntarios y profesionales) en comunicación animal telepática y otras terapias
@@ -32,7 +32,7 @@ export default function BeatrizAlonso() {
                     <strong>Si sientes que este es tu momento...</strong><br /><br />
                     Explora mis terapias dentro de Vibraheka y da el primer paso hacia tu bienestar.</p>
             </SideImageBlock>
-            <VideoPlayer src="https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/BeatrizAlonso/video.mp4" />
+            <VideoPlayer src="https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/beatriz/video.mp4" />
 
             <h1>Mis terapias</h1>
             <p className="subtitle">Ofrezco acompañamiento (sesiones individuales) y formación en:</p>
