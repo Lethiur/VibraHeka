@@ -1,0 +1,24 @@
+// ─────────────────────────────────────────────
+// VIBRAHEKA — Main Entry Point
+// ─────────────────────────────────────────────
+@use "./base/variables" as vars;
+@use "./base/fonts" as fonts;
+@use "./base/global" as global;
+
+// ── Subtitle
+.subtitle {
+    font-family: fonts.$font-display;
+    font-size: var(--type-subtitle-size);
+    font-weight: fonts.$font-weight-light;
+    font-style: italic;
+    color: vars.$color-primary-dark;
+    line-height: fonts.$line-height-tight;
+    letter-spacing: vars.$tracking-tight;
+}
+
+p {
+    font-size: var(--type-body-size);
+    color: vars.$color-dark;
+    line-height: fonts.$line-height-loose;
+    margin-bottom: vars.$space-8;
+}

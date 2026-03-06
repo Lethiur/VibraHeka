@@ -3,3 +3,4 @@ import RegisterUserUseCase from "@auth/Application/UseCases/RegisterUser/Registe
 import { registerUserUseCase } from "@core/Domain/Composition/AuthComposition";
 
 export const RegisterUseCaseContext: Context<RegisterUserUseCase> = createContext(registerUserUseCase);
+

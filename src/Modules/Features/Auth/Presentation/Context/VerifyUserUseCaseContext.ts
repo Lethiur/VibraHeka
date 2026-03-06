@@ -3,3 +3,4 @@ import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyU
 import { verifyUserUseCase } from "@core/Domain/Composition/AuthComposition";
 
 export const VerifyUserUseCaseContext: Context<VerifyUserUseCaseImpl> = createContext(verifyUserUseCase);
+

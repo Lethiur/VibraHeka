@@ -1,0 +1,269 @@
+﻿@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.atom-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: vars.$space-2;
+
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-base;
+    font-weight: fonts.$font-weight-semibold;
+    letter-spacing: vars.$tracking-wider;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    padding: vars.$space-3 vars.$space-8;
+    border-radius: vars.$radius-full;
+    border: 2px solid transparent;
+    cursor: pointer;
+
+    transition:
+        background-color vars.$transition-base,
+        color vars.$transition-base,
+        border-color vars.$transition-base,
+        box-shadow vars.$transition-base,
+        transform vars.$transition-fast;
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    &:focus-visible {
+        outline: 3px solid vars.$color-primary-light;
+        outline-offset: 3px;
+    }
+
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    &--full {
+        width: 100%;
+    }
+
+    &--primary {
+        background-color: vars.$color-primary;
+        color: vars.$color-on-primary;
+        border-color: vars.$color-primary;
+        box-shadow: vars.$shadow-sm;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-primary-dark;
+            border-color: vars.$color-primary-dark;
+            box-shadow: vars.$shadow-md;
+        }
+    }
+
+    &--secondary {
+        background-color: vars.$color-secondary-light;
+        color: vars.$color-on-secondary;
+        border-color: vars.$color-secondary-dark;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-secondary-dark;
+            border-color: vars.$color-secondary-dark;
+        }
+    }
+
+    &--success {
+        background-color: vars.$color-success;
+        color: vars.$color-on-primary;
+        border-color: vars.$color-success;
+
+        &:hover:not(:disabled) {
+            filter: brightness(0.92);
+        }
+    }
+
+    &--danger {
+        background-color: vars.$color-error;
+        color: vars.$color-on-primary;
+        border-color: vars.$color-error;
+
+        &:hover:not(:disabled) {
+            filter: brightness(0.92);
+        }
+    }
+
+    &--warning {
+        background-color: vars.$color-warning;
+        color: vars.$color-dark;
+        border-color: vars.$color-warning;
+
+        &:hover:not(:disabled) {
+            filter: brightness(0.95);
+        }
+    }
+
+    &--info {
+        background-color: vars.$color-primary-light;
+        color: vars.$color-dark;
+        border-color: vars.$color-primary-light;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-primary;
+            border-color: vars.$color-primary;
+            color: vars.$color-on-primary;
+        }
+    }
+
+    &--light {
+        background-color: vars.$color-surface;
+        color: vars.$color-dark;
+        border-color: vars.$color-gray-200;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-gray-100;
+            border-color: vars.$color-gray-300;
+        }
+    }
+
+    &--dark {
+        background-color: vars.$color-dark;
+        color: vars.$color-on-primary;
+        border-color: vars.$color-dark;
+
+        &:hover:not(:disabled) {
+            filter: brightness(1.08);
+        }
+    }
+
+    &--outline {
+        background-color: transparent;
+        color: vars.$color-primary;
+        border-color: vars.$color-primary;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-primary-alpha;
+        }
+    }
+
+    &--outline-primary {
+        background-color: transparent;
+        color: vars.$color-primary;
+        border-color: vars.$color-primary;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-primary-alpha;
+        }
+    }
+
+    &--outline-secondary {
+        background-color: transparent;
+        color: vars.$color-secondary-dark;
+        border-color: vars.$color-secondary-dark;
+
+        &:hover:not(:disabled) {
+            background-color: rgba(vars.$color-secondary-light, 0.35);
+        }
+    }
+
+    &--outline-success {
+        background-color: transparent;
+        color: vars.$color-success;
+        border-color: vars.$color-success;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-success-surface;
+        }
+    }
+
+    &--outline-danger {
+        background-color: transparent;
+        color: vars.$color-error;
+        border-color: vars.$color-error;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-error-surface;
+        }
+    }
+
+    &--outline-warning {
+        background-color: transparent;
+        color: vars.$color-warning;
+        border-color: vars.$color-warning;
+
+        &:hover:not(:disabled) {
+            background-color: rgba(vars.$color-warning, 0.2);
+        }
+    }
+
+    &--outline-info {
+        background-color: transparent;
+        color: vars.$color-primary-dark;
+        border-color: vars.$color-primary-dark;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-primary-alpha;
+        }
+    }
+
+    &--outline-light {
+        background-color: transparent;
+        color: vars.$color-dark;
+        border-color: vars.$color-gray-300;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-gray-100;
+        }
+    }
+
+    &--outline-dark {
+        background-color: transparent;
+        color: vars.$color-dark;
+        border-color: vars.$color-dark;
+
+        &:hover:not(:disabled) {
+            background-color: rgba(vars.$color-dark, 0.12);
+        }
+    }
+
+    &--ghost {
+        background-color: transparent;
+        color: vars.$color-dark;
+        border-color: transparent;
+
+        &:hover:not(:disabled) {
+            background-color: vars.$color-gray-200;
+        }
+    }
+
+    &--link {
+        background-color: transparent;
+        border-color: transparent;
+        color: vars.$color-primary;
+        text-transform: none;
+        letter-spacing: vars.$tracking-normal;
+        padding-inline: vars.$space-2;
+        box-shadow: none;
+
+        &:hover:not(:disabled) {
+            color: vars.$color-primary-dark;
+            text-decoration: underline;
+        }
+    }
+
+    &__label {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .atom-button {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}

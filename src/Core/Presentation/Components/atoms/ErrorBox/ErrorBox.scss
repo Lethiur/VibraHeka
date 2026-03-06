@@ -1,0 +1,64 @@
+// ─────────────────────────────────────────────
+// ErrorBox — Atom
+// ─────────────────────────────────────────────
+@use "sass:color";
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.error-box {
+    display: flex;
+    align-items: flex-start;
+    gap: vars.$space-3;
+
+    padding: vars.$space-4 vars.$space-5;
+    border-radius: vars.$radius-md;
+    font-family: fonts.$font-primary;
+    font-size: fonts.$font-size-sm;
+    line-height: fonts.$line-height-normal;
+    animation: errorBoxFadeIn 250ms ease;
+
+    // ── Danger (default)
+    &--danger,
+    &:not([class*='--']) {
+        background-color: vars.$color-error-surface;
+        border: 1px solid rgba(vars.$color-error, 0.25);
+        color: vars.$color-error;
+    }
+
+    // ── Success
+    &--success {
+        background-color: vars.$color-success-surface;
+        border: 1px solid rgba(vars.$color-success, 0.25);
+        color: color.adjust(vars.$color-success, $lightness: -10%);
+    }
+
+    // ── Warning
+    &--warning {
+        background-color: rgba(vars.$color-warning, 0.10);
+        border: 1px solid rgba(vars.$color-warning, 0.30);
+        color: color.adjust(vars.$color-warning, $lightness: -20%);
+    }
+
+    &__icon {
+        flex-shrink: 0;
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-top: 1px;
+    }
+
+    &__message {
+        flex: 1;
+    }
+}
+
+@keyframes errorBoxFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
