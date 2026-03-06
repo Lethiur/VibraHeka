@@ -169,6 +169,10 @@ b {
     min-height: calc(100vh - vars.$navbar-height);
 }
 
+//.app-content {
+//    padding-top: vars.$navbar-height;
+//}
+
 .vh-panel {
     overflow: hidden;
 

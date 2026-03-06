@@ -41,7 +41,7 @@ function App() {
         <>
             <VHNavbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()} />
 
-            <div className="mt-6">
+            <div className="app-content">
                 <Suspense fallback={<AppLoader />}>
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
