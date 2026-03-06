@@ -1,7 +1,7 @@
-import { SubscriptionStatus } from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
-import { OrderStatus } from "@/Modules/Features/User/Domain/Enums/OrderStatus";
+import {SubscriptionStatus} from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
+import {OrderStatus} from "@/Modules/Features/User/Domain/Enums/OrderStatus";
 import ISubscription from "@users/Domain/Entities/ISubscription";
-import { Col, Row } from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import "./SubscriptionDetails.scss";
 
