@@ -1,0 +1,85 @@
+﻿name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - VH-*
+      - staging
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
+      - staging
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_PROFILE_NAME: Twingers
+  TERRAFORM_DIR: Terraform/AmplifyBranches
+  
+jobs:
+  prepare:
+    name: Prepare Metadata
+    runs-on: ubuntu-latest
+    outputs:
+      workspace: ${{ steps.meta.outputs.workspace }}
+    steps:
+      - name: Compute workspace, image tag and build config
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          RAW_REF="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          WORKSPACE="$(echo "$RAW_REF" | grep -oE '[A-Za-z]+-[0-9]+' | head -n1 | tr '[:upper:]' '[:lower:]' || true)"
+          if [[ -z "$WORKSPACE" ]]; then
+            WORKSPACE="$(echo "$RAW_REF" \
+              | tr '[:upper:]' '[:lower:]' \
+              | sed -E 's#[^a-z0-9-]#-#g' \
+              | sed -E 's#-+#-#g' \
+              | sed -E 's#(^-|-$)##g' \
+              | cut -c1-18)"
+          fi
+          if [[ -z "$WORKSPACE" ]]; then WORKSPACE="default"; fi
+          WORKSPACE="${WORKSPACE}"    
+          echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
+          
+  terraform:
+    name: Terraform Apply (prod workspace)
+    runs-on: ubuntu-latest
+    needs: [ prepare ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        
+      - name: Terraform init
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        run: terraform init
+
+      - name: Terraform apply (prod)
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        env:
+          TF_VAR_branch_name: ${{ github.head_ref || github.ref_name }}
+        run: terraform apply -auto-approve
+        
+      - name: run amplify branch build
+        run: |
+          aws amplify start-job \
+          --app-id "$AMPLIFY_APP_ID" \
+          --branch-name "$AMPLIFY_BRANCH_NAME" \
+          --job-type RELEASE
+    
