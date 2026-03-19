@@ -70,6 +70,10 @@ jobs:
         working-directory: ${{ env.TERRAFORM_DIR }}
         run: terraform init
 
+      - name: Select/Create prod workspace
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        run: terraform workspace select -or-create "${{ needs.prepare.outputs.workspace }}"
+
       - name: Terraform apply (prod)
         working-directory: ${{ env.TERRAFORM_DIR }}
         env:
