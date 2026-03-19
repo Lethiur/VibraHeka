@@ -79,11 +79,18 @@ jobs:
         env:
           TF_VAR_branch_name: ${{ github.head_ref || github.ref_name }}
         run: terraform apply -auto-approve
+
+      - name: Prepare Amplify build inputs
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "AMPLIFY_APP_ID=$(terraform output -raw amplify_app_id)" >> "$GITHUB_ENV"
+          echo "AMPLIFY_BRANCH_NAME=${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}" >> "$GITHUB_ENV"
         
       - name: run amplify branch build
+        shell: bash
         run: |
-          aws amplify start-job \
-          --app-id "$AMPLIFY_APP_ID" \
-          --branch-name "$AMPLIFY_BRANCH_NAME" \
-          --job-type RELEASE
+          set -euo pipefail
+          aws amplify start-job --app-id "$AMPLIFY_APP_ID" --branch-name "$AMPLIFY_BRANCH_NAME" --job-type RELEASE
     
