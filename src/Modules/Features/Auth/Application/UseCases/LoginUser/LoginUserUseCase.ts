@@ -1,4 +1,4 @@
-﻿import { Result } from "neverthrow";
+import { Result } from "neverthrow";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { LoginData } from "@auth/Domain/Models/LoginData";
 import { LoginResult } from "@auth/Domain/Models/LoginResult";
@@ -51,3 +51,4 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
     }
 
 }
+

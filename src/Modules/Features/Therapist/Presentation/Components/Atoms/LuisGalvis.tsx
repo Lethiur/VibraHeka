@@ -9,14 +9,14 @@ export default function LuisGalvis() {
     return (
         <Container className="mt-5">
             <h1 className="mb-5">Luis Galvis</h1>
-            <SideImageBlock image="https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/LuisGalvis/profilepicture.png" imageLeft={true}>
+            <SideImageBlock image="https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/luis-galvis/profilepicture.png" imageLeft={true}>
                 <p>Sanador por vocación y convicción, acompaño desde hace muchos años procesos de transformación y reordenamiento vibracional en espacios y en personas, especialmente sensibles y neurodivergentes, ayudando a liberar energías densas, a restaurar el equilibrio interno, a limpiar y ordenar estructuras sutiles y a recuperar el flujo natural de la energía vital.</p>
                 <p>Mi trabajo integra sanación energética y constelaciones familiares bajo un enfoque cuántico y multidimensional, integrando una mirada profunda, respetuosa y consciente del campo energético y, guiarte a reconectar contigo, con tu bienestar y fuerza interna, en espacios más ligeros, coherentes y armónicos.</p>
                 <p className="subtitle">Si sientes que es tu momento...</p>
                 <p>Te invito a explorar mis terapias, que encontraras mas abajo</p>
             </SideImageBlock>
             <h2>Un poco mas sobre mi</h2>
-            <VideoPlayer src="https://vibraheka-user-material-default.s3.eu-west-1.amazonaws.com/LuisGalvis/video.mp4" />
+            <VideoPlayer src="https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/luis-galvis/video.mp4" />
 
             <h1>Mis terapias</h1>
             <p className="subtitle">Ofrezco sesiones individuales en:</p>

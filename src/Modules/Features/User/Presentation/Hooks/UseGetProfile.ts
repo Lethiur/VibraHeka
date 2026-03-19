@@ -18,6 +18,7 @@ export default function UseGetProfile() {
             (error) => setError(error)
         );
         setLoading(false);
+        return profile;
     };
 
     return {

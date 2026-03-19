@@ -2,7 +2,10 @@ export enum OrderStatus {
     PENDING = 0,
     ORDER_PAYED = 1,
     INVOICE_PAYED = 2,
-    PAYMENT_FAILED = 3,
-    CANCELLED = 4,
-    TO_RENEW = 5
+    PAYMENT_PENDING = 3,
+    ORDER_DELAYED = 4,
+    PAYMENT_FAILED = 5,
+    CANCELLED = 6,
+    ENABLED_FOR_RETRY = 99999
+
 }
