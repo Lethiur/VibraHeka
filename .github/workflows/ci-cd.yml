@@ -1,0 +1,148 @@
+﻿name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - VH-*
+      - staging
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
+      - staging
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_PROFILE_NAME: Twingers
+  TERRAFORM_DIR: Terraform/AmplifyBranches
+  
+jobs:
+  prepare:
+    name: Prepare Metadata
+    runs-on: ubuntu-latest
+    outputs:
+      branch_name: ${{ steps.meta.outputs.branch_name }}
+      workspace: ${{ steps.meta.outputs.workspace }}
+    steps:
+      - name: Compute workspace, image tag and build config
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
+          RAW_REF="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          WORKSPACE="$(echo "$RAW_REF" | grep -oE '[A-Za-z]+-[0-9]+' | head -n1 | tr '[:upper:]' '[:lower:]' || true)"
+          if [[ -z "$WORKSPACE" ]]; then
+            WORKSPACE="$(echo "$RAW_REF" \
+              | tr '[:upper:]' '[:lower:]' \
+              | sed -E 's#[^a-z0-9-]#-#g' \
+              | sed -E 's#-+#-#g' \
+              | sed -E 's#(^-|-$)##g' \
+              | cut -c1-18)"
+          fi
+          if [[ -z "$WORKSPACE" ]]; then WORKSPACE="default"; fi
+          WORKSPACE="${WORKSPACE}"    
+          echo "branch_name=$RAW_REF" >> "$GITHUB_OUTPUT"
+          echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
+          
+  terraform:
+    name: Terraform Apply (prod workspace)
+    runs-on: ubuntu-latest
+    needs: [ prepare ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform init
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        run: terraform init
+
+      - name: Check if Amplify branch already exists
+        id: branch_state
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        shell: bash
+        env:
+          AMPLIFY_BRANCH_NAME: ${{ needs.prepare.outputs.branch_name }}
+        run: |
+          set -euo pipefail
+          AMPLIFY_APP_ID="$(terraform output -raw amplify_app_id 2>/dev/null || true)"
+          if [[ -z "$AMPLIFY_APP_ID" ]]; then
+            echo "branch_exists=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if aws amplify get-branch --app-id "$AMPLIFY_APP_ID" --branch-name "$AMPLIFY_BRANCH_NAME" >/dev/null 2>&1; then
+            echo "branch_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "branch_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Select/Create workspace
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        run: terraform workspace select -or-create "${{ needs.prepare.outputs.workspace }}"
+
+      - name: Terraform apply 
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        env:
+          TF_VAR_branch_name: ${{ github.head_ref || github.ref_name }}
+        run: terraform apply -auto-approve
+
+      - name: Prepare Amplify build inputs
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "AMPLIFY_APP_ID=$(terraform output -raw amplify_app_id)" >> "$GITHUB_ENV"
+          echo "AMPLIFY_BRANCH_NAME=${{ needs.prepare.outputs.branch_name }}" >> "$GITHUB_ENV"
+
+      - name: Wait for Amplify branch registration
+        if: steps.branch_state.outputs.branch_exists != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in {1..12}; do
+            if aws amplify get-branch --app-id "$AMPLIFY_APP_ID" --branch-name "$AMPLIFY_BRANCH_NAME" >/dev/null 2>&1; then
+              exit 0
+            fi
+            echo "Amplify branch not available yet, retry $attempt/12"
+            sleep 10
+          done
+          echo "Amplify branch $AMPLIFY_BRANCH_NAME was not registered in time" >&2
+          exit 1
+
+      - name: Check for active Amplify jobs
+        if: steps.branch_state.outputs.branch_exists != 'true'
+        id: amplify_jobs
+        shell: bash
+        run: |
+          set -euo pipefail
+          ACTIVE_JOB_COUNT="$(aws amplify list-jobs \
+            --app-id "$AMPLIFY_APP_ID" \
+            --branch-name "$AMPLIFY_BRANCH_NAME" \
+            --max-items 20 \
+            --query "length(jobSummaries[?status=='CREATED' || status=='PENDING' || status=='PROVISIONING' || status=='RUNNING'])" \
+            --output text)"
+          echo "active_job_count=$ACTIVE_JOB_COUNT" >> "$GITHUB_OUTPUT"
+        
+      - name: run amplify branch build
+        if: steps.branch_state.outputs.branch_exists != 'true' && steps.amplify_jobs.outputs.active_job_count == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws amplify start-job --app-id "$AMPLIFY_APP_ID" --branch-name "$AMPLIFY_BRANCH_NAME" --job-type RELEASE
+    

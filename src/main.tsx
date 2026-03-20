@@ -9,6 +9,22 @@ import ToastProvider from '@core/Presentation/Components/organisms/Toast/ToastPr
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
+const PRELOAD_RETRY_KEY = 'vh:preload-retry';
+
+window.addEventListener('vite:preloadError', (event) => {
+    event.preventDefault();
+
+    if (sessionStorage.getItem(PRELOAD_RETRY_KEY) === '1') {
+        console.error('Preload error persists after one reload. Skipping further automatic reloads.');
+        return;
+    }
+
+    sessionStorage.setItem(PRELOAD_RETRY_KEY, '1');
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('v', Date.now().toString());
+    window.location.replace(url.toString());
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

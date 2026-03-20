@@ -7,7 +7,7 @@ resource "aws_amplify_app" "VH_Amplify" {
   build_spec = file("${path.module}/amplify.yml")
 
   enable_branch_auto_build = true
-  enable_auto_branch_creation = true
+  enable_auto_branch_creation = false
 
   environment_variables = var.environment_variables
   
