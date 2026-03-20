@@ -51,6 +51,10 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform init
+        working-directory: ${{ env.TERRAFORM_DIR }}
+        run: terraform init
         
       - name: Select/Create workspace
         working-directory: ${{ env.TERRAFORM_DIR }}
