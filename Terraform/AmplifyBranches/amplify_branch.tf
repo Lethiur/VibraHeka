@@ -24,10 +24,8 @@ resource "aws_amplify_branch" "this" {
   framework         = "React"
 
   environment_variables = {
-    VITE_API_BASE_URL = data.terraform_remote_state.backend.outputs.backend_api_gateway_base_route
+    VITE_API_BASE_URL = "${data.terraform_remote_state.backend.outputs.backend_api_gateway_base_route}/api/v1"
   }
   
-  
-
   tags = var.tags
 }
