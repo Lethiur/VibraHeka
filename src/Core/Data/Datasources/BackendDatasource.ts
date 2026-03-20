@@ -4,7 +4,7 @@ import { ResponseEntity } from "@core/Domain/Entities/ResponseEntity";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
-const BASE_URL: string = import.meta.env.VITE_API_URL || "/api/v1";
+const BASE_URL: string =   import.meta.env.VITE_API_BASE_URL || "/api/v1";
 
 /**
  * Represents a data source for making API requests using Axios.

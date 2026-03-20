@@ -17,11 +17,5 @@ resource "aws_amplify_app" "VH_Amplify" {
     status = "200"
   }
 
-  custom_rule {
-    source = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|jpeg|js|mjs|png|txt|svg|woff|woff2|ttf|map|json|webp)$)([^.]+$)/>"
-    target = "/index.html"
-    status = "200"
-  }
-
   tags = var.tags
 }
