@@ -7,10 +7,16 @@ resource "aws_amplify_app" "VH_Amplify" {
   build_spec = file("${path.module}/amplify.yml")
 
   enable_branch_auto_build = true
-  enable_auto_branch_creation = true
+  enable_auto_branch_creation = false
 
   environment_variables = var.environment_variables
   
+  custom_rule {
+    source = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|jpeg|js|mjs|png|txt|svg|woff|woff2|ttf|map|json|webp)$)([^.]+$)/>"
+    target = "/index.html"
+    status = "200"
+  }
+
   custom_rule {
     source = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|jpeg|js|mjs|png|txt|svg|woff|woff2|ttf|map|json|webp)$)([^.]+$)/>"
     target = "/index.html"

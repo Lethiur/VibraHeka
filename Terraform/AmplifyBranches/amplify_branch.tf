@@ -20,6 +20,7 @@ resource "aws_amplify_branch" "this" {
   stage       = "DEVELOPMENT"
 
   enable_auto_build = true
+  
   framework         = "React"
 
   environment_variables = {
