@@ -92,11 +92,11 @@ jobs:
             echo "branch_exists=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Select/Create prod workspace
+      - name: Select/Create workspace
         working-directory: ${{ env.TERRAFORM_DIR }}
         run: terraform workspace select -or-create "${{ needs.prepare.outputs.workspace }}"
 
-      - name: Terraform apply (prod)
+      - name: Terraform apply 
         working-directory: ${{ env.TERRAFORM_DIR }}
         env:
           TF_VAR_branch_name: ${{ github.head_ref || github.ref_name }}
