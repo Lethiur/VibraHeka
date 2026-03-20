@@ -1,0 +1,13 @@
+customHeaders:
+  - pattern: '/'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache'
+  - pattern: '/index.html'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache'
+  - pattern: '**/*.html'
+    headers:
+      - key: 'Cache-Control'
+        value: 'no-cache'
