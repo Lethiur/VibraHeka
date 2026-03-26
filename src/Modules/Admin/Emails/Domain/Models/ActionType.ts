@@ -1,5 +1,9 @@
 export enum ActionType {
-    UserRegistered = 0,
-    UserVerification = 1,
-    PasswordReset = 3
+    USER_REGISTERED,
+    USER_VERIFICATION,
+    REQUEST_VERIFICATION_CODE,
+    PASSWORD_RESET,
+    SUBSCRIPTION_THANK_YOU,
+    TRIAL_ENDING_SOON,
+    PASSWORD_CHANGED,
 }

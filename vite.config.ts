@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
         server: {
             proxy: {
                 '/api': {
-                    target: 'https://d0wlq5t865.execute-api.eu-west-1.amazonaws.com',
+                    target: 'https://dd1kekevp7.execute-api.eu-west-1.amazonaws.com',
                     changeOrigin: true,
                     secure: false,
                 },
