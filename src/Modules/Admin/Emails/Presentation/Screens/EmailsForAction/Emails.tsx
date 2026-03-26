@@ -20,22 +20,40 @@ interface ActionTemplateConfig {
 
 const actionTemplateConfigs: ActionTemplateConfig[] = [
     {
-        actionType: ActionType.UserVerification,
+        actionType: ActionType.USER_VERIFICATION,
         title: "Verificacion de cuenta",
         description: "Email que se envia cuando el usuario necesita validar su cuenta.",
         selectorLabel: "Selecciona el template para verificacion",
     },
     {
-        actionType: ActionType.UserRegistered,
+        actionType: ActionType.USER_REGISTERED,
         title: "Bienvenida",
         description: "Email inicial que confirma el registro y presenta el siguiente paso.",
         selectorLabel: "Selecciona el template de bienvenida",
     },
     {
-        actionType: ActionType.PasswordReset,
+        actionType: ActionType.PASSWORD_RESET,
         title: "Recuperacion de contrasena",
         description: "Email para restablecer el acceso cuando el usuario olvida su contrasena.",
-        selectorLabel: "Selecciona el template de recuperacion",
+        selectorLabel: "Selecciona el template de reinicio de contraseña",
+    },
+    {
+        actionType: ActionType.PASSWORD_CHANGED,
+        title: "Cambio de contraseña",
+        description: "Email que se envia cuando el usuario cambia su contraseña",
+        selectorLabel: "Selecciona el template de cambio de contraseña",
+    },
+    {
+        actionType: ActionType.SUBSCRIPTION_THANK_YOU,
+        title: "Agradecimiento de subscripcion",
+        description: "Email enviado cuando el usuario confirma su subscripcion.",
+        selectorLabel: "Selecciona el template de agradecimiento",
+    },
+    {
+        actionType: ActionType.TRIAL_ENDING_SOON,
+        title: "Periodo de prueba acabando",
+        description: "Email enviado para avisar al usuario que su periodo de prueba va a terminar en 3 dias",
+        selectorLabel: "Selecciona el template de aviso",
     },
 ];
 
@@ -50,9 +68,9 @@ export default function EmailsConfiguration() {
     } = UseGetEmailTemplatesForActions();
 
     const [selectedByActionType, setSelectedByActionType] = useState<Record<number, EmailTemplate | null>>({
-        [ActionType.UserVerification]: null,
-        [ActionType.UserRegistered]: null,
-        [ActionType.PasswordReset]: null,
+        [ActionType.USER_VERIFICATION]: null,
+        [ActionType.USER_REGISTERED]: null,
+        [ActionType.PASSWORD_RESET]: null,
     });
 
     useEffect(() => {
