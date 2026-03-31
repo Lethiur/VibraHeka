@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Verification.scss";
 import { useTranslation } from "react-i18next";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
@@ -18,8 +18,7 @@ import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import { Row, Col } from "react-bootstrap";
-import useCooldown from "@core/Presentation/Hooks/UseCooldown";
-import Cooldown from "@core/Presentation/Components/atoms/Cooldown/Cooldown";
+import CooldownButton from "@core/Presentation/Components/molecules/CooldownButton/CooldownButton";
 
 
 export default function Verification() {
@@ -32,11 +31,6 @@ export default function Verification() {
     const verifyUserUseCase: VerifyUserUseCaseImpl = useVerifyUser();
     const localStorage: LocalStorageService = useLocalStorage();
     const navigate: NavigateFunction = useNavigate();
-    const resendCooldown = useCooldown({
-        durationSeconds: 60,
-        storageKey: STORAGE_KEYS.RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL,
-    });
-    const resendInFlightRef = useRef(false);
 
     useEffect(() => {
         const email: string | null = localStorage.getString(STORAGE_KEYS.EMAIL);
@@ -74,19 +68,6 @@ export default function Verification() {
         }
     }
 
-    async function handleResendVerificationCode() {
-        if (resendCooldown.isActive || resendInFlightRef.current) return;
-        resendInFlightRef.current = true;
-        try {
-            const result = await ResendVerificationCode(localStorage.getString(STORAGE_KEYS.EMAIL) || "");
-            if (result.isOk()) {
-                resendCooldown.start();
-            }
-        } finally {
-            resendInFlightRef.current = false;
-        }
-    }
-
     return (
         <AuthLayout title={t('pages.verification.title')} subtitle={t('pages.verification.description')}>
             <ErrorBox message={globalError} variant="danger" />
@@ -102,17 +83,21 @@ export default function Verification() {
 
                 <Row className="g-3 verification-actions">
                     <Col xs={12} md={6}>
-                        <PrimaryButton
+                        <CooldownButton
                             label={
                                 <>
                                     {t('pages.verification.form.resend_button')}
-                                    <Cooldown secondsLeft={resendCooldown.secondsLeft} />
                                 </>
                             }
                             type="button"
                             variant="secondary"
-                            onClick={handleResendVerificationCode}
-                            disabled={isSubmitting || loading || resendCooldown.isActive}
+                            cooldownSeconds={60}
+                            cooldownStorageKey={STORAGE_KEYS.RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL}
+                            action={async () => {
+                                const result = await ResendVerificationCode(localStorage.getString(STORAGE_KEYS.EMAIL) || "");
+                                return result.isOk();
+                            }}
+                            disabled={isSubmitting || loading}
                             fullWidth={true}
                         />
                     </Col>
@@ -130,4 +115,3 @@ export default function Verification() {
         </AuthLayout>
     )
 }
-
