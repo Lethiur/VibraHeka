@@ -12,12 +12,12 @@ export default function useResendVerificationCode() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const ResendVerificationCode = async (email: string): Promise<void> => {
+    const ResendVerificationCode = async (email: string): Promise<Result<void, AuthErrorCodes>> => {
         setLoading(true);
         const result: Result<void, AuthErrorCodes> = await UseCase.Execute(email);
         result.mapErr(setError);
         setLoading(false);
-
+        return result;
     };
 
     return {

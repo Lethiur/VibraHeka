@@ -6,5 +6,6 @@ export const STORAGE_KEYS = {
     REFRESH_TOKEN: 'refresh_token',
     EMAIL: 'email',
     USER_ID: "user_id",
-    ROLE: "role"
+    ROLE: "role",
+    RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL: "resend_verification_code_cooldown_until",
 };

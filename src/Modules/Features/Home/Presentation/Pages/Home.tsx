@@ -18,6 +18,7 @@ import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import { Row, Col } from "react-bootstrap";
+import CooldownButton from "@core/Presentation/Components/molecules/CooldownButton/CooldownButton";
 
 
 export default function Verification() {
@@ -67,10 +68,6 @@ export default function Verification() {
         }
     }
 
-    async function handleResendVerificationCode() {
-        await ResendVerificationCode(localStorage.getString(STORAGE_KEYS.EMAIL) || "");
-    }
-
     return (
         <AuthLayout title={t('pages.verification.title')} subtitle={t('pages.verification.description')}>
             <ErrorBox message={globalError} variant="danger" />
@@ -86,11 +83,20 @@ export default function Verification() {
 
                 <Row className="g-3 verification-actions">
                     <Col xs={12} md={6}>
-                        <PrimaryButton
-                            label={t('pages.verification.form.resend_button')}
+                        <CooldownButton
+                            label={
+                                <>
+                                    {t('pages.verification.form.resend_button')}
+                                </>
+                            }
                             type="button"
                             variant="secondary"
-                            onClick={handleResendVerificationCode}
+                            cooldownSeconds={60}
+                            cooldownStorageKey={STORAGE_KEYS.RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL}
+                            action={async () => {
+                                const result = await ResendVerificationCode(localStorage.getString(STORAGE_KEYS.EMAIL) || "");
+                                return result.isOk();
+                            }}
                             disabled={isSubmitting || loading}
                             fullWidth={true}
                         />
@@ -109,6 +115,3 @@ export default function Verification() {
         </AuthLayout>
     )
 }
-
-
-
