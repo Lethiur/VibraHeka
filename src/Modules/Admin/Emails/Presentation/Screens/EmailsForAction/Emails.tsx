@@ -55,6 +55,18 @@ const actionTemplateConfigs: ActionTemplateConfig[] = [
         description: "Email enviado para avisar al usuario que su periodo de prueba va a terminar en 3 dias",
         selectorLabel: "Selecciona el template de aviso",
     },
+    {
+        actionType: ActionType.SUBSCRIPTION_CANCELLED,
+        title: "Subscripcion cancelada",
+        description: "Email enviado cuando el usuario cancela su subscripcion.",
+        selectorLabel: "Selecciona el template de aviso",
+    },
+    {
+        actionType: ActionType.SUBSCRIPTION_REACTIVATED,
+        title: "Subscripcion reactivada",
+        description: "Email enviado cuando el usuario reactiva su subscripcion.",
+        selectorLabel: "Selecciona el template de aviso",
+    },
 ];
 
 export default function EmailsConfiguration() {
