@@ -66,7 +66,13 @@ const actionTemplateConfigs: ActionTemplateConfig[] = [
         title: "Subscripcion reactivada",
         description: "Email enviado cuando el usuario reactiva su subscripcion.",
         selectorLabel: "Selecciona el template de aviso",
-    },
+    },    
+    {
+        actionType: ActionType.FORGOT_PASSWORD_COMPLETED,
+        title: "Recuperacion de contrasena completada",
+        description: "Email enviado cuando el usuario completa la recuperacion de contrasena.",
+        selectorLabel: "Selecciona el template de aviso",
+    }
 ];
 
 export default function EmailsConfiguration() {
