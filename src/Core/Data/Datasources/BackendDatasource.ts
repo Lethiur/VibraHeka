@@ -5,6 +5,11 @@ import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageServic
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
 const BASE_URL: string =   import.meta.env.VITE_API_BASE_URL || "/api/v1";
+let refreshInFlight: Promise<Result<string, string>> | null = null;
+let lastUnauthorizedEventAtMs = 0;
+
+const UNAUTHORIZED_EVENT = "auth:unauthorized";
+const UNAUTHORIZED_EVENT_THROTTLE_MS = 1000;
 
 /**
  * Represents a data source for making API requests using Axios.
@@ -34,6 +39,38 @@ export default class BackendDatasource {
         });
     }
 
+    private notifyUnauthorized(): void {
+        if (typeof window === "undefined") return;
+        const now = Date.now();
+        if (now - lastUnauthorizedEventAtMs < UNAUTHORIZED_EVENT_THROTTLE_MS) return;
+        lastUnauthorizedEventAtMs = now;
+        window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
+    }
+
+    private isRefreshTokenRequest(config: AxiosRequestConfig): boolean {
+        const url = config.url || "";
+        return url.includes("/auth/refresh-token");
+    }
+
+    private async refreshAuthToken(): Promise<Result<string, string>> {
+        if (refreshInFlight) return refreshInFlight;
+
+        const refreshToken = this.StorageService.getString(STORAGE_KEYS.REFRESH_TOKEN);
+        if (!refreshToken) return err("UNAUTHORIZED");
+
+        const email = this.StorageService.getString(STORAGE_KEYS.EMAIL) || "";
+
+        refreshInFlight = (async () => {
+            try {
+                return await this.refreshToken(refreshToken, email);
+            } finally {
+                refreshInFlight = null;
+            }
+        })();
+
+        return refreshInFlight;
+    }
+
     /**
      * Sends an HTTP request using Axios and processes the response.
      *
@@ -41,7 +78,7 @@ export default class BackendDatasource {
      * @param {boolean} includeToken - Determines if the request should include an authorization token. Defaults to false.
      * @return {Promise<Result<T, string>>} A promise that resolves to a `Result` object containing either the response content or an error message.
      */
-    private async request<T>(config: AxiosRequestConfig, includeToken: boolean = false): Promise<Result<T, string>> {
+    private async request<T>(config: AxiosRequestConfig, includeToken: boolean = false, hasRetriedAfterRefresh: boolean = false): Promise<Result<T, string>> {
         try {
             if (includeToken) {
                 const token = this.StorageService.getString(STORAGE_KEYS.AUTH_TOKEN) || '';
@@ -59,14 +96,34 @@ export default class BackendDatasource {
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError;
                 if (axiosError.response) {
+                    const status = axiosError.response.status;
+                    if (status === 401) {
+                        // If the request was authenticated, try refresh once (except when calling refresh endpoint itself).
+                        if (
+                            includeToken &&
+                            !hasRetriedAfterRefresh &&
+                            !this.isRefreshTokenRequest(config)
+                        ) {
+                            const refreshResult = await this.refreshAuthToken();
+                            if (refreshResult.isOk()) {
+                                this.StorageService.setString(STORAGE_KEYS.AUTH_TOKEN, refreshResult.value);
+                                return this.request<T>(config, includeToken, true);
+                            }
+                            this.notifyUnauthorized();
+                            return err("UNAUTHORIZED");
+                        }
+
+                        // For any other 401, normalize to UNAUTHORIZED. Only broadcast for protected calls.
+                        if (includeToken) this.notifyUnauthorized();
+                        return err("UNAUTHORIZED");
+                    }
 
                     if (axiosError.response.data) {
                         const errorData = axiosError.response.data as ResponseEntity<T>;
                         return err(errorData.errorCode || 'UNKNOWN_ERROR');
                     } else {
-                        if (axiosError.response.status == 401) {
-                            return err('UNAUTHORIZED');
-                        }
+                        // Non-401 without body
+                        return err('NETWORK_ERROR');
                     }
                 } else {
                     return err('NETWORK_ERROR');
@@ -74,6 +131,10 @@ export default class BackendDatasource {
             }
             return err('NETWORK_ERROR');
         }
+    }
+    
+    public async refreshToken(refreshToken: string, email : string) : Promise<Result<string, string>> {
+       return this.post<string>('/auth/refresh-token', { RefreshToken: refreshToken, Username: email });
     }
 
     public async get<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
@@ -96,5 +157,3 @@ export default class BackendDatasource {
         return this.request<T>({ ...config, method: 'PATCH', url, data }, includeToken);
     }
 }
-
-

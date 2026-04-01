@@ -15,6 +15,8 @@ export const useLogout = () => {
         localStorage.remove(STORAGE_KEYS.AUTH_TOKEN);
         localStorage.remove(STORAGE_KEYS.REFRESH_TOKEN);
         localStorage.remove(STORAGE_KEYS.USER_ID);
+        localStorage.remove(STORAGE_KEYS.EMAIL);
+        localStorage.remove(STORAGE_KEYS.ROLE);
 
         // 2. Notificar a la aplicaci�n (Reactividad)
         setIsAuthenticated(false);
