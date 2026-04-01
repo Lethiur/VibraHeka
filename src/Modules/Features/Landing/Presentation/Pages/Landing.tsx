@@ -67,7 +67,7 @@ export default function LandingPage() {
                     </section>
 
                     <Reveal delay={60}>
-                        <SideImageBlock image={fotoPag1} imageAlt="Comunidad VibraHeka" imageLeft={true}>
+                        <SideImageBlock image={fotoPag1} imageAlt="Comunidad VibraHeka" imageLeft={true} contentVerticalAlign="center">
                             <div className="landing-copy">
                                 <h2>¿Qué encontrarás dentro de VibraHeka?</h2>
                                 <p className="section-subtitle">Un ecosistema de crecimiento emocional y energético</p>
@@ -117,7 +117,7 @@ export default function LandingPage() {
 
                 <Container className="px-3 px-sm-4">
                     <Reveal>
-                        <SideImageBlock image={fotoPag2} imageAlt="Transformación personal" imageLeft={false}>
+                        <SideImageBlock image={fotoPag2} imageAlt="Transformación personal" imageLeft={false} contentVerticalAlign="center">
                             <div className="landing-copy">
                                 <h2>VibraHeka es para ti si estás listo para cambiar</h2>
                                 <p className="section-subtitle">Si quieres dejar de sobrevivir en automático y volver a sentirte bien</p>
@@ -131,7 +131,7 @@ export default function LandingPage() {
                     </Reveal>
 
                     <Reveal>
-                        <SideImageBlock image={fotoPag4} imageAlt="Bienestar integral" imageLeft={true}>
+                        <SideImageBlock image={fotoPag4} imageAlt="Bienestar integral" imageLeft={true} contentVerticalAlign="center">
                             <div className="landing-copy">
                                 <h2>El bienestar no ocurre por casualidad</h2>
                                 <p className="section-subtitle">El cambio comienza cuando tienes el acompañamiento adecuado.</p>
@@ -146,7 +146,7 @@ export default function LandingPage() {
                     </Reveal>
 
                     <Reveal>
-                        <SideImageBlock image={fotoPag3} imageAlt="Camino VibraHeka" imageLeft={false}>
+                        <SideImageBlock image={fotoPag3} imageAlt="Camino VibraHeka" imageLeft={false} contentVerticalAlign="center">
                             <div className="landing-copy">
                                 <h2>Tu camino empieza aqu&iacute;</h2>
                                 <p className="section-subtitle">Con un proceso claro, humano y sostenible</p>
@@ -158,7 +158,7 @@ export default function LandingPage() {
                     </Reveal>
 
                     <Reveal>
-                        <SideImageBlock image={fotoPag5} imageAlt="Comunidad y calma" imageLeft={true}>
+                        <SideImageBlock image={fotoPag5} imageAlt="Comunidad y calma" imageLeft={true} contentVerticalAlign="center">
                             <div className="landing-copy">
                                 <h2>Transforma tus emociones</h2>
                                 <p className="section-subtitle">Estrés en calma y ansiedad confianza y dirección</p>
@@ -196,7 +196,7 @@ export default function LandingPage() {
 
                 <Container>
                     <Reveal>
-                        <SideImageBlock image={fotoPag7} imageAlt="Calma y lectura" imageLeft={false}>
+                        <SideImageBlock image={fotoPag7} imageAlt="Calma y lectura" imageLeft={false} contentVerticalAlign="center">
                             <div className="landing-copy">
                                 <h2>
                                     Tu siguiente versión empieza con una decisión

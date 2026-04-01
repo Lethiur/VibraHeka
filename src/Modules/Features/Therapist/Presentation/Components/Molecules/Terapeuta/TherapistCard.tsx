@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import { Col, Row, Image } from "react-bootstrap";
+import "./TherapistCard.scss";
 
 
 interface TerapeutaProps {
@@ -12,13 +13,11 @@ interface TerapeutaProps {
 
 export default function TherapistCard({ title, route, children, image }: TerapeutaProps) {
     return (
-
-        <Row>
-            <Col lg={3} md={12} sm={12} className="text-center">
+        <Row className="therapist-card vh-surface-card align-items-stretch g-0 overflow-hidden">
+            <Col lg={3} md={12} sm={12} className="therapist-card__image-col text-center">
                 <Image src={image}
                     fluid
-                    rounded
-                    style={{ aspectRatio: '1 / 1', objectFit: 'cover' }}
+                    className="therapist-card__image"
                 />
             </Col>
 
@@ -26,10 +25,14 @@ export default function TherapistCard({ title, route, children, image }: Terapeu
                 lg={9}
                 md={12}
                 sm={12}
-                className="d-flex flex-column justify-content-center mt-md-0 mt-3"
+                className="therapist-card__content-col"
             >
-                <h2>{title}</h2>
-                {children}
+                <div className="therapist-card__content">
+                    <h2 className="therapist-card__title">{title}</h2>
+                    <div className="therapist-card__text">
+                        {children}
+                    </div>
+                </div>
                 <PrimaryButton
                     label="Descubre mi espacio"
                     to={route}

@@ -1,7 +1,7 @@
 import SideImageBlock from "@core/Presentation/Components/organisms/SideImageBlock/SideImageBlock";
 import Terapia from "@core/Presentation/Components/molecules/Terapia/Terapia";
 import VideoPlayer from "@core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useState } from "react";
 import { BookingModal } from "@core/Presentation/Components/organisms/BookingModal/BookingModal";
 
@@ -18,80 +18,57 @@ export default function BeatrizAlonso() {
         setShowBookingModal(false);
         setSelectedTherapy(null);
     };
+
     return (
-        <Container>
+        <Container className="mt-5">
             <h1>Beatriz Alonso</h1>
-            <SideImageBlock image="https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/beatriz/profilepicture.png" imageLeft={true}>
-                <p>Terapeuta y Comunicadora Animal, formadora y autora del libro Tu Alma Animal. Con más de 10 años de
-                    experiencia acompañando familias inter especies a mejorar su convivencia y formando personas
-                    (particulares, voluntarios y profesionales) en comunicación animal telepática y otras terapias
-                    complementarias para animales.
-                    Mi propósito es reconectar a las personas con el alma y la sabiduría de los animales para crear
-                    vínculos más conscientes, amorosos y equilibrados.
-                    <br /><br />
-                    <strong>Si sientes que este es tu momento...</strong><br /><br />
-                    Explora mis terapias dentro de Vibraheka y da el primer paso hacia tu bienestar.</p>
+            <SideImageBlock image="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/profilepicture.png" imageLeft={true} imageVerticalAlign="center">
+                <p>Terapeuta y Comunicadora Animal, formadora y autora del libro Tu Alma Animal, con más de diez años de experiencia acompañando familias interespecies y formando personas en comunicación animal telepática.</p>
+                <p>Mi trabajo busca reconectar a las personas con el alma y la sabiduría de los animales para crear vínculos más conscientes, amorosos y equilibrados.</p>
+                <p>Dentro de Vibraheka encontrarás un espacio para comprender mejor a tu animal y dar un paso real hacia una convivencia más armónica.</p>
+                <p className="subtitle">Si sientes que este es tu momento...</p>
             </SideImageBlock>
-            <VideoPlayer src="https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/beatriz/video.mp4" />
+            <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/video.mp4" />
 
             <h1>Mis terapias</h1>
             <p className="subtitle">Ofrezco acompañamiento (sesiones individuales) y formación en:</p>
-            <div className="row d-flex justify-content-center align-items-center">
-
+            <Row>
                 <Terapia title="Comunicación Animal Telepática" therapyId="comunicacion-animal" therapistId="02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e" buttonOnClick={() => handleOpenBooking("comunicacion-animal", "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e")}>
                     <Terapia.Text>
-                        <ul>
-                            <li>Escuchar, comprender y responder a lo que tu animal siente, piensa y necesita. Actuar de
-                                puente entre ambos para mejorar cuestiones del hogar.
-                            </li>
-                            <li>Fortalecer vuestro vínculo y resolver conflictos de comportamiento o convivencia desde la
-                                empatía (cambios, enfermedades, últimos momentos, duelo, etc…).
-                            </li>
-                            <li>Con las formaciones; desarrollar tu intuición y confianza interior a través de una práctica
-                                consciente y amorosa.
-                            </li>
-                        </ul>
+                        <p>Sesiones para escuchar, comprender y responder a lo que tu animal siente, piensa y necesita, actuando de puente entre ambos.</p>
+                        <p>Favorece la convivencia, fortalece el vínculo y ayuda a abordar cambios, enfermedades, últimos momentos o procesos de duelo desde la empatía.</p>
                     </Terapia.Text>
-
                     <Terapia.Benefits>
                         <div className="mb-2">
                             <strong>Beneficios:</strong>
-                            más armonía y equilibrio en casa, comprensión profunda, conexión con tu animal.
-                            <br /><br />
+                            <ul>
+                                <li>Más armonía y equilibrio en casa.</li>
+                                <li>Comprensión profunda de lo que tu animal necesita.</li>
+                                <li>Mayor conexión y fortalecimiento del vínculo.</li>
+                            </ul>
                             <strong>Duración de la sesión aproximada:</strong> 60-90 minutos.
-
                         </div>
                     </Terapia.Benefits>
-
-
-
                 </Terapia>
 
-
-                <Terapia title="Cirugía / Limpieza energética para animales." therapyId="cirugia-energetica" therapistId="02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e" buttonOnClick={() => handleOpenBooking("cirugia-energetica", "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e")}>
+                <Terapia title="Cirugía / Limpieza energética de animales" therapyId="cirugia-energetica" therapistId="02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e" buttonOnClick={() => handleOpenBooking("cirugia-energetica", "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e")}>
                     <Terapia.Text>
-                        <ul>
-                            <li>Libera memorias energéticas, traumas y cargas que afectan el comportamiento o la
-                                salud.
-                            </li>
-                            <li>Restablece la armonía del campo energético y favorece la autocuración natural.</li>
-                            <li>Extrae del animal, sus humano y su entorno, energías densas parasitarias que puedan
-                                estar afectándole.
-                            </li>
-                        </ul>
+                        <p>Terapia para liberar memorias energéticas, traumas y cargas que pueden estar afectando la salud o el comportamiento del animal.</p>
+                        <p>Trabaja sobre el campo energético del animal, su humano y su entorno para restaurar la armonía y favorecer la autocuración natural.</p>
                     </Terapia.Text>
                     <Terapia.Benefits>
                         <div className="mb-2">
-                            <strong>Beneficios:</strong> renovación energética, mayor vitalidad, equilibrio integral y
-                            acompañamiento respetuoso en procesos de sanación.
-                            <br /><br />
+                            <strong>Beneficios:</strong>
+                            <ul>
+                                <li>Renovación energética y mayor vitalidad.</li>
+                                <li>Equilibrio integral del animal y su entorno.</li>
+                                <li>Acompañamiento respetuoso en procesos de sanación.</li>
+                            </ul>
                             <strong>Duración de la sesión aproximada:</strong> 60-90 minutos.
                         </div>
                     </Terapia.Benefits>
                 </Terapia>
-
-
-            </div>
+            </Row>
 
             {selectedTherapy && (
                 <BookingModal
@@ -101,6 +78,6 @@ export default function BeatrizAlonso() {
                     therapistId={selectedTherapy.therapistId}
                 />
             )}
-        </Container >
+        </Container>
     );
 }

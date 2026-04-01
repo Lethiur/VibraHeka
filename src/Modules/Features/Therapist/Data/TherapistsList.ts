@@ -1,5 +1,3 @@
-
-
 export interface Therapist {
     handle: string;
     id: string;
@@ -15,62 +13,71 @@ export const THERAPISTS_LIST: Therapist[] = [
     {
         id: "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e",
         handle: "beatriz",
-        title: "Beatriz",
+        title: "Beatriz Alonso",
         route: "/terapeutas/beatriz-alonso",
-        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/beatriz/profilepicture.png",
-        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/beatriz/video.mp4",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/profilepicture.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/video.mp4",
         role: "Terapeuta y Comunicadora Animal",
-        description: "Te acompaño a descubrir lo que tu animal siente, piensa y necesita para mejorar la convivencia y el bienestar mutuo."
-    },
-    {
-        id: "b25584c4-f0b1-70b8-c8f3-c2ca15dc3cb2",
-        handle: "belen-angella",
-        title: "Belén Angella",
-        route: "/terapeutas/belen-angella",
-        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/belen-angella/profilepicture.png",
-        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/belen-angella/video.mp4",
-        role: "Yoga Terapéutico",
-        description: "En un mundo ruidoso y rápido, te ayudo a volver a tu cuerpo y a calmar tu mente. “El yoga se adapta a tí, no tú al yoga” - Krishnamacharya"
+        description: "Te acompaño a comprender lo que tu animal siente y necesita para mejorar la convivencia y fortalecer vuestro vínculo desde la empatía."
     },
     {
         id: "32f57464-b0b1-70a2-57cf-b6771655ad93",
         handle: "luis-galvis",
         title: "Luis Galvis",
         route: "/terapeutas/luis-galvis",
-        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/luis-galvis/video.mp4",
-        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/luis-galvis/profilepicture.png",
-        role: "Terapeuta Bioenergético Integral. Especializado en la armonización multidimensional de personas y espacios.",
-        description: "Creo en el poder de la energía bien ordenada para transformar vidas y espacios."
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/luis-galvis/video.mp4",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/luis-galvis/profilepicture.png",
+        role: "Terapeuta Bioenergético Integral",
+        description: "Te acompaño a armonizar tu energía y la de tus espacios para recuperar equilibrio, claridad y una sensación más ligera de bienestar."
     },
-    // {
-    //     id: "32f524c4-10a1-7048-2988-f00c4a242a77",
-    //     handle: "marina-garrido",
-    //     title: "Marina Garrido",
-    //     route: "/terapeutas/marina-garrido",
-    //     image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/profilepicture.png",
-    //     video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/Marina/video.mp4",
-    //     role: "Terapeuta Holística",
-    //     description: "Hace cosas"
-    // },
+    {
+        id: "32f524c4-10a1-7048-2988-f00c4a242a77",
+        handle: "marina-garrido",
+        title: "Marina Garrido",
+        route: "/terapeutas/marina-garrido",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/profilepicture.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/video.mp4",
+        role: "Terapeuta Holística",
+        description: "Te acompaño en procesos de sanación profunda y equilibrio integral, uniendo cuerpo, mente, emociones y conciencia desde una mirada holística."
+    },
     {
         id: "a26534b4-d0c1-7057-5b42-bbecb887d165",
         handle: "olga-lucy",
-        title: "Olga Lucy López López",
+        title: "Olga Lucy López",
         route: "/terapeutas/olga-lucy-lopez-lopez",
-        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/olga-lucy/profilepicture.png",
-            video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/olga-lucy/video.mp4",
-        role: "Energía Sanadora",
-        description: "“Tu campo se limpia, se sana y se protege. Tu  historia se ordena. Tu camino se abre.” Olga Lucy López López"
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/olga-lucy/profilepicture.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/olga-lucy/video.mp4",
+        role: "Sanadora energética",
+        description: "Te acompaño a ordenar tu energía, sanar bloqueos profundos y transformar tu historia con una mirada espiritual y sistémica."
     },
     {
         id: "6295b434-c021-70b4-3aa8-20b88c196a8a",
         handle: "vera-lucya",
         title: "Vera Lucya",
         route: "/terapeutas/vera-lucya",
-        image: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/vera-lucya/profilepicture.png",
-        video: "https://vibraheka-email-templates-vh-050-trial-perio-prod.s3.eu-west-1.amazonaws.com/vera-lucya/video.mp4",
-        role: "Maestra de Empoderamiento Holístico, coach de feminidad para mujeres con mucha energía Yan, fundadora de la Escuela Prisma Vera",
-        description: "Te acompaño a equilibrar tu energía femenina y masculina, para alcanzar tus más altos propósitos y lidiar con el Síndrome de Ovarios Poliquísticos y otras dolencias asociadas a tu centro de creación."
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/vera-lucya/profilepicture.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/vera-lucya/video.mp4",
+        role: "Coach de feminidad y liderazgo",
+        description: "Te acompaño a equilibrar tu energía femenina y masculina para recuperar bienestar, placer, claridad y conexión con tu propósito."
+    },
+    {
+        id: "carmen-martin",
+        handle: "carmen-martin",
+        title: "Carmen Martín",
+        route: "/terapeutas/carmen-martin",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/carmen-martin/profilepicutre.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/carmen-martin/video.mp4",
+        role: "Terapeuta corporal y energética",
+        description: "Te acompaño a liberar bloqueos energéticos, aliviar tensiones físicas y recuperar vitalidad desde una escucha profunda del cuerpo."
+    },
+    {
+        id: "veronica-hernandez",
+        handle: "veronica-hernandez",
+        title: "Verónica Hernández",
+        route: "/terapeutas/veronica-hernandez",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/veronica-hernandez/profilepicture.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/veronica-hernandez/video.mp4",
+        role: "Terapeuta transpersonal y energética",
+        description: "Te acompaño a liberar emociones atrapadas, integrar cuerpo y energía y reconectar con tu valía personal desde un proceso profundo de autoconocimiento."
     }
-
 ];

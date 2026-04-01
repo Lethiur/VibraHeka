@@ -2,12 +2,17 @@
 import TherapistCard from "@/Modules/Features/Therapist/Presentation/Components/Molecules/Terapeuta/TherapistCard";
 import { THERAPISTS_LIST } from "../../Data/TherapistsList";
 import { Col, Container, Row } from "react-bootstrap";
+import "./TerapetuasHome.scss";
 
 
 export default function TerapeutasHome() {
     return (
-        <Container>
-            <h1 className='text-center pb-5 pt-5'>Terapeutas</h1>
+        <Container className="therapists-home vh-page-section">
+            <div className="therapists-home__hero text-center">
+                <p className="therapists-home__eyebrow">Guías y acompañamiento</p>
+                <h1 className='therapists-home__title'>Terapeutas</h1>
+                <p className="therapists-home__subtitle">Explora espacios de sanación con enfoques energéticos, corporales y sistémicos, sostenidos por la sensibilidad y la experiencia de cada terapeuta.</p>
+            </div>
 
             <Row className="g-4">
                 {THERAPISTS_LIST.map((therapist) => (
