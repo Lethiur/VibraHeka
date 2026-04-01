@@ -8,10 +8,9 @@ export default function VeraLucya() {
         <Container className="mt-5">
             <h1>Vera Lucya González</h1>
             <SideImageBlock image="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/vera-lucya/profilepicture.png" imageLeft={true} imageVerticalAlign="center">
-                <p>Luego de años dependiendo de pastillas anticonceptivas para regular mis hormonas, decidí encontrar el origen de mis desequilibrios hormonales, y descubrí que mis altos niveles de testosterona estaban asociados a mis niveles de energía Yan (polaridad activa o energía masculina).</p>
-                <p>Me certifiqué en yoga, meditación, tantra y danza consciente para volver a conectar con mi energía femenina.</p>
-                <p>Ahora, acompaño a mujeres que, como tú, son expertas en hacer, planificar y tomar la iniciativa, pero les cuesta recibir, descansar sin culpa o relacionarse con hombres que les sigan el paso.</p>
-                <p>En nuestras sesiones miraremos juntas el origen de tu desbalance energético y hormonal. Podrás conectar con tu cuerpo, placer y merecimiento a través de meditaciones tántricas, terapias y programas que atienden tu cuerpo físico, mental y energético.</p>
+                <p>Tras vivir en mi propio cuerpo los efectos del desbalance hormonal, inicié un camino de búsqueda para comprender el origen energético y emocional de lo que me ocurría.</p>
+                <p>Me formé en yoga, meditación, tantra y danza consciente para reconectar con mi energía femenina y crear un enfoque integrador entre cuerpo, mente y espíritu.</p>
+                <p>Hoy acompaño a mujeres que sostienen mucho, hacen mucho y desean volver a conectar con su intuición, su placer, su cuerpo y su paz interior.</p>
                 <p className="subtitle">Porque como siempre digo: "la transformación espiritual no tiene que ser aburrida, vívela de forma integral, con gozo y con los pies en la Tierra"</p>
             </SideImageBlock>
             <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/vera-lucya/video.mp4" />

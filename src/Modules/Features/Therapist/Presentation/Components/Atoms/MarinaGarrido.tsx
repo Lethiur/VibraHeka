@@ -10,7 +10,7 @@ export default function MarinaGarrido() {
             <SideImageBlock image="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/profilepicture.png" imageLeft={true} imageVerticalAlign="center">
                 <p>Acompaño procesos de crecimiento, equilibrio y sanación profunda integrando cuerpo, mente, emociones y conciencia.</p>
                 <p>Mi camino une comprensión de la naturaleza humana, visión holística e investigación integrativa para ayudarte a transformar tu realidad desde la coherencia interna.</p>
-                <p>Con herramientas prácticas y eficaces, te guío en un viaje de expansión y auto-sanación para que integres todas las partes de ti sin limitaciones.</p>
+                <p>Con herramientas prácticas y eficaces, te guío en un viaje de expansión y auto-sanación para que integres todas tus partes con más claridad y menos limitaciones.</p>
                 <p className="subtitle">"Todo depende de ti, si cambias tu frecuencia, resultado de tu coherencia y alineación con tu propósito, cambia tu realidad."</p>
             </SideImageBlock>
             <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/video.mp4" />

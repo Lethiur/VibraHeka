@@ -9,8 +9,8 @@ export default function OlgaLucy() {
             <h1>Olga Lucy López López</h1>
             <SideImageBlock image="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/olga-lucy/profilepicture.png" imageLeft={true} imageVerticalAlign="center">
                 <p>Acompaño a las personas a expandirse, recuperar equilibrio y vivir con mayor plenitud desde mi labor como sanadora, formadora y conversadora del alma.</p>
-                <p>Ofrezco sesiones de sanación energética profunda para armonizar cuerpo físico, emocional, espiritual y energético, desbloqueando aquello que limita tu salud, relaciones, economía o trabajo.</p>
-                <p>Mi propuesta integra sanación energética y constelaciones familiares para transformar no solo lo visible, sino también memorias, vínculos y dinámicas más profundas.</p>
+                <p>Ofrezco sesiones de sanación energética profunda para armonizar cuerpo físico, emocional, espiritual y energético, desbloqueando aquello que limita tu salud o tu camino.</p>
+                <p>Mi propuesta integra sanación energética y constelaciones familiares para transformar no solo lo visible, sino también memorias, vínculos y dinámicas profundas.</p>
                 <p className="subtitle">"Lo que no sanas, se repite."</p>
             </SideImageBlock>
             <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/olga-lucy/video.mp4" />

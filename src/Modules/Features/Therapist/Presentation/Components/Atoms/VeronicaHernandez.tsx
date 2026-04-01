@@ -9,7 +9,7 @@ export default function VeronicaHernandez() {
             <h1>Verónica Hernández</h1>
             <SideImageBlock image="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/veronica-hernandez/profilepicture.png" imageLeft={true} imageVerticalAlign="center">
                 <p>Acompaño procesos de autoconocimiento profundo para liberar lo que ya no te pertenece y recuperar valía personal, equilibrio y plenitud.</p>
-                <p>Mi enfoque integra mente, cuerpo, emociones y energía, con una mirada transpersonal y somática sostenida por más de 25 años de recorrido.</p>
+                <p>Mi enfoque integra mente, cuerpo, emociones y energía desde una mirada transpersonal y somática sostenida por más de veinticinco años de recorrido.</p>
                 <p>Te propongo un espacio para indagar, comprender e integrar tu experiencia desde una presencia amorosa que te ayude a volver a ti.</p>
                 <p className="subtitle">Nunca es tarde para volver a empezar.</p>
             </SideImageBlock>

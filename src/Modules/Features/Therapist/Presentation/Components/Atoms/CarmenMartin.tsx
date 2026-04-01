@@ -8,9 +8,9 @@ export default function CarmenMartin() {
         <Container className="mt-5">
             <h1>Carmen Martin</h1>
             <SideImageBlock image="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/carmen-martin/profilepicutre.png" imageLeft={true} imageVerticalAlign="center">
-                <p>Acompaño a las personas a liberar bloqueos energéticos, aliviar el dolor físico y recuperar su vitalidad.</p>
+                <p>Acompaño a las personas a liberar bloqueos energéticos, aliviar el dolor físico y recuperar su vitalidad desde una mirada corporal y energética.</p>
                 <p>Mi trabajo parte de una escucha profunda del cuerpo, los fluidos y la energía que los habita, permitiendo que las emociones encuentren espacio para transformarse.</p>
-                <p>En cada sesión te acompaño desde la presencia para que lo estancado vuelva a fluir y puedas sentirte más ligera, más tú.</p>
+                <p>En cada sesión te acompaño desde la presencia para que lo estancado vuelva a fluir y puedas sentirte más ligera, más conectada y más tú.</p>
                 <p className="subtitle">“Cuando la energía fluye, el cuerpo recuerda su propio equilibrio.”</p>
             </SideImageBlock>
             <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/carmen-martin/video.mp4" />
