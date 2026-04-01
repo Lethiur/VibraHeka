@@ -6,7 +6,7 @@ import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import { useAtomValue } from "jotai";
 import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
 const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
@@ -27,6 +27,12 @@ function App() {
 
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const { logout } = useLogout();
+
+    useEffect(() => {
+        const handler = () => logout();
+        window.addEventListener("auth:unauthorized", handler);
+        return () => window.removeEventListener("auth:unauthorized", handler);
+    }, [logout]);
 
     function getRole(): number {
         return parseInt(localStorage.getItem(STORAGE_KEYS.ROLE) ?? "0");
@@ -61,6 +67,7 @@ function App() {
                                 <>
                                     <Route path="/talleres" element={<TerapeutasHome />}>
                                     </Route>
+                                    <Route path="/profile/:id" element={<Profile />} />
                                 </>
 
                             )
@@ -79,7 +86,7 @@ function App() {
                             )
                         }
 
-                        <Route path="/profile/:id" element={<Profile />} />
+                        
                         <Route path="/terapeutas" element={<TerapeutasHome />} />
                         <Route path="/terapeutas/:id" element={<TherapistPage />} />
                     </Routes>
@@ -91,4 +98,3 @@ function App() {
 }
 
 export default App
-

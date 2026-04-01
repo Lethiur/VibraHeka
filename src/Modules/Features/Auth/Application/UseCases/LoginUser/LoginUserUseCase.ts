@@ -44,6 +44,7 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
             this.LocalStorageService.setString(STORAGE_KEYS.EMAIL, data.email);
             this.LocalStorageService.setString(STORAGE_KEYS.ROLE, loginResult.value.Role.toString())
             this.LocalStorageService.setString(STORAGE_KEYS.USER_ID, loginResult.value.UserID)
+            console.log(loginResult.value.RefreshToken)
             this.LocalStorageService.setString(STORAGE_KEYS.REFRESH_TOKEN, loginResult.value.RefreshToken);
             this.LocalStorageService.setString(STORAGE_KEYS.AUTH_TOKEN, loginResult.value.Token);
         }

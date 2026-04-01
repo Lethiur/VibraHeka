@@ -6,6 +6,10 @@ import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
 const BASE_URL: string =   import.meta.env.VITE_API_BASE_URL || "/api/v1";
 let refreshInFlight: Promise<Result<string, string>> | null = null;
+let lastUnauthorizedEventAtMs = 0;
+
+const UNAUTHORIZED_EVENT = "auth:unauthorized";
+const UNAUTHORIZED_EVENT_THROTTLE_MS = 1000;
 
 /**
  * Represents a data source for making API requests using Axios.
@@ -33,6 +37,14 @@ export default class BackendDatasource {
                 'Content-Type': 'application/json',
             },
         });
+    }
+
+    private notifyUnauthorized(): void {
+        if (typeof window === "undefined") return;
+        const now = Date.now();
+        if (now - lastUnauthorizedEventAtMs < UNAUTHORIZED_EVENT_THROTTLE_MS) return;
+        lastUnauthorizedEventAtMs = now;
+        window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
     }
 
     private isRefreshTokenRequest(config: AxiosRequestConfig): boolean {
@@ -84,16 +96,25 @@ export default class BackendDatasource {
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError;
                 if (axiosError.response) {
-                    if (
-                        axiosError.response.status === 401 &&
-                        includeToken &&
-                        !hasRetriedAfterRefresh &&
-                        !this.isRefreshTokenRequest(config)
-                    ) {
-                        const refreshResult = await this.refreshAuthToken();
-                        if (refreshResult.isOk()) {
-                            return this.request<T>(config, includeToken, true);
+                    const status = axiosError.response.status;
+                    if (status === 401) {
+                        // If the request was authenticated, try refresh once (except when calling refresh endpoint itself).
+                        if (
+                            includeToken &&
+                            !hasRetriedAfterRefresh &&
+                            !this.isRefreshTokenRequest(config)
+                        ) {
+                            const refreshResult = await this.refreshAuthToken();
+                            if (refreshResult.isOk()) {
+                                this.StorageService.setString(STORAGE_KEYS.AUTH_TOKEN, refreshResult.value);
+                                return this.request<T>(config, includeToken, true);
+                            }
+                            this.notifyUnauthorized();
+                            return err("UNAUTHORIZED");
                         }
+
+                        // For any other 401, normalize to UNAUTHORIZED. Only broadcast for protected calls.
+                        if (includeToken) this.notifyUnauthorized();
                         return err("UNAUTHORIZED");
                     }
 
@@ -101,10 +122,8 @@ export default class BackendDatasource {
                         const errorData = axiosError.response.data as ResponseEntity<T>;
                         return err(errorData.errorCode || 'UNKNOWN_ERROR');
                     } else {
-                        if (axiosError.response.status == 401) {
-                            
-                            return err('UNAUTHORIZED');
-                        }
+                        // Non-401 without body
+                        return err('NETWORK_ERROR');
                     }
                 } else {
                     return err('NETWORK_ERROR');
@@ -115,20 +134,7 @@ export default class BackendDatasource {
     }
     
     public async refreshToken(refreshToken: string, email : string) : Promise<Result<string, string>> {
-        try {
-            const response: AxiosResponse<ResponseEntity<string>> = await this.AxiosInstance.post('/auth/refresh-token', { refreshToken, email });
-            if (response.data.success) {
-                this.StorageService.setString(STORAGE_KEYS.AUTH_TOKEN, response.data.content!);
-                return ok(response.data.content!);
-            }
-            return err(response.data.errorCode || 'UNKNOWN_ERROR');
-        } catch (e: any) {
-            if (axios.isAxiosError(e)) {
-                const axiosError = e as AxiosError;
-                if (axiosError.response && axiosError.response.status === 401) return err("UNAUTHORIZED");
-            }
-            return err("NETWORK_ERROR");
-        }
+       return this.post<string>('/auth/refresh-token', { RefreshToken: refreshToken, Username: email });
     }
 
     public async get<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
