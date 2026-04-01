@@ -19,7 +19,7 @@ export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProp
                         alt="logo"
                         style={{ width: "90px", height: "90px", marginRight: "8px" }}
                     />
-                    <span>Vibra Heka</span>
+                    <span>VibraHeka</span>
                 </Navbar.Brand>
 
                 {/* BOTÓN HAMBURGUESA: React Bootstrap lo gestiona internamente */}
