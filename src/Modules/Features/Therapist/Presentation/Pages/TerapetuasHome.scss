@@ -1,0 +1,46 @@
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.therapists-home {
+    &__hero {
+        max-width: 54rem;
+        margin: 0 auto vars.$space-12;
+        padding: vars.$space-10 vars.$space-8;
+        border: 1px solid rgba(vars.$color-primary, 0.14);
+        border-radius: vars.$radius-xl;
+        background:
+            radial-gradient(circle at top, rgba(vars.$color-primary-light, 0.22), transparent 58%),
+            rgba(vars.$color-surface, 0.88);
+        box-shadow: vars.$shadow-md;
+        backdrop-filter: blur(4px);
+    }
+
+    &__eyebrow {
+        margin-bottom: vars.$space-3;
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-sm;
+        font-weight: fonts.$font-weight-semibold;
+        letter-spacing: vars.$tracking-widest;
+        text-transform: uppercase;
+        color: vars.$color-primary-dark;
+    }
+
+    &__title {
+        margin-bottom: vars.$space-4;
+    }
+
+    &__subtitle {
+        max-width: 42rem;
+        margin: 0 auto;
+        color: vars.$color-dark-muted;
+    }
+}
+
+@media (max-width: 768px) {
+    .therapists-home {
+        &__hero {
+            margin-bottom: vars.$space-8;
+            padding: vars.$space-8 vars.$space-5;
+        }
+    }
+}

@@ -1,0 +1,99 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.therapist-page {
+    > .container {
+        max-width: min(1120px, 100%);
+        padding-inline: 0;
+    }
+
+    h1:first-child {
+        position: relative;
+        margin-bottom: vars.$space-4;
+        padding-bottom: vars.$space-3;
+    }
+
+    h1:first-child::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: min(8rem, 22vw);
+        height: 2px;
+        background: linear-gradient(90deg, vars.$color-primary, rgba(vars.$color-primary-light, 0.2));
+        border-radius: vars.$radius-full;
+    }
+
+    h2 {
+        margin: vars.$space-10 0 vars.$space-5;
+    }
+
+    .side-block:first-of-type {
+        padding-top: vars.$space-2;
+    }
+
+    .video-player + h1 {
+        position: relative;
+        margin-top: vars.$space-10;
+        margin-bottom: vars.$space-3;
+        padding-bottom: vars.$space-3;
+    }
+
+    .video-player + h1::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: min(7rem, 18vw);
+        height: 2px;
+        background: linear-gradient(90deg, vars.$color-primary, rgba(vars.$color-primary-light, 0.18));
+        border-radius: vars.$radius-full;
+    }
+
+    .video-player + h1 + .subtitle {
+        max-width: 46rem;
+        margin-bottom: vars.$space-6;
+        color: vars.$color-primary-dark;
+    }
+
+    .video-player + h1 + .subtitle + .row {
+        row-gap: vars.$space-3;
+    }
+
+    .subtitle {
+        font-family: fonts.$font-display;
+        font-size: var(--type-subtitle-size);
+        line-height: 1.45;
+        font-style: italic;
+        color: vars.$color-primary-dark;
+    }
+
+    .video-player {
+        margin: vars.$space-8 0 vars.$space-10;
+    }
+}
+
+@media (max-width: 768px) {
+    .therapist-page {
+        h1:first-child {
+            margin-bottom: vars.$space-3;
+        }
+
+        .side-block:first-of-type {
+            padding-top: 0;
+        }
+
+        .video-player + h1 {
+            margin-top: vars.$space-8;
+            margin-bottom: vars.$space-2;
+        }
+
+        .video-player + h1 + .subtitle {
+            margin-bottom: vars.$space-5;
+        }
+
+        .video-player {
+            margin: vars.$space-6 0 vars.$space-8;
+        }
+    }
+}

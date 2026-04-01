@@ -1,0 +1,87 @@
+@use "../../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.therapist-card {
+    border-radius: vars.$radius-xl;
+    min-height: 100%;
+    box-shadow: vars.$shadow-lg;
+    transition:
+        transform vars.$transition-base,
+        box-shadow vars.$transition-base,
+        border-color vars.$transition-base;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: vars.$shadow-xl;
+        border-color: rgba(vars.$color-primary, 0.35);
+    }
+
+    &__image-col {
+        min-height: 100%;
+        background:
+            linear-gradient(180deg, rgba(vars.$color-primary-light, 0.18), rgba(vars.$color-surface, 0.02)),
+            vars.$color-gray-100;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
+        min-height: 17rem;
+        object-fit: cover;
+    }
+
+    &__content-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: vars.$space-6;
+        padding: vars.$space-8;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: vars.$space-4;
+    }
+
+    &__title {
+        margin: 0;
+        font-family: fonts.$font-display;
+        font-size: var(--type-title-size);
+        line-height: fonts.$line-height-tight;
+        color: vars.$color-dark;
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        gap: vars.$space-3;
+
+        p:first-child {
+            font-family: fonts.$font-primary;
+            font-size: fonts.$font-size-sm;
+            font-weight: fonts.$font-weight-semibold;
+            text-transform: uppercase;
+            letter-spacing: vars.$tracking-wider;
+            color: vars.$color-primary-dark;
+            margin-bottom: 0;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+            color: vars.$color-dark;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .therapist-card {
+        &__image {
+            min-height: 15rem;
+        }
+
+        &__content-col {
+            padding: vars.$space-6;
+        }
+    }
+}

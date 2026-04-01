@@ -1,4 +1,4 @@
-﻿@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/variables" as vars;
 @use "../../../../../Assets/Styles/base/fonts" as fonts;
 
 .side-block {
@@ -12,16 +12,23 @@
 
     &__image-col {
         justify-content: center;
+        align-items: flex-start;
+    }
+
+    &__image-col--center {
+        align-items: center;
     }
 
     &__image {
         width: 100%;
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 5 / 6;
         max-height: none;
         object-fit: cover;
-        border-radius: vars.$radius-md;
-        box-shadow: vars.$shadow-md;
+        border-radius: vars.$radius-xl;
+        border: 1px solid rgba(vars.$color-primary, 0.12);
+        box-shadow: vars.$shadow-lg;
         display: block;
+        background-color: vars.$color-gray-100;
 
         @media (max-width: 768px) {
             aspect-ratio: 16 / 10;
@@ -30,15 +37,26 @@
 
     &__content-col {
         display: flex;
+        align-items: stretch;
     }
 
     &__content {
         width: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
         gap: vars.$space-5;
+        padding: vars.$space-8;
+        border: 1px solid rgba(vars.$color-primary, 0.12);
+        border-radius: vars.$radius-xl;
+        background:
+            linear-gradient(180deg, rgba(vars.$color-surface, 0.94), rgba(vars.$color-gray-100, 0.84)),
+            vars.$color-surface;
+        box-shadow: vars.$shadow-md;
         text-align: left;
         letter-spacing: vars.$tracking-normal;
+        backdrop-filter: blur(3px);
+        min-height: 100%;
 
         h1,
         h2 {
@@ -48,7 +66,7 @@
             color: vars.$color-dark;
             letter-spacing: vars.$tracking-tight;
             line-height: fonts.$line-height-tight;
-            margin: 0;
+            margin: 0 0 vars.$space-2;
 
             @media (max-width: 768px) {
                 font-size: fonts.$font-size-2xl;
@@ -60,5 +78,9 @@
             color: vars.$color-dark;
             font-weight: fonts.$font-weight-semibold;
         }
+    }
+
+    &__content--center {
+        justify-content: center;
     }
 }

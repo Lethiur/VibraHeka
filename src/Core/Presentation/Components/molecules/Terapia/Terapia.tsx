@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import PrimaryButton from "../../atoms/PrimaryButton/PrimaryButton";
 import { Card, Col } from "react-bootstrap";
 import React from "react";
+import "./Terapia.scss";
 
 interface TerapiaProps {
     title: string;
@@ -42,21 +43,23 @@ function Terapia({ title, children, buttonOnClick }: TerapiaProps) {
 
 
     return (
-        <Col md={6}>
-            <Card className="mb-2" style={{ height: '500px' }}>
+        <Col md={6} className="mb-3 d-flex">
+            <Card className="vh-surface-card vh-panel terapia-card w-100">
                 <Card.Header className="card-title">
                     {title}
                 </Card.Header>
-                <Card.Body className="d-flex flex-column flex-grow-1">
+                <Card.Body className="d-flex flex-column h-100">
                     <div className="flex-grow-1">
-                        <Card.Text className="card-body" as="div">
-                            <div className="card-text">
+                        <Card.Text className="card-body mb-0" as="div">
+                            <div className="card-text terapia-card__content">
                                 {textContent}
                             </div>
                         </Card.Text>
                     </div>
-                    {benefitsContent}
-                    <PrimaryButton label="Reservar una sesi&oacute;n" onClick={buttonOnClick} />
+                    <div className="terapia-card__footer mt-auto">
+                        {benefitsContent}
+                        <PrimaryButton label="Reservar una sesi&oacute;n" onClick={buttonOnClick} fullWidth={true} />
+                    </div>
                 </Card.Body>
             </Card>
         </Col>
