@@ -69,5 +69,15 @@ export const THERAPISTS_LIST: Therapist[] = [
         video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/carmen-martin/video.mp4",
         role: "Terapeuta corporal y energética",
         description: "Te acompaño a liberar bloqueos energéticos, aliviar tensiones físicas y recuperar vitalidad desde una escucha profunda del cuerpo."
+    },
+    {
+        id: "veronica-hernandez",
+        handle: "veronica-hernandez",
+        title: "Verónica Hernández",
+        route: "/terapeutas/veronica-hernandez",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/veronica-hernandez/profilepicture.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/veronica-hernandez/video.mp4",
+        role: "Terapeuta transpersonal y energética",
+        description: "Te acompaño a liberar emociones atrapadas, integrar cuerpo y energía y reconectar con tu valía personal desde un proceso profundo de autoconocimiento."
     }
 ];

@@ -6,6 +6,7 @@ import LuisGalvis from "@therapist/Presentation/Components/Atoms/LuisGalvis";
 import MarinaGarrido from "@therapist/Presentation/Components/Atoms/MarinaGarrido.tsx";
 import OlgaLucy from "@therapist/Presentation/Components/Atoms/OlgaLucy.tsx";
 import CarmenMartin from "@therapist/Presentation/Components/Atoms/CarmenMartin.tsx";
+import VeronicaHernandez from "@therapist/Presentation/Components/Atoms/VeronicaHernandez.tsx";
 import "./TherapistPage.scss";
 
 
@@ -38,6 +39,10 @@ export default function TherapistPage() {
         case "carmen-martin":
             return <Container className="therapist-page vh-page-section">
                 <CarmenMartin />
+            </Container>
+        case "veronica-hernandez":
+            return <Container className="therapist-page vh-page-section">
+                <VeronicaHernandez />
             </Container>
         default:
             return <div>Terapeuta no encontrado</div>;
