@@ -125,7 +125,6 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                 </div>
                             </Col>
                             <Col md={12} lg={10} className="user-details">
-                                <div className="pb-2 pt-2"><strong>Miembro desde:</strong> Que franco tocaba la corneta</div>
                             </Col>
                         </Row>
 
