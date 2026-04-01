@@ -41,6 +41,7 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
         const loginResult: Result<LoginResult, AuthErrorCodes> = await this.AuthRepository.Login(data);
 
         if (loginResult.isOk()) {
+            this.LocalStorageService.setString(STORAGE_KEYS.EMAIL, data.email);
             this.LocalStorageService.setString(STORAGE_KEYS.ROLE, loginResult.value.Role.toString())
             this.LocalStorageService.setString(STORAGE_KEYS.USER_ID, loginResult.value.UserID)
             this.LocalStorageService.setString(STORAGE_KEYS.REFRESH_TOKEN, loginResult.value.RefreshToken);
@@ -51,4 +52,3 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
     }
 
 }
-
