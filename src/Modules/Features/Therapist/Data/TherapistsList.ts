@@ -87,7 +87,7 @@ export const THERAPISTS_LIST: Therapist[] = [
         route: "/terapeutas/mailee-vergara",
         image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/mailee-vergara/profilepicture.png",
         video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/mailee-vergara/video.mp4",
-        role: "Guía en conexión interior",
-        description: "Te acompaño a volver a ti, abrazar lo que sientes y transformar tus emociones en claridad, confianza y libertad interior."
+        role: "Guía en conexión interior y liderazgo personal",
+        description: "Te acompaño a volver a ti, escuchar tus emociones con honestidad y transformar lo que sientes en claridad, paz y dirección interior."
     }
 ];
