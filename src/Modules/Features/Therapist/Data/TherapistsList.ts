@@ -79,5 +79,15 @@ export const THERAPISTS_LIST: Therapist[] = [
         video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/veronica-hernandez/video.mp4",
         role: "Terapeuta transpersonal y energética",
         description: "Te acompaño a liberar emociones atrapadas, integrar cuerpo y energía y reconectar con tu valía personal desde un proceso profundo de autoconocimiento."
+    },
+    {
+        id: "mailee-vergara",
+        handle: "mailee-vergara",
+        title: "Mailee Vergara",
+        route: "/terapeutas/mailee-vergara",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/mailee-vergara/profilepicture.png",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/mailee-vergara/video.mp4",
+        role: "Guía en conexión interior y liderazgo personal",
+        description: "Te acompaño a volver a ti, escuchar tus emociones con honestidad y transformar lo que sientes en claridad, paz y dirección interior."
     }
 ];

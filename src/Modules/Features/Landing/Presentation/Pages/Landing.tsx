@@ -20,7 +20,7 @@ export default function LandingPage() {
                     <Logo alt="VibraHeka Logo" width={230} height={230} />
 
                     <h1 className="main-headline my-4">
-                        <strong>VibraHeka:</strong> El <strong>refugio online</strong> para volver a sentir
+                        <strong>VibraHeka:</strong> Tu <strong>refugio online</strong> para volver a sentir
                         paz, enfoque y energía en tu vida diaria
                     </h1>
 
