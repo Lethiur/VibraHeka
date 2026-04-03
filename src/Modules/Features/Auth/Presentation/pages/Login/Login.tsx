@@ -45,7 +45,7 @@ export default function Login() {
 
             if (authResult.isOk()) {
                 setIsAuthenticated(true);
-                navigate('/');
+                navigate('/profile/me');
             } else {
                 if (authResult.error == AuthErrorCodes.USER_NOT_CONFIRMED) {
                     localStorage.setString(STORAGE_KEYS.EMAIL, formData.get('email') as string);

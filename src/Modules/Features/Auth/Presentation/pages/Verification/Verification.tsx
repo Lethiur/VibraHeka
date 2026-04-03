@@ -54,7 +54,7 @@ export default function Verification() {
             });
 
             if (verificationResult.isOk()) {
-                navigate('/login')
+                navigate('/profile/me')
             } else {
                 setGlobalError(t(`errors.auth.${verificationResult.error}`))
             }
