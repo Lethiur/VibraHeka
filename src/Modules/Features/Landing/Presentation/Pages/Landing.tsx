@@ -45,7 +45,7 @@ export default function LandingPage() {
                                     </h2>
                                 </Col>
                                 <Col lg={8}>
-                                    <p className="section-subtitle">Lo que no expresas, se manifiestaƒ</p>
+                                    <p className="section-subtitle">Lo que no expresas, se manifiesta</p>
                                     <p>
                                         El cuerpo empieza a hablar cuando llevas demasiado tiempo acumulando tensión,
                                         preocupaciones o emociones que no han tenido espacio para salir.
