@@ -18,6 +18,10 @@ type PrimaryTextInputProps = {
     as?: React.ElementType
     showPasswordToggle?: boolean
     showPassword?: boolean
+    autoComplete?: string
+    autoCapitalize?: "none" | "sentences" | "words" | "characters"
+    autoCorrect?: "on" | "off"
+    spellCheck?: boolean
 }
 
 
@@ -35,7 +39,11 @@ export default function PrimaryTextInput({
     className,
     helpText,
     showPasswordToggle,
-    showPassword
+    showPassword,
+    autoComplete,
+    autoCapitalize,
+    autoCorrect,
+    spellCheck
 }: PrimaryTextInputProps) {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const canTogglePassword = type === "password" && (showPasswordToggle || showPassword);
@@ -56,6 +64,10 @@ export default function PrimaryTextInput({
                             disabled={disabled}
                             rows={rows}
                             required={required}
+                            autoComplete={autoComplete}
+                            autoCapitalize={autoCapitalize}
+                            autoCorrect={autoCorrect}
+                            spellCheck={spellCheck}
                             isInvalid={!!error}
                         />
                         <Button
@@ -80,6 +92,10 @@ export default function PrimaryTextInput({
                         disabled={disabled}
                         rows={rows}
                         required={required}
+                        autoComplete={autoComplete}
+                        autoCapitalize={autoCapitalize}
+                        autoCorrect={autoCorrect}
+                        spellCheck={spellCheck}
                         isInvalid={!!error}
                     />
                 )}

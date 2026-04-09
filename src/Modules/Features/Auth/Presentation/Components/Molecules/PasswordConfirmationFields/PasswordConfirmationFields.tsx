@@ -42,6 +42,10 @@ export default function PasswordConfirmationFields({
                 disabled={disabled}
                 type="password"
                 showPasswordToggle={true}
+                autoComplete="new-password"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 onChange={onPasswordChange}
                 helpText={passwordHelpText}
                 error={passwordError}
@@ -54,6 +58,10 @@ export default function PasswordConfirmationFields({
                 disabled={disabled}
                 type="password"
                 showPasswordToggle={true}
+                autoComplete="new-password"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 onChange={onConfirmationChange}
                 helpText={confirmationHelpText}
                 error={confirmationError}

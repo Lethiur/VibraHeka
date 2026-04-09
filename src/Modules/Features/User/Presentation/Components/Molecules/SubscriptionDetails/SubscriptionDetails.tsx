@@ -116,7 +116,7 @@ export default function SubscriptionDetails({
             return (
                 <Col md={12}>
                     <PrimaryButton
-                        label={subscription?.Status === OrderStatus.ENABLED_FOR_RETRY ? "Reanudar pago" : "Procesando tu pago espera...."}
+                        label={subscription?.Status === OrderStatus.ENABLED_FOR_RETRY ? "Reanudar pago" : "Procesando tu pago..."}
                         variant="success"
                         fullWidth={true}
                         disabled={!canResumeCheckout}

@@ -41,11 +41,11 @@ export default function LandingPage() {
                             <Row className="landing-intro__pain justify-content-center text-center mb-5">
                                 <Col lg={12}>
                                     <h2 className="section-title">
-                                        Cuando sostienes demasiado por dentro, tu cuerpo termina gritandolo
+                                        Cuando sostienes demasiado por dentro, tu cuerpo termina gritándolo
                                     </h2>
                                 </Col>
                                 <Col lg={8}>
-                                    <p className="section-subtitle">Lo que no expresas, se manifiesta.</p>
+                                    <p className="section-subtitle">Lo que no expresas, se manifiestaƒ</p>
                                     <p>
                                         El cuerpo empieza a hablar cuando llevas demasiado tiempo acumulando tensión,
                                         preocupaciones o emociones que no han tenido espacio para salir.
@@ -74,12 +74,12 @@ export default function LandingPage() {
                                 <h2>¿Qué encontrarás dentro de VibraHeka?</h2>
                                 <p className="section-subtitle">Un ecosistema de crecimiento emocional y energético</p>
                                 <p>
-                                    Accedes a meditaciones guiadas, rituales de liberación, charlas conscientes,
+                                    Al unirte a VibraHeka accederás a meditaciones guiadas, rituales de liberación, charlas conscientes,
                                     talleres prácticos
                                     y acompañamiento profesional en una misma ruta de crecimiento.
                                 </p>
                                 <p className="section-emphasis mb-0">
-                                    Una misma intención: liberar tensión y realinear cuerpo, mente y emoción.
+                                    Una misma intención: liberar tensión y realinear cuerpo, mente y emoción
                                 </p>
                             </div>
                         </SideImageBlock>
@@ -129,7 +129,7 @@ export default function LandingPage() {
                         <SideImageBlock image={fotoPag2} imageAlt="Transformación personal" imageLeft={false}
                                         contentVerticalAlign="center">
                             <div className="landing-copy">
-                                <h2>VibraHeka es para ti si estás listo para cambiar</h2>
+                                <h2>VibraHeka es para ti si quieres tomar la iniciativa para mejorar tu salud</h2>
                                 <p className="section-subtitle">Si quieres dejar de sobrevivir en automático y volver a
                                     sentirte bien</p>
                                 <p>
@@ -183,7 +183,7 @@ export default function LandingPage() {
                                         contentVerticalAlign="center">
                             <div className="landing-copy">
                                 <h2>Transforma tus emociones</h2>
-                                <p className="section-subtitle">Estrés en calma y ansiedad confianza y dirección</p>
+                                <p className="section-subtitle">Convierte el estrés en calma y la ansiedad en confianza y dirección</p>
                                 <p>
                                     En <strong>VibraHeka</strong> no vas solo: compartes, practicas y avanzas junto a
                                     personas que están
