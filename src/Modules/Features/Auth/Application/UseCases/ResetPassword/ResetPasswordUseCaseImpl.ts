@@ -7,6 +7,7 @@ import ResetPasswordDataValidator from "@auth/Application/Validators/ResetPasswo
 import { ValidationErrors } from "fluentvalidation-ts";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
+import { passwordsMatch, sanitizePasswordInput } from "@core/Application/Validation/PasswordInput";
 
 export default class ResetPasswordUseCaseImpl implements IResetPasswordUseCase {
 
@@ -16,18 +17,24 @@ export default class ResetPasswordUseCaseImpl implements IResetPasswordUseCase {
     ) { }
 
     public async execute(data: ResetPasswordData): Promise<Result<void, AuthErrorCodes>> {
-        const validationResult: ValidationErrors<ResetPasswordData> = this.validator.validate(data);
+        const sanitizedData: ResetPasswordData = {
+            ...data,
+            newPassword: sanitizePasswordInput(data.newPassword),
+            newPasswordConfirmation: sanitizePasswordInput(data.newPasswordConfirmation)
+        };
+
+        const validationResult: ValidationErrors<ResetPasswordData> = this.validator.validate(sanitizedData);
 
         if (Object.keys(validationResult).length > 0) {
             throw new InvalidEntityError(validationResult);
         }
 
-        if (data.newPassword !== data.newPasswordConfirmation) {
+        if (!passwordsMatch(sanitizedData.newPassword, sanitizedData.newPasswordConfirmation)) {
             throw new InvalidEntityError<ResetPasswordData>({
                 newPasswordConfirmation: AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH
             });
         }
 
-        return this.repository.ResetPassword(data);
+        return this.repository.ResetPassword(sanitizedData);
     }
 }

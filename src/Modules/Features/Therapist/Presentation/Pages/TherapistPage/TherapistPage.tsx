@@ -4,7 +4,6 @@ import VeraLucya from "@therapist/Presentation/Components/Atoms/VeraLucya";
 import { Container } from "react-bootstrap";
 import LuisGalvis from "@therapist/Presentation/Components/Atoms/LuisGalvis";
 import MarinaGarrido from "@therapist/Presentation/Components/Atoms/MarinaGarrido.tsx";
-import OlgaLucy from "@therapist/Presentation/Components/Atoms/OlgaLucy.tsx";
 import CarmenMartin from "@therapist/Presentation/Components/Atoms/CarmenMartin.tsx";
 import VeronicaHernandez from "@therapist/Presentation/Components/Atoms/VeronicaHernandez.tsx";
 import MaileeVergara from "@therapist/Presentation/Components/Atoms/MaileeVergara.tsx";
@@ -32,10 +31,6 @@ export default function TherapistPage() {
         case "marina-garrido":
             return <Container className="therapist-page vh-page-section">
                 <MarinaGarrido />
-            </Container>
-        case "olga-lucy-lopez-lopez":
-            return <Container className="therapist-page vh-page-section">
-                <OlgaLucy/>
             </Container>
         case "carmen-martin":
             return <Container className="therapist-page vh-page-section">

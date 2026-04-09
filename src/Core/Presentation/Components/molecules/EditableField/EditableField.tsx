@@ -56,7 +56,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
                 {label}
             </div>
             <div className="fs-5 text-dark">
-                {value || <span className="text-muted fst-italic">No information provided</span>}
+                {value || <span className="text-muted fst-italic">Sin información proporcionada</span>}
             </div>
         </div>
     );

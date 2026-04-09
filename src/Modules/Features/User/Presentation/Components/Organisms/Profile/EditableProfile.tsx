@@ -164,14 +164,14 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                             <Row>
                                 <Col md={12} lg={4}>
                                     <EditableField
-                                        label={t("pages.profile.fields.email", "Email")}
+                                        label={t("pages.profile.fields.email", "")}
                                         name="Email"
                                         value={formData!.Email}
                                         isEditing={false}
                                         type="email"
                                         helpText={
                                             IsOwnProfile && isEditing
-                                                ? t("pages.profile.fields.email_help", "Email cannot be changed directly.")
+                                                ? t("pages.profile.fields.email_help", "El e-mail no se puede cambiar")
                                                 : undefined
                                         }
                                         className="text-muted"
@@ -180,7 +180,7 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                 <Col lg={4}></Col>
                                 <Col md={12} lg={4}>
                                     <EditableField
-                                        label={t("pages.profile.fields.phone", "Telefono")}
+                                        label={t("pages.profile.fields.phone", "Teléfono")}
                                         name="Phone"
                                         value={formData!.Phone}
                                         isEditing={isEditing}
@@ -188,7 +188,7 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                         type="number"
                                         helpText={
                                             IsOwnProfile && isEditing
-                                                ? t("pages.profile.fields.phone_help", "Telefono")
+                                                ? t("pages.profile.fields.phone_help", "")
                                                 : undefined
                                         }
                                         className="text-muted"
@@ -211,7 +211,7 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                     {!isEditing ? (
                                         <>
                                             <PrimaryButton
-                                                label={t("pages.profile.edit_button", "Edit Profile")}
+                                                label={t("pages.profile.edit_button", "Editar Perfil")}
                                                 variant="primary"
                                                 iconLeft={<Pencil size={18} />}
                                                 onClick={() => setIsEditing(true)}
@@ -226,13 +226,13 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                     ) : (
                                         <>
                                             <PrimaryButton
-                                                label={t("common.cancel", "Cancel")}
+                                                label={t("common.cancel", "Cancelar")}
                                                 variant="outline-danger"
                                                 iconLeft={<X size={18} />}
                                                 onClick={() => setIsEditing(false)}
                                             />
                                             <PrimaryButton
-                                                label={t("common.save", "Save Changes")}
+                                                label={t("common.save", "Guardar cambios")}
                                                 variant="success"
                                                 type="submit"
                                                 iconLeft={<Save size={18} />}

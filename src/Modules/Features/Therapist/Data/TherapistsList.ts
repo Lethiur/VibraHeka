@@ -41,16 +41,6 @@ export const THERAPISTS_LIST: Therapist[] = [
         description: "Te acompaño en procesos de sanación profunda y equilibrio integral, uniendo cuerpo, mente, emociones y conciencia desde una mirada holística."
     },
     {
-        id: "a26534b4-d0c1-7057-5b42-bbecb887d165",
-        handle: "olga-lucy",
-        title: "Olga Lucy López",
-        route: "/terapeutas/olga-lucy-lopez-lopez",
-        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/olga-lucy/profilepicture.png",
-        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/olga-lucy/video.mp4",
-        role: "Sanadora energética",
-        description: "Te acompaño a ordenar tu energía, sanar bloqueos profundos y transformar tu historia con una mirada espiritual y sistémica."
-    },
-    {
         id: "6295b434-c021-70b4-3aa8-20b88c196a8a",
         handle: "vera-lucya",
         title: "Vera Lucya",
