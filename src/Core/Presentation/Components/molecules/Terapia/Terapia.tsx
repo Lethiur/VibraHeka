@@ -56,10 +56,10 @@ function Terapia({ title, children, buttonOnClick }: TerapiaProps) {
                             </div>
                         </Card.Text>
                     </div>
-                    <div className="terapia-card__footer mt-auto">
+                    {/* <div className="terapia-card__footer mt-auto">
                         {benefitsContent}
                         <PrimaryButton label="Reservar una sesi&oacute;n" onClick={buttonOnClick} fullWidth={true} />
-                    </div>
+                    </div> */}
                 </Card.Body>
             </Card>
         </Col>
