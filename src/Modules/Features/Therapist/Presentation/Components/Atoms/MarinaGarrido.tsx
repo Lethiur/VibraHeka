@@ -6,14 +6,14 @@ import { Container, Row } from "react-bootstrap";
 export default function MarinaGarrido() {
     return (
         <Container className="mt-5">
-            <h1>Marina Garrido</h1>
+            <h1>Marina De La Sen</h1>
             <SideImageBlock image="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/profilepicture.png" imageLeft={true} imageVerticalAlign="center">
                 <p>Acompaño procesos de crecimiento, equilibrio y sanación profunda integrando cuerpo, mente, emociones y conciencia.</p>
                 <p>Mi camino une comprensión de la naturaleza humana, visión holística e investigación integrativa para ayudarte a transformar tu realidad desde la coherencia interna.</p>
                 <p>Con herramientas prácticas y eficaces, te guío en un viaje de expansión y auto-sanación para que integres todas tus partes con más claridad y menos limitaciones.</p>
                 <p className="subtitle">"Todo depende de ti, si cambias tu frecuencia, resultado de tu coherencia y alineación con tu propósito, cambia tu realidad."</p>
             </SideImageBlock>
-            <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/video.mp4" />
+            <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/video.mp4" poster="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/profilepicture.png" />
 
             <h1>Mis terapias</h1>
             <p className="subtitle">Ofrezco sesiones individuales en:</p>

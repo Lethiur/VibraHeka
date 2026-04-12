@@ -33,7 +33,7 @@ export const THERAPISTS_LIST: Therapist[] = [
     {
         id: "32f524c4-10a1-7048-2988-f00c4a242a77",
         handle: "marina-garrido",
-        title: "Marina Garrido",
+        title: "Marina De La Sen",
         route: "/terapeutas/marina-garrido",
         image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/profilepicture.png",
         video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/marina-garrido/video.mp4",
