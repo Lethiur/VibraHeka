@@ -7,6 +7,7 @@ import {
     hasUppercase,
     PASSWORD_MIN_LENGTH
 } from "@core/Application/Validation/PasswordPolicy";
+import { passwordsMatch } from "@core/Application/Validation/PasswordInput";
 
 export default class RegistrationDataValidator extends Validator<RegistrationData> {
     constructor() {
@@ -52,7 +53,7 @@ export default class RegistrationDataValidator extends Validator<RegistrationDat
             .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_NOT_PRESENT)
             .minLength(PASSWORD_MIN_LENGTH)
             .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_TOO_SHORT)
-            .must((passwordConfirmation, model) => passwordConfirmation === model.password)
+            .must((passwordConfirmation, model) => passwordsMatch(passwordConfirmation, model.password))
             .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH);
     }
 }

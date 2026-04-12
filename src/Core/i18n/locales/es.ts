@@ -153,7 +153,7 @@ export const es = {
                 description: "Verifica tu cuenta para poder disfrutar de todos los beneficios que ofrecemos.",
                 form: {
                     code_label: "Código de verificación",
-                    code_help: "Introduce el código que te ha llegado a tu correo",
+                    code_help: "Introduce el código que te ha llegado a tu correo. Comprueba tu carpeta de spam si no lo recibes",
                     submit_button: "Verificar",
                     resend_button: "Reenviar codigo",
                     submitting_button: "Verificando..."
@@ -180,7 +180,7 @@ export const es = {
                     email_help: "Introduce el correo asociado a tu cuenta",
                     submit_button: "Enviar instrucciones",
                     submitting_button: "Enviando...",
-                    success_message: "Si el email existe, te hemos enviado las instrucciones de recuperación.",
+                    success_message: "Si existe una cuenta asociada al email, recibirás un correo con las instrucciones para recuperar tu contraseña.",
                     back_to_login: "Volver a identificarse"
                 }
             },
