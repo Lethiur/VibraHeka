@@ -32,12 +32,13 @@ export default function Profile(): ReactElement {
 
     return (
         <Container className="profile-page vh-page-section">
+            {isOwnProfile && <SubscriptionPanel timeZone={userTimeZone} />}
             <Row>
                 <Col md={12} lg={12}>
                     <EditableProfile UserID={isOwnProfile ? userID! : id!} IsOwnProfile={isOwnProfile} />
                 </Col>
             </Row>
-            {isOwnProfile && <SubscriptionPanel timeZone={userTimeZone} />}
+           
         </Container>
     );
 };
