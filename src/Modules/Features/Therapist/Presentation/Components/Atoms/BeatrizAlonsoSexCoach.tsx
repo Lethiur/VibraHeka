@@ -3,7 +3,7 @@ import Terapia from "@core/Presentation/Components/molecules/Terapia/Terapia";
 import { Container, Row } from "react-bootstrap";
 import { useState } from "react";
 import { BookingModal } from "@core/Presentation/Components/organisms/BookingModal/BookingModal";
-import VideoPlayer from "@/Core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
+import VideoPlayer from "@core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
 
 export default function BeatrizAlonsoSexCoach() {
     const [showBookingModal, setShowBookingModal] = useState(false);
