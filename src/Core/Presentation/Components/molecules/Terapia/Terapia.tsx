@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import PrimaryButton from "../../atoms/PrimaryButton/PrimaryButton";
 import { Card, Col } from "react-bootstrap";
 import React from "react";
 import "./Terapia.scss";
@@ -27,6 +26,10 @@ function Benefits({ children }: { children: ReactNode }) {
 function Terapia({ title, children, buttonOnClick }: TerapiaProps) {
     const textContent: ReactNode[] = [];
     const benefitsContent: ReactNode[] = [];
+    
+    if (buttonOnClick != undefined) {
+        console.log("Loaded therapy");
+    }
 
     React.Children.forEach(children, (child) => {
         if (!React.isValidElement(child)) return;
