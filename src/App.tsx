@@ -22,6 +22,7 @@ const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
 const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
 const LandingPage = lazy(() => import('@landing/Presentation/Pages/Landing'))
 const TerapeutasHome = lazy(() => import('@therapist/Presentation/Pages/TerapetuasHome'))
+const FreeClassesPage = lazy(() => import('@freeclasses/Presentation/Pages/FreeClassesPage/FreeClassesPage'))
 
 function App() {
 
@@ -89,6 +90,7 @@ function App() {
                         
                         <Route path="/terapeutas" element={<TerapeutasHome />} />
                         <Route path="/terapeutas/:id" element={<TherapistPage />} />
+                        <Route path="/clases-gratuitas" element={<FreeClassesPage />} />
                     </Routes>
                 </Suspense>
             </div>

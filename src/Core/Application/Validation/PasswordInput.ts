@@ -14,4 +14,3 @@ export function sanitizePasswordInput(input: string): string {
 export function passwordsMatch(a: string, b: string): boolean {
     return sanitizePasswordInput(a) === sanitizePasswordInput(b);
 }
-

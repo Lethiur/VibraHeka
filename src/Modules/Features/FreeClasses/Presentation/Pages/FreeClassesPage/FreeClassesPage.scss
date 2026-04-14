@@ -1,0 +1,277 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.free-classes-page {
+
+    // ── Header ───────────────────────────────────────────────
+    .fc-header {
+        padding-top: clamp(3rem, 6vw, 5rem);
+        padding-bottom: clamp(2.5rem, 5vw, 4rem);
+
+        &__inner {
+            max-width: 700px;
+            margin-inline: auto;
+        }
+
+        &__eyebrow {
+            font-family: fonts.$font-primary;
+            font-size: fonts.$font-size-sm;
+            font-weight: fonts.$font-weight-semibold;
+            letter-spacing: vars.$tracking-wider;
+            text-transform: uppercase;
+            color: vars.$color-primary;
+        }
+
+        &__title {
+            font-family: fonts.$font-display;
+            font-size: var(--type-hero-title-size);
+            font-weight: fonts.$font-weight-semibold;
+            line-height: fonts.$line-height-tight;
+            letter-spacing: vars.$tracking-tight;
+            color: vars.$color-primary;
+            text-wrap: balance;
+        }
+
+        &__desc {
+            font-size: var(--type-body-size);
+            line-height: 1.7;
+            color: vars.$color-dark;
+            max-width: 52ch;
+        }
+
+        .atom-button {
+            min-width: 18rem;
+        }
+    }
+
+    // ── Body ─────────────────────────────────────────────────
+    .fc-body {
+        padding-top: clamp(5rem, 10vw, 8rem);
+        padding-bottom: clamp(5rem, 10vw, 8rem);
+    }
+
+    // ── Shared typography within this page ───────────────────
+    .fc-learn h2,
+    .fc-cta h2,
+    .fc-testimonials-band h2,
+    .fc-about-copy h2 {
+        font-family: fonts.$font-display;
+        color: vars.$color-primary;
+    }
+
+    .section-subtitle {
+        font-family: fonts.$font-family-body;
+        font-size: var(--type-subtitle-size);
+        font-style: italic;
+        color: vars.$color-primary-dark;
+        line-height: 1.45;
+        margin-bottom: vars.$space-6;
+    }
+
+    .fc-eyebrow {
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-sm;
+        letter-spacing: vars.$tracking-wider;
+        text-transform: uppercase;
+        color: vars.$color-primary-dark;
+        font-weight: fonts.$font-weight-semibold;
+        margin-bottom: vars.$space-3;
+    }
+
+    // ── Learn section ─────────────────────────────────────────
+    .fc-learn {
+        padding-block: clamp(3rem, 7vw, 5rem);
+        margin-block: vars.$space-10;
+        background: linear-gradient(
+            135deg,
+            rgba(vars.$color-primary, 0.14),
+            rgba(vars.$color-secondary-light, 0.2)
+        );
+        box-shadow:
+            inset 0 1px 0 rgba(vars.$color-on-primary, 0.6),
+            inset 0 -1px 0 rgba(vars.$color-primary-dark, 0.15);
+
+        &__image-col {
+            display: flex;
+            justify-content: center;
+        }
+
+        &__image {
+            width: 100%;
+            max-width: 480px;
+            border-radius: vars.$radius-xl;
+            object-fit: cover;
+            aspect-ratio: 3 / 4;
+            box-shadow: vars.$shadow-xl;
+        }
+
+        &__items {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .fc-item {
+        &__number {
+            display: block;
+            font-family: fonts.$font-display;
+            font-size: fonts.$font-size-sm;
+            font-weight: fonts.$font-weight-semibold;
+            color: vars.$color-primary-dark;
+            letter-spacing: vars.$tracking-wider;
+            margin-bottom: vars.$space-2;
+        }
+
+        &__title {
+            font-family: fonts.$font-display;
+            font-size: var(--type-subtitle-size);
+            color: vars.$color-primary;
+            font-weight: fonts.$font-weight-semibold;
+            margin-bottom: vars.$space-3;
+        }
+
+        &__desc {
+            font-size: var(--type-body-size);
+            line-height: fonts.$line-height-loose;
+            color: vars.$color-dark;
+            margin-bottom: 0;
+        }
+    }
+
+    .fc-divider {
+        border: none;
+        border-top: 1px solid vars.$color-gray-300;
+        margin-block: vars.$space-5;
+    }
+
+    // ── Testimonials band ─────────────────────────────────────
+    .fc-testimonials-band {
+        width: 100%;
+        margin-block: vars.$space-10;
+        padding-block: clamp(3rem, 7vw, 5rem);
+
+        h2 {
+            margin-bottom: vars.$space-8;
+        }
+    }
+
+    .fc-testimonial {
+        background: rgba(vars.$color-surface, 0.65);
+        border-radius: vars.$radius-lg;
+        padding: vars.$space-8;
+        box-shadow: vars.$shadow-md;
+        height: 100%;
+        backdrop-filter: blur(4px);
+
+        &__text {
+            font-family: fonts.$font-display;
+            font-style: italic;
+            font-size: fonts.$font-size-md;
+            line-height: fonts.$line-height-loose;
+            color: vars.$color-dark;
+            margin-bottom: vars.$space-4;
+        }
+
+        &__name {
+            font-weight: fonts.$font-weight-semibold;
+            font-size: fonts.$font-size-sm;
+            color: vars.$color-primary-dark;
+            letter-spacing: vars.$tracking-wide;
+            text-transform: uppercase;
+            margin-bottom: 0;
+        }
+    }
+
+    // ── CTA band ──────────────────────────────────────────────
+    .fc-cta-band {
+        width: 100%;
+        margin-top: vars.$space-10;
+        padding-block: clamp(3rem, 7vw, 5rem);
+        background: linear-gradient(
+            135deg,
+            rgba(vars.$color-secondary-light, 0.18),
+            rgba(vars.$color-primary, 0.12)
+        );
+        box-shadow:
+            inset 0 1px 0 rgba(vars.$color-on-primary, 0.6),
+            inset 0 -1px 0 rgba(vars.$color-primary-dark, 0.14);
+
+        .atom-button {
+            width: min(100%, 26rem);
+        }
+    }
+
+    // ── About Carmen ──────────────────────────────────────────
+    .fc-about-copy {
+        padding-block: vars.$space-6;
+
+        p {
+            font-size: var(--type-body-size);
+            line-height: fonts.$line-height-loose;
+            margin-bottom: vars.$space-5;
+        }
+    }
+
+    .side-block {
+        margin-bottom: vars.$space-8;
+    }
+
+    // ── Footer logo ───────────────────────────────────────────
+    .fc-footer-logo {
+        padding-bottom: vars.$space-10;
+    }
+}
+
+// ── Responsive ───────────────────────────────────────────────
+@media (max-width: 768px) {
+    .free-classes-page {
+        .fc-header .atom-button {
+            min-width: unset;
+            width: 100%;
+        }
+
+        .fc-body {
+            padding-top: vars.$space-16;
+            padding-bottom: vars.$space-16;
+        }
+
+        .fc-learn {
+            margin-block: vars.$space-6;
+        }
+
+        .fc-testimonials-band {
+            margin-block: vars.$space-6;
+            padding-block: vars.$space-10;
+        }
+
+        .fc-cta-band {
+            margin-top: vars.$space-6;
+            padding-block: vars.$space-10;
+
+            .atom-button {
+                width: 100%;
+            }
+        }
+
+        .fc-learn {
+            padding-block: vars.$space-5;
+
+            &__image {
+                max-width: 100%;
+                aspect-ratio: 4 / 3;
+            }
+        }
+
+        .side-block {
+            margin-bottom: vars.$space-4;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .free-classes-page {
+        .fc-testimonial {
+            padding: vars.$space-6;
+        }
+    }
+}
