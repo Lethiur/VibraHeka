@@ -30,7 +30,9 @@ function App() {
     const { logout } = useLogout();
     const { pathname } = useLocation();
 
-    const hideNavbar = ['/clases-gratuitas'].includes(pathname);
+    const ROUTES_WITHOUT_NAVBAR = ['/clases-gratuitas'];
+    const normalizedPath = pathname.replace(/\/$/, '');
+    const hideNavbar = ROUTES_WITHOUT_NAVBAR.includes(normalizedPath);
 
     useEffect(() => {
         const handler = () => logout();
