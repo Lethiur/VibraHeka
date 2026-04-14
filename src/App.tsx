@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import VHNavbar from '@core/Presentation/Components/organisms/NavBar/Navbar'
 
 
@@ -28,6 +28,9 @@ function App() {
 
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const { logout } = useLogout();
+    const { pathname } = useLocation();
+
+    const hideNavbar = ['/clases-gratuitas'].includes(pathname);
 
     useEffect(() => {
         const handler = () => logout();
@@ -46,7 +49,7 @@ function App() {
 
     return (
         <>
-            <VHNavbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()} />
+            {!hideNavbar && <VHNavbar isAuthenticated={isAuthenticated} onLogout={logout} role={getRole()} />}
 
             <div className="app-content">
                 <Suspense fallback={<AppLoader />}>
