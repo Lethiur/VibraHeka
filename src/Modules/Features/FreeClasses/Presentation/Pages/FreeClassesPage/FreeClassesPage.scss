@@ -236,40 +236,53 @@
 // ── Responsive ───────────────────────────────────────────────
 @media (max-width: 768px) {
     .free-classes-page {
-        .fc-header .atom-button {
-            min-width: unset;
-            width: 100%;
-        }
 
-        .fc-body {
-            padding-top: vars.$space-16;
-            padding-bottom: vars.$space-16;
-        }
-
-        .fc-learn {
-            margin-block: vars.$space-6;
-        }
-
-        .fc-testimonials-band {
-            margin-block: vars.$space-6;
-            padding-block: vars.$space-10;
-        }
-
+        // Secciones centradas: anular el justify global de mobile
+        .fc-header,
+        .fc-testimonials-band,
         .fc-cta-band {
-            margin-top: vars.$space-6;
-            padding-block: vars.$space-10;
+            h1, h2, h6, p, span {
+                text-align: center !important;
+                text-justify: auto !important;
+                hyphens: none !important;
+            }
+        }
+
+        .fc-header {
+            padding-top: vars.$space-10;
 
             .atom-button {
+                min-width: unset;
                 width: 100%;
             }
         }
 
+        .fc-body {
+            padding-top: vars.$space-10;
+            padding-bottom: vars.$space-10;
+        }
+
         .fc-learn {
-            padding-block: vars.$space-5;
+            margin-block: vars.$space-6;
+            padding-block: vars.$space-8;
 
             &__image {
                 max-width: 100%;
                 aspect-ratio: 4 / 3;
+            }
+        }
+
+        .fc-testimonials-band {
+            margin-block: vars.$space-6;
+            padding-block: vars.$space-8;
+        }
+
+        .fc-cta-band {
+            margin-top: vars.$space-6;
+            padding-block: vars.$space-8;
+
+            .atom-button {
+                width: 100%;
             }
         }
 
