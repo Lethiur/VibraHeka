@@ -157,6 +157,9 @@ button {
             display: none;
         }
 
+        // React-Bootstrap uses `.collapsing` during the transition; styling only `.show`
+        // causes the menu to appear unstyled while expanding/collapsing.
+        &.collapsing,
         &.show {
             display: flex;
             flex-direction: column;
@@ -169,6 +172,7 @@ button {
             background-color: vars.$color-surface;
             border-bottom: 1px solid vars.$color-gray-200;
             box-shadow: vars.$shadow-md;
+            z-index: 199;
 
             .navbar-nav {
                 flex-direction: column;
