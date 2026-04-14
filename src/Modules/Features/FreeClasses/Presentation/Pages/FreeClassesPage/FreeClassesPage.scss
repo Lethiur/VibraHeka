@@ -202,6 +202,17 @@
     }
 
     // ── About Carmen ──────────────────────────────────────────
+    .fc-about-section {
+        .side-block__image-col {
+            align-self: stretch;
+        }
+
+        .side-block__image {
+            height: 100%;
+            aspect-ratio: unset;
+        }
+    }
+
     .fc-about-copy {
         padding-block: vars.$space-6;
 

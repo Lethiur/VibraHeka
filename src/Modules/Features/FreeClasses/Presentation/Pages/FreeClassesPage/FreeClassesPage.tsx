@@ -198,6 +198,7 @@ export default function FreeClassesPage() {
                 {/* ── About Carmen ──────────────────────────────── */}
                 <Container className="px-3 px-sm-4">
                     <Reveal>
+                        <div className="fc-about-section">
                         <SideImageBlock
                             image={carmenClasesGratuitas}
                             imageAlt="Carmen, terapeuta especializada en Fisioterapia Energética"
@@ -251,6 +252,7 @@ export default function FreeClassesPage() {
                                 />
                             </div>
                         </SideImageBlock>
+                        </div>
                     </Reveal>
                 </Container>
 
