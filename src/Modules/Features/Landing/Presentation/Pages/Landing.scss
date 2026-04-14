@@ -102,7 +102,7 @@
     .landing-intro h2,
     .landing-difference h2 {
         font-family: fonts.$font-display;
-        color: vars.$color-dark;
+        color: vars.$color-primary;
         //text-wrap: balance;
     }
 
@@ -198,6 +198,7 @@
         h1 {
             width: 100%;
             max-width: none;
+            color: vars.$color-primary;
         }
 
         .atom-button {
