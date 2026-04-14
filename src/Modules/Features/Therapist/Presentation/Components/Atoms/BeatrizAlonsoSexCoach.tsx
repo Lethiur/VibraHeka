@@ -30,7 +30,7 @@ export default function BeatrizAlonsoSexCoach() {
                 <p className="subtitle">Si sientes que este es tu momento, explora mis terapias dentro de Vibraheka y da el primer paso hacia tu bienestar.</p>
             </SideImageBlock>
 
-            <VideoPlayer src="https://drive.google.com/file/d/14aS3xeN0w0O-GzgAlcyJQZd_qpMtJhVV/view?usp=drive_link" />
+            <VideoPlayer src="https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/sex-coach-video.mp4" />
 
             <h1>Mis terapias</h1>
             <p className="subtitle">Ofrezco acompañamiento en programas de sesiones individuales:</p>
