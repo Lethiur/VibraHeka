@@ -21,16 +21,6 @@ export const THERAPISTS_LIST: Therapist[] = [
         description: "Te acompaño a comprender lo que tu animal siente y necesita para mejorar la convivencia y fortalecer vuestro vínculo desde la empatía."
     },
     {
-        id: "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e",
-        handle: "beatriz-sex-coach",
-        title: "Beatriz Alonso - Sex Coach",
-        route: "/terapeutas/beatriz-alonso-sex-coach",
-        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/beatriz-sex-coach.jpeg",
-        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/video.mp4",
-        role: "Coach Sexual Holística y Promotora de Igualdad",
-        description: "Te acompaño a liberar bloqueos y a crear una relación amorosa con tu cuerpo y tu deseo, un proceso de transformación hacia una sexualidad más consciente."
-    },
-    {
         id: "32f57464-b0b1-70a2-57cf-b6771655ad93",
         handle: "luis-galvis",
         title: "Luis Galvis",
@@ -89,5 +79,15 @@ export const THERAPISTS_LIST: Therapist[] = [
         video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/mailee-vergara/video.mp4",
         role: "Guía en conexión interior y liderazgo personal",
         description: "Te acompaño a volver a ti, escuchar tus emociones con honestidad y transformar lo que sientes en claridad, paz y dirección interior."
-    }
+    },
+    {
+        id: "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e",
+        handle: "beatriz-sex-coach",
+        title: "Beatriz Alonso - Sex Coach",
+        route: "/terapeutas/beatriz-alonso-sex-coach",
+        image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/beatriz-sex-coach.jpeg",
+        video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/video.mp4",
+        role: "Sex coach holística y promotora de igualdad",
+        description: "Te acompaño a liberar bloqueos y a crear una relación amorosa con tu cuerpo y tu deseo, un proceso de transformación hacia una sexualidad más consciente."
+    },
 ];
