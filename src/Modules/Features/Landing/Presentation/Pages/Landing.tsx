@@ -12,7 +12,13 @@ import fotoPag4 from "../../../../../Assets/Images/foto pag 4.jpg";
 import fotoPag5 from "../../../../../Assets/Images/foto pag 5.jpg";
 import fotoPag7 from "../../../../../Assets/Images/foto pag 7.jpg";
 
+import {useNavigate} from "react-router-dom";
+
+
 export default function LandingPage() {
+    
+    const navigate = useNavigate();
+    
     return (
         <div className="landing-page">
             <section
@@ -29,7 +35,7 @@ export default function LandingPage() {
                     </p>
 
                     <div className="cta-wrapper mt-4 mt-md-5">
-                        <PrimaryButton label="Quiero unirme a VibraHeka" variant="primary"/>
+                        <PrimaryButton label="Quiero unirme a VibraHeka" variant="primary" onClick={() => navigate('/registro')}/>
                     </div>
                 </Container>
             </section>
@@ -45,7 +51,7 @@ export default function LandingPage() {
                                     </h2>
                                 </Col>
                                 <Col lg={8}>
-                                    <p className="section-subtitle">Lo que no expresas, se manifiestaƒ</p>
+                                    <p className="section-subtitle">Lo que no expresas, se manifiesta</p>
                                     <p>
                                         El cuerpo empieza a hablar cuando llevas demasiado tiempo acumulando tensión,
                                         preocupaciones o emociones que no han tenido espacio para salir.
@@ -116,7 +122,7 @@ export default function LandingPage() {
                                 <Col lg={12}>
                                     <div className="my-5 text-center">
                                         <PrimaryButton label="Quiero empezar mi proceso" fullWidth={true}
-                                                       variant="secondary"/>
+                                                       variant="secondary" onClick={() => navigate('/registro')}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -173,7 +179,7 @@ export default function LandingPage() {
                                     Además no estarás solo, recibirás acompañamiento cuando lo necesites. Todo esto para
                                     crear e integrar nuevos hábitos que se sostengan en el tiempo.</p>
                                 <p className="section-emphasis">Inicia tu camino hacia la calma.</p>
-                                <PrimaryButton label="Quiero empezar hoy" fullWidth={true} variant="secondary"/>
+                                <PrimaryButton label="Quiero empezar hoy" fullWidth={true} variant="secondary" onClick={() => navigate('/registro')}/>
                             </div>
                         </SideImageBlock>
                     </Reveal>
@@ -191,7 +197,7 @@ export default function LandingPage() {
                                 </p>
                                 <p className="section-emphasis">La tranquilidad que buscas puede empezar hoy.</p>
                                 <PrimaryButton label="Quiero formar parte de VibraHeka" fullWidth={true}
-                                               variant="secondary"/>
+                                               variant="secondary" onClick={() => navigate('/registro')}/>
                             </div>
                         </SideImageBlock>
                     </Reveal>
@@ -214,7 +220,7 @@ export default function LandingPage() {
                                 </p>
                                 <div className="mt-4 d-flex justify-content-center">
                                     <PrimaryButton label="Quiero vivir la experiencia" fullWidth={true}
-                                                   variant="secondary"/>
+                                                   variant="secondary" onClick={() => navigate('/registro')}/>
                                 </div>
                             </div>
                         </Reveal>
@@ -235,7 +241,7 @@ export default function LandingPage() {
                                     Si has llegado hasta aquí, este puede ser tu momento para empezar un cambio real.
                                 </p>
                                 <p className="section-emphasis">Da el primer paso. Tu bienestar te está esperando.</p>
-                                <PrimaryButton label="Entrar ahora en VibraHeka" fullWidth={true} variant="secondary"/>
+                                <PrimaryButton label="Entrar ahora en VibraHeka" fullWidth={true} variant="secondary" onClick={() => navigate('/registro')}/>
                             </div>
                         </SideImageBlock>
                     </Reveal>

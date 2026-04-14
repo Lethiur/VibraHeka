@@ -1,6 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import './Navbar.scss'
 import { Navbar, Container, Image, Nav } from "react-bootstrap";
+
+import logo from "../../../../../Assets/Images/logo-web.png";
 interface NavbarProps {
     isAuthenticated: boolean;
     onLogout: () => void;
@@ -15,9 +17,9 @@ export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProp
                 {/* Marca y Logo */}
                 <Navbar.Brand as={Link} to="/">
                     <Image
-                        src="http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png"
-                        alt="logo"
-                        style={{ width: "90px", height: "90px", marginRight: "8px" }}
+                        src={logo}
+                        alt="VibraHeka"
+                        className="navbar-brand__logo"
                     />
                     <span>VibraHeka</span>
                 </Navbar.Brand>

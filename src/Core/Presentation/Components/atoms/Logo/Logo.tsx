@@ -1,4 +1,6 @@
 import "./Logo.scss";
+import logo from "../../../../../Assets/Images/logo-web.png";
+import {Image} from "react-bootstrap";
 
 interface LogoProps {
     src?: string;
@@ -8,10 +10,9 @@ interface LogoProps {
     className?: string;
 }
 
-const BRAND_LOGO_URL = "http://vibraheka.com/wp-content/uploads/2025/09/logo-vibrakeca3-1__1_-removebg-preview-1.png";
+
 
 export default function Logo({
-    src = BRAND_LOGO_URL,
     alt = "VibraHeka",
     width = 220,
     height = 220,
@@ -19,7 +20,7 @@ export default function Logo({
 }: LogoProps) {
     return (
         <div className={`vh-logo ${className}`.trim()}>
-            <img className="vh-logo__image" src={src} alt={alt} width={width} height={height} />
+            <Image className="vh-logo__image" src={logo} alt={alt} width={width} height={height} />
         </div>
     );
 }
