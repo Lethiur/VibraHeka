@@ -1,5 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { OverlayTrigger, Popover } from "react-bootstrap";
 import { evaluatePasswordPolicy, PASSWORD_MIN_LENGTH } from "@core/Application/Validation/PasswordPolicy";
 import "./PasswordStrengthIndicator.scss";
 
@@ -9,6 +10,7 @@ interface PasswordStrengthIndicatorProps {
 
 export default function PasswordStrengthIndicator({ password }: PasswordStrengthIndicatorProps) {
     const { t } = useTranslation();
+    const target = useRef(null);
 
     const policy = useMemo(() => evaluatePasswordPolicy(password), [password]);
     const strength = policy.strengthScore;
@@ -50,13 +52,45 @@ export default function PasswordStrengthIndicator({ password }: PasswordStrength
         }
     ];
 
+    const requirementsPopover = (
+        <Popover className="password-strength-indicator__popover">
+            <Popover.Header>{t("components.auth.password_strength.requirements.title")}</Popover.Header>
+            <Popover.Body>
+                <ul className="password-strength-indicator__requirements-list">
+                    {requirements.map((req) => (
+                        <li
+                            key={req.key}
+                            className={`password-strength-indicator__requirement ${req.met ? "password-strength-indicator__requirement--met" : ""}`}
+                        >
+                            {req.label}
+                        </li>
+                    ))}
+                </ul>
+            </Popover.Body>
+        </Popover>
+    );
+
     return (
         <div className="password-strength-indicator" aria-live="polite">
             <div className="password-strength-indicator__header">
                 <span className="type-caption">{t("components.auth.password_strength.title")}</span>
-                <span className={`password-strength-indicator__label password-strength-indicator__label--${tone}`}>
-                    {t(labelKey)}
-                </span>
+                <div className="password-strength-indicator__header-right">
+                    {strength > 0 && (
+                        <span className={`password-strength-indicator__label password-strength-indicator__label--${tone}`}>
+                            {t(labelKey)}
+                        </span>
+                    )}
+                    <OverlayTrigger trigger="click" placement="top" overlay={requirementsPopover} rootClose>
+                        <button
+                            ref={target}
+                            type="button"
+                            className="password-strength-indicator__info-btn"
+                            aria-label="Ver requisitos de contraseña"
+                        >
+                            ?
+                        </button>
+                    </OverlayTrigger>
+                </div>
             </div>
 
             <div className="password-strength-indicator__track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={ratio}>
@@ -65,20 +99,6 @@ export default function PasswordStrengthIndicator({ password }: PasswordStrength
                     style={{ width: `${ratio}%` }}
                 />
             </div>
-
-            <div className="password-strength-indicator__requirements-title">
-                {t("components.auth.password_strength.requirements.title")}
-            </div>
-            <ul className="password-strength-indicator__requirements-list">
-                {requirements.map((requirement) => (
-                    <li
-                        key={requirement.key}
-                        className={`password-strength-indicator__requirement ${requirement.met ? "password-strength-indicator__requirement--met" : ""}`}
-                    >
-                        {requirement.label}
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 }

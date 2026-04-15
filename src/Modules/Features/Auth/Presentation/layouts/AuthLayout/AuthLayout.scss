@@ -1,4 +1,5 @@
 @use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
 
 .auth-layout {
     --auth-layout-card-max-width: 34rem;
@@ -21,7 +22,7 @@
     }
 
     &__head {
-        margin-bottom: vars.$space-8;
+        margin-bottom: vars.$space-6;
     }
 
     &__subtitle {
@@ -30,6 +31,47 @@
     }
 }
 
-.auth-form__submit {
+.auth-form__section {
+    position: relative;
+    padding-top: vars.$space-6;
+    margin-bottom: vars.$space-2;
+
+    & + & {
+        border-top: 1px solid vars.$color-gray-200;
+    }
+}
+
+.auth-form__section-label {
+    display: block;
+    font-family: fonts.$font-primary;
+    font-size: 0.7rem;
+    font-weight: fonts.$font-weight-semibold;
+    letter-spacing: vars.$tracking-widest;
+    text-transform: uppercase;
+    color: vars.$color-primary;
+    margin-bottom: vars.$space-4;
+}
+
+.auth-form__legal-disclaimer {
     margin-top: vars.$space-6;
+    margin-bottom: 0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: vars.$color-gray-500;
+    text-align: center !important;
+
+    a {
+        color: vars.$color-primary;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        font-weight: 500;
+
+        &:hover {
+            color: vars.$color-primary-dark;
+        }
+    }
+}
+
+.auth-form__submit {
+    margin-top: vars.$space-4;
 }

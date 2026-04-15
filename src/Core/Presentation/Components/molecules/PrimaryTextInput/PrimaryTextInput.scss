@@ -11,6 +11,14 @@
         color: vars.$color-dark;
         letter-spacing: vars.$tracking-wide;
         margin-bottom: vars.$space-2;
+
+        .primary-text-input__required {
+            color: vars.$color-error !important;
+            font-size: 1rem;
+            font-weight: fonts.$font-weight-semibold;
+            margin-left: vars.$space-1;
+            line-height: 1;
+        }
     }
 
     .form-control {

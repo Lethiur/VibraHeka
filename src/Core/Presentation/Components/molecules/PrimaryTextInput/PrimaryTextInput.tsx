@@ -52,7 +52,10 @@ export default function PrimaryTextInput({
     return (
         <>
             <Form.Group className={`primary-text-input ${className || ''}`} controlId={name}>
-                <Form.Label>{label}</Form.Label>
+                <Form.Label>
+                    {label}
+                    {required && <span className="primary-text-input__required" aria-hidden="true"> *</span>}
+                </Form.Label>
                 {canTogglePassword ? (
                     <InputGroup hasValidation>
                         <Form.Control

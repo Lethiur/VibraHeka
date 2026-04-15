@@ -40,6 +40,7 @@ export default function PasswordConfirmationFields({
                 name={passwordName}
                 value={passwordValue}
                 disabled={disabled}
+                required
                 type="password"
                 showPasswordToggle={true}
                 autoComplete="new-password"
@@ -50,12 +51,12 @@ export default function PasswordConfirmationFields({
                 helpText={passwordHelpText}
                 error={passwordError}
             />
-            <PasswordStrengthIndicator password={passwordValue} />
             <PrimaryTextInput
                 label={confirmationLabel}
                 name={confirmationName}
                 value={confirmationValue}
                 disabled={disabled}
+                required
                 type="password"
                 showPasswordToggle={true}
                 autoComplete="new-password"
@@ -66,6 +67,7 @@ export default function PasswordConfirmationFields({
                 helpText={confirmationHelpText}
                 error={confirmationError}
             />
+            <PasswordStrengthIndicator password={passwordValue} />
         </div>
     );
 }

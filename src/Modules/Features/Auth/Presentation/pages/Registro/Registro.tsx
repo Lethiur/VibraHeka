@@ -8,7 +8,8 @@ import RegisterUserUseCase from "@auth/Application/UseCases/RegisterUser/Registe
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { RegistrationResult } from "@auth/Domain/Models/RegistrationResult";
 import { Result } from "neverthrow";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate, Link } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
@@ -73,46 +74,74 @@ export default function Registro() {
             <ErrorBox message={globalError} />
 
             <form onSubmit={handleSubmit} noValidate>
-                <PrimaryTextInput
-                    label={t('pages.register.form.email_label')}
-                    name="email"
-                    disabled={isSubmitting}
-                    error={errors.email ? t(`errors.auth.${errors.email}`, { defaultValue: errors.email.toString() }) : undefined}
-                />
-                <PrimaryTextInput
-                    label={t('pages.register.form.name_label')}
-                    name="firstName"
-                    disabled={isSubmitting}
-                    error={errors.firstName ? t(`errors.auth.${errors.firstName}`, { defaultValue: errors.firstName.toString() }) : undefined}
-                />
-                <PrimaryTextInput
-                    label={t('pages.register.form.middle_name_label')}
-                    name="middleName"
-                    disabled={isSubmitting}
-                    error={errors.middleName ? t(`errors.auth.${errors.middleName}`, { defaultValue: errors.middleName.toString() }) : undefined}
-                />
-                <PrimaryTextInput
-                    label={t('pages.register.form.last_name_label')}
-                    name="lastName"
-                    disabled={isSubmitting}
-                    error={errors.lastName ? t(`errors.auth.${errors.lastName}`, { defaultValue: errors.lastName.toString() }) : undefined}
-                />
-                <PasswordConfirmationFields
-                    passwordName="password"
-                    passwordLabel={t("pages.register.form.password_label")}
-                    passwordValue={password}
-                    onPasswordChange={(event) => setPassword(event.target.value)}
-                    passwordError={errors.password ? t(`errors.auth.${errors.password}`, { defaultValue: errors.password.toString() }) : undefined}
-                    confirmationName="passwordConfirmation"
-                    confirmationLabel={t("pages.register.form.password_confirmation_label")}
-                    confirmationValue={passwordConfirmation}
-                    onConfirmationChange={(event) => setPasswordConfirmation(event.target.value)}
-                    confirmationHelpText={t("pages.register.form.password_confirmation_help")}
-                    confirmationError={errors.passwordConfirmation
-                        ? t(`errors.auth.${errors.passwordConfirmation}`, { defaultValue: errors.passwordConfirmation.toString() })
-                        : undefined}
-                    disabled={isSubmitting}
-                />
+                <div className="auth-form__section">
+                    <span className="auth-form__section-label">Acceso</span>
+                    <PrimaryTextInput
+                        label={t('pages.register.form.email_label')}
+                        name="email"
+                        type="email"
+                        required
+                        disabled={isSubmitting}
+                        error={errors.email ? t(`errors.auth.${errors.email}`, { defaultValue: errors.email.toString() }) : undefined}
+                    />
+                </div>
+
+                <div className="auth-form__section">
+                    <span className="auth-form__section-label">Datos personales</span>
+                    <Row className="g-3">
+                        <Col xs={12} sm={7}>
+                            <PrimaryTextInput
+                                label={t('pages.register.form.name_label')}
+                                name="firstName"
+                                required
+                                disabled={isSubmitting}
+                                error={errors.firstName ? t(`errors.auth.${errors.firstName}`, { defaultValue: errors.firstName.toString() }) : undefined}
+                            />
+                        </Col>
+                        <Col xs={12} sm={5}>
+                            <PrimaryTextInput
+                                label={t('pages.register.form.middle_name_label')}
+                                name="middleName"
+                                disabled={isSubmitting}
+                                error={errors.middleName ? t(`errors.auth.${errors.middleName}`, { defaultValue: errors.middleName.toString() }) : undefined}
+                            />
+                        </Col>
+                    </Row>
+                    <PrimaryTextInput
+                        label={t('pages.register.form.last_name_label')}
+                        name="lastName"
+                        required
+                        disabled={isSubmitting}
+                        error={errors.lastName ? t(`errors.auth.${errors.lastName}`, { defaultValue: errors.lastName.toString() }) : undefined}
+                    />
+                </div>
+
+                <div className="auth-form__section">
+                    <span className="auth-form__section-label">Contraseña</span>
+                    <PasswordConfirmationFields
+                        passwordName="password"
+                        passwordLabel={t("pages.register.form.password_label")}
+                        passwordValue={password}
+                        onPasswordChange={(event) => setPassword(event.target.value)}
+                        passwordError={errors.password ? t(`errors.auth.${errors.password}`, { defaultValue: errors.password.toString() }) : undefined}
+                        confirmationName="passwordConfirmation"
+                        confirmationLabel={t("pages.register.form.password_confirmation_label")}
+                        confirmationValue={passwordConfirmation}
+                        onConfirmationChange={(event) => setPasswordConfirmation(event.target.value)}
+                        confirmationHelpText={t("pages.register.form.password_confirmation_help")}
+                        confirmationError={errors.passwordConfirmation
+                            ? t(`errors.auth.${errors.passwordConfirmation}`, { defaultValue: errors.passwordConfirmation.toString() })
+                            : undefined}
+                        disabled={isSubmitting}
+                    />
+                </div>
+
+                <p className="auth-form__legal-disclaimer">
+                    Al registrarte aceptas nuestra{' '}
+                    <Link to="/politica-de-privacidad">Política de Privacidad</Link>,{' '}
+                    el <Link to="/aviso-legal">Aviso Legal</Link> y los{' '}
+                    <Link to="/terminos-y-condiciones">Términos y Condiciones</Link>.
+                </p>
 
                 <div className="auth-form__submit">
                     <PrimaryButton
