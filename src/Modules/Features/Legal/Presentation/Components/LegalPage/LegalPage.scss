@@ -1,0 +1,131 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.legal-page {
+    max-width: 860px;
+    margin-inline: auto;
+
+    &__header {
+        margin-bottom: vars.$space-10;
+        padding-bottom: vars.$space-8;
+        border-bottom: 1px solid vars.$color-gray-200;
+    }
+
+    &__updated {
+        font-size: fonts.$font-size-xs;
+        letter-spacing: vars.$tracking-wide;
+        text-transform: uppercase;
+        color: vars.$color-gray-500;
+        margin-bottom: vars.$space-3;
+    }
+
+    &__title {
+        font-family: fonts.$font-display;
+        font-size: var(--type-hero-title-size);
+        font-weight: fonts.$font-weight-light;
+        color: vars.$color-primary;
+        line-height: fonts.$line-height-tight;
+        letter-spacing: vars.$tracking-tight;
+        margin: 0;
+    }
+
+    // ── Content typography ───────────────────────────
+    &__content {
+        h2 {
+            font-family: fonts.$font-display;
+            font-size: var(--type-title-size);
+            font-weight: fonts.$font-weight-semibold;
+            color: vars.$color-primary;
+            margin-top: vars.$space-12;
+            margin-bottom: vars.$space-4;
+            padding-bottom: vars.$space-3;
+            border-bottom: 1px solid vars.$color-gray-200;
+        }
+
+        h3 {
+            font-family: fonts.$font-display;
+            font-size: fonts.$font-size-xl;
+            font-weight: fonts.$font-weight-semibold;
+            color: vars.$color-primary-dark;
+            margin-top: vars.$space-8;
+            margin-bottom: vars.$space-3;
+        }
+
+        p {
+            font-size: var(--type-body-size);
+            line-height: 1.85;
+            color: vars.$color-dark;
+            margin-bottom: vars.$space-5;
+        }
+
+        ul, ol {
+            list-style: revert;
+            padding-left: vars.$space-8;
+            margin-bottom: vars.$space-5;
+
+            li {
+                font-size: var(--type-body-size);
+                line-height: 1.85;
+                color: vars.$color-dark;
+                margin-bottom: vars.$space-2;
+            }
+        }
+
+        strong {
+            color: vars.$color-dark;
+            font-weight: fonts.$font-weight-semibold;
+        }
+
+        a {
+            color: vars.$color-primary;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+
+            &:hover {
+                color: vars.$color-primary-dark;
+            }
+        }
+
+        .legal-highlight {
+            background: vars.$color-gray-100;
+            border-left: 3px solid vars.$color-primary;
+            border-radius: 0 vars.$radius-md vars.$radius-md 0;
+            padding: vars.$space-5 vars.$space-6;
+            margin-block: vars.$space-6;
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .legal-contact-block {
+            background: linear-gradient(135deg, rgba(vars.$color-primary, 0.06), rgba(vars.$color-secondary-light, 0.1));
+            border: 1px solid rgba(vars.$color-primary, 0.15);
+            border-radius: vars.$radius-lg;
+            padding: vars.$space-8;
+            margin-block: vars.$space-8;
+
+            p {
+                margin-bottom: vars.$space-2;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .legal-page {
+        &__content {
+            h2 {
+                margin-top: vars.$space-10;
+            }
+
+            h3 {
+                margin-top: vars.$space-6;
+            }
+        }
+    }
+}

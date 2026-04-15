@@ -47,6 +47,9 @@
             ],
             "@freeclasses/*": [
                 "src/Modules/Features/FreeClasses/*"
+            ],
+            "@legal/*": [
+                "src/Modules/Features/Legal/*"
             ]
         },
         "allowImportingTsExtensions": true,

@@ -1,0 +1,133 @@
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.vh-footer {
+    width: 100%;
+    background: linear-gradient(135deg, vars.$color-dark 0%, rgba(55, 1, 54, 0.92) 100%);
+    color: rgba(vars.$color-on-primary, 0.75);
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: 0;
+
+    // ── Brand ────────────────────────────────────────
+    &__brand {
+        &-name {
+            font-family: fonts.$font-display;
+            font-size: fonts.$font-size-2xl;
+            font-weight: fonts.$font-weight-light;
+            letter-spacing: vars.$tracking-tight;
+            color: vars.$color-on-primary;
+            line-height: 1;
+        }
+    }
+
+    &__tagline {
+        font-size: fonts.$font-size-sm;
+        line-height: 1.7;
+        color: rgba(vars.$color-on-primary, 0.6);
+        max-width: 32ch;
+        margin-bottom: 0;
+    }
+
+    // ── Columns ──────────────────────────────────────
+    &__heading {
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-xs;
+        font-weight: fonts.$font-weight-bold;
+        letter-spacing: vars.$tracking-widest;
+        text-transform: uppercase;
+        color: vars.$color-primary-light;
+        margin-bottom: vars.$space-4;
+    }
+
+    &__links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: vars.$space-3;
+
+        li a {
+            font-family: fonts.$font-primary;
+            font-size: fonts.$font-size-sm;
+            color: rgba(vars.$color-on-primary, 0.65);
+            text-decoration: none;
+            transition: color vars.$transition-fast;
+
+            &:hover {
+                color: vars.$color-primary-light;
+            }
+        }
+    }
+
+    // ── Bottom bar ───────────────────────────────────
+    &__bottom {
+        margin-top: clamp(2.5rem, 5vw, 4rem);
+        padding-block: vars.$space-5;
+        border-top: 1px solid rgba(vars.$color-on-primary, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: vars.$space-3;
+    }
+
+    &__copy {
+        font-size: fonts.$font-size-xs;
+        color: rgba(vars.$color-on-primary, 0.4);
+        margin: 0;
+        letter-spacing: vars.$tracking-wide;
+    }
+
+    &__legal-links {
+        display: flex;
+        align-items: center;
+        gap: vars.$space-3;
+
+        a {
+            font-size: fonts.$font-size-xs;
+            color: rgba(vars.$color-on-primary, 0.45);
+            text-decoration: none;
+            transition: color vars.$transition-fast;
+            letter-spacing: vars.$tracking-wide;
+
+            &:hover {
+                color: vars.$color-primary-light;
+            }
+        }
+
+        span {
+            color: rgba(vars.$color-on-primary, 0.25);
+            font-size: fonts.$font-size-xs;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .vh-footer {
+        &__body {
+            gap: vars.$space-8 !important;
+        }
+
+        &__brand {
+            &-name {
+                font-size: fonts.$font-size-xl;
+            }
+        }
+
+        &__tagline {
+            max-width: 100%;
+        }
+
+        &__bottom {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: vars.$space-2;
+        }
+
+        &__legal-links {
+            flex-wrap: wrap;
+            gap: vars.$space-2;
+        }
+    }
+}

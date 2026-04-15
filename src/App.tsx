@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import VHNavbar from '@core/Presentation/Components/organisms/NavBar/Navbar'
+import Footer from '@core/Presentation/Components/organisms/Footer/Footer'
 
 
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
@@ -23,6 +24,9 @@ const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/Therapist
 const LandingPage = lazy(() => import('@landing/Presentation/Pages/Landing'))
 const TerapeutasHome = lazy(() => import('@therapist/Presentation/Pages/TerapetuasHome'))
 const FreeClassesPage = lazy(() => import('@freeclasses/Presentation/Pages/FreeClassesPage/FreeClassesPage'))
+const PrivacyPolicy = lazy(() => import('@legal/Presentation/Pages/PrivacyPolicy/PrivacyPolicy'))
+const LegalNotice = lazy(() => import('@legal/Presentation/Pages/LegalNotice/LegalNotice'))
+const TermsOfService = lazy(() => import('@legal/Presentation/Pages/TermsOfService/TermsOfService'))
 
 function App() {
 
@@ -96,10 +100,14 @@ function App() {
                         <Route path="/terapeutas" element={<TerapeutasHome />} />
                         <Route path="/terapeutas/:id" element={<TherapistPage />} />
                         <Route path="/clases-gratuitas" element={<FreeClassesPage />} />
+                        <Route path="/politica-de-privacidad" element={<PrivacyPolicy />} />
+                        <Route path="/aviso-legal" element={<LegalNotice />} />
+                        <Route path="/terminos-y-condiciones" element={<TermsOfService />} />
                     </Routes>
                 </Suspense>
             </div>
 
+            {!hideNavbar && <Footer />}
         </>
     )
 }
