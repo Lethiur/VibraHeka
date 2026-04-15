@@ -185,6 +185,11 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
                         <li>Prácticas de liberación consciente, para liberar el estrés, soltar emociones reprimidas, aliviar tensiones físicas…</li>
                         <li>Espacio de preguntas y respuestas donde podrás entender lo que te pasa, sentirte acompañado y llevarte herramientas para tu proceso</li>
                         <li>Descuentos en el resto de actividades y terapias: talleres, prácticas, constelaciones familiares y toda la comunidad de terapeutas, a tu disposición, que te ofrece Vibraheka…, por ser miembro de este espacio y premiar tu fidelidad, las puedes adquirir por un valor inferior al precio de mercado</li>
+                        <li>14 d&iacute;as de prueba</li>
+                        <li>Sin permanencia, cancela cuando quieras</li>
+                        <li>Todas las <strong>grabaciones</strong> de las actividades que podr&aacute;s ver en cualquier </li>
+                        <li>Acceso al grupo de WhatsApp <strong>exclusivo</strong> para miembros</li>
+                        <li>Acceso a todas las actividades online de forma <strong>gratuita</strong></li>
                     </ul>
                 </Modal.Body>
                 {(!subscription || subscription.SubscriptionStatus === SubscriptionStatus.CANCELLED) && (
