@@ -44,8 +44,8 @@ export default function Registro() {
             middleName: (formData.get('middleName') as string) || "",
             lastName: (formData.get('lastName') as string) || "",
             email: (formData.get('email') as string) || "",
-            password: (formData.get('password') as string) || "",
-            passwordConfirmation: (formData.get('passwordConfirmation') as string) || ""
+            password,
+            passwordConfirmation,
         };
 
 
