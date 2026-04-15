@@ -13,11 +13,17 @@ import fotoPag5 from "../../../../../Assets/Images/foto pag 5.jpg";
 import fotoPag7 from "../../../../../Assets/Images/foto pag 7.jpg";
 
 import {useNavigate} from "react-router-dom";
+import { useAtomValue } from "jotai";
+import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
+import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
 
 export default function LandingPage() {
-    
+
     const navigate = useNavigate();
+    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
+    const userId = localStorage.getItem(STORAGE_KEYS.USER_ID);
+    const ctaTarget = isAuthenticated && userId ? `/profile/me` : '/registro';
     
     return (
         <div className="landing-page">
@@ -35,7 +41,7 @@ export default function LandingPage() {
                     </p>
 
                     <div className="cta-wrapper mt-4 mt-md-5">
-                        <PrimaryButton label="Quiero unirme a VibraHeka" variant="primary" onClick={() => navigate('/registro')}/>
+                        <PrimaryButton label="Quiero unirme a VibraHeka" variant="primary" onClick={() => navigate(ctaTarget)}/>
                     </div>
                 </Container>
             </section>
@@ -122,7 +128,7 @@ export default function LandingPage() {
                                 <Col lg={12}>
                                     <div className="my-5 text-center">
                                         <PrimaryButton label="Quiero empezar mi proceso" fullWidth={true}
-                                                       variant="secondary" onClick={() => navigate('/registro')}/>
+                                                       variant="secondary" onClick={() => navigate(ctaTarget)}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -179,7 +185,7 @@ export default function LandingPage() {
                                     Además no estarás solo, recibirás acompañamiento cuando lo necesites. Todo esto para
                                     crear e integrar nuevos hábitos que se sostengan en el tiempo.</p>
                                 <p className="section-emphasis">Inicia tu camino hacia la calma.</p>
-                                <PrimaryButton label="Quiero empezar hoy" fullWidth={true} variant="secondary" onClick={() => navigate('/registro')}/>
+                                <PrimaryButton label="Quiero empezar hoy" fullWidth={true} variant="secondary" onClick={() => navigate(ctaTarget)}/>
                             </div>
                         </SideImageBlock>
                     </Reveal>
@@ -197,7 +203,7 @@ export default function LandingPage() {
                                 </p>
                                 <p className="section-emphasis">La tranquilidad que buscas puede empezar hoy.</p>
                                 <PrimaryButton label="Quiero formar parte de VibraHeka" fullWidth={true}
-                                               variant="secondary" onClick={() => navigate('/registro')}/>
+                                               variant="secondary" onClick={() => navigate(ctaTarget)}/>
                             </div>
                         </SideImageBlock>
                     </Reveal>
@@ -220,7 +226,7 @@ export default function LandingPage() {
                                 </p>
                                 <div className="mt-4 d-flex justify-content-center">
                                     <PrimaryButton label="Quiero vivir la experiencia" fullWidth={true}
-                                                   variant="secondary" onClick={() => navigate('/registro')}/>
+                                                   variant="secondary" onClick={() => navigate(ctaTarget)}/>
                                 </div>
                             </div>
                         </Reveal>
@@ -241,7 +247,7 @@ export default function LandingPage() {
                                     Si has llegado hasta aquí, este puede ser tu momento para empezar un cambio real.
                                 </p>
                                 <p className="section-emphasis">Da el primer paso. Tu bienestar te está esperando.</p>
-                                <PrimaryButton label="Entrar ahora en VibraHeka" fullWidth={true} variant="secondary" onClick={() => navigate('/registro')}/>
+                                <PrimaryButton label="Entrar ahora en VibraHeka" fullWidth={true} variant="secondary" onClick={() => navigate(ctaTarget)}/>
                             </div>
                         </SideImageBlock>
                     </Reveal>

@@ -39,6 +39,10 @@ function App() {
     const hideNavbar = ROUTES_WITHOUT_NAVBAR.includes(normalizedPath);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    useEffect(() => {
         const handler = () => logout();
         window.addEventListener("auth:unauthorized", handler);
         return () => window.removeEventListener("auth:unauthorized", handler);
