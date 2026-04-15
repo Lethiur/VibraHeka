@@ -1,9 +1,11 @@
 import { Card, Col, Modal, Row } from "react-bootstrap";
+import "./SubscriptionPanel.scss";
 import UseCancelSubscription from "@users/Presentation/Hooks/UseCancelSubscription";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
 import { useEffect, useState } from "react";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
+import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
 import UseGetSubscriptionPanel from "@users/Presentation/Hooks/UseGetSubscriptionPanel";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
@@ -19,6 +21,7 @@ interface SubscriptionPanelProps {
 export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) {
     const [waitingForStripe, setWaitingForStripe] = useState(false);
     const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
+    const [showBenefitsModal, setShowBenefitsModal] = useState(false);
 
     const { checkoutURL, loading, error, subscribe } = UseSubscribe();
     const { subscription, loading: subscriptionLoading, error: subscriptionError, getSubscription } = UseGetSubscription();
@@ -157,13 +160,43 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
             <Row className="justify-content-center align-items-center mt-2 mt-md-4">
                 <Col md={12} lg={12}>
                     <Card className="profile-card vh-panel vh-surface-card">
-                        <Card.Header>
+                        <Card.Header className="subscription-panel__header">
                             <h2>Mi Suscripcion</h2>
+                            <button
+                                type="button"
+                                className="subscription-panel__benefits-btn"
+                                onClick={() => setShowBenefitsModal(true)}
+                            >
+                                ¿Qué incluye?
+                            </button>
                         </Card.Header>
                         <Card.Body>{renderCardBody()}</Card.Body>
                     </Card>
                 </Col>
             </Row>
+
+            <Modal show={showBenefitsModal} onHide={() => setShowBenefitsModal(false)} centered size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Qué incluye la suscripción de 20€/mes</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="subscription-benefits-modal__body">
+                    <ul className="subscription-benefits-modal__list">
+                        <li>Meditaciones para calmar el sistema nervioso</li>
+                        <li>Prácticas de liberación consciente, para liberar el estrés, soltar emociones reprimidas, aliviar tensiones físicas…</li>
+                        <li>Espacio de preguntas y respuestas donde podrás entender lo que te pasa, sentirte acompañado y llevarte herramientas para tu proceso</li>
+                        <li>Descuentos en el resto de actividades y terapias: talleres, prácticas, constelaciones familiares y toda la comunidad de terapeutas, a tu disposición, que te ofrece Vibraheka…, por ser miembro de este espacio y premiar tu fidelidad, las puedes adquirir por un valor inferior al precio de mercado</li>
+                    </ul>
+                </Modal.Body>
+                {(!subscription || subscription.SubscriptionStatus === SubscriptionStatus.CANCELLED) && (
+                    <Modal.Footer>
+                        <PrimaryButton
+                            label="Suscribirme ahora"
+                            variant="primary"
+                            onClick={() => { setShowBenefitsModal(false); handleSubscribe(); }}
+                        />
+                    </Modal.Footer>
+                )}
+            </Modal>
 
             <Modal show={showCancelConfirmation} onHide={handleCloseCancelConfirmation} centered>
                 <Modal.Header closeButton={!cancelSubscriptionLoading}>
