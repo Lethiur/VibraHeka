@@ -19,6 +19,11 @@ import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTex
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import { Row, Col } from "react-bootstrap";
 import CooldownButton from "@core/Presentation/Components/molecules/CooldownButton/CooldownButton";
+import LoginUserUseCase from "@auth/Application/UseCases/LoginUser/LoginUserUseCase.ts";
+import useLoginUser from "@auth/Presentation/Hooks/useLoginUser.ts";
+import {LoginResult} from "@auth/Domain/Models/LoginResult.ts";
+import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
+import { useSetAtom } from "jotai";
 
 
 export default function Verification() {
@@ -30,7 +35,9 @@ export default function Verification() {
     const { ResendVerificationCode, loading } = useResendVerificationCode();
     const verifyUserUseCase: VerifyUserUseCaseImpl = useVerifyUser();
     const localStorage: LocalStorageService = useLocalStorage();
+    const loginUserUseCase: LoginUserUseCase = useLoginUser();
     const navigate: NavigateFunction = useNavigate();
+    const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
 
     useEffect(() => {
         const email: string | null = localStorage.getString(STORAGE_KEYS.EMAIL);
@@ -54,7 +61,23 @@ export default function Verification() {
             });
 
             if (verificationResult.isOk()) {
-                navigate('/login')
+                const pwd : string | null = localStorage.getString(STORAGE_KEYS.PASSWORD);
+                if (pwd != null && pwd !== '') {
+                    const authResult: Result<LoginResult, AuthErrorCodes> = await loginUserUseCase.execute({
+                        email: localStorage.getString(STORAGE_KEYS.EMAIL) || "",
+                        password: pwd as string
+                    });
+                    if (authResult.isOk()) {
+                        localStorage.remove(STORAGE_KEYS.PASSWORD);
+                        setIsAuthenticated(true);
+                        navigate('/profile/me');
+                    } else {
+                        navigate('/login')
+                    }
+                }  else {
+                    navigate('/login')    
+                }
+                
             } else {
                 setGlobalError(t(`errors.auth.${verificationResult.error}`))
             }
