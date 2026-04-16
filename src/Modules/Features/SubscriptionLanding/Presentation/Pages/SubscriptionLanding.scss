@@ -1,0 +1,212 @@
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.subscription-landing {
+    padding-bottom: vars.$space-12;
+
+    &__hero {
+        text-align: center;
+        padding: vars.$space-12 vars.$space-4;
+
+        &-title {
+            font-size: fonts.$font-size-4xl;
+            color: vars.$color-dark;
+            margin-bottom: vars.$space-4;
+            max-width: 800px;
+            margin-inline: auto;
+
+            strong {
+                color: vars.$color-primary;
+            }
+        }
+
+        &-subtitle {
+            font-size: fonts.$font-size-lg;
+            color: vars.$color-dark-muted;
+            max-width: 600px;
+            margin-inline: auto;
+            margin-bottom: vars.$space-8;
+        }
+    }
+
+    &__pricing-card {
+        background: vars.$color-surface;
+        border: 1px solid rgba(vars.$color-primary, 0.2);
+        border-radius: vars.$radius-xl;
+        padding: vars.$space-10;
+        max-width: 450px;
+        margin: 0 auto vars.$space-12;
+        box-shadow: vars.$shadow-xl;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: "Oferta Especial";
+            position: absolute;
+            top: 2rem;
+            right: -3rem;
+            background: vars.$color-secondary;
+            color: vars.$color-surface;
+            padding: vars.$space-2 vars.$space-10;
+            transform: rotate(45deg);
+            font-size: fonts.$font-size-sm;
+            font-weight: fonts.$font-weight-bold;
+            letter-spacing: vars.$tracking-wider;
+            text-transform: uppercase;
+        }
+
+        &-period {
+            font-family: fonts.$font-primary;
+            font-weight: fonts.$font-weight-semibold;
+            color: vars.$color-primary;
+            text-transform: uppercase;
+            letter-spacing: vars.$tracking-widest;
+            font-size: fonts.$font-size-sm;
+            margin-bottom: vars.$space-4;
+            display: block;
+        }
+
+        &-price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: vars.$space-4;
+            margin-bottom: vars.$space-6;
+
+            &-old {
+                color: vars.$color-dark-muted;
+                font-size: fonts.$font-size-2xl;
+                text-decoration: line-through;
+                opacity: 0.6;
+            }
+
+            &-new {
+                color: vars.$color-dark;
+                font-family: fonts.$font-display;
+                font-size: 4rem;
+                font-weight: fonts.$font-weight-bold;
+                line-height: 1;
+
+                small {
+                    font-size: fonts.$font-size-lg;
+                    color: vars.$color-dark-muted;
+                    font-weight: fonts.$font-weight-regular;
+                }
+            }
+        }
+
+        &-cta {
+            margin-top: vars.$space-6;
+            margin-bottom: vars.$space-4;
+
+            button {
+                font-size: fonts.$font-size-lg;
+                padding: vars.$space-4;
+            }
+        }
+
+        &-guarantee {
+            font-size: fonts.$font-size-sm;
+            color: vars.$color-dark-muted;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: vars.$space-2;
+            margin-top: vars.$space-5;
+
+            svg {
+                color: vars.$color-success;
+            }
+        }
+    }
+
+    &__benefits {
+        padding-top: vars.$space-4;
+
+        &-title {
+            text-align: center;
+            margin-bottom: vars.$space-10;
+            color: vars.$color-dark;
+        }
+
+        &-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: vars.$space-6;
+        }
+    }
+
+    &__benefit-card {
+        display: flex;
+        align-items: flex-start;
+        gap: vars.$space-4;
+        background: rgba(vars.$color-primary, 0.03);
+        padding: vars.$space-6;
+        border-radius: vars.$radius-lg;
+        border: 1px solid rgba(vars.$color-primary, 0.08);
+        transition: transform vars.$transition-fast, box-shadow vars.$transition-fast;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: vars.$shadow-sm;
+            border-color: rgba(vars.$color-primary, 0.15);
+        }
+
+        &-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(vars.$color-primary, 0.1);
+            color: vars.$color-primary-dark;
+            border-radius: vars.$radius-md;
+        }
+
+        &-content {
+            flex: 1;
+
+            h3 {
+                font-family: fonts.$font-primary;
+                font-size: fonts.$font-size-md;
+                margin-bottom: vars.$space-2;
+                color: vars.$color-dark;
+                font-weight: fonts.$font-weight-bold;
+            }
+
+            p {
+                font-size: fonts.$font-size-sm;
+                color: vars.$color-dark-muted;
+                margin: 0;
+                line-height: 1.5;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .subscription-landing {
+        &__hero {
+            &-title {
+                font-size: fonts.$font-size-2xl;
+            }
+        }
+
+        &__pricing-card {
+            padding: vars.$space-8 vars.$space-4;
+
+            &-price-new {
+                font-size: 3rem;
+            }
+
+            &::before {
+                font-size: 0.65rem;
+                padding: 0.3rem 2rem;
+                right: -3.5rem;
+                top: 1.5rem;
+            }
+        }
+    }
+}

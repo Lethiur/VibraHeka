@@ -1,4 +1,4 @@
-﻿import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import Reveal from "@core/Presentation/Components/molecules/Reveal/Reveal";
 import SideImageBlock from "@core/Presentation/Components/organisms/SideImageBlock/SideImageBlock";
 import "./Landing.scss";
@@ -13,17 +13,10 @@ import fotoPag5 from "../../../../../Assets/Images/foto pag 5.jpg";
 import fotoPag7 from "../../../../../Assets/Images/foto pag 7.jpg";
 
 import {useNavigate} from "react-router-dom";
-import { useAtomValue } from "jotai";
-import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
-import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
-
-
 export default function LandingPage() {
 
     const navigate = useNavigate();
-    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
-    const userId = localStorage.getItem(STORAGE_KEYS.USER_ID);
-    const ctaTarget = isAuthenticated && userId ? `/profile/me` : '/registro';
+    const ctaTarget = '/subscripcion';
     
     return (
         <div className="landing-page">

@@ -22,8 +22,8 @@ const Calendar: React.FC = () => {
                     </div>
                     <div className="vh-calendar__week-days">
                         <DayColumn activity={week.activities.thursday} fallbackWeekday="Jueves" />
-                        <DayColumn activity={week.activities.friday} fallbackWeekday="Viernes" />
-                        <DayColumn activity={week.activities.saturday} fallbackWeekday="Sábado" />
+                        {week.activities.friday && <DayColumn activity={week.activities.friday} fallbackWeekday="Viernes" />}
+                        {week.activities.saturday && <DayColumn activity={week.activities.saturday} fallbackWeekday="Sábado" />}
                     </div>
                 </div>
             ))}

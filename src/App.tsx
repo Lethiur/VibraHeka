@@ -28,6 +28,7 @@ const PrivacyPolicy = lazy(() => import('@legal/Presentation/Pages/PrivacyPolicy
 const LegalNotice = lazy(() => import('@legal/Presentation/Pages/LegalNotice/LegalNotice'))
 const TermsOfService = lazy(() => import('@legal/Presentation/Pages/TermsOfService/TermsOfService'))
 const ActivitiesPage = lazy(() => import('@/Modules/Features/Activities/Presentation/Pages/ActivitiesPage'))
+const SubscriptionLanding = lazy(() => import('@/Modules/Features/SubscriptionLanding/Presentation/Pages/SubscriptionLanding'))
 
 function App() {
 
@@ -105,6 +106,7 @@ function App() {
                         <Route path="/aviso-legal" element={<LegalNotice />} />
                         <Route path="/terminos-y-condiciones" element={<TermsOfService />} />
                         <Route path="/actividades" element={<ActivitiesPage />} />
+                        <Route path="/subscripcion" element={<SubscriptionLanding />} />
                     </Routes>
                 </Suspense>
             </div>
