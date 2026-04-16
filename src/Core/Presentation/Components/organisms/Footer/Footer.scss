@@ -6,28 +6,29 @@
     max-width: 100vw;
     box-sizing: border-box;
     text-align: left;
-    background: linear-gradient(135deg, vars.$color-dark 0%, rgba(55, 1, 54, 0.92) 100%);
-    color: rgba(vars.$color-on-primary, 0.75);
-    padding-top: clamp(3rem, 6vw, 5rem);
-    padding-bottom: vars.$space-5;
+    background: vars.$color-surface;
+    color: vars.$color-dark-muted;
+    padding-top: clamp(4rem, 8vw, 6rem);
+    padding-bottom: vars.$space-12;
+    border-top: 1px solid vars.$color-gray-200;
 
     // ── Brand ────────────────────────────────────────
     &__brand {
         &-name {
             font-family: fonts.$font-display;
             font-size: fonts.$font-size-2xl;
-            font-weight: fonts.$font-weight-light;
+            font-weight: fonts.$font-weight-bold;
             letter-spacing: vars.$tracking-tight;
-            color: vars.$color-on-primary;
+            color: vars.$color-dark;
             line-height: 1;
         }
     }
 
     &__tagline {
-        font-size: fonts.$font-size-sm;
-        line-height: 1.7;
-        color: rgba(vars.$color-on-primary, 0.6);
-        max-width: 32ch;
+        font-size: fonts.$font-size-md;
+        line-height: 1.6;
+        color: vars.$color-dark-muted;
+        max-width: 35ch;
         margin-bottom: 0;
     }
 
@@ -38,8 +39,8 @@
         font-weight: fonts.$font-weight-bold;
         letter-spacing: vars.$tracking-widest;
         text-transform: uppercase;
-        color: vars.$color-primary-light;
-        margin-bottom: vars.$space-4;
+        color: vars.$color-primary-dark;
+        margin-bottom: vars.$space-6;
     }
 
     &__links {
@@ -52,56 +53,56 @@
 
         li a {
             font-family: fonts.$font-primary;
-            font-size: fonts.$font-size-sm;
-            color: rgba(vars.$color-on-primary, 0.65);
+            font-size: fonts.$font-size-md;
+            color: vars.$color-dark-muted;
             text-decoration: none;
-            transition: color vars.$transition-fast;
+            transition: all vars.$transition-fast;
 
             &:hover {
-                color: vars.$color-primary-light;
+                color: vars.$color-primary;
+                padding-left: 4px;
             }
         }
     }
 
     // ── Bottom bar ───────────────────────────────────
     &__bottom {
-        margin-top: clamp(2.5rem, 5vw, 4rem);
-        padding-block: vars.$space-5;
-        border-top: 1px solid rgba(vars.$color-on-primary, 0.1);
+        margin-top: clamp(3rem, 6vw, 5rem);
+        padding-top: vars.$space-8;
+        border-top: 1px solid vars.$color-gray-200;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: vars.$space-3;
+        gap: vars.$space-4;
     }
 
     &__copy {
-        font-size: fonts.$font-size-xs;
-        color: rgba(vars.$color-on-primary, 0.4);
+        font-size: fonts.$font-size-sm;
+        color: vars.$color-gray-500;
         margin: 0;
-        letter-spacing: vars.$tracking-wide;
+        font-weight: fonts.$font-weight-medium;
     }
 
     &__legal-links {
         display: flex;
         align-items: center;
-        gap: vars.$space-3;
+        gap: vars.$space-4;
 
         a {
-            font-size: fonts.$font-size-xs;
-            color: rgba(vars.$color-on-primary, 0.45);
+            font-size: fonts.$font-size-sm;
+            color: vars.$color-gray-500;
             text-decoration: none;
             transition: color vars.$transition-fast;
-            letter-spacing: vars.$tracking-wide;
+            font-weight: fonts.$font-weight-medium;
 
             &:hover {
-                color: vars.$color-primary-light;
+                color: vars.$color-primary;
             }
         }
 
         span {
-            color: rgba(vars.$color-on-primary, 0.25);
-            font-size: fonts.$font-size-xs;
+            color: vars.$color-gray-300;
         }
     }
 }
