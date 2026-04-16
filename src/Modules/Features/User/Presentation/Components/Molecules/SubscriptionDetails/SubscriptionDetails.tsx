@@ -1,7 +1,7 @@
-import {SubscriptionStatus} from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
-import {OrderStatus} from "@/Modules/Features/User/Domain/Enums/OrderStatus";
+import { SubscriptionStatus } from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
+import { OrderStatus } from "@/Modules/Features/User/Domain/Enums/OrderStatus";
 import ISubscription from "@users/Domain/Entities/ISubscription";
-import {Col, Row} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import "./SubscriptionDetails.scss";
 
@@ -24,7 +24,7 @@ export default function SubscriptionDetails({
 }: SubscriptionDetailsProps) {
 
     // Verificar si el periodo de suscripción se ha cerrado (19 de abril)
-    const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-19T18:00:00Z").getTime();
+    const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-18T18:00:00Z").getTime();
 
 
     const getStatusText = () => {
@@ -148,7 +148,7 @@ export default function SubscriptionDetails({
                             <p className="text-muted mb-0 small">El periodo de suscripción ha finalizado.</p>
                         </div>
                     )}
-                    
+
                     {subscription?.SubscriptionStatus === SubscriptionStatus.CANCELLED && (
                         <div className="mt-3">
                             <PrimaryButton label="Ver facturas" variant="outline-secondary" fullWidth={true}

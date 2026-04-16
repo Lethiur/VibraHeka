@@ -46,7 +46,7 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type }) => {
     const isLoading = isProcessing || subscribeLoading || subscriptionLoading;
 
     // Verificar si el periodo de suscripción se ha cerrado (19 de abril)
-    const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-19T18:00:00Z").getTime();
+    const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-18T18:00:00Z").getTime();
 
     return (
         <div className="access-disclaimer">

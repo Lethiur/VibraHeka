@@ -30,9 +30,9 @@ export default function SubscriptionLanding() {
     useEffect(() => {
         const calculateTimeLeft = () => {
             const now = new Date();
-            
+
             // Verificar si el periodo de suscripción general se ha cerrado (19 de abril)
-            const globalDeadline = new Date("2026-04-19T18:00:00Z");
+            const globalDeadline = new Date("2026-04-18T18:00:00Z");
             if (now.getTime() > globalDeadline.getTime()) {
                 setIsSubscriptionClosed(true);
             }
