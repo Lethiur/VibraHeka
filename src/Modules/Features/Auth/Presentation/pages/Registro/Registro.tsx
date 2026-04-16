@@ -39,8 +39,6 @@ export default function Registro() {
 
         const data: RegistrationData = {
             firstName: (formData.get('firstName') as string) || "",
-            middleName: (formData.get('middleName') as string) || "",
-            lastName: (formData.get('lastName') as string) || "",
             email: (formData.get('email') as string) || "",
             password,
         };
@@ -85,37 +83,20 @@ export default function Registro() {
                 </div>
 
                 <div className="auth-form__section">
-                    <span className="auth-form__section-label">Datos personales</span>
                     <Row className="g-3">
-                        <Col xs={12} sm={7}>
+                        <Col xs={12} sm={12}>
                             <PrimaryTextInput
-                                label={t('pages.register.form.name_label')}
+                                label="Nombre de usuario"
                                 name="firstName"
                                 required
                                 disabled={isSubmitting}
                                 error={errors.firstName ? t(`errors.auth.${errors.firstName}`, { defaultValue: errors.firstName.toString() }) : undefined}
                             />
                         </Col>
-                        <Col xs={12} sm={5}>
-                            <PrimaryTextInput
-                                label={t('pages.register.form.middle_name_label')}
-                                name="middleName"
-                                disabled={isSubmitting}
-                                error={errors.middleName ? t(`errors.auth.${errors.middleName}`, { defaultValue: errors.middleName.toString() }) : undefined}
-                            />
-                        </Col>
                     </Row>
-                    <PrimaryTextInput
-                        label={t('pages.register.form.last_name_label')}
-                        name="lastName"
-                        required
-                        disabled={isSubmitting}
-                        error={errors.lastName ? t(`errors.auth.${errors.lastName}`, { defaultValue: errors.lastName.toString() }) : undefined}
-                    />
                 </div>
 
                 <div className="auth-form__section">
-                    <span className="auth-form__section-label">Contraseña</span>
                     <PrimaryTextInput
                         label={t("pages.register.form.password_label")}
                         name="password"

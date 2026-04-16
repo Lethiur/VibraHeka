@@ -17,18 +17,6 @@ export default class RegistrationDataValidator extends Validator<RegistrationDat
             .minLength(2)
             .withMessage(AuthApplicationErrors.FIRST_NAME_TOO_SHORT);
 
-        this.ruleFor('middleName')
-            .notEmpty()
-            .withMessage(AuthApplicationErrors.MIDDLE_NAME_NOT_PRESENT)
-            .minLength(2)
-            .withMessage(AuthApplicationErrors.MIDDLE_NAME_TOO_SHORT);
-
-        this.ruleFor('lastName')
-            .notEmpty()
-            .withMessage(AuthApplicationErrors.LAST_NAME_NOT_PRESENT)
-            .minLength(2)
-            .withMessage(AuthApplicationErrors.LAST_NAME_TOO_SHORT);
-
         this.ruleFor('email')
             .notEmpty()
             .withMessage(AuthApplicationErrors.EMAIL_NOT_PRESENT)

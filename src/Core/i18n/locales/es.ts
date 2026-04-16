@@ -100,7 +100,7 @@ export const es = {
                     },
                     form: {
                         create_title: "Crear plantilla",
-                        name_label: "Nombre",
+                        name_label: "Nombre de usuario",
                         submit_button: "Crear plantilla"
                     }
                 }
