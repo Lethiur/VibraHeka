@@ -6,15 +6,15 @@
     justify-content: center;
     align-items: center;
     min-height: 40rem;
-    // padding: vars.$space-12 vars.$space-6;
-    // border-radius: vars.$radius-xl;
-    // border: 1px dashed rgba(vars.$color-primary, 0.2);
+    padding: vars.$space-12 vars.$space-6;
+    border-radius: vars.$radius-xl;
+    border: 1px dashed rgba(vars.$color-primary, 0.2);
 
     &__content {
         max-width: 100%;
         text-align: center;
         background: vars.$color-surface;
-        // padding: vars.$space-10;
+        padding: vars.$space-10;
         border-radius: vars.$radius-xl;
         box-shadow: vars.$shadow-xl;
         display: flex;
