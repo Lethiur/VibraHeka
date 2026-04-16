@@ -83,7 +83,7 @@ export const THERAPISTS_LIST: Therapist[] = [
     {
         id: "02f5d4a4-5091-7066-23ec-2b6f8a6d6a4e",
         handle: "beatriz-sex-coach",
-        title: "Beatriz Alonso - Sex Coach",
+        title: "Beatriz A. Blanco - Sex Coach",
         route: "/terapeutas/beatriz-alonso-sex-coach",
         image: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/beatriz-sex-coach.jpeg",
         video: "https://vibraheka-user-material-main.s3.eu-west-1.amazonaws.com/beatriz/video.mp4",
