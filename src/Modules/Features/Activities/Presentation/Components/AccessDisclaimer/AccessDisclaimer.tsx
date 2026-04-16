@@ -6,7 +6,7 @@ import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
-import { Info, Lock, CheckCircle2 } from "lucide-react";
+import { Info, Lock } from "lucide-react";
 import "./AccessDisclaimer.scss";
 
 interface AccessDisclaimerProps {
@@ -18,7 +18,7 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type }) => {
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const { checkoutURL, loading: subscribeLoading, subscribe } = UseSubscribe();
     const { subscription, loading: subscriptionLoading } = UseGetSubscription();
-    
+
     const [isProcessing, setIsProcessing] = useState(false);
 
     // Redirección asíncrona a Stripe
@@ -44,7 +44,6 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type }) => {
     };
 
     const isLoading = isProcessing || subscribeLoading || subscriptionLoading;
-    const isUnauthenticated = type === "unauthenticated";
 
     // Verificar si el periodo de suscripción se ha cerrado (19 de abril)
     const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-19T18:00:00Z").getTime();
@@ -77,7 +76,7 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type }) => {
                             <small className="text-muted">Las inscripciones están cerradas por el momento.</small>
                         </div>
                     )}
-                    
+
                     <PrimaryButton
                         label="¿Qué incluye la suscripción?"
                         variant="secondary"
