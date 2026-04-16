@@ -23,6 +23,9 @@ export default function SubscriptionDetails({
     handleReactivateSubscription,
 }: SubscriptionDetailsProps) {
 
+    // Verificar si el periodo de suscripción se ha cerrado (19 de abril)
+    const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-19T18:00:00Z").getTime();
+
 
     const getStatusText = () => {
         if (!subscription) return "Sin suscripcion activa";
@@ -115,16 +118,22 @@ export default function SubscriptionDetails({
         if (subscription?.Status === OrderStatus.ENABLED_FOR_RETRY || subscription?.Status === OrderStatus.PENDING) {
             return (
                 <Col md={12}>
-                    <PrimaryButton
-                        label={subscription?.Status === OrderStatus.ENABLED_FOR_RETRY ? "Reanudar pago" : "Procesando tu pago..."}
-                        variant="success"
-                        fullWidth={true}
-                        disabled={!canResumeCheckout}
-                        onClick={() => {
-                            if (!canResumeCheckout) return;
-                            window.open(subscription.CheckoutSessionUrl as string, "_self");
-                        }}
-                    />
+                    {!isSubscriptionClosed ? (
+                        <PrimaryButton
+                            label={subscription?.Status === OrderStatus.ENABLED_FOR_RETRY ? "Reanudar pago" : "Procesando tu pago..."}
+                            variant="success"
+                            fullWidth={true}
+                            disabled={!canResumeCheckout}
+                            onClick={() => {
+                                if (!canResumeCheckout) return;
+                                window.open(subscription.CheckoutSessionUrl as string, "_self");
+                            }}
+                        />
+                    ) : (
+                        <div className="text-center p-3 bg-light rounded">
+                            <p className="text-muted mb-0 small">El periodo de suscripción ha finalizado.</p>
+                        </div>
+                    )}
                 </Col>
             );
         }
@@ -132,7 +141,14 @@ export default function SubscriptionDetails({
         if (!subscription || subscription.SubscriptionStatus === SubscriptionStatus.CANCELLED) {
             return (
                 <Col md={12}>
-                    <PrimaryButton label="Suscribirme" variant="primary" fullWidth={true} onClick={handleSubscribe} />
+                    {!isSubscriptionClosed ? (
+                        <PrimaryButton label="Suscribirme" variant="primary" fullWidth={true} onClick={handleSubscribe} />
+                    ) : (
+                        <div className="text-center p-3 bg-light rounded">
+                            <p className="text-muted mb-0 small">El periodo de suscripción ha finalizado.</p>
+                        </div>
+                    )}
+                    
                     {subscription?.SubscriptionStatus === SubscriptionStatus.CANCELLED && (
                         <div className="mt-3">
                             <PrimaryButton label="Ver facturas" variant="outline-secondary" fullWidth={true}

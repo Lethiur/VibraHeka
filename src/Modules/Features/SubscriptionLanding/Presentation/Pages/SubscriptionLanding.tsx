@@ -7,7 +7,7 @@ import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
-import { RefreshCcw, BrainCircuit, MessageCircleQuestion, BadgePercent, CalendarCheck, Video, Users, CheckCircle2, ShieldCheck } from "lucide-react";
+import { RefreshCcw, BrainCircuit, MessageCircleQuestion, BadgePercent, CalendarCheck, Video, Users, CheckCircle2, ShieldCheck, Clock } from "lucide-react";
 import "./SubscriptionLanding.scss";
 
 export default function SubscriptionLanding() {
@@ -19,6 +19,48 @@ export default function SubscriptionLanding() {
     const { subscription, loading: subscriptionLoading, getSubscription } = UseGetSubscription();
 
     const [isProcessing, setIsProcessing] = useState(false);
+
+    // Fecha límite absoluta para suscripciones: Domingo 19 de Abril de 2026 a las 18:00 UTC
+    const [isSubscriptionClosed, setIsSubscriptionClosed] = useState(false);
+
+    // Lógica del contador regresivo hasta el Viernes 17 de Abril a las 18:00 UTC
+    const [timeLeft, setTimeLeft] = useState<{ h: number, m: number, s: number }>({ h: 0, m: 0, s: 0 });
+    const [isOfferExpired, setIsOfferExpired] = useState(false);
+
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const now = new Date();
+            
+            // Verificar si el periodo de suscripción general se ha cerrado (19 de abril)
+            const globalDeadline = new Date("2026-04-19T18:00:00Z");
+            if (now.getTime() > globalDeadline.getTime()) {
+                setIsSubscriptionClosed(true);
+            }
+
+            // Fecha objetivo fija para el contador (Oferta): Viernes 17 de Abril de 2026 a las 18:00 UTC
+            // Esto evita que el contador se reinicie la semana siguiente.
+            const target = new Date("2026-04-17T18:00:00Z");
+
+            const difference = target.getTime() - now.getTime();
+
+            if (difference <= 0) {
+                setIsOfferExpired(true);
+                setTimeLeft({ h: 0, m: 0, s: 0 });
+                return;
+            }
+
+            const h = Math.floor(difference / (1000 * 60 * 60));
+            const m = Math.floor((difference / (1000 * 60)) % 60);
+            const s = Math.floor((difference / 1000) % 60);
+
+            setTimeLeft({ h, m, s });
+            setIsOfferExpired(false);
+        };
+
+        calculateTimeLeft();
+        const timer = setInterval(calculateTimeLeft, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     // Cargar suscripción al entrar si estamos identificados
     useEffect(() => {
@@ -119,24 +161,53 @@ export default function SubscriptionLanding() {
                 {/* Tarjeta de Pricing Central */}
                 <Row className="justify-content-center">
                     <Col md={10} lg={8} xl={6}>
-                        <div className="subscription-landing__pricing-card">
+                        <div className={`subscription-landing__pricing-card ${isOfferExpired ? 'is-expired' : ''}`}>
                             <span className="subscription-landing__pricing-card-period">Plan Mensual</span>
                             <div className="subscription-landing__pricing-card-price">
-                                <span className="subscription-landing__pricing-card-price-old">22€</span>
+                                {!isOfferExpired && <span className="subscription-landing__pricing-card-price-old">22€</span>}
                                 <span className="subscription-landing__pricing-card-price-new">
-                                    17€<small>/mes</small>
+                                    {isOfferExpired ? '22€' : '17€'}<small>/mes</small>
                                 </span>
                             </div>
 
-                            <div className="subscription-landing__pricing-card-cta">
-                                <PrimaryButton
-                                    label={isLoading ? "Iniciando proceso seguro..." : (isAuthenticated && subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE ? "Ya estás suscrito - Ir a mi panel" : "Suscribirme Ahora")}
-                                    variant="primary"
-                                    fullWidth
-                                    onClick={handleSubscribeAction}
-                                    disabled={isLoading}
-                                />
+                            {/* Contador de Oferta */}
+                            <div className="subscription-landing__pricing-card-countdown">
+                                <p className="subscription-landing__pricing-card-countdown-label">
+                                    <Clock size={16} /> {isOfferExpired ? 'Oferta finalizada' : 'La oferta finaliza en:'}
+                                </p>
+                                <div className="subscription-landing__pricing-card-countdown-timer">
+                                    <div className="unit">
+                                        <span>{String(timeLeft.h).padStart(2, '0')}</span>
+                                        <small>h</small>
+                                    </div>
+                                    <span className="sep">:</span>
+                                    <div className="unit">
+                                        <span>{String(timeLeft.m).padStart(2, '0')}</span>
+                                        <small>m</small>
+                                    </div>
+                                    <span className="sep">:</span>
+                                    <div className="unit">
+                                        <span>{String(timeLeft.s).padStart(2, '0')}</span>
+                                        <small>s</small>
+                                    </div>
+                                </div>
                             </div>
+
+                            {(!isSubscriptionClosed || (isAuthenticated && subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE)) ? (
+                                <div className="subscription-landing__pricing-card-cta">
+                                    <PrimaryButton
+                                        label={isLoading ? "Iniciando proceso seguro..." : (isAuthenticated && subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE ? "Ya estás suscrito - Ir a mi panel" : "Suscribirme Ahora")}
+                                        variant="primary"
+                                        fullWidth
+                                        onClick={handleSubscribeAction}
+                                        disabled={isLoading}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="subscription-landing__pricing-card-closed mt-4">
+                                    <p className="text-muted small">El periodo de suscripción ha finalizado por ahora.</p>
+                                </div>
+                            )}
 
                             <div className="subscription-landing__pricing-card-guarantee">
                                 <ShieldCheck size={16} /> Pago seguro gestionado por Stripe

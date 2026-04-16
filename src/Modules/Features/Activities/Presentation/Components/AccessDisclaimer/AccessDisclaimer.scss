@@ -55,7 +55,11 @@
 
     &__cta {
         width: 100%;
-        max-width: 20rem;
+        max-width: 24rem;
+        display: flex;
+        flex-direction: column;
+        gap: vars.$space-3;
+        margin-top: vars.$space-2;
     }
 
     &__recordings,
