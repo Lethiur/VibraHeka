@@ -7,5 +7,6 @@ export const STORAGE_KEYS = {
     EMAIL: 'email',
     USER_ID: "user_id",
     ROLE: "role",
+    PASSWORD: "sdfasdfasdf",
     RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL: "resend_verification_code_cooldown_until",
 };

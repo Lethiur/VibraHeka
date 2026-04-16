@@ -44,6 +44,7 @@ export default function Login() {
             });
 
             if (authResult.isOk()) {
+                localStorage.remove(STORAGE_KEYS.PASSWORD);
                 setIsAuthenticated(true);
                 navigate('/profile/me');
             } else {

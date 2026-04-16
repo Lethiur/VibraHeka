@@ -54,6 +54,7 @@ export default function Registro() {
             const result: Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
             if (result.isOk()) {
                 localStorage.setString(STORAGE_KEYS.EMAIL, data.email);
+                localStorage.setString(STORAGE_KEYS.PASSWORD, data.password);
                 navigate('/verify');
             } else {
                 setGlobalError(t(`errors.auth.${result.error}`));
