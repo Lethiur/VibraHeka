@@ -7,7 +7,6 @@ import {
     hasUppercase,
     PASSWORD_MIN_LENGTH
 } from "@core/Application/Validation/PasswordPolicy";
-import { passwordsMatch } from "@core/Application/Validation/PasswordInput";
 
 export default class RegistrationDataValidator extends Validator<RegistrationData> {
     constructor() {
