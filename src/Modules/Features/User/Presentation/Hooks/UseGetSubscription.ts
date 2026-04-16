@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { GetSubscriptionContext } from "@users/Presentation/Context/GetSubscriptionContext";
 import ISubscription from "@users/Domain/Entities/ISubscription";
 import { useQuery } from "@tanstack/react-query";
+import { useAtomValue } from "jotai";
+import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 
 export default function UseGetSubscription() {
     const useCase = useContext(GetSubscriptionContext);
+    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
 
     // Usamos useQuery para gestionar el estado global de la suscripción
     const { data, isLoading, error, refetch } = useQuery<ISubscription, string>({
@@ -16,13 +19,14 @@ export default function UseGetSubscription() {
                 (err) => { throw err; } // Lanzamos para que React Query active 'isError'
             );
         },
+        enabled: isAuthenticated, // Solo hacer fetch si está autenticado
         retry: false,
         refetchInterval: 1000 * 60 * 5, // Considerar los datos "frescos" por 5 min
     });
 
     return {
         subscription: data ?? null,
-        loading: isLoading,
+        loading: isAuthenticated ? isLoading : false,
         error: error ?? null,
         getSubscription: refetch // Reemplazamos tu función manual por el refetch de la librería
     };

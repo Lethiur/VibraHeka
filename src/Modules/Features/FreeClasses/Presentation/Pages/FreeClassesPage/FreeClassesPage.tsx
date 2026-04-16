@@ -28,7 +28,7 @@ export default function FreeClassesPage() {
                     </p>
 
                     <h1 className="fc-header__title my-3">
-                        Clases Gratuitas de Fisioterapia Energética
+                        Clases de liberación emocional
                     </h1>
 
                     <p className="fc-header__desc mx-auto mb-0">

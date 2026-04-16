@@ -1,0 +1,104 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.access-disclaimer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40rem;
+    // padding: vars.$space-12 vars.$space-6;
+    // border-radius: vars.$radius-xl;
+    // border: 1px dashed rgba(vars.$color-primary, 0.2);
+
+    &__content {
+        max-width: 36rem;
+        text-align: center;
+        background: vars.$color-surface;
+        padding: vars.$space-10;
+        border-radius: vars.$radius-xl;
+        box-shadow: vars.$shadow-xl;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: vars.$space-6;
+    }
+
+    &__icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(vars.$color-primary, 0.1);
+        color: vars.$color-primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: vars.$radius-full;
+        margin-bottom: vars.$space-2;
+    }
+
+    &__title {
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-2xl;
+        color: vars.$color-dark;
+        margin: 0;
+        text-align: center !important;
+        text-justify: none !important;
+    }
+
+    &__text {
+        font-size: fonts.$font-size-md;
+        color: vars.$color-dark-muted;
+        line-height: 1.6;
+        margin: 0;
+        text-align: center !important;
+        text-justify: none !important;
+    }
+
+    &__cta {
+        width: 100%;
+        max-width: 20rem;
+    }
+
+    &__recordings,
+    &__whatsapp {
+        display: flex;
+        align-items: center;
+        gap: vars.$space-3;
+        padding: vars.$space-4;
+        background: rgba(vars.$color-primary, 0.05);
+        border-radius: vars.$radius-lg;
+        color: vars.$color-dark;
+        font-size: fonts.$font-size-sm;
+        text-align: left;
+        border: 1px solid rgba(vars.$color-primary, 0.1);
+        width: 100%;
+
+        svg {
+            color: vars.$color-primary;
+            flex-shrink: 0;
+
+            &.text-success {
+                color: vars.$color-success;
+            }
+        }
+    }
+
+    &__whatsapp-link {
+        color: vars.$color-primary;
+        font-weight: fonts.$font-weight-bold;
+        text-decoration: underline;
+
+        &:hover {
+            color: vars.$color-primary-dark;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .access-disclaimer {
+        padding: vars.$space-6 vars.$space-4;
+
+        &__content {
+            padding: vars.$space-6;
+        }
+    }
+}

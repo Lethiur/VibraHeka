@@ -27,6 +27,7 @@ const FreeClassesPage = lazy(() => import('@freeclasses/Presentation/Pages/FreeC
 const PrivacyPolicy = lazy(() => import('@legal/Presentation/Pages/PrivacyPolicy/PrivacyPolicy'))
 const LegalNotice = lazy(() => import('@legal/Presentation/Pages/LegalNotice/LegalNotice'))
 const TermsOfService = lazy(() => import('@legal/Presentation/Pages/TermsOfService/TermsOfService'))
+const ActivitiesPage = lazy(() => import('@/Modules/Features/Activities/Presentation/Pages/ActivitiesPage'))
 
 function App() {
 
@@ -55,7 +56,7 @@ function App() {
     function isAdmin(): boolean {
         return getRole() === 1 && isAuthenticated;
     }
-    
+
 
     return (
         <>
@@ -79,8 +80,6 @@ function App() {
                         {
                             isAuthenticated && (
                                 <>
-                                    <Route path="/talleres" element={<TerapeutasHome />}>
-                                    </Route>
                                     <Route path="/profile/:id" element={<Profile />} />
                                 </>
 
@@ -99,14 +98,13 @@ function App() {
                                 </>
                             )
                         }
-
-                        
                         <Route path="/terapeutas" element={<TerapeutasHome />} />
                         <Route path="/terapeutas/:id" element={<TherapistPage />} />
                         <Route path="/clases-gratuitas" element={<FreeClassesPage />} />
                         <Route path="/politica-de-privacidad" element={<PrivacyPolicy />} />
                         <Route path="/aviso-legal" element={<LegalNotice />} />
                         <Route path="/terminos-y-condiciones" element={<TermsOfService />} />
+                        <Route path="/actividades" element={<ActivitiesPage />} />
                     </Routes>
                 </Suspense>
             </div>

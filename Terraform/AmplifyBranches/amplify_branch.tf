@@ -6,7 +6,7 @@
 resource "aws_ssm_parameter" "frontend_url" {
   name  = "/${data.terraform_remote_state.backend.outputs.settings_namespace}/frontend/url"
   type  = "String"
-  value = "https://${aws_amplify_branch.this.display_name}.${data.terraform_remote_state.amplify_app_state.outputs.amplify_default_domain}/recover-password"
+  value = "https://vibraheka.com/recover-password"
 }
 
 resource "aws_ssm_parameter" "frontend_url_test" {

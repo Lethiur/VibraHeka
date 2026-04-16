@@ -1,0 +1,211 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.vh-calendar {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: vars.$space-4;
+    border-radius: vars.$radius-xl;
+    box-shadow: vars.$shadow-lg;
+    background: vars.$color-surface;
+    border: 1px solid rgba(vars.$color-primary, 0.1);
+    overflow: hidden; // Ensures border radius clips inner elements
+
+    &__global-header {
+        display: flex;
+        background: vars.$color-primary-dark;
+        border-bottom: 2px solid rgba(vars.$color-on-primary, 0.1);
+
+        &-spacer {
+            width: 15rem; // Matches sidebar width
+            flex-shrink: 0;
+            background: rgba(vars.$color-on-primary, 0.05); // A little contrast
+            border-right: 1px solid rgba(vars.$color-on-primary, 0.1);
+        }
+
+        &-cell {
+            flex: 1;
+            color: vars.$color-on-primary;
+            font-weight: fonts.$font-weight-bold;
+            text-align: center;
+            padding: vars.$space-4;
+            border-right: 1px solid rgba(vars.$color-on-primary, 0.1);
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+
+    &__week {
+        display: flex;
+        border-bottom: 2px solid rgba(vars.$color-primary, 0.1);
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &__week-sidebar {
+        width: 15rem;
+        flex-shrink: 0;
+        background: rgba(vars.$color-primary, 0.05);
+        padding: vars.$space-4;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid rgba(vars.$color-primary, 0.1);
+        text-align: center;
+    }
+
+    &__week-name {
+        font-weight: fonts.$font-weight-bold;
+        color: vars.$color-primary;
+        font-size: fonts.$font-size-md;
+    }
+
+    &__week-theme {
+        font-style: italic;
+        font-size: fonts.$font-size-xs;
+        color: vars.$color-dark-muted;
+    }
+
+    &__week-days {
+        display: flex;
+        flex: 1;
+    }
+
+    &__day-column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid rgba(vars.$color-primary, 0.1);
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+
+    &__day-header {
+        background: rgba(vars.$color-primary, 0.02);
+        padding: vars.$space-2 vars.$space-4;
+        border-bottom: 1px solid rgba(vars.$color-primary, 0.05);
+        font-weight: fonts.$font-weight-bold;
+        color: vars.$color-primary-dark;
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: vars.$space-2;
+
+        &-dayname {
+            display: none; // Hidden on desktop because of global header
+            font-size: fonts.$font-size-sm;
+            text-transform: uppercase;
+        }
+
+        &-daynum {
+            font-size: fonts.$font-size-xl;
+        }
+    }
+
+    &__cell {
+        flex: 1; // Stretch to fill column height
+        padding: vars.$space-5 vars.$space-4;
+        min-height: 10rem;
+        background: vars.$color-surface;
+
+        &--empty {
+            background: vars.$color-gray-100;
+        }
+    }
+
+    &__item {
+        font-size: fonts.$font-size-sm;
+        margin-bottom: vars.$space-2;
+        line-height: 1.4;
+        color: vars.$color-dark;
+        text-align: left !important;
+        text-justify: none !important;
+
+        strong {
+            color: vars.$color-primary-dark;
+            margin-right: vars.$space-1;
+        }
+    }
+
+    &__link {
+        color: vars.$color-primary;
+        text-decoration: underline;
+        font-weight: fonts.$font-weight-semibold;
+
+        &:hover {
+            color: vars.$color-primary-dark;
+        }
+    }
+}
+
+// Media Query para Mobile Responsive
+@media (max-width: 900px) {
+    .vh-calendar {
+        &__global-header {
+            display: none; // Hides the web global header
+        }
+
+        &__week {
+            flex-direction: column; // Stack sidebar and days vertically
+        }
+
+        &__week-sidebar {
+            width: auto;
+            box-sizing: border-box;
+            border-right: none;
+            border-bottom: 2px solid rgba(vars.$color-primary, 0.2);
+            background: vars.$color-primary; // Use stronger color to separate weeks
+            padding: vars.$space-4;
+
+            .vh-calendar__week-name {
+                color: vars.$color-on-primary;
+            }
+
+            .vh-calendar__week-theme {
+                color: rgba(vars.$color-on-primary, 0.9);
+            }
+        }
+
+        &__week-days {
+            flex-direction: column; // Stack the day columns vertically
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        &__day-column {
+            width: 100%;
+            box-sizing: border-box;
+            border-right: none;
+            border-bottom: 2px solid rgba(vars.$color-primary, 0.1);
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        &__day-header {
+            justify-content: flex-start;
+            background: rgba(vars.$color-primary, 0.05);
+
+            &-dayname {
+                display: inline; // Show the day name on mobile
+            }
+        }
+
+        &__cell {
+            width: 100%;
+            box-sizing: border-box;
+            min-height: auto; // Remove min-height constraint to keep cards neat
+            padding-bottom: vars.$space-6;
+            word-break: break-word; // Prevent long strings from overriding layout
+        }
+    }
+}

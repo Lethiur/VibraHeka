@@ -12,7 +12,7 @@ interface NavbarProps {
 
 export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProps) {
     const [expanded, setExpanded] = useState(false);
-    
+
     return (
         <Navbar
             expand="lg"
@@ -44,7 +44,9 @@ export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProp
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ms-auto">
                         <Nav.Link as={NavLink} to="/" onClick={() => setExpanded(false)}>Inicio</Nav.Link>
+                        <Nav.Link as={NavLink} to="/actividades" onClick={() => setExpanded(false)}>Actividades</Nav.Link>
                         <Nav.Link as={NavLink} to="/terapeutas" onClick={() => setExpanded(false)}>Terapeutas</Nav.Link>
+
 
                         {!isAuthenticated && (
                             <>
@@ -57,10 +59,10 @@ export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProp
                             <Nav.Link as={NavLink} to="/admin" onClick={() => setExpanded(false)}>Admin</Nav.Link>
                         )}
 
-                        { isAuthenticated && (
+                        {isAuthenticated && (
                             <>
                                 <Nav.Link as={NavLink} to="/profile/me" onClick={() => setExpanded(false)}>Mi Perfil</Nav.Link>
-                                <Nav.Link as={NavLink} to="/talleres" onClick={() => setExpanded(false)}>Talleres</Nav.Link>
+
                                 <button
                                     onClick={() => {
                                         setExpanded(false);
