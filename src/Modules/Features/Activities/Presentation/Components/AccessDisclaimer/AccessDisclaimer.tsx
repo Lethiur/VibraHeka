@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
-import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import { Info, Lock } from "lucide-react";
@@ -70,7 +69,7 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type, subscription,
                 <div className="access-disclaimer__cta">
                     {hasActiveSubscription ? (
                         <div className="w-100">
-                             <MemberWhatsAppNotice />
+                            <MemberWhatsAppNotice />
                         </div>
                     ) : (
                         <>
