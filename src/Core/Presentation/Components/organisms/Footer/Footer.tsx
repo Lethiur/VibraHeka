@@ -13,17 +13,16 @@ export default function Footer() {
 
                     {/* Brand */}
                     <Col lg={5} md={12} className="vh-footer__brand">
-                        <div className="d-flex align-items-center gap-3 mb-3">
-                            <Logo alt="VibraHeka Logo" width={52} height={52} />
-                            <span className="vh-footer__brand-name">VibraHeka</span>
+                        <div className="d-flex align-items-center justify-content-md-start justify-content-center gap-3 mb-4">
+                            <Logo alt="VibraHeka Logo" width={64} height={64} />
                         </div>
-                        <p className="vh-footer__tagline">
+                        <p className="vh-footer__tagline text-center text-md-start mx-auto mx-md-0">
                             Tu refugio online para volver a sentir paz, enfoque y energía en tu vida diaria.
                         </p>
                     </Col>
 
                     {/* Nav */}
-                    <Col lg={3} md={6} sm={6} xs={6}>
+                    <Col lg={3} md={6} sm={6} xs={12} className="mb-4 mb-sm-0">
                         <h6 className="vh-footer__heading">Plataforma</h6>
                         <ul className="vh-footer__links">
                             <li><Link to="/">Inicio</Link></li>
@@ -33,7 +32,7 @@ export default function Footer() {
                     </Col>
 
                     {/* Legal */}
-                    <Col lg={4} md={6} sm={6} xs={6}>
+                    <Col lg={4} md={6} sm={6} xs={12}>
                         <h6 className="vh-footer__heading">Legal</h6>
                         <ul className="vh-footer__links">
                             <li><Link to="/politica-de-privacidad">Política de privacidad</Link></li>

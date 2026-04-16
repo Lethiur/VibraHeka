@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
@@ -103,57 +103,67 @@ export default function SubscriptionLanding() {
         <div className="subscription-landing vh-page-section">
             <Container>
                 {/* Hero Superior */}
-                <div className="subscription-landing__hero">
-                    <h1 className="subscription-landing__hero-title">
-                        Da el paso hacia un <strong>bienestar real</strong> y sostenible
-                    </h1>
-                    <p className="subscription-landing__hero-subtitle">
-                        Únete a Vibraheka y desbloquea el ecosistema completo diseñado para reconectar contigo mismo.
-                    </p>
-                </div>
+                <Row className="justify-content-center">
+                    <Col lg={10}>
+                        <div className="subscription-landing__hero">
+                            <h1 className="subscription-landing__hero-title">
+                                Da el paso hacia un <strong>bienestar real</strong> y sostenible
+                            </h1>
+                            <p className="subscription-landing__hero-subtitle">
+                                Únete a Vibraheka y desbloquea el ecosistema completo diseñado para reconectar contigo mismo.
+                            </p>
+                        </div>
+                    </Col>
+                </Row>
 
                 {/* Tarjeta de Pricing Central */}
-                <div className="subscription-landing__pricing-card">
-                    <span className="subscription-landing__pricing-card-period">Plan Mensual</span>
-                    <div className="subscription-landing__pricing-card-price">
-                        <span className="subscription-landing__pricing-card-price-old">22€</span>
-                        <span className="subscription-landing__pricing-card-price-new">
-                            17€<small>/mes</small>
-                        </span>
-                    </div>
+                <Row className="justify-content-center">
+                    <Col md={10} lg={8} xl={6}>
+                        <div className="subscription-landing__pricing-card">
+                            <span className="subscription-landing__pricing-card-period">Plan Mensual</span>
+                            <div className="subscription-landing__pricing-card-price">
+                                <span className="subscription-landing__pricing-card-price-old">22€</span>
+                                <span className="subscription-landing__pricing-card-price-new">
+                                    17€<small>/mes</small>
+                                </span>
+                            </div>
 
-                    <div className="subscription-landing__pricing-card-cta">
-                        <PrimaryButton
-                            label={isLoading ? "Iniciando proceso seguro..." : (isAuthenticated && subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE ? "Ya estás suscrito - Ir a mi panel" : "Suscribirme Ahora")}
-                            variant="primary"
-                            fullWidth
-                            onClick={handleSubscribeAction}
-                            disabled={isLoading}
-                        />
-                    </div>
+                            <div className="subscription-landing__pricing-card-cta">
+                                <PrimaryButton
+                                    label={isLoading ? "Iniciando proceso seguro..." : (isAuthenticated && subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE ? "Ya estás suscrito - Ir a mi panel" : "Suscribirme Ahora")}
+                                    variant="primary"
+                                    fullWidth
+                                    onClick={handleSubscribeAction}
+                                    disabled={isLoading}
+                                />
+                            </div>
 
-                    <div className="subscription-landing__pricing-card-guarantee">
-                        <ShieldCheck size={16} /> Pago seguro gestionado por Stripe
-                    </div>
-                </div>
+                            <div className="subscription-landing__pricing-card-guarantee">
+                                <ShieldCheck size={16} /> Pago seguro gestionado por Stripe
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
 
-                {/* Desglose de Beneficios (Sustituto del modal antiguo) */}
+                {/* Desglose de Beneficios */}
                 <div className="subscription-landing__benefits">
                     <h2 className="subscription-landing__benefits-title">¿Qué incluye tu suscripción?</h2>
 
-                    <div className="subscription-landing__benefits-grid">
+                    <Row className="g-4">
                         {benefits.map((benefit, index) => (
-                            <div className="subscription-landing__benefit-card" key={index}>
-                                <div className="subscription-landing__benefit-card-icon">
-                                    {benefit.icon}
+                            <Col md={6} lg={4} key={index}>
+                                <div className="subscription-landing__benefit-card h-100">
+                                    <div className="subscription-landing__benefit-card-icon">
+                                        {benefit.icon}
+                                    </div>
+                                    <div className="subscription-landing__benefit-card-content">
+                                        <h3>{benefit.title}</h3>
+                                        <p>{benefit.description}</p>
+                                    </div>
                                 </div>
-                                <div className="subscription-landing__benefit-card-content">
-                                    <h3>{benefit.title}</h3>
-                                    <p>{benefit.description}</p>
-                                </div>
-                            </div>
+                            </Col>
                         ))}
-                    </div>
+                    </Row>
                 </div>
 
             </Container>

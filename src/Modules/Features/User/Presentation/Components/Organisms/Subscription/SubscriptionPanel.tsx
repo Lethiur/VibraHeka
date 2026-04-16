@@ -1,11 +1,11 @@
 import { Card, Col, Modal, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./SubscriptionPanel.scss";
 import UseCancelSubscription from "@users/Presentation/Hooks/UseCancelSubscription";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
 import { useEffect, useState } from "react";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
-import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
 import UseGetSubscriptionPanel from "@users/Presentation/Hooks/UseGetSubscriptionPanel";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
@@ -19,9 +19,9 @@ interface SubscriptionPanelProps {
 }
 
 export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) {
+    const navigate = useNavigate();
     const [waitingForStripe, setWaitingForStripe] = useState(false);
     const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
-    const [showBenefitsModal, setShowBenefitsModal] = useState(false);
 
     const { checkoutURL, loading, error, subscribe } = UseSubscribe();
     const { subscription, loading: subscriptionLoading, error: subscriptionError, getSubscription } = UseGetSubscription();
@@ -165,7 +165,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
                             <button
                                 type="button"
                                 className="subscription-panel__benefits-btn"
-                                onClick={() => setShowBenefitsModal(true)}
+                                onClick={() => navigate("/subscripcion")}
                             >
                                 ¿Qué incluye?
                             </button>
@@ -175,33 +175,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
                 </Col>
             </Row>
 
-            <Modal show={showBenefitsModal} onHide={() => setShowBenefitsModal(false)} centered size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>Qué incluye la suscripción de 20€/mes</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="subscription-benefits-modal__body">
-                    <ul className="subscription-benefits-modal__list">
-                        <li>Meditaciones para calmar el sistema nervioso</li>
-                        <li>Prácticas de liberación consciente, para liberar el estrés, soltar emociones reprimidas, aliviar tensiones físicas…</li>
-                        <li>Espacio de preguntas y respuestas donde podrás entender lo que te pasa, sentirte acompañado y llevarte herramientas para tu proceso</li>
-                        <li>Descuentos en el resto de actividades y terapias: talleres, prácticas, constelaciones familiares y toda la comunidad de terapeutas, a tu disposición, que te ofrece Vibraheka…, por ser miembro de este espacio y premiar tu fidelidad, las puedes adquirir por un valor inferior al precio de mercado</li>
-                        <li>14 d&iacute;as de prueba</li>
-                        <li>Sin permanencia, cancela cuando quieras</li>
-                        <li>Todas las <strong>grabaciones</strong> de las actividades que podr&aacute;s ver en cualquier </li>
-                        <li>Acceso al grupo de WhatsApp <strong>exclusivo</strong> para miembros</li>
-                        <li>Acceso a todas las actividades online de forma <strong>gratuita</strong></li>
-                    </ul>
-                </Modal.Body>
-                {(!subscription || subscription.SubscriptionStatus === SubscriptionStatus.CANCELLED) && (
-                    <Modal.Footer>
-                        <PrimaryButton
-                            label="Suscribirme ahora"
-                            variant="primary"
-                            onClick={() => { setShowBenefitsModal(false); handleSubscribe(); }}
-                        />
-                    </Modal.Footer>
-                )}
-            </Modal>
+
 
             <Modal show={showCancelConfirmation} onHide={handleCloseCancelConfirmation} centered>
                 <Modal.Header closeButton={!cancelSubscriptionLoading}>
