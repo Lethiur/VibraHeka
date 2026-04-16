@@ -75,8 +75,6 @@ export class AuthRepositoryImpl implements IAuthRepository {
             email: data.email,
             password: data.password,
             firstName: data.firstName,
-            middleName: data.middleName,
-            lastName: data.lastName,
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         };
 
