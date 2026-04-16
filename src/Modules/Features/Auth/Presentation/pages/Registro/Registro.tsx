@@ -18,8 +18,7 @@ import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
-import PasswordConfirmationFields
-    from "@auth/Presentation/Components/Molecules/PasswordConfirmationFields/PasswordConfirmationFields";
+import PasswordStrengthMeter from "@auth/Presentation/Components/Molecules/PasswordStrengthMeter/PasswordStrengthMeter";
 
 export default function Registro() {
     const { t } = useTranslation();
@@ -27,7 +26,6 @@ export default function Registro() {
     const [globalError, setGlobalError] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [password, setPassword] = useState("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
     const registerUserUseCase: RegisterUserUseCase = useRegisterUser();
     const localStorage: LocalStorageService = useLocalStorage();
@@ -45,7 +43,6 @@ export default function Registro() {
             lastName: (formData.get('lastName') as string) || "",
             email: (formData.get('email') as string) || "",
             password,
-            passwordConfirmation,
         };
 
 
@@ -119,22 +116,17 @@ export default function Registro() {
 
                 <div className="auth-form__section">
                     <span className="auth-form__section-label">Contraseña</span>
-                    <PasswordConfirmationFields
-                        passwordName="password"
-                        passwordLabel={t("pages.register.form.password_label")}
-                        passwordValue={password}
-                        onPasswordChange={(event) => setPassword(event.target.value)}
-                        passwordError={errors.password ? t(`errors.auth.${errors.password}`, { defaultValue: errors.password.toString() }) : undefined}
-                        confirmationName="passwordConfirmation"
-                        confirmationLabel={t("pages.register.form.password_confirmation_label")}
-                        confirmationValue={passwordConfirmation}
-                        onConfirmationChange={(event) => setPasswordConfirmation(event.target.value)}
-                        confirmationHelpText={t("pages.register.form.password_confirmation_help")}
-                        confirmationError={errors.passwordConfirmation
-                            ? t(`errors.auth.${errors.passwordConfirmation}`, { defaultValue: errors.passwordConfirmation.toString() })
-                            : undefined}
+                    <PrimaryTextInput
+                        label={t("pages.register.form.password_label")}
+                        name="password"
+                        type="password"
+                        required
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
                         disabled={isSubmitting}
+                        error={errors.password ? t(`errors.auth.${errors.password}`, { defaultValue: errors.password.toString() }) : undefined}
                     />
+                    <PasswordStrengthMeter password={password} />
                 </div>
 
                 <p className="auth-form__legal-disclaimer">

@@ -47,13 +47,5 @@ export default class RegistrationDataValidator extends Validator<RegistrationDat
             .withMessage(AuthApplicationErrors.PASSWORD_REQUIRES_NUMBER)
             .must((password) => hasSymbol(password))
             .withMessage(AuthApplicationErrors.PASSWORD_REQUIRES_SYMBOL);
-
-        this.ruleFor("passwordConfirmation")
-            .notEmpty()
-            .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_NOT_PRESENT)
-            .minLength(PASSWORD_MIN_LENGTH)
-            .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_TOO_SHORT)
-            .must((passwordConfirmation, model) => passwordsMatch(passwordConfirmation, model.password))
-            .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH);
     }
 }
