@@ -29,7 +29,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
             thursday: {
                 day: 16,
                 weekday: "Jueves",
-                time: "19:00, 19:30 y 20:00",
+                time: "🇪🇸 19:00, 19:30, 20:00 | 🇻🇪 13:00, 13:30, 14:00 | 🇨🇴 12:00, 12:30, 13:00 | 🇲🇽 11:00, 11:30, 12:00",
                 therapist: "Carmen Martín",
                 therapistHandle: "carmen-martin",
                 extraTherapistHandle: "luis-galvis",
@@ -39,7 +39,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
             friday: {
                 day: 17,
                 weekday: "Viernes",
-                time: "20:00",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Marina De La Sen",
                 therapistHandle: "marina-garrido",
                 format: "MASTERCLASS",
@@ -48,7 +48,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
             saturday: {
                 day: 18,
                 weekday: "Sábado",
-                time: "20:00",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Equipo VibraHeka",
                 format: "PREGUNTAS Y RESPUESTAS / CONVERSATORIO",
                 title: "Dudas sobre el estrés y la ansiedad"
@@ -62,7 +62,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
             thursday: {
                 day: 23,
                 weekday: "Jueves",
-                time: "20:00",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Luis Galvis",
                 therapistHandle: "luis-galvis",
                 format: "MEDITACIÓN",
@@ -71,7 +71,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
             friday: {
                 day: 24,
                 weekday: "Viernes",
-                time: "20:00",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Beatriz Alonso",
                 therapistHandle: "beatriz",
                 format: "MASTERCLASS",
@@ -80,7 +80,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
             saturday: {
                 day: 25,
                 weekday: "Sábado",
-                time: "20:00",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Vera Lucya González",
                 therapistHandle: "vera-lucya",
                 format: "CHARLA TEMÁTICA",
@@ -95,7 +95,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
             thursday: {
                 day: 30,
                 weekday: "Jueves",
-                time: "20:00",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Verónica Hernández",
                 therapistHandle: "veronica-hernandez",
                 format: "MEDITACIÓN",
