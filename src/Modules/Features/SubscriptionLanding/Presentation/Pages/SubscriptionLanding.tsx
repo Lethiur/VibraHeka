@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
@@ -90,7 +90,7 @@ export default function SubscriptionLanding() {
         {
             icon: <CalendarCheck size={24} />,
             title: "Actividades Gratuitas",
-            description: "Acceso inmediato y con descuentos a todas nuestras actividades online programadas."
+            description: "Acceso inmediato y sin coste a la mayoría de actividades programadas y con descuento en la programación con coste."
         },
         {
             icon: <CheckCircle2 size={24} />,
