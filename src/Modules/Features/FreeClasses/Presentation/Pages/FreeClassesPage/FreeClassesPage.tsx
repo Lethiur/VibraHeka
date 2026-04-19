@@ -8,7 +8,7 @@ import "./FreeClassesPage.scss";
 import clasesGratuitas1 from "../../../../../../Assets/Images/clases-gratuitas-1.jpg";
 import carmenClasesGratuitas from "../../../../../../Assets/Images/carmen-clases-gratuitas.jpg";
 
-const WHATSAPP_URL = "https://chat.whatsapp.com/JIDmYL5hs5V5b0VwtewHdf?mode=gi_t";
+const WHATSAPP_URL = "https://chat.whatsapp.com/GuximSumaMU7UHZT5gOwnb?mode=gi_t";
 
 function joinWhatsApp() {
     window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
@@ -199,59 +199,59 @@ export default function FreeClassesPage() {
                 <Container className="px-3 px-sm-4">
                     <Reveal>
                         <div className="fc-about-section">
-                        <SideImageBlock
-                            image={carmenClasesGratuitas}
-                            imageAlt="Carmen, terapeuta especializada en Fisioterapia Energética"
-                            imageLeft={true}
-                            contentVerticalAlign="center"
-                        >
-                            <div className="fc-about-copy">
-                                <h2>
-                                    Soy Carmen, terapeuta especializada en Fisioterapia Energética
-                                </h2>
-                                <p>
-                                    Hace unos años tuve un cambio en mi vida de 180 grados. Me sentía
-                                    frustrada, incomprendida, perdida, bloqueada. Pasaba mis días con
-                                    miedo y no sabía qué iba a pasar con mi vida. Pero{" "}
-                                    <strong>
-                                        algo dentro de mí sabía que tenía que encontrarme a mí misma
-                                    </strong>
-                                    .
-                                </p>
-                                <p>
-                                    Durante ese tiempo de transformación he estudiado terapias
-                                    complementarias porque he descubierto que era mi pasión: Nutrición,
-                                    Reiki, Sanación Energética, Biodinámica…{" "}
-                                    <strong>
-                                        Y creé una terapia única que combina lo físico y lo energético
-                                    </strong>
-                                    : la{" "}
-                                    <em>
-                                        <strong>Fisioterapia Energética</strong>
-                                    </em>
-                                    .
-                                </p>
-                                <p>
-                                    Hoy, con{" "}
-                                    <strong>
-                                        más de 7 años de experiencia ayudando a cientos de personas
-                                    </strong>
-                                    , mi misión es acompañarte a reconectar contigo misma, liberar
-                                    bloqueos y recuperar tu equilibrio natural.{" "}
-                                    <strong>
-                                        Porque creo que cada tensión, dolor o emoción acumulada es un
-                                        mensaje que merece atención
-                                    </strong>
-                                    .
-                                </p>
-                                <PrimaryButton
-                                    label="Grupo Clases Gratuitas"
-                                    fullWidth={true}
-                                    variant="secondary"
-                                    onClick={joinWhatsApp}
-                                />
-                            </div>
-                        </SideImageBlock>
+                            <SideImageBlock
+                                image={carmenClasesGratuitas}
+                                imageAlt="Carmen, terapeuta especializada en Fisioterapia Energética"
+                                imageLeft={true}
+                                contentVerticalAlign="center"
+                            >
+                                <div className="fc-about-copy">
+                                    <h2>
+                                        Soy Carmen, terapeuta especializada en Fisioterapia Energética
+                                    </h2>
+                                    <p>
+                                        Hace unos años tuve un cambio en mi vida de 180 grados. Me sentía
+                                        frustrada, incomprendida, perdida, bloqueada. Pasaba mis días con
+                                        miedo y no sabía qué iba a pasar con mi vida. Pero{" "}
+                                        <strong>
+                                            algo dentro de mí sabía que tenía que encontrarme a mí misma
+                                        </strong>
+                                        .
+                                    </p>
+                                    <p>
+                                        Durante ese tiempo de transformación he estudiado terapias
+                                        complementarias porque he descubierto que era mi pasión: Nutrición,
+                                        Reiki, Sanación Energética, Biodinámica…{" "}
+                                        <strong>
+                                            Y creé una terapia única que combina lo físico y lo energético
+                                        </strong>
+                                        : la{" "}
+                                        <em>
+                                            <strong>Fisioterapia Energética</strong>
+                                        </em>
+                                        .
+                                    </p>
+                                    <p>
+                                        Hoy, con{" "}
+                                        <strong>
+                                            más de 7 años de experiencia ayudando a cientos de personas
+                                        </strong>
+                                        , mi misión es acompañarte a reconectar contigo misma, liberar
+                                        bloqueos y recuperar tu equilibrio natural.{" "}
+                                        <strong>
+                                            Porque creo que cada tensión, dolor o emoción acumulada es un
+                                            mensaje que merece atención
+                                        </strong>
+                                        .
+                                    </p>
+                                    <PrimaryButton
+                                        label="Grupo Clases Gratuitas"
+                                        fullWidth={true}
+                                        variant="secondary"
+                                        onClick={joinWhatsApp}
+                                    />
+                                </div>
+                            </SideImageBlock>
                         </div>
                     </Reveal>
                 </Container>
