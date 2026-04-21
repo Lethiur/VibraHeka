@@ -7,7 +7,7 @@ import {visualizer} from 'rollup-plugin-visualizer'
 export default defineConfig(({mode}) => {
     const env = loadEnv(mode, process.cwd(), '')
     const isAnalyze = env.ANALYZE === 'true'
-    const proxyTarget = env.VITE_DEV_PROXY_TARGET || 'https://dd1kekevp7.execute-api.eu-west-1.amazonaws.com'
+    const proxyTarget = env.VITE_DEV_PROXY_TARGET || 'https://anjpwsh7c8.execute-api.eu-west-1.amazonaws.com'
     return {
         plugins: [react(), tsconfigPaths(), isAnalyze && visualizer({open: true})].filter(Boolean),
         css: {

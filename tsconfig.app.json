@@ -39,6 +39,9 @@
             "@admin/emailTemplates/*": [
                 "src/Modules/Admin/Emails/*"
             ],
+            "@admin/recordings/*": [
+                "src/Modules/Admin/Recordings/*"
+            ],
             "@users/*": [
                 "src/Modules/Features/User/*"
             ],

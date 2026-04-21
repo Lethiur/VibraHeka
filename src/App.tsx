@@ -19,6 +19,7 @@ const AdminLayout = lazy(() => import("@core/Presentation/Layouts/AdminLayout"))
 const TherapistIndex = lazy(() => import("@admin/addTherapist/Presentation/Pages/TherapistIndex"))
 const Emails = lazy(() => import('@admin/emailTemplates/Presentation/Screens/EmailsForAction/Emails'))
 const TemplateManagement = lazy(() => import('@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement'))
+const RecordingsPage = lazy(() => import('@admin/recordings/Presentation/Pages/RecordingsPage'))
 const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
 const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
 const LandingPage = lazy(() => import('@landing/Presentation/Pages/Landing'))
@@ -95,6 +96,7 @@ function App() {
                                         <Route path="/admin/therapists" element={<TherapistIndex />} />
                                         <Route path="/admin/emails" element={<Emails />} />
                                         <Route path="/admin/emails/templates" element={<TemplateManagement />} />
+                                        <Route path="/admin/recordings" element={<RecordingsPage />} />
                                     </Route>
                                 </>
                             )

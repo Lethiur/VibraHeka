@@ -2,6 +2,8 @@
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
 import { ProfileApplicationErrors } from "@users/Application/Errors/ProfileApplicationErrors";
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
+import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
+import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 
 export const es = {
     translation: {
@@ -56,6 +58,17 @@ export const es = {
                 [ProfileApplicationErrors.NEW_PASSWORD_CONFIRMATION_NOT_PRESENT]: "Debes confirmar la nueva contraseña.",
                 [ProfileApplicationErrors.NEW_PASSWORD_CONFIRMATION_TOO_SHORT]: "La confirmación debe tener al menos 6 caracteres.",
                 [ProfileApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH]: "Las contraseñas no coinciden."
+            },
+            recordings: {
+                [RecordingsErrors.UNAUTHORIZED]: "No tienes permisos para subir grabaciones.",
+                [RecordingsErrors.NETWORK_ERROR]: "No se pudo conectar con el servidor.",
+                [RecordingsErrors.UPLOAD_FAILED]: "No se pudo subir la grabación.",
+                [RecordingsErrors.GENERAL_ERROR]: "Ha ocurrido un error al subir la grabación.",
+                [RecordingsApplicationErrors.NAME_REQUIRED]: "El nombre es obligatorio.",
+                [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
+                [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
+                [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
+                [RecordingsApplicationErrors.FILE_NAME_REQUIRED]: "El nombre del archivo es obligatorio."
             }
         },
         components: {
@@ -81,6 +94,13 @@ export const es = {
         pages: {
             admin: {
                 title: "Panel de administracion",
+                nav: {
+                    dashboard: "Dashboard",
+                    therapists: "Terapeutas",
+                    emails: "Emails transaccionales",
+                    email_templates: "Plantillas de correo",
+                    recordings: "Grabaciones"
+                },
                 emails: {
                     title: "Plantillas de correo",
                     loading: "Cargando...",
@@ -102,6 +122,51 @@ export const es = {
                         create_title: "Crear plantilla",
                         name_label: "Nombre de usuario",
                         submit_button: "Crear plantilla"
+                    }
+                },
+                recordings: {
+                    title: "Grabaciones",
+                    description: "Sube nuevas grabaciones y prepara la gestión del catálogo de contenido.",
+                    messages: {
+                        success_title: "Éxito",
+                        success_content: "Grabación subida correctamente.",
+                        error_title: "Error"
+                    },
+                    errors: {
+                        [RecordingsApplicationErrors.NAME_REQUIRED]: "El nombre es obligatorio.",
+                        [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
+                        [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
+                        [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
+                        [RecordingsApplicationErrors.FILE_NAME_REQUIRED]: "El nombre del archivo es obligatorio."
+                    },
+                    form: {
+                        title: "Subir grabación",
+                        name_label: "Nombre",
+                        description_label: "Descripción",
+                        type_label: "Tipo",
+                        type_placeholder: "Selecciona un tipo",
+                        file_label: "Archivo",
+                        file_name_label: "Nombre del archivo",
+                        submit_button: "Subir grabación",
+                        submitting_button: "Subiendo...",
+                        types: {
+                            meditacion: "Meditación",
+                            masterclass: "Masterclass",
+                            taller: "Taller"
+                        }
+                    },
+                    list: {
+                        title: "Listado de grabaciones",
+                        description: "Sección preparada para mostrar las grabaciones disponibles próximamente.",
+                        pending: "Listado pendiente de implementación.",
+                        delete_pending: "Borrar (pendiente)",
+                        columns: {
+                            name: "Nombre",
+                            description: "Descripción",
+                            type: "Tipo",
+                            file_name: "Nombre del archivo",
+                            actions: "Acciones"
+                        }
                     }
                 }
             },

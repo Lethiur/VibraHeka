@@ -4,16 +4,17 @@ import { useTranslation } from "react-i18next";
 import "./AdminLayout.scss";
 
 interface AdminNavItem {
-    label: string;
+    labelKey: string;
     to: string;
     end?: boolean;
 }
 
 const adminNavItems: AdminNavItem[] = [
-    { label: "Dashboard", to: "/admin/dashboard", end: true },
-    { label: "Terapeutas", to: "/admin/therapists", end: true },
-    { label: "Emails transaccionales", to: "/admin/emails", end: true },
-    { label: "Plantillas de correo", to: "/admin/emails/templates" },
+    { labelKey: "pages.admin.nav.dashboard", to: "/admin/dashboard", end: true },
+    { labelKey: "pages.admin.nav.therapists", to: "/admin/therapists", end: true },
+    { labelKey: "pages.admin.nav.emails", to: "/admin/emails", end: true },
+    { labelKey: "pages.admin.nav.email_templates", to: "/admin/emails/templates" },
+    { labelKey: "pages.admin.nav.recordings", to: "/admin/recordings" },
 ];
 
 export default function AdminLayout() {
@@ -41,7 +42,7 @@ export default function AdminLayout() {
                                     end={item.end}
                                     className="admin-layout__nav-link"
                                 >
-                                    {item.label}
+                                    {t(item.labelKey)}
                                 </Nav.Link>
                             ))}
                         </Nav>
