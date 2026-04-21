@@ -1,14 +1,16 @@
 // import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
-// import { useAtomValue } from "jotai";
+import { useNavigate } from "react-router-dom";
+import { useAtomValue } from "jotai";
 // import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
-import { RefreshCcw, BrainCircuit, MessageCircleQuestion, BadgePercent, CalendarCheck, Video, Users, CheckCircle2 } from "lucide-react";
+import { RefreshCcw, BrainCircuit, MessageCircleQuestion, Video, Users } from "lucide-react";
 import "./SubscriptionLanding.scss";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
+import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
 
 export default function SubscriptionLanding() {
-    // const navigate = useNavigate();
-    // const isAuthenticated = useAtomValue(isAuthenticatedAtom);
+    const navigate = useNavigate();
+    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
 
     // // Hooks para gestión de la suscripción y pagos de Stripe
     // const { checkoutURL, loading: subscribeLoading, subscribe } = UseSubscribe();
@@ -74,23 +76,24 @@ export default function SubscriptionLanding() {
     // }, [checkoutURL]);
 
     // Lógica del botón principal
-    // const handleSubscribeAction = () => {
-    //     // 1. Si no hay sesión, mandarlo a registro
-    //     if (!isAuthenticated) {
-    //         navigate("/registro?redirect=/subscripcion");
-    //         return;
-    //     }
-    //
-    //     // 2. Si hay sesión y la suscripción está activa, no hace falta que pague de nuevo
-    //     if (subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE) {
-    //         navigate("/profile/me");
-    //         return;
-    //     }
-    //
-    //     // 3. Usuario listo y sin suscripción activa -> Generar checkout URL
-    //     setIsProcessing(true);
-    //     subscribe();
-    // }
+    const handleSubscribeAction = () => {
+        navigate('/registro')
+        // // 1. Si no hay sesión, mandarlo a registro
+        // if (!isAuthenticated) {
+        //     navigate("/registro?redirect=/subscripcion");
+        //     return;
+        // }
+        //
+        // // 2. Si hay sesión y la suscripción está activa, no hace falta que pague de nuevo
+        // if (subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE) {
+        //     navigate("/profile/me");
+        //     return;
+        // }
+        //
+        // // 3. Usuario listo y sin suscripción activa -> Generar checkout URL
+        // setIsProcessing(true);
+        // subscribe();
+    }
 
     // const isLoading = isProcessing || subscribeLoading || (isAuthenticated && subscriptionLoading);
 
@@ -110,11 +113,11 @@ export default function SubscriptionLanding() {
             title: "Espacio de Q&A",
             description: "Sesiones de preguntas y respuestas para sentirte acompañado y ganar herramientas útiles."
         },
-        {
-            icon: <BadgePercent size={24} />,
-            title: "Descuento en Terapias",
-            description: "Accede a sesiones, talleres y constelaciones por un valor inferior al precio de mercado."
-        },
+        // {
+        //     icon: <BadgePercent size={24} />,
+        //     title: "Descuento en Terapias",
+        //     description: "Accede a sesiones, talleres y constelaciones por un valor inferior al precio de mercado."
+        // },
         {
             icon: <Video size={24} />,
             title: "Grabaciones Disponibles",
@@ -124,17 +127,17 @@ export default function SubscriptionLanding() {
             icon: <Users size={24} />,
             title: "Grupo Exclusivo",
             description: "Acceso a nuestro grupo de WhatsApp diseñado exclusivamente para miembros."
-        },
-        {
-            icon: <CalendarCheck size={24} />,
-            title: "Actividades Gratuitas",
-            description: "Acceso inmediato y sin coste a la mayoría de actividades programadas y con descuento en la programación con coste."
-        },
-        {
-            icon: <CheckCircle2 size={24} />,
-            title: "Cero Riesgo",
-            description: "14 días de prueba gratuitos y sin permanencia. Cancela en un clic cuando lo desees."
         }
+        // {
+        //     icon: <CalendarCheck size={24} />,
+        //     title: "Actividades Gratuitas",
+        //     description: "Acceso inmediato y sin coste a la mayoría de actividades programadas y con descuento en la programación con coste."
+        // },
+        // {
+        //     icon: <CheckCircle2 size={24} />,
+        //     title: "Cero Riesgo",
+        //     description: "14 días de prueba gratuitos y sin permanencia. Cancela en un clic cuando lo desees."
+        // }
     ];
 
     return (
@@ -153,10 +156,21 @@ export default function SubscriptionLanding() {
                         </div>
                     </Col>
                 </Row>
-
+                { !isAuthenticated && (<Row className="justify-content-center">
+                    <Col md={12}>
+                        <PrimaryButton
+                            label={'Quiero unirme a VibraHeka'}
+                            variant="primary"
+                            fullWidth
+                            onClick={handleSubscribeAction}
+                        />
+                    </Col>
+                </Row>)}
+                
+                
                 {/* Desglose de Beneficios */}
                 <div className="subscription-landing__benefits">
-                    <h2 className="subscription-landing__benefits-title">¿Qué incluye tu suscripción?</h2>
+                    <h2 className="subscription-landing__benefits-title">¿Qué incluye tu cuenta?</h2>
 
                     <Row className="g-4">
                         {benefits.map((benefit, index) => (
