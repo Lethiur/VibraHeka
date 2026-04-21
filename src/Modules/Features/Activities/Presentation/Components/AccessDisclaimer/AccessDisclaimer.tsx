@@ -19,7 +19,7 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type, subscription,
     const { checkoutURL, loading: subscribeLoading, subscribe } = UseSubscribe();
 
     const [isProcessing, setIsProcessing] = useState(false);
-
+    console.log("subscription", type);
     // Redirección asíncrona a Stripe
     useEffect(() => {
         if (checkoutURL) {
@@ -45,13 +45,13 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type, subscription,
     const isLoading = isProcessing || subscribeLoading || subscriptionLoading;
 
     // Verificar si el usuario ya tiene una suscripción activa
-    const hasActiveSubscription = subscription &&
-        (subscription.SubscriptionStatus === SubscriptionStatus.ACTIVE ||
-            subscription.SubscriptionStatus === SubscriptionStatus.TRIALING ||
-            subscription.SubscriptionStatus === SubscriptionStatus.TO_BE_CANCELLED);
+    // const hasActiveSubscription = subscription &&
+    //     (subscription.SubscriptionStatus === SubscriptionStatus.ACTIVE ||
+    //         subscription.SubscriptionStatus === SubscriptionStatus.TRIALING ||
+    //         subscription.SubscriptionStatus === SubscriptionStatus.TO_BE_CANCELLED);
 
     // Verificar si el periodo de suscripción se ha cerrado (19 de abril)
-    const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-18T18:00:00Z").getTime();
+    // const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-18T18:00:00Z").getTime();
 
     return (
         <div className="access-disclaimer">
@@ -67,33 +67,28 @@ const AccessDisclaimer: React.FC<AccessDisclaimerProps> = ({ type, subscription,
                 </p>
 
                 <div className="access-disclaimer__cta">
-                    {hasActiveSubscription ? (
+                    {isAuthenticated ? (
                         <div className="w-100">
                             <MemberWhatsAppNotice />
                         </div>
                     ) : (
                         <>
-                            {!isSubscriptionClosed ? (
+                           
                                 <PrimaryButton
-                                    label={isLoading ? "Iniciando proceso seguro..." : (type === "unauthenticated" ? "Crear una cuenta" : "Suscribirme ahora")}
+                                    label={"Crear una cuenta"}
                                     variant="primary"
                                     fullWidth
                                     onClick={handleAction}
                                     disabled={isLoading}
                                 />
-                            ) : (
-                                <div className="access-disclaimer__closed-notice mb-3">
-                                    <Lock size={16} className="text-muted" />
-                                    <small className="text-muted">Las inscripciones están cerradas por el momento.</small>
-                                </div>
-                            )}
+                         
 
-                            <PrimaryButton
-                                label="¿Qué incluye la suscripción?"
-                                variant="secondary"
-                                fullWidth
-                                onClick={() => navigate("/subscripcion")}
-                            />
+                            {/*<PrimaryButton*/}
+                            {/*    label="¿Qué incluye la suscripción?"*/}
+                            {/*    variant="secondary"*/}
+                            {/*    fullWidth*/}
+                            {/*    onClick={() => navigate("/subscripcion")}*/}
+                            {/*/>*/}
                         </>
                     )}
                 </div>
