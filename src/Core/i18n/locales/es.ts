@@ -141,7 +141,7 @@ export const es = {
                     middle_name_label: "Primer apellido",
                     last_name_label: "Segundo apellido",
                     email_label: "Email",
-                    password_label: "Password",
+                    password_label: "Contraseña",
                     password_confirmation_label: "Confirmar contraseña",
                     password_confirmation_help: "Repite la contraseña para confirmarla",
                     submit_button: "Registrarse",
