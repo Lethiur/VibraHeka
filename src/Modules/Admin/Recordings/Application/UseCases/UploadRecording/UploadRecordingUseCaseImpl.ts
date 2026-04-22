@@ -1,4 +1,4 @@
-import { Result } from "neverthrow";
+import { Result, ok, err } from "neverthrow";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import { IUploadRecordingUseCase } from "@admin/recordings/Application/UseCases/UploadRecording/IUploadRecordingUseCase";
 import CreateRecordingValidator from "@admin/recordings/Application/Validators/CreateRecordingValidator";
@@ -12,14 +12,25 @@ export default class UploadRecordingUseCaseImpl implements IUploadRecordingUseCa
         private readonly Validator: CreateRecordingValidator,
     ) { }
 
-    public async Execute(data: CreateRecordingEntity): Promise<Result<string, RecordingsErrors>> {
+    public async Execute(data: CreateRecordingEntity, onProgress: (progress: number) => void): Promise<Result<string, RecordingsErrors>> {
         const validationResult = this.Validator.validate(data);
 
         if (Object.keys(validationResult).length > 0) {
             throw new InvalidEntityError(validationResult);
         }
 
-        return this.Repository.UploadRecording(data);
+        const addResult = await this.Repository.UploadRecording(data);
+        if (addResult.isErr()) {
+            return err(addResult.error);
+        }
+
+        const { RecordingId, UploadUrl } = addResult.value;
+        const uploadResult = await this.Repository.UploadRecordingVideo(UploadUrl, data.File!, onProgress);
+        if (uploadResult.isErr()) {
+            return err(uploadResult.error);
+        }
+
+        return ok(RecordingId);
     }
 }
 

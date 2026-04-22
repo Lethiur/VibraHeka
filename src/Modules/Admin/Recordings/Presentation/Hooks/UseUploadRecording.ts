@@ -10,16 +10,18 @@ export default function UseUploadRecording() {
     const UseCase = useContext(UploadRecordingContext);
 
     const [loading, setLoading] = useState<boolean>(false);
+    const [uploadProgress, setUploadProgress] = useState<number>(0);
     const [recordingID, setRecordingID] = useState<string | null>(null);
     const [error, setError] = useState<RecordingsErrors | null>(null);
     const [validationErrors, setValidationErrors] = useState<ValidationErrors<CreateRecordingEntity>>({});
 
     const UploadRecording = async (data: CreateRecordingEntity): Promise<void> => {
         setLoading(true);
+        setUploadProgress(0);
         setError(null);
 
         try {
-            const result: Result<string, RecordingsErrors> = await UseCase.Execute(data);
+            const result: Result<string, RecordingsErrors> = await UseCase.Execute(data, setUploadProgress);
             setValidationErrors({});
             result.match(setRecordingID, setError);
         } catch (error: unknown) {
@@ -37,6 +39,7 @@ export default function UseUploadRecording() {
     return {
         UploadRecording,
         recordingID,
+        uploadProgress,
         loading,
         error,
         validationErrors,

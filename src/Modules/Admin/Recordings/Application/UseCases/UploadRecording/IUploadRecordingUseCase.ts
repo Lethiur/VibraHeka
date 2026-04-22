@@ -3,6 +3,6 @@ import { CreateRecordingEntity } from "@admin/recordings/Domain/Entities/CreateR
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 
 export interface IUploadRecordingUseCase {
-    Execute(data: CreateRecordingEntity): Promise<Result<string, RecordingsErrors>>;
+    Execute(data: CreateRecordingEntity, onProgress: (progress: number) => void): Promise<Result<string, RecordingsErrors>>;
 }
 

@@ -129,6 +129,10 @@ export const es = {
                 recordings: {
                     title: "Grabaciones",
                     description: "Sube nuevas grabaciones y prepara la gestión del catálogo de contenido.",
+                    upload_modal: {
+                        title: "Subiendo grabación...",
+                        description: "Por favor, espera mientras se sube el archivo. No cierres esta ventana."
+                    },
                     messages: {
                         success_title: "Éxito",
                         success_content: "Grabación subida correctamente.",

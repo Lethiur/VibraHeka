@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Col, Container, Form, Row, Spinner, Table } from "react-bootstrap";
+import { Col, Container, Form, Modal, ProgressBar, Row, Spinner, Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
@@ -16,7 +16,7 @@ import "./RecordingsPage.scss";
 export default function RecordingsPage() {
     const { t } = useTranslation();
     const { ShowNotification } = UseToast();
-    const { UploadRecording, recordingID, loading, error, validationErrors } = UseUploadRecording();
+    const { UploadRecording, recordingID, uploadProgress, loading, error, validationErrors } = UseUploadRecording();
     const { recordings, loading: listLoading, error: listError, refetch } = UseGetRecordings();
     const { DeleteRecording, loading: deleteLoading } = UseDeleteRecording();
 
@@ -95,6 +95,16 @@ export default function RecordingsPage() {
     };
 
     return (
+        <>
+        <Modal show={loading} backdrop="static" keyboard={false} centered>
+            <Modal.Header>
+                <Modal.Title>{t("pages.admin.recordings.upload_modal.title")}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p className="mb-3">{t("pages.admin.recordings.upload_modal.description")}</p>
+                <ProgressBar animated now={uploadProgress} label={`${uploadProgress}%`} />
+            </Modal.Body>
+        </Modal>
         <Container fluid className="py-4 py-md-5 recordings-page">
             <section className="vh-surface-card mb-4 recordings-page__header">
                 <h1>{t("pages.admin.recordings.title")}</h1>
@@ -236,5 +246,6 @@ export default function RecordingsPage() {
                 </Col>
             </Row>
         </Container>
+        </>
     );
 }
