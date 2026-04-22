@@ -7,7 +7,6 @@ export enum RecordingType {
 export interface CreateRecordingEntity {
     Name: string;
     Description: string;
-    Type: RecordingType | null;
+    Type: RecordingType;
     File: File | null;
-    FileName: string;
 }

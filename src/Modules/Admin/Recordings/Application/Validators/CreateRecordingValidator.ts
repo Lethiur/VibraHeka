@@ -11,7 +11,6 @@ export default class CreateRecordingValidator extends Validator<CreateRecordingE
             .must((value) => value === RecordingType.MEDITACION || value === RecordingType.MASTERCLASS || value === RecordingType.TALLER)
             .withMessage(RecordingsApplicationErrors.TYPE_REQUIRED);
         this.ruleFor("File").must((value) => value instanceof File).withMessage(RecordingsApplicationErrors.FILE_REQUIRED);
-        this.ruleFor("FileName").notNull().notEmpty().withMessage(RecordingsApplicationErrors.FILE_NAME_REQUIRED);
     }
 }
 

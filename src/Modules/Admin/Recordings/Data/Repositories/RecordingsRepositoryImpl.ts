@@ -20,8 +20,13 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
     }
 
     public async UploadRecording(data: CreateRecordingEntity): Promise<Result<AddRecordingResponse, RecordingsErrors>> {
-        let resultAsync = await this.Datasource.UploadRecording(data);
-
+        console.log("RecordingsRepositoryImpl: UploadRecording called with data:", data);
+        let resultAsync = await this.Datasource.UploadRecording({
+            name: data.Name,
+            description: data.Description,
+            type: data.Type,
+        });
+        console.log("UploadRecording result from datasource:", resultAsync);
         return resultAsync.map((value: AddRecordingResult) => {
             return {
                 RecordingId: value.recordingId,

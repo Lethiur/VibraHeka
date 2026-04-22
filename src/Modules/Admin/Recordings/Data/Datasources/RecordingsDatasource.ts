@@ -1,9 +1,9 @@
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 import {ok, err, Result} from "neverthrow";
 import axios from "axios";
-import {CreateRecordingEntity} from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 import AddRecordingResult from "@admin/recordings/Data/Entities/AddRecordingResult";
 import {RecordingDto} from "@admin/recordings/Data/Entities/RecordingDto.ts";
+import CreateRecordingRequest from "../Entities/CreateRecordingRequest";
 
 export default class RecordingsDatasource extends BackendDatasource {
     public async UploadRecordingVideo(url: string, file: File, onProgress?: (progress: number) => void): Promise<Result<void, string>> {
@@ -25,15 +25,8 @@ export default class RecordingsDatasource extends BackendDatasource {
         }
     }
 
-    public async UploadRecording(data: CreateRecordingEntity): Promise<Result<AddRecordingResult, string>> {
-        const formData = new FormData();
-        formData.append("Name", data.Name);
-        formData.append("Description", data.Description);
-        formData.append("Type", String(data.Type));
-        formData.append("File", data.File as Blob);
-        formData.append("FileName", data.FileName);
-
-        return this.post<AddRecordingResult>("/recordings", formData, true);
+    public async UploadRecording(data: CreateRecordingRequest): Promise<Result<AddRecordingResult, string>> {
+        return this.post<AddRecordingResult>("/recordings", data, true);
     }
 
     public async GetRecordings(): Promise<Result<RecordingDto[], string>> {

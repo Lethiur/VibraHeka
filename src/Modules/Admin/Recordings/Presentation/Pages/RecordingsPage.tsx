@@ -59,9 +59,8 @@ export default function RecordingsPage() {
         const data: CreateRecordingEntity = {
             Name: (formData.get("Name") as string) ?? "",
             Description: (formData.get("Description") as string) ?? "",
-            Type: typeValue,
-            File: file instanceof File && file.size > 0 ? file : null,
-            FileName: (formData.get("FileName") as string) ?? "",
+            Type: typeValue || RecordingType.MEDITACION,
+            File: file instanceof File && file.size > 0 ? file : null
         };
 
         await UploadRecording(data);
@@ -173,14 +172,6 @@ export default function RecordingsPage() {
                                 )}
                             </Form.Group>
 
-                            <PrimaryTextInput
-                                name="FileName"
-                                label={t("pages.admin.recordings.form.file_name_label")}
-                                disabled={loading}
-                                required
-                                error={getValidationMessage(validationErrors.FileName?.toString())}
-                            />
-
                             <PrimaryButton
                                 type="submit"
                                 disabled={loading}
@@ -230,7 +221,7 @@ export default function RecordingsPage() {
                                                 <td>{new Date(recording.Created).toLocaleDateString("es-ES")}</td>
                                                 <td>
                                                     <PrimaryButton
-                                                        variant="outline-danger"
+                                                        variant="dark-outline"
                                                         disabled={deleteLoading}
                                                         label={deleteLoading ? t("pages.admin.recordings.list.deleting_button") : t("pages.admin.recordings.list.delete_button")}
                                                         onClick={() => handleDelete(recording.Id)}
