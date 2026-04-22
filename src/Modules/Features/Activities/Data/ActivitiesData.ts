@@ -105,10 +105,10 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
                 day: 30,
                 weekday: "Jueves",
                 time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
-                therapist: "Verónica Hernández",
-                therapistHandle: "veronica-hernandez",
+                therapist: "Marina De La Sen",
+                therapistHandle: "marina-garrido",
                 format: "MEDITACIÓN",
-                title: "Mapeo corporal"
+                title: "Tu espacio de poder para entrar en tu calma (Reprogramación mental)"
             }
         }
     }
