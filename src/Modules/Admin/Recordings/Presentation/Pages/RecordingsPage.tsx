@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Col, Container, Form, Row, Table } from "react-bootstrap";
+import { Col, Container, Form, Row, Spinner, Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
@@ -9,12 +9,16 @@ import { UseToast } from "@core/Presentation/Hooks/UseToast";
 import { CreateRecordingEntity, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import UseUploadRecording from "@admin/recordings/Presentation/Hooks/UseUploadRecording";
+import UseGetRecordings from "@admin/recordings/Presentation/Hooks/UseGetRecordings";
+import UseDeleteRecording from "@admin/recordings/Presentation/Hooks/UseDeleteRecording";
 import "./RecordingsPage.scss";
 
 export default function RecordingsPage() {
     const { t } = useTranslation();
     const { ShowNotification } = UseToast();
     const { UploadRecording, recordingID, loading, error, validationErrors } = UseUploadRecording();
+    const { recordings, loading: listLoading, error: listError, refetch } = UseGetRecordings();
+    const { DeleteRecording, loading: deleteLoading } = UseDeleteRecording();
 
     useEffect(() => {
         if (!recordingID) return;
@@ -23,6 +27,7 @@ export default function RecordingsPage() {
             t("pages.admin.recordings.messages.success_content"),
             NotificationVariant.Success,
         );
+        refetch();
     }, [recordingID, ShowNotification, t]);
 
     useEffect(() => {
@@ -60,6 +65,33 @@ export default function RecordingsPage() {
         };
 
         await UploadRecording(data);
+    };
+
+    const handleDelete = async (id: string): Promise<void> => {
+        if (!window.confirm(t("pages.admin.recordings.list.delete_confirm"))) return;
+        const success = await DeleteRecording(id);
+        if (success) {
+            ShowNotification(
+                t("pages.admin.recordings.list.delete_success_title"),
+                t("pages.admin.recordings.list.delete_success_content"),
+                NotificationVariant.Success,
+            );
+        } else {
+            ShowNotification(
+                t("pages.admin.recordings.messages.error_title"),
+                t(`errors.recordings.${RecordingsErrors.DELETE_FAILED}`),
+                NotificationVariant.Error,
+            );
+        }
+    };
+
+    const getTypeName = (type: RecordingType): string => {
+        switch (type) {
+            case RecordingType.MEDITACION: return t("pages.admin.recordings.form.types.meditacion");
+            case RecordingType.MASTERCLASS: return t("pages.admin.recordings.form.types.masterclass");
+            case RecordingType.TALLER: return t("pages.admin.recordings.form.types.taller");
+            default: return String(type);
+        }
     };
 
     return (
@@ -154,29 +186,52 @@ export default function RecordingsPage() {
                         <h2 className="h4">{t("pages.admin.recordings.list.title")}</h2>
                         <p className="recordings-page__panel-copy">{t("pages.admin.recordings.list.description")}</p>
 
-                        <Table responsive hover>
-                            <thead>
-                                <tr>
-                                    <th>{t("pages.admin.recordings.list.columns.name")}</th>
-                                    <th>{t("pages.admin.recordings.list.columns.description")}</th>
-                                    <th>{t("pages.admin.recordings.list.columns.type")}</th>
-                                    <th>{t("pages.admin.recordings.list.columns.file_name")}</th>
-                                    <th>{t("pages.admin.recordings.list.columns.actions")}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colSpan={4}>{t("pages.admin.recordings.list.pending")}</td>
-                                    <td>
-                                        <PrimaryButton
-                                            variant="outline-danger"
-                                            disabled
-                                            label={t("pages.admin.recordings.list.delete_pending")}
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </Table>
+                        {listError && (
+                            <ErrorBox message={getDomainErrorMessage(listError)} />
+                        )}
+
+                        {listLoading ? (
+                            <div className="d-flex justify-content-center py-4">
+                                <Spinner animation="border" role="status" />
+                                <span className="visually-hidden">{t("pages.admin.recordings.list.loading")}</span>
+                            </div>
+                        ) : (
+                            <Table responsive hover>
+                                <thead>
+                                    <tr>
+                                        <th>{t("pages.admin.recordings.list.columns.name")}</th>
+                                        <th>{t("pages.admin.recordings.list.columns.description")}</th>
+                                        <th>{t("pages.admin.recordings.list.columns.type")}</th>
+                                        <th>{t("pages.admin.recordings.list.columns.created")}</th>
+                                        <th>{t("pages.admin.recordings.list.columns.actions")}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {recordings.length === 0 ? (
+                                        <tr>
+                                            <td colSpan={5}>{t("pages.admin.recordings.list.empty")}</td>
+                                        </tr>
+                                    ) : (
+                                        recordings.map((recording) => (
+                                            <tr key={recording.Id}>
+                                                <td>{recording.Name}</td>
+                                                <td>{recording.Description}</td>
+                                                <td>{getTypeName(recording.Type)}</td>
+                                                <td>{new Date(recording.Created).toLocaleDateString("es-ES")}</td>
+                                                <td>
+                                                    <PrimaryButton
+                                                        variant="outline-danger"
+                                                        disabled={deleteLoading}
+                                                        label={deleteLoading ? t("pages.admin.recordings.list.deleting_button") : t("pages.admin.recordings.list.delete_button")}
+                                                        onClick={() => handleDelete(recording.Id)}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </Table>
+                        )}
                     </section>
                 </Col>
             </Row>

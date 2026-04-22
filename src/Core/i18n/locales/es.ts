@@ -64,6 +64,8 @@ export const es = {
                 [RecordingsErrors.NETWORK_ERROR]: "No se pudo conectar con el servidor.",
                 [RecordingsErrors.UPLOAD_FAILED]: "No se pudo subir la grabación.",
                 [RecordingsErrors.GENERAL_ERROR]: "Ha ocurrido un error al subir la grabación.",
+                [RecordingsErrors.LIST_FAILED]: "No se pudo cargar el listado de grabaciones.",
+                [RecordingsErrors.DELETE_FAILED]: "No se pudo eliminar la grabación.",
                 [RecordingsApplicationErrors.NAME_REQUIRED]: "El nombre es obligatorio.",
                 [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
                 [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
@@ -157,14 +159,19 @@ export const es = {
                     },
                     list: {
                         title: "Listado de grabaciones",
-                        description: "Sección preparada para mostrar las grabaciones disponibles próximamente.",
-                        pending: "Listado pendiente de implementación.",
-                        delete_pending: "Borrar (pendiente)",
+                        description: "Gestiona las grabaciones disponibles en el catálogo.",
+                        empty: "No hay grabaciones disponibles.",
+                        loading: "Cargando grabaciones...",
+                        delete_button: "Eliminar",
+                        deleting_button: "Eliminando...",
+                        delete_confirm: "¿Estás seguro de que deseas eliminar esta grabación?",
+                        delete_success_title: "Éxito",
+                        delete_success_content: "Grabación eliminada correctamente.",
                         columns: {
                             name: "Nombre",
                             description: "Descripción",
                             type: "Tipo",
-                            file_name: "Nombre del archivo",
+                            created: "Fecha",
                             actions: "Acciones"
                         }
                     }

@@ -66,6 +66,7 @@ Respeta la estructura existente:
 
 - `src/Core`: infraestructura y piezas compartidas
 - `src/Modules`: funcionalidad por feature/dominio
+- Siempre usar type alias para las features SIEMPRE, no usar imports del tipo @/Modules, siempre usar alias, 
 
 Dentro de cada modulo:
 
