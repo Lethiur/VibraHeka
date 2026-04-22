@@ -59,6 +59,15 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
         label: "Semana 4",
         theme: "Regulación. Reducir el miedo anticipatorio",
         activities: {
+            wednesday: {
+                day: 22,
+                weekday: "Miércoles",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
+                therapist: "Veronica Hernández",
+                therapistHandle: "veronica-hernandez",
+                format: "MEDITACIÓN",
+                title: "Mapeo corporal"
+            },
             thursday: {
                 day: 23,
                 weekday: "Jueves",
