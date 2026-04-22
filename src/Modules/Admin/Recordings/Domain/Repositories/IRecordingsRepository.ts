@@ -6,7 +6,7 @@ import AddRecordingResponse from "@admin/recordings/Domain/Entities/AddRecording
 
 export interface IRecordingsRepository {
     UploadRecording(data: CreateRecordingEntity): Promise<Result<AddRecordingResponse, RecordingsErrors>>;
-    UploadRecordingVideo(url: string, data: File) : Promise<Result<void, RecordingsErrors>>;
+    UploadRecordingVideo(url: string, data: File, onProgress?: (progress: number) => void) : Promise<Result<void, RecordingsErrors>>;
     GetRecordings(): Promise<Result<RecordingEntity[], RecordingsErrors>>;
     DeleteRecording(id: string): Promise<Result<void, RecordingsErrors>>;
 }

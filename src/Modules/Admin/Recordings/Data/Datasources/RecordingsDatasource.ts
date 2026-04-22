@@ -1,10 +1,30 @@
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
-import {Result} from "neverthrow";
+import {ok, err, Result} from "neverthrow";
+import axios from "axios";
 import {CreateRecordingEntity} from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 import AddRecordingResult from "@admin/recordings/Data/Entities/AddRecordingResult";
 import {RecordingDto} from "@admin/recordings/Data/Entities/RecordingDto.ts";
 
 export default class RecordingsDatasource extends BackendDatasource {
+    public async UploadRecordingVideo(url: string, file: File, onProgress?: (progress: number) => void): Promise<Result<void, string>> {
+        try {
+            await axios.put(url, file, {
+                headers: {
+                    'Content-Type': file.type
+                },
+                onUploadProgress: (progressEvent) => {
+                    if (onProgress && progressEvent.total) {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        onProgress(percentCompleted);
+                    }
+                }
+            });
+            return ok(undefined);
+        } catch (error) {
+            return err("UPLOAD_FAILED");
+        }
+    }
+
     public async UploadRecording(data: CreateRecordingEntity): Promise<Result<AddRecordingResult, string>> {
         const formData = new FormData();
         formData.append("Name", data.Name);
