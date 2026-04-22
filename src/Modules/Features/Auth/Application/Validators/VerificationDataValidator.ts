@@ -1,4 +1,4 @@
-﻿import {VerificationData} from "../../Domain/Models/VerificationData";
+﻿import {VerificationData} from "../../Domain/Entities/VerificationData";
 import {Validator} from "fluentvalidation-ts";
 import {AuthApplicationErrors} from "../Errors/AuthApplicationErrors";
 
@@ -6,13 +6,13 @@ export default class VerificationDataValidator extends Validator<VerificationDat
     
     constructor() {
         super();
-        this.ruleFor('email')
+        this.ruleFor('Email')
             .notEmpty()
             .withMessage(AuthApplicationErrors.EMAIL_NOT_PRESENT)
             .emailAddress()
             .withMessage(AuthApplicationErrors.EMAIL_INVALID);
 
-        this.ruleFor("code")
+        this.ruleFor("Code")
             .notEmpty()
             .withMessage(AuthApplicationErrors.VERIFICATION_CODE_NOT_PRESENT)
             .minLength(6)

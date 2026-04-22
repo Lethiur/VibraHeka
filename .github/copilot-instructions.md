@@ -57,6 +57,12 @@ No instanciar repositorios/datasources en componentes de UI.
 - No filtrar errores silenciosamente; mapearlos a error codes de dominio.
 - Mantener la logica HTTP en datasources (`BackendDatasource`/especificos), no en componentes.
 
+### Entidades de dominio vs DTOs
+
+- Las **entidades de dominio** (`Domain/Entities`) tienen sus campos en **PascalCase** (ej. `UserId`, `FirstName`).
+- Los **DTOs** (`Data/`) representan la respuesta del backend y tienen los mismos campos en **camelCase** (ej. `userId`, `firstName`).
+- El **repositorio** (`Data/Repositories`) es el unico responsable de mapear DTOs -> entidades de dominio y viceversa. Ningun otro componente debe asumir la forma del DTO.
+
 ### Presentation (React)
 
 - Mantener hooks delgados (`useX`) para consumir contextos/casos de uso.

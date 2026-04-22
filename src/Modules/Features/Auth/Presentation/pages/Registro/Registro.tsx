@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 import { ValidationErrors } from "fluentvalidation-ts";
 import { useTranslation } from "react-i18next";
-import { RegistrationData } from "@auth/Domain/Models/RegistrationData";
+import { RegistrationData } from "@auth/Domain/Entities/RegistrationData";
 import { useRegisterUser } from "@auth/Presentation/Hooks/useRegisterUser";
 import RegisterUserUseCase from "@auth/Application/UseCases/RegisterUser/RegisterUserUseCase";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { RegistrationResult } from "@auth/Domain/Models/RegistrationResult";
+import { RegistrationResult } from "@auth/Domain/Entities/RegistrationResult";
 import { Result } from "neverthrow";
 import { NavigateFunction, useNavigate, Link } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
@@ -38,9 +38,9 @@ export default function Registro() {
         const formData = new FormData(event.currentTarget);
 
         const data: RegistrationData = {
-            firstName: (formData.get('firstName') as string) || "",
-            email: (formData.get('email') as string) || "",
-            password,
+            FirstName: (formData.get('firstName') as string) || "",
+            Email: (formData.get('email') as string) || "",
+            Password: password,
         };
 
 
@@ -48,8 +48,8 @@ export default function Registro() {
             setIsSubmitting(true);
             const result: Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
             if (result.isOk()) {
-                localStorage.setString(STORAGE_KEYS.EMAIL, data.email);
-                localStorage.setString(STORAGE_KEYS.PASSWORD, data.password);
+                localStorage.setString(STORAGE_KEYS.EMAIL, data.Email);
+                localStorage.setString(STORAGE_KEYS.PASSWORD, data.Password);
                 navigate('/verify');
             } else {
                 setGlobalError(t(`errors.auth.${result.error}`));
@@ -78,7 +78,7 @@ export default function Registro() {
                         type="email"
                         required
                         disabled={isSubmitting}
-                        error={errors.email ? t(`errors.auth.${errors.email}`, { defaultValue: errors.email.toString() }) : undefined}
+                        error={errors.Email ? t(`errors.auth.${errors.Email}`, { defaultValue: errors.Email.toString() }) : undefined}
                     />
                 </div>
 
@@ -90,7 +90,7 @@ export default function Registro() {
                                 name="firstName"
                                 required
                                 disabled={isSubmitting}
-                                error={errors.firstName ? t(`errors.auth.${errors.firstName}`, { defaultValue: errors.firstName.toString() }) : undefined}
+                                error={errors.FirstName ? t(`errors.auth.${errors.FirstName}`, { defaultValue: errors.FirstName.toString() }) : undefined}
                             />
                         </Col>
                     </Row>
@@ -105,7 +105,7 @@ export default function Registro() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                         disabled={isSubmitting}
-                        error={errors.password ? t(`errors.auth.${errors.password}`, { defaultValue: errors.password.toString() }) : undefined}
+                        error={errors.Password ? t(`errors.auth.${errors.Password}`, { defaultValue: errors.Password.toString() }) : undefined}
                     />
                     <PasswordStrengthMeter password={password} />
                 </div>

@@ -1,5 +1,4 @@
-﻿// data/dtos/RegisterRequestDto.ts
-export interface RegistrationRequestDto {
+export interface RegistrationRequest {
     email: string;
     password: string;
     firstName: string;

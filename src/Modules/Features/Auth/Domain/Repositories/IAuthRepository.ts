@@ -1,12 +1,12 @@
 import { Result } from 'neverthrow';
-import { RegistrationData } from "../Models/RegistrationData";
-import { RegistrationResult } from "../Models/RegistrationResult";
+import { RegistrationData } from "../Entities/RegistrationData";
+import { RegistrationResult } from "../Entities/RegistrationResult";
 import { AuthErrorCodes } from "../Errors/AuthErrorCodes";
-import { VerificationData } from "../Models/VerificationData";
-import { LoginData } from "../Models/LoginData";
-import { LoginResult } from "../Models/LoginResult";
-import { ForgotPasswordData } from "../Models/ForgotPasswordData";
-import { ResetPasswordData } from "../Models/ResetPasswordData";
+import { VerificationData } from "../Entities/VerificationData";
+import { LoginData } from "../Entities/LoginData";
+import { LoginResult } from "../Entities/LoginResult";
+import { ForgotPasswordData } from "../Entities/ForgotPasswordData";
+import { ResetPasswordData } from "../Entities/ResetPasswordData";
 
 /**
  * Interface representing an authentication repository that provides methods

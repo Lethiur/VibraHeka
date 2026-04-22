@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LoginData } from "@auth/Domain/Models/LoginData";
+import { LoginData } from "@auth/Domain/Entities/LoginData";
 import { ValidationErrors } from "fluentvalidation-ts";
 import useLoginUser from "@auth/Presentation/Hooks/useLoginUser";
 import LoginUserUseCase from "@auth/Application/UseCases/LoginUser/LoginUserUseCase";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { LoginResult } from "@auth/Domain/Models/LoginResult";
+import { LoginResult } from "@auth/Domain/Entities/LoginResult";
 import { Result } from "neverthrow";
 import { useSetAtom } from "jotai";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
@@ -39,8 +39,8 @@ export default function Login() {
         try {
             setIsSubmitting(true);
             const authResult: Result<LoginResult, AuthErrorCodes> = await loginUserUseCase.execute({
-                email: formData.get('email') as string,
-                password: formData.get('password') as string
+                Email: formData.get('email') as string,
+                Password: formData.get('password') as string
             });
 
             if (authResult.isOk()) {
@@ -78,7 +78,7 @@ export default function Login() {
                     type="email"
                     disabled={isSubmitting}
                     helpText={t('pages.login.form.email_help')}
-                    error={errors.email ? t(`errors.auth.${errors.email}`) : undefined}
+                    error={errors.Email ? t(`errors.auth.${errors.Email}`) : undefined}
                 />
                 <PrimaryTextInput
                     label={t('pages.login.form.password_label')}
@@ -87,7 +87,7 @@ export default function Login() {
                     showPasswordToggle={true}
                     disabled={isSubmitting}
                     helpText={t('pages.login.form.password_help')}
-                    error={errors.password ? t(`errors.auth.${errors.password}`) : undefined}
+                    error={errors.Password ? t(`errors.auth.${errors.Password}`) : undefined}
                 />
 
                 <div className="d-flex justify-content-end mt-2">

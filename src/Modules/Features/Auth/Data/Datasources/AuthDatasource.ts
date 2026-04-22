@@ -1,11 +1,10 @@
 import { Result } from "neverthrow";
-import { RegisterResponseDto } from "@auth/Data/DTOs/RegistrationResponseDTO";
-import { RegistrationRequestDto } from "@auth/Data/DTOs/RegistrationRequestDTO";
-import { VerificationRequestDTO } from "@auth/Data/DTOs/VerificationRequestDTO";
-import { LoginResultDTO } from "@auth/Data/DTOs/LoginResultDTO";
-import { LoginRequestDTO } from "@auth/Data/DTOs/LoginRequestDTO";
-import { ForgotPasswordRequestDTO } from "@auth/Data/DTOs/ForgotPasswordRequestDTO";
-import { ResetPasswordRequestDTO } from "@auth/Data/DTOs/ResetPasswordRequestDTO";
+import { RegisterResponseDTO } from "@auth/Data/Entities/RegistrationResponseDTO";
+import { RegistrationRequest } from "@auth/Data/Requests/RegistrationRequest";
+import { VerificationRequest } from "@auth/Data/Requests/VerificationRequest";
+import { LoginResultDTO } from "@auth/Data/Entities/LoginResultDTO";
+import { LoginRequest } from "@auth/Data/Requests/LoginRequest";
+import { ResetPasswordRequest } from "@auth/Data/Requests/ResetPasswordRequest";
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 
 /**
@@ -20,8 +19,8 @@ export default class AuthDatasource extends BackendDatasource {
      * @param {RegistrationRequestDto} registrationData - The data required for registering a user.
      * @return {Promise<Result<RegisterResponseDto, string>>} A promise that resolves to a result containing either the registration response on success or an error code on failure.
      */
-    public async register(registrationData: RegistrationRequestDto): Promise<Result<RegisterResponseDto, string>> {
-        return await this.post<RegisterResponseDto>('/auth/register', registrationData);
+    public async register(registrationData: RegistrationRequest): Promise<Result<RegisterResponseDTO, string>> {
+        return await this.post<RegisterResponseDTO>('/auth/register', registrationData);
     }
 
     /**
@@ -30,7 +29,7 @@ export default class AuthDatasource extends BackendDatasource {
      * @param {VerificationRequestDTO} dto - The data transfer object containing the verification details.
      * @return {Promise<Result<void, string>>} A promise that resolves with a `Result` containing either a success or error message.
      */
-    async Verify(dto: VerificationRequestDTO): Promise<Result<void, string>> {
+    async Verify(dto: VerificationRequest): Promise<Result<void, string>> {
         return await this.patch<void>('/auth/confirm', dto);
     }
 
@@ -40,7 +39,7 @@ export default class AuthDatasource extends BackendDatasource {
      * @param {LoginRequestDTO} dto - The data transfer object containing user login credentials.
      * @return {Promise<Result<LoginResultDTO, string>>} A promise that resolves to a result object containing either the authenticated user's data or an error message.
      */
-    async Login(dto: LoginRequestDTO): Promise<Result<LoginResultDTO, string>> {
+    async Login(dto: LoginRequest): Promise<Result<LoginResultDTO, string>> {
         return await this.post<LoginResultDTO>('/auth/authenticate', dto);
     }
 
@@ -61,8 +60,8 @@ export default class AuthDatasource extends BackendDatasource {
      * @param {ForgotPasswordRequestDTO} dto - The DTO containing the user's email.
      * @return {Promise<Result<void, string>>} A promise that resolves with success or an error code.
      */
-    async ForgotPassword(dto: ForgotPasswordRequestDTO): Promise<Result<void, string>> {
-        return await this.post<void>('/auth/forgot-password', dto);
+    async ForgotPassword(email: string): Promise<Result<void, string>> {
+        return await this.post<void>('/auth/forgot-password', { email });
     }
 
     /**
@@ -71,7 +70,7 @@ export default class AuthDatasource extends BackendDatasource {
      * @param {ResetPasswordRequestDTO} dto - Token and new password payload.
      * @return {Promise<Result<void, string>>} A promise that resolves with success or an error code.
      */
-    async ConfirmForgotPassword(dto: ResetPasswordRequestDTO): Promise<Result<void, string>> {
+    async ConfirmForgotPassword(dto: ResetPasswordRequest): Promise<Result<void, string>> {
         return await this.post<void>('/auth/forgot-password/confirm', dto);
     }
 }

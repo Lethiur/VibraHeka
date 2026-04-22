@@ -2,6 +2,7 @@ import { Result, ResultAsync } from "neverthrow";
 import { API_ERROR_MAP } from "@admin/recordings/Data/Errors/ErrorMap";
 import { RecordingsApiErrors } from "@admin/recordings/Data/Errors/RecordingsApiErrors";
 import RecordingsDatasource from "@admin/recordings/Data/Datasources/RecordingsDatasource";
+import { RecordingDto } from "@admin/recordings/Data/Datasources/RecordingDto";
 import { CreateRecordingEntity } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 import { RecordingEntity } from "@admin/recordings/Domain/Entities/RecordingEntity";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
@@ -17,8 +18,16 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
     }
 
     public async GetRecordings(): Promise<Result<RecordingEntity[], RecordingsErrors>> {
-        return ResultAsync.fromPromise(this.Datasource.GetRecordings(), () => RecordingsErrors.LIST_FAILED)
-            .andThen((result) => result)
+        const result = await this.Datasource.GetRecordings();
+
+        return result
+            .map((dto: RecordingDto[]): RecordingEntity[] => dto.map((item: RecordingDto) => ({
+                Id: item.id,
+                Name: item.name,
+                Description: item.description,
+                Type: item.type,
+                Created: item.created,
+            })))
             .mapErr((error) => API_ERROR_MAP[error as RecordingsApiErrors] ?? RecordingsErrors.LIST_FAILED);
     }
 

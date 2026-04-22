@@ -5,7 +5,7 @@ import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import useResetPassword from "@auth/Presentation/Hooks/useResetPassword";
-import { ResetPasswordData } from "@auth/Domain/Models/ResetPasswordData";
+import { ResetPasswordData } from "@auth/Domain/Entities/ResetPasswordData";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
 import PasswordConfirmationFields
     from "@auth/Presentation/Components/Molecules/PasswordConfirmationFields/PasswordConfirmationFields";
@@ -25,9 +25,9 @@ export default function ResetPassword() {
 
         const formData = new FormData(event.currentTarget);
         const data: ResetPasswordData = {
-            encryptedToken: token,
-            newPassword: (formData.get("newPassword") as string) || "",
-            newPasswordConfirmation: (formData.get("newPasswordConfirmation") as string) || ""
+            EncryptedToken: token,
+            NewPassword: (formData.get("newPassword") as string) || "",
+            NewPasswordConfirmation: (formData.get("newPasswordConfirmation") as string) || ""
         };
 
         await resetPassword(data);
@@ -49,13 +49,13 @@ export default function ResetPassword() {
                     passwordValue={newPassword}
                     onPasswordChange={(event) => setNewPassword(event.target.value)}
                     passwordHelpText={t("pages.reset_password.form.password_help")}
-                    passwordError={formErrors.newPassword ? t(`errors.auth.${formErrors.newPassword}`) : undefined}
+                    passwordError={formErrors.NewPassword ? t(`errors.auth.${formErrors.NewPassword}`) : undefined}
                     confirmationName="newPasswordConfirmation"
                     confirmationLabel={t("pages.reset_password.form.password_confirmation_label")}
                     confirmationValue={newPasswordConfirmation}
                     onConfirmationChange={(event) => setNewPasswordConfirmation(event.target.value)}
                     confirmationHelpText={t("pages.reset_password.form.password_confirmation_help")}
-                    confirmationError={formErrors.newPasswordConfirmation ? t(`errors.auth.${formErrors.newPasswordConfirmation}`) : undefined}
+                    confirmationError={formErrors.NewPasswordConfirmation ? t(`errors.auth.${formErrors.NewPasswordConfirmation}`) : undefined}
                     disabled={loading || !hasToken}
                 />
 

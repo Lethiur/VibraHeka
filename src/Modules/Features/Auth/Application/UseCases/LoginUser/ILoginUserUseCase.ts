@@ -1,5 +1,5 @@
-﻿import {LoginData} from "../../../Domain/Models/LoginData";
-import {LoginResult} from "../../../Domain/Models/LoginResult";
+﻿import {LoginData} from "../../../Domain/Entities/LoginData";
+import {LoginResult} from "../../../Domain/Entities/LoginResult";
 import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
 import {Result} from "neverthrow";
 

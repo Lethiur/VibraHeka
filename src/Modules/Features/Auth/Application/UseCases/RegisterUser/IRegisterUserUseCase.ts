@@ -1,6 +1,6 @@
 ﻿import {Result} from "neverthrow";
-import {RegistrationData} from "../../../Domain/Models/RegistrationData";
-import {RegistrationResult} from "../../../Domain/Models/RegistrationResult";
+import {RegistrationData} from "../../../Domain/Entities/RegistrationData";
+import {RegistrationResult} from "../../../Domain/Entities/RegistrationResult";
 import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
 
 

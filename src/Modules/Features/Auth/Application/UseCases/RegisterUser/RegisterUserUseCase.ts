@@ -3,9 +3,9 @@
 import { IRegisterUserUseCase } from "./IRegisterUserUseCase";
 
 import { IAuthRepository } from "../../../Domain/Repositories/IAuthRepository";
-import { RegistrationResult } from "../../../Domain/Models/RegistrationResult";
+import { RegistrationResult } from "../../../Domain/Entities/RegistrationResult";
 import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
-import { RegistrationData } from "../../../Domain/Models/RegistrationData";
+import { RegistrationData } from "../../../Domain/Entities/RegistrationData";
 import RegistrationDataValidator from "../../Validators/RegistrationDataValidator";
 import { ValidationErrors } from "fluentvalidation-ts";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
@@ -19,7 +19,7 @@ export default class RegisterUserUseCase implements IRegisterUserUseCase {
 
         const sanitizedData: RegistrationData = {
             ...registrationData,
-            password: sanitizePasswordInput(registrationData.password),
+            Password: sanitizePasswordInput(registrationData.Password),
         };
 
         const validationResult: ValidationErrors<RegistrationData> = this.RegisterValidator.validate(sanitizedData);

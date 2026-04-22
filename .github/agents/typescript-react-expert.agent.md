@@ -2,7 +2,7 @@
 name: TypeScript React Expert
 description: Agente especializado en React 18 + TypeScript para VibraHeka. Ideal para componentes, hooks, pages, routing, estado cliente/servidor, i18n e integracion con la arquitectura Core/Modules.
 model: Claude Sonnet 4.6 (copilot)
-tools: [read_file, file_search, grep_search, apply_patch, get_errors, run_in_terminal, create_file, get_terminal_output, insert_edit_into_file, replace_string_in_file, open_file, list_dir, run_subagent]
+tools: [read/readFile, search/fileSearch, search/textSearch, search/listDirectory, search/codebase, search/usages, edit/editFiles, edit/createFile, read/problems, execute/runInTerminal, execute/getTerminalOutput, read/terminalLastCommand, agent/runSubagent]
 ---
 
 # TypeScript React Expert

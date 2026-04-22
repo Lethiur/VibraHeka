@@ -2,7 +2,7 @@ import { Result } from "neverthrow";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { IForgotPasswordUseCase } from "@auth/Application/UseCases/ForgotPassword/IForgotPasswordUseCase";
 import { IAuthRepository } from "@auth/Domain/Repositories/IAuthRepository";
-import { ForgotPasswordData } from "@auth/Domain/Models/ForgotPasswordData";
+import { ForgotPasswordData } from "@auth/Domain/Entities/ForgotPasswordData";
 import { ValidationErrors } from "fluentvalidation-ts";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import ForgotPasswordDataValidator from "@auth/Application/Validators/ForgotPasswordDataValidator";
