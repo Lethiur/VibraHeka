@@ -9,6 +9,7 @@ const Calendar: React.FC = () => {
             {/* Global Header for Web */}
             <div className="vh-calendar__global-header">
                 <div className="vh-calendar__global-header-spacer"></div>
+                <div className="vh-calendar__global-header-cell">Miércoles</div>
                 <div className="vh-calendar__global-header-cell">Jueves</div>
                 <div className="vh-calendar__global-header-cell">Viernes</div>
                 <div className="vh-calendar__global-header-cell">Sábado</div>
@@ -21,10 +22,10 @@ const Calendar: React.FC = () => {
                         <span className="vh-calendar__week-theme">{week.theme}</span>
                     </div>
                     <div className="vh-calendar__week-days">
-                        {week.activities.wednesday && <DayColumn activity={week.activities.wednesday} fallbackWeekday="Miércoles" />}
+                        <DayColumn activity={week.activities.wednesday} fallbackWeekday="Miércoles" />
                         <DayColumn activity={week.activities.thursday} fallbackWeekday="Jueves" />
-                        {week.activities.friday && <DayColumn activity={week.activities.friday} fallbackWeekday="Viernes" />}
-                        {week.activities.saturday && <DayColumn activity={week.activities.saturday} fallbackWeekday="Sábado" />}
+                        <DayColumn activity={week.activities.friday} fallbackWeekday="Viernes" />
+                        <DayColumn activity={week.activities.saturday} fallbackWeekday="Sábado" />
                     </div>
                 </div>
             ))}
