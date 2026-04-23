@@ -30,6 +30,7 @@ const LegalNotice = lazy(() => import('@legal/Presentation/Pages/LegalNotice/Leg
 const TermsOfService = lazy(() => import('@legal/Presentation/Pages/TermsOfService/TermsOfService'))
 const ActivitiesPage = lazy(() => import('@/Modules/Features/Activities/Presentation/Pages/ActivitiesPage'))
 const SubscriptionLanding = lazy(() => import('@/Modules/Features/SubscriptionLanding/Presentation/Pages/SubscriptionLanding'))
+const UserRecordingsPage = lazy(() => import('@recordings/Presentation/Pages/RecordingsPage'))
 
 function App() {
 
@@ -109,6 +110,7 @@ function App() {
                         <Route path="/terminos-y-condiciones" element={<TermsOfService />} />
                         <Route path="/actividades" element={<ActivitiesPage />} />
                         <Route path="/subscripcion" element={<SubscriptionLanding />} />
+                        <Route path="/grabaciones" element={<UserRecordingsPage />} />
                     </Routes>
                 </Suspense>
             </div>

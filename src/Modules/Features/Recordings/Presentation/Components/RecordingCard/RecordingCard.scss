@@ -1,0 +1,57 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.recording-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: vars.$space-6;
+    background: vars.$color-surface;
+    border-radius: vars.$radius-xl;
+    box-shadow: vars.$shadow-md;
+    border: 1px solid rgba(vars.$color-primary, 0.1);
+    transition: vars.$transition-base;
+
+    &:hover {
+        box-shadow: vars.$shadow-lg;
+        transform: translateY(-2px);
+    }
+
+    &__content {
+        margin-bottom: vars.$space-6;
+    }
+
+    &__title {
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-xl;
+        color: vars.$color-dark;
+        margin-bottom: vars.$space-3;
+        font-weight: fonts.$font-weight-bold;
+    }
+
+    &__description {
+        font-size: fonts.$font-size-md;
+        color: vars.$color-dark-muted;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    &__footer {
+        margin-top: auto;
+    }
+
+    &__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: vars.$space-2;
+
+        &--disabled {
+            background-color: vars.$color-primary !important;
+            color: vars.$color-primary-light !important;
+            border-color: vars.$color-primary !important;
+            opacity: 0.8;
+        }
+    }
+}

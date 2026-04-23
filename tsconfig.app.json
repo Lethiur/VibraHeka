@@ -30,6 +30,9 @@
             "@admin/addTherapist/*": [
                 "src/Modules/Admin/AddTherapist/*"
             ],
+            "@recordings/*": [
+                "src/Modules/Features/Recordings/*"
+            ],
             "@core/*": [
                 "src/Core/*"
             ],
