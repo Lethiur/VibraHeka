@@ -34,7 +34,7 @@ export default function LandingPage() {
                     </p>
 
                     <div className="cta-wrapper mt-4 mt-md-5">
-                        <PrimaryButton label="Quiero unirme a VibraHeka" variant="primary" onClick={() => navigate(ctaTarget)}/>
+                        <PrimaryButton trackId="landing-hero" label="Quiero unirme a VibraHeka" variant="primary" onClick={() => navigate(ctaTarget)}/>
                     </div>
                 </Container>
             </section>
@@ -121,6 +121,7 @@ export default function LandingPage() {
                                 <Col lg={12}>
                                     <div className="my-5 text-center">
                                         <PrimaryButton label="Quiero empezar mi proceso" fullWidth={true}
+                                                       trackId="landing-transformacion-energia-bienestar"
                                                        variant="secondary" onClick={() => navigate(ctaTarget)}/>
                                     </div>
                                 </Col>
@@ -178,7 +179,7 @@ export default function LandingPage() {
                                     Además no estarás solo, recibirás acompañamiento cuando lo necesites. Todo esto para
                                     crear e integrar nuevos hábitos que se sostengan en el tiempo.</p>
                                 <p className="section-emphasis">Inicia tu camino hacia la calma.</p>
-                                <PrimaryButton label="Quiero empezar hoy" fullWidth={true} variant="secondary" onClick={() => navigate(ctaTarget)}/>
+                                <PrimaryButton label="Quiero empezar hoy" trackId="landing-empezar-hoy" fullWidth={true} variant="secondary" onClick={() => navigate(ctaTarget)}/>
                             </div>
                         </SideImageBlock>
                     </Reveal>
@@ -196,6 +197,7 @@ export default function LandingPage() {
                                 </p>
                                 <p className="section-emphasis">La tranquilidad que buscas puede empezar hoy.</p>
                                 <PrimaryButton label="Quiero formar parte de VibraHeka" fullWidth={true}
+                                               trackId="landing-formar-parte-vibraheka"
                                                variant="secondary" onClick={() => navigate(ctaTarget)}/>
                             </div>
                         </SideImageBlock>

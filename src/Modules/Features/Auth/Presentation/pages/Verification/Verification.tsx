@@ -24,6 +24,7 @@ import useLoginUser from "@auth/Presentation/Hooks/useLoginUser.ts";
 import {LoginResult} from "@auth/Domain/Entities/LoginResult.ts";
 import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
 import { useSetAtom } from "jotai";
+import ReactGA from "react-ga4";
 
 
 export default function Verification() {
@@ -46,6 +47,15 @@ export default function Verification() {
         }
     }, []);
 
+    
+    function trackEvent() {
+        ReactGA.event("generate_lead", {
+            method: "formulario"
+        });
+        ReactGA.event("account_verified", {
+            method: "email_link"
+        });
+    }
     /**
      * 
      * @param event 
@@ -61,6 +71,7 @@ export default function Verification() {
             });
 
             if (verificationResult.isOk()) {
+                trackEvent();
                 const pwd : string | null = localStorage.getString(STORAGE_KEYS.PASSWORD);
                 if (pwd != null && pwd !== '') {
                     const authResult: Result<LoginResult, AuthErrorCodes> = await loginUserUseCase.execute({
@@ -128,6 +139,7 @@ export default function Verification() {
                         <PrimaryButton
                             label={isSubmitting ? t('pages.verification.form.submitting_button') : t('pages.verification.form.submit_button')}
                             type="submit"
+                            trackId="submit_verification_form"
                             variant="primary"
                             disabled={isSubmitting || loading}
                             fullWidth={true}

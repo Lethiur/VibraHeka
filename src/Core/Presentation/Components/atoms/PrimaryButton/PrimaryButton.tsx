@@ -1,6 +1,7 @@
 import React from "react";
 import "./PrimaryButton.scss";
 import { useNavigate } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 type BootstrapColorVariant = "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark";
 type BootstrapOutlineVariant =
@@ -31,6 +32,7 @@ export interface ButtonProps {
     disabled?: boolean;
     fullWidth?: boolean;
     to?: string;
+    trackId?: string;
     iconLeft?: React.ReactNode;
     iconRight?: React.ReactNode;
 }
@@ -52,12 +54,23 @@ const Button: React.FC<ButtonProps> = ({
     variant = "primary",
     disabled = false,
     fullWidth = false,
+    trackId,
     iconLeft,
     iconRight,
 }) => {
     const normalizedVariant = normalizeVariant(variant);
     const navigate = useNavigate();
     const handleClick = () => {
+        
+        if (trackId) {
+            ReactGA.event({
+                category: "Boton",
+                action: "Click",
+                label: trackId
+            });
+            console.log("Event tracked:", trackId);
+        }
+        
         if (to) {
             navigate(to);
         } else if (onClick) {

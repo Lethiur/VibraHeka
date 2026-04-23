@@ -42,6 +42,7 @@ export default function ForgotPassword() {
                     <PrimaryButton
                         label={loading ? t("pages.forgot_password.form.submitting_button") : t("pages.forgot_password.form.submit_button")}
                         type="submit"
+                        trackId="submit_forgot_password_form"
                         variant="primary"
                         disabled={loading}
                         fullWidth={true}

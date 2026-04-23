@@ -67,6 +67,7 @@ function App() {
 
             <div className="app-content">
                 <Suspense fallback={<AppLoader />}>
+                  
                     <Routes>
                         <Route path="/" element={<LandingPage />} />
                         {

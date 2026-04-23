@@ -64,6 +64,7 @@ export default function ResetPassword() {
                         label={loading ? t("pages.reset_password.form.submitting_button") : t("pages.reset_password.form.submit_button")}
                         type="submit"
                         variant="primary"
+                        trackId="submit_reset_password_form"
                         disabled={loading || !hasToken}
                         fullWidth={true}
                     />

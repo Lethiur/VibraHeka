@@ -19,6 +19,7 @@ import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTex
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import PasswordStrengthMeter from "@auth/Presentation/Components/Molecules/PasswordStrengthMeter/PasswordStrengthMeter";
+import ReactGA from "react-ga4";
 
 export default function Registro() {
     const { t } = useTranslation();
@@ -48,6 +49,9 @@ export default function Registro() {
             setIsSubmitting(true);
             const result: Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
             if (result.isOk()) {
+                ReactGA.event("sign_up", {
+                    method: "email"
+                });
                 localStorage.setString(STORAGE_KEYS.EMAIL, data.Email);
                 localStorage.setString(STORAGE_KEYS.PASSWORD, data.Password);
                 navigate('/verify');
@@ -121,7 +125,8 @@ export default function Registro() {
                     <PrimaryButton
                         label={isSubmitting ? t('pages.register.form.submitting_button') : t('pages.register.form.submit_button')}
                         type="submit"
-                        variant="outline"
+                        variant="primary"
+                        trackId="submit_register_form"
                         disabled={isSubmitting}
                         fullWidth={true}
                     />

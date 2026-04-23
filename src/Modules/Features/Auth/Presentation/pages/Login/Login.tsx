@@ -18,6 +18,7 @@ import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageServic
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
+import ReactGA from "react-ga4";
 
 
 export default function Login() {
@@ -31,6 +32,13 @@ export default function Login() {
     const loginUserUseCase: LoginUserUseCase = useLoginUser();
     const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
 
+    function trackUser(id: string, email: string) {
+        ReactGA.set({
+            user_id: id,
+            email: email
+        });
+    }
+    
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setGlobalError(null);
@@ -44,6 +52,7 @@ export default function Login() {
             });
 
             if (authResult.isOk()) {
+                trackUser(authResult.value.UserID,  formData.get('email') as string);
                 localStorage.remove(STORAGE_KEYS.PASSWORD);
                 setIsAuthenticated(true);
                 navigate('/profile/me');
@@ -100,6 +109,7 @@ export default function Login() {
                     <PrimaryButton
                         label={isSubmitting ? t('pages.login.form.submitting_button') : t('pages.login.form.submit_button')}
                         type="submit"
+                        trackId="submit_login_form"
                         variant="primary"
                         disabled={isSubmitting}
                         fullWidth={true}
