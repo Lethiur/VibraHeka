@@ -41,6 +41,7 @@ export default function FreeClassesPage() {
                         <PrimaryButton
                             label="¡Súmate a las clases Gratuitas!"
                             variant="secondary"
+                            trackId="free-classes-cta"
                             onClick={joinWhatsApp}
                         />
                     </div>

@@ -162,6 +162,7 @@ export default function SubscriptionLanding() {
                             label={'Quiero unirme a VibraHeka'}
                             variant="primary"
                             fullWidth
+                            trackId="subscription_landing_subscribe_button"
                             onClick={handleSubscribeAction}
                         />
                     </Col>

@@ -29,6 +29,7 @@ const RecordingCard: React.FC<RecordingCardProps> = ({
                     variant="primary"
                     label={isAuthenticated ? "Ver grabación" : "Solo usuarios registrados"}
                     disabled={!isAuthenticated || isLoadingUrl}
+                    trackId={`reproducir_grabacion_${recording.Name}`}
                     iconLeft={<Play />}
                     onClick={() => isAuthenticated && onPlay(recording)}
                     fullWidth
