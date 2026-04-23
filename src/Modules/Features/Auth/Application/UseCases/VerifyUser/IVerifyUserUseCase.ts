@@ -1,4 +1,4 @@
-﻿import {VerificationData} from "../../../Domain/Models/VerificationData";
+﻿import {VerificationData} from "../../../Domain/Entities/VerificationData";
 import {Result} from "neverthrow";
 import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
 

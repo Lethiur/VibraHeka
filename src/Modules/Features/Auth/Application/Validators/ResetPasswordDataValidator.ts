@@ -1,5 +1,5 @@
 import { Validator } from "fluentvalidation-ts";
-import { ResetPasswordData } from "@auth/Domain/Models/ResetPasswordData";
+import { ResetPasswordData } from "@auth/Domain/Entities/ResetPasswordData";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
 import {
     hasNumber,
@@ -12,11 +12,11 @@ export default class ResetPasswordDataValidator extends Validator<ResetPasswordD
     constructor() {
         super();
 
-        this.ruleFor("encryptedToken")
+        this.ruleFor("EncryptedToken")
             .notEmpty()
             .withMessage(AuthApplicationErrors.RESET_PASSWORD_TOKEN_NOT_PRESENT);
 
-        this.ruleFor("newPassword")
+        this.ruleFor("NewPassword")
             .notEmpty()
             .withMessage(AuthApplicationErrors.PASSWORD_NOT_PRESENT)
             .minLength(PASSWORD_MIN_LENGTH)
@@ -28,7 +28,7 @@ export default class ResetPasswordDataValidator extends Validator<ResetPasswordD
             .must((password) => hasSymbol(password))
             .withMessage(AuthApplicationErrors.PASSWORD_REQUIRES_SYMBOL);
 
-        this.ruleFor("newPasswordConfirmation")
+        this.ruleFor("NewPasswordConfirmation")
             .notEmpty()
             .withMessage(AuthApplicationErrors.PASSWORD_CONFIRMATION_NOT_PRESENT)
             .minLength(6)

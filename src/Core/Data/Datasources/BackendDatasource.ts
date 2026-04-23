@@ -88,9 +88,17 @@ export default class BackendDatasource {
                 };
             }
             const response: AxiosResponse<ResponseEntity<T>> = await this.AxiosInstance.request(config);
+
+            if(response.status === 204) {
+                return ok(undefined as unknown as T);
+            }
+
             if (response.data.success) {
                 return ok(response.data.content!);
             }
+
+
+
             return err(response.data.errorCode || 'UNKNOWN_ERROR');
         } catch (error: any) {
             if (axios.isAxiosError(error)) {

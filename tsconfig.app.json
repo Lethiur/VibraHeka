@@ -30,6 +30,9 @@
             "@admin/addTherapist/*": [
                 "src/Modules/Admin/AddTherapist/*"
             ],
+            "@recordings/*": [
+                "src/Modules/Features/Recordings/*"
+            ],
             "@core/*": [
                 "src/Core/*"
             ],
@@ -38,6 +41,9 @@
             ],
             "@admin/emailTemplates/*": [
                 "src/Modules/Admin/Emails/*"
+            ],
+            "@admin/recordings/*": [
+                "src/Modules/Admin/Recordings/*"
             ],
             "@users/*": [
                 "src/Modules/Features/User/*"

@@ -1,0 +1,7 @@
+export enum RecordingsApiErrors {
+    UNAUTHORIZED = "UNAUTHORIZED",
+    NETWORK_ERROR = "NETWORK_ERROR",
+    UNKNOWN_ERROR = "UNKNOWN_ERROR",
+    INVALID_FORM = "INVALID_FORM",
+}
+

@@ -3,8 +3,8 @@ import { IUserprofile } from "@users/Domain/Entities/IUserProfile";
 import IProfileRepository from "@users/Domain/Repositories/IProfileRepository";
 import GetProfileDatasource from "@/Modules/Features/User/Data/Datasources/ProfileDatasource";
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
-import IUserDTO from "@users/Data/Entities/IUserProfileDTO";
-import IChangePasswordDTO from "@users/Data/Entities/IChangePasswordDTO";
+import IChangePasswordRequest from "@users/Data/Requests/IChangePasswordRequest";
+import IUpdateProfileRequest from "@users/Data/Requests/IUpdateProfileRequest";
 import { IChangePasswordData } from "@users/Domain/Entities/IChangePasswordData";
 
 export default class UserProfileRepositoryImpl implements IProfileRepository {
@@ -15,13 +15,13 @@ export default class UserProfileRepositoryImpl implements IProfileRepository {
     ) { }
 
     public async ChangePassword(data: IChangePasswordData): Promise<Result<void, ProfileErrors>> {
-        const dto: IChangePasswordDTO = {
+        const request: IChangePasswordRequest = {
             currentPassword: data.CurrentPassword,
             newPassword: data.NewPassword,
             newPasswordConfirmation: data.NewPasswordConfirmation
         };
 
-        const result = await this.getProfileDatasource.ChangePassword(dto);
+        const result = await this.getProfileDatasource.ChangePassword(request);
         return result.mapErr(e => e as ProfileErrors);
     }
 
@@ -32,7 +32,7 @@ export default class UserProfileRepositoryImpl implements IProfileRepository {
      */
     public async UpdateProfile(user: IUserprofile): Promise<Result<void, ProfileErrors>> {
 
-        const userDTO: IUserDTO = {
+        const request: IUpdateProfileRequest = {
             id: user.Id,
             firstName: user.FirstName,
             middleName: user.MiddleName,
@@ -44,7 +44,7 @@ export default class UserProfileRepositoryImpl implements IProfileRepository {
             timeZoneID: user.TimeZone
         };
 
-        const result = await this.getProfileDatasource.UpdateUserProfile(userDTO);
+        const result = await this.getProfileDatasource.UpdateUserProfile(request);
         return result.mapErr(e => e as ProfileErrors);
     }
 

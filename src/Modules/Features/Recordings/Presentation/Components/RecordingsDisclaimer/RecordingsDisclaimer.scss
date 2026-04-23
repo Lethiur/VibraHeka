@@ -1,0 +1,71 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.recordings-disclaimer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: vars.$space-12 vars.$space-6;
+    border-radius: vars.$radius-xl;
+    border: 1px dashed rgba(vars.$color-primary, 0.2);
+
+    &__content {
+        max-width: 100%;
+        text-align: center;
+        background: vars.$color-surface;
+        padding: vars.$space-10;
+        border-radius: vars.$radius-xl;
+        box-shadow: vars.$shadow-xl;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: vars.$space-6;
+    }
+
+    &__icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(vars.$color-primary, 0.1);
+        color: vars.$color-primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: vars.$radius-full;
+        margin-bottom: vars.$space-2;
+    }
+
+    &__title {
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-2xl;
+        color: vars.$color-dark;
+        margin: 0;
+        text-align: center !important;
+    }
+
+    &__text {
+        font-size: fonts.$font-size-md;
+        color: vars.$color-dark-muted;
+        line-height: 1.6;
+        margin: 0;
+        text-align: center !important;
+    }
+
+    &__cta {
+        width: 100%;
+        max-width: 24rem;
+        display: flex;
+        flex-direction: column;
+        gap: vars.$space-3;
+        margin-top: vars.$space-2;
+    }
+}
+
+@media (max-width: 768px) {
+    .recordings-disclaimer {
+        padding: vars.$space-6 vars.$space-4;
+
+        &__content {
+            padding: vars.$space-6;
+        }
+    }
+}

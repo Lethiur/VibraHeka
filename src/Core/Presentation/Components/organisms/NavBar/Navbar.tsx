@@ -46,7 +46,7 @@ export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProp
                         <Nav.Link as={NavLink} to="/" onClick={() => setExpanded(false)}>Inicio</Nav.Link>
                         <Nav.Link as={NavLink} to="/actividades" onClick={() => setExpanded(false)}>Actividades</Nav.Link>
                         <Nav.Link as={NavLink} to="/terapeutas" onClick={() => setExpanded(false)}>Terapeutas</Nav.Link>
-
+                        <Nav.Link as={NavLink} to="/grabaciones" onClick={() => setExpanded(false)}>Grabaciones</Nav.Link>
 
                         {!isAuthenticated && (
                             <>

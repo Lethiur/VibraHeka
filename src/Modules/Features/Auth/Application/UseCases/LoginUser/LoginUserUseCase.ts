@@ -1,7 +1,7 @@
 import { Result } from "neverthrow";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { LoginData } from "@auth/Domain/Models/LoginData";
-import { LoginResult } from "@auth/Domain/Models/LoginResult";
+import { LoginData } from "@auth/Domain/Entities/LoginData";
+import { LoginResult } from "@auth/Domain/Entities/LoginResult";
 import { ILoginUserUseCase } from "@auth/Application/UseCases/LoginUser/ILoginUserUseCase";
 import { IAuthRepository } from "@auth/Domain/Repositories/IAuthRepository";
 import LoginUserDataValidator from "@auth/Application/Validators/LoginUserDataValidator";
@@ -41,7 +41,7 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
         const loginResult: Result<LoginResult, AuthErrorCodes> = await this.AuthRepository.Login(data);
 
         if (loginResult.isOk()) {
-            this.LocalStorageService.setString(STORAGE_KEYS.EMAIL, data.email);
+            this.LocalStorageService.setString(STORAGE_KEYS.EMAIL, data.Email);
             this.LocalStorageService.setString(STORAGE_KEYS.ROLE, loginResult.value.Role.toString())
             this.LocalStorageService.setString(STORAGE_KEYS.USER_ID, loginResult.value.UserID);
             this.LocalStorageService.setString(STORAGE_KEYS.REFRESH_TOKEN, loginResult.value.RefreshToken);

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { ForgotPasswordUseCaseContext } from "@auth/Presentation/Context/ForgotPasswordUseCaseContext";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { ForgotPasswordData } from "@auth/Domain/Models/ForgotPasswordData";
+import { ForgotPasswordData } from "@auth/Domain/Entities/ForgotPasswordData";
 import { ValidationErrors } from "fluentvalidation-ts";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import { Result } from "neverthrow";

@@ -1,0 +1,75 @@
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.recordings-page {
+    width: 100%;
+    max-width: none;
+
+    &__header {
+        border: 0;
+        padding: vars.$space-6 vars.$space-8;
+
+        h1 {
+            font-family: fonts.$font-display;
+            font-size: var(--type-title-size);
+            line-height: fonts.$line-height-tight;
+            color: vars.$color-dark;
+            margin-bottom: vars.$space-2;
+        }
+
+        p {
+            color: vars.$color-dark-muted;
+            max-width: 76ch;
+            margin: 0;
+        }
+    }
+
+    &__panel {
+        border: 0;
+        padding: vars.$space-6;
+
+        h2 {
+            font-family: fonts.$font-display;
+            font-size: var(--type-subtitle-size);
+            line-height: fonts.$line-height-tight;
+            color: vars.$color-dark;
+            margin-bottom: vars.$space-2;
+        }
+    }
+
+    &__panel-copy {
+        color: vars.$color-dark-muted;
+        margin-bottom: vars.$space-5;
+    }
+
+    .table {
+        margin-bottom: 0;
+        border-color: vars.$color-gray-200;
+
+        thead th {
+            font-size: var(--type-caption-size);
+            letter-spacing: vars.$tracking-wide;
+            text-transform: uppercase;
+            color: vars.$color-dark-muted;
+            background-color: vars.$color-gray-100;
+            border-bottom-width: 1px;
+        }
+
+        tbody td {
+            vertical-align: middle;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .recordings-page {
+        &__header {
+            padding: vars.$space-5 vars.$space-4;
+        }
+
+        &__panel {
+            padding: vars.$space-5 vars.$space-4;
+        }
+    }
+}
+

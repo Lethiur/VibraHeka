@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
 import useVerifyUser from "@auth/Presentation/Hooks/useVerifyUser";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { VerificationData } from "@auth/Domain/Models/VerificationData";
+import { VerificationData } from "@auth/Domain/Entities/VerificationData";
 import { ValidationErrors } from "fluentvalidation-ts";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import { Result } from "neverthrow";
@@ -49,8 +49,8 @@ export default function Verification() {
         try {
             setIsSubmitting(true);
             let verificationResult: Result<void, AuthErrorCodes> = await verifyUserUseCase.Execute({
-                code: formData.get('verificationCode') as string,
-                email: localStorage.getString(STORAGE_KEYS.EMAIL) || ""
+                Code: formData.get('verificationCode') as string,
+                Email: localStorage.getString(STORAGE_KEYS.EMAIL) || ""
             });
 
             if (verificationResult.isOk()) {
@@ -78,7 +78,7 @@ export default function Verification() {
                     name="verificationCode"
                     disabled={isSubmitting || loading}
                     helpText={t('pages.verification.form.code_help')}
-                    error={errors.code ? t(`errors.auth.${errors.code}`) : undefined}
+                    error={errors.Code ? t(`errors.auth.${errors.Code}`) : undefined}
                 />
 
                 <Row className="g-3 verification-actions">

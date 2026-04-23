@@ -6,7 +6,7 @@ import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import useForgotPassword from "@auth/Presentation/Hooks/useForgotPassword";
-import { ForgotPasswordData } from "@auth/Domain/Models/ForgotPasswordData";
+import { ForgotPasswordData } from "@auth/Domain/Entities/ForgotPasswordData";
 
 export default function ForgotPassword() {
     const { t } = useTranslation();
@@ -17,7 +17,7 @@ export default function ForgotPassword() {
 
         const formData = new FormData(event.currentTarget);
         const data: ForgotPasswordData = {
-            email: (formData.get("email") as string) || ""
+            Email: (formData.get("email") as string) || ""
         };
 
         await forgotPassword(data);
@@ -35,7 +35,7 @@ export default function ForgotPassword() {
                     type="email"
                     disabled={loading}
                     helpText={t("pages.forgot_password.form.email_help")}
-                    error={formErrors.email ? t(`errors.auth.${formErrors.email}`) : undefined}
+                    error={formErrors.Email ? t(`errors.auth.${formErrors.Email}`) : undefined}
                 />
 
                 <div className="auth-form__submit">

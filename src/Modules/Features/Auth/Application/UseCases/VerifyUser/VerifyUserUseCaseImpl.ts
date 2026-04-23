@@ -1,6 +1,6 @@
 ﻿import { Result } from "neverthrow";
 import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
-import { VerificationData } from "../../../Domain/Models/VerificationData";
+import { VerificationData } from "../../../Domain/Entities/VerificationData";
 import {IVerifyUserUseCase} from "./IVerifyUserUseCase";
 import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository";
 import VerificationDataValidator from "../../Validators/VerificationDataValidator";

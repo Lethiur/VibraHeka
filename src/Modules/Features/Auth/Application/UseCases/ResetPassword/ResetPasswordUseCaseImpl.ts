@@ -1,6 +1,6 @@
 import { Result } from "neverthrow";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { ResetPasswordData } from "@auth/Domain/Models/ResetPasswordData";
+import { ResetPasswordData } from "@auth/Domain/Entities/ResetPasswordData";
 import { IResetPasswordUseCase } from "@auth/Application/UseCases/ResetPassword/IResetPasswordUseCase";
 import { IAuthRepository } from "@auth/Domain/Repositories/IAuthRepository";
 import ResetPasswordDataValidator from "@auth/Application/Validators/ResetPasswordDataValidator";
@@ -19,8 +19,8 @@ export default class ResetPasswordUseCaseImpl implements IResetPasswordUseCase {
     public async execute(data: ResetPasswordData): Promise<Result<void, AuthErrorCodes>> {
         const sanitizedData: ResetPasswordData = {
             ...data,
-            newPassword: sanitizePasswordInput(data.newPassword),
-            newPasswordConfirmation: sanitizePasswordInput(data.newPasswordConfirmation)
+            NewPassword: sanitizePasswordInput(data.NewPassword),
+            NewPasswordConfirmation: sanitizePasswordInput(data.NewPasswordConfirmation)
         };
 
         const validationResult: ValidationErrors<ResetPasswordData> = this.validator.validate(sanitizedData);
@@ -29,9 +29,9 @@ export default class ResetPasswordUseCaseImpl implements IResetPasswordUseCase {
             throw new InvalidEntityError(validationResult);
         }
 
-        if (!passwordsMatch(sanitizedData.newPassword, sanitizedData.newPasswordConfirmation)) {
+        if (!passwordsMatch(sanitizedData.NewPassword, sanitizedData.NewPasswordConfirmation)) {
             throw new InvalidEntityError<ResetPasswordData>({
-                newPasswordConfirmation: AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH
+                NewPasswordConfirmation: AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH
             });
         }
 

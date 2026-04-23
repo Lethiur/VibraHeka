@@ -1,5 +1,5 @@
 import { Validator } from "fluentvalidation-ts";
-import { RegistrationData } from "../../Domain/Models/RegistrationData";
+import { RegistrationData } from "../../Domain/Entities/RegistrationData";
 import { AuthApplicationErrors } from "../Errors/AuthApplicationErrors";
 import {
     hasNumber,
@@ -11,19 +11,19 @@ import {
 export default class RegistrationDataValidator extends Validator<RegistrationData> {
     constructor() {
         super();
-        this.ruleFor('firstName')
+        this.ruleFor('FirstName')
             .notEmpty()
             .withMessage(AuthApplicationErrors.FIRST_NAME_NOT_PRESENT)
             .minLength(2)
             .withMessage(AuthApplicationErrors.FIRST_NAME_TOO_SHORT);
 
-        this.ruleFor('email')
+        this.ruleFor('Email')
             .notEmpty()
             .withMessage(AuthApplicationErrors.EMAIL_NOT_PRESENT)
             .emailAddress()
             .withMessage(AuthApplicationErrors.EMAIL_INVALID);
 
-        this.ruleFor('password')
+        this.ruleFor('Password')
             .notEmpty()
             .withMessage(AuthApplicationErrors.PASSWORD_NOT_PRESENT)
             .minLength(PASSWORD_MIN_LENGTH)

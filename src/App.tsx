@@ -19,6 +19,7 @@ const AdminLayout = lazy(() => import("@core/Presentation/Layouts/AdminLayout"))
 const TherapistIndex = lazy(() => import("@admin/addTherapist/Presentation/Pages/TherapistIndex"))
 const Emails = lazy(() => import('@admin/emailTemplates/Presentation/Screens/EmailsForAction/Emails'))
 const TemplateManagement = lazy(() => import('@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement'))
+const RecordingsPage = lazy(() => import('@admin/recordings/Presentation/Pages/RecordingsPage'))
 const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
 const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
 const LandingPage = lazy(() => import('@landing/Presentation/Pages/Landing'))
@@ -29,6 +30,7 @@ const LegalNotice = lazy(() => import('@legal/Presentation/Pages/LegalNotice/Leg
 const TermsOfService = lazy(() => import('@legal/Presentation/Pages/TermsOfService/TermsOfService'))
 const ActivitiesPage = lazy(() => import('@/Modules/Features/Activities/Presentation/Pages/ActivitiesPage'))
 const SubscriptionLanding = lazy(() => import('@/Modules/Features/SubscriptionLanding/Presentation/Pages/SubscriptionLanding'))
+const UserRecordingsPage = lazy(() => import('@recordings/Presentation/Pages/RecordingsPage'))
 
 function App() {
 
@@ -95,6 +97,7 @@ function App() {
                                         <Route path="/admin/therapists" element={<TherapistIndex />} />
                                         <Route path="/admin/emails" element={<Emails />} />
                                         <Route path="/admin/emails/templates" element={<TemplateManagement />} />
+                                        <Route path="/admin/recordings" element={<RecordingsPage />} />
                                     </Route>
                                 </>
                             )
@@ -107,6 +110,7 @@ function App() {
                         <Route path="/terminos-y-condiciones" element={<TermsOfService />} />
                         <Route path="/actividades" element={<ActivitiesPage />} />
                         <Route path="/subscripcion" element={<SubscriptionLanding />} />
+                        <Route path="/grabaciones" element={<UserRecordingsPage />} />
                     </Routes>
                 </Suspense>
             </div>

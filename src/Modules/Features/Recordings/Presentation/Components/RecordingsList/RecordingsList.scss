@@ -1,0 +1,22 @@
+@use "../../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+
+.recordings-list {
+    &__empty {
+        text-align: center;
+        padding: vars.$space-12;
+        background: vars.$color-surface;
+        border-radius: vars.$radius-xl;
+        color: vars.$color-dark-muted;
+        font-size: fonts.$font-size-lg;
+    }
+
+    &__section-title {
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-2xl;
+        color: vars.$color-dark;
+        border-bottom: 2px solid rgba(vars.$color-primary, 0.2);
+        padding-bottom: vars.$space-2;
+        display: inline-block;
+    }
+}
