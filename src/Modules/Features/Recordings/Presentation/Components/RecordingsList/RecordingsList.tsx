@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { RecordingEntity, RecordingType } from "@recordings/Domain/Entities/RecordingEntity";
 import RecordingCard from "../RecordingCard/RecordingCard";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import "./RecordingsList.scss";
 
 interface RecordingsListProps {
@@ -21,13 +21,13 @@ const getTypeName = (type: RecordingType | string | number): string => {
     }
 };
 
-const RecordingsList: React.FC<RecordingsListProps> = ({ 
-    recordings, 
-    isAuthenticated, 
-    onPlay, 
-    isLoadingUrl = false 
+const RecordingsList: React.FC<RecordingsListProps> = ({
+    recordings,
+    isAuthenticated,
+    onPlay,
+    isLoadingUrl = false
 }) => {
-    
+
     const groupedRecordings = useMemo(() => {
         const groups: Record<number, RecordingEntity[]> = {};
         recordings.forEach((recording) => {
@@ -56,9 +56,9 @@ const RecordingsList: React.FC<RecordingsListProps> = ({
                     <Row className="g-4">
                         {items.map((recording) => (
                             <Col key={recording.Id} xs={12} md={6} lg={4}>
-                                <RecordingCard 
-                                    recording={recording} 
-                                    isAuthenticated={isAuthenticated} 
+                                <RecordingCard
+                                    recording={recording}
+                                    isAuthenticated={isAuthenticated}
                                     onPlay={onPlay}
                                     isLoadingUrl={isLoadingUrl}
                                 />

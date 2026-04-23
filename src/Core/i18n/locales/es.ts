@@ -70,7 +70,6 @@ export const es = {
                 [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
                 [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
                 [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
-                [RecordingsApplicationErrors.FILE_NAME_REQUIRED]: "El nombre del archivo es obligatorio."
             }
         },
         components: {
@@ -143,7 +142,6 @@ export const es = {
                         [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
                         [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
                         [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
-                        [RecordingsApplicationErrors.FILE_NAME_REQUIRED]: "El nombre del archivo es obligatorio."
                     },
                     form: {
                         title: "Subir grabación",

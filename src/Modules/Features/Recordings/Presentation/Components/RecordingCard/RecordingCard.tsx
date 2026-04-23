@@ -1,7 +1,6 @@
 import React from "react";
 import { RecordingEntity } from "@recordings/Domain/Entities/RecordingEntity";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
-import { Play } from "lucide-react";
 import "./RecordingCard.scss";
 
 interface RecordingCardProps {

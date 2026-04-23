@@ -15,7 +15,6 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
         this.RecordingEntityMapper = new RecordingEntityMapper();
     }
 
-
     public async GetRecordings(): Promise<Result<RecordingEntity[], RecordingsErrors>> {
         const datasourceResult: Result<RecordingDto[], string> = await this.Datasource.GetRecordings();
         return datasourceResult.map((recordings) => recordings.map(this.RecordingEntityMapper.ToDomain)).mapErr((err) => err as RecordingsErrors);
