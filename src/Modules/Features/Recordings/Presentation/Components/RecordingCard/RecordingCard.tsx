@@ -2,6 +2,7 @@ import React from "react";
 import { RecordingEntity } from "@recordings/Domain/Entities/RecordingEntity";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import "./RecordingCard.scss";
+import { Play } from "lucide-react";
 
 interface RecordingCardProps {
     recording: RecordingEntity;
@@ -28,6 +29,7 @@ const RecordingCard: React.FC<RecordingCardProps> = ({
                     variant="primary"
                     label={isAuthenticated ? "Ver grabación" : "Solo usuarios registrados"}
                     disabled={!isAuthenticated || isLoadingUrl}
+                    iconLeft={<Play />}
                     onClick={() => isAuthenticated && onPlay(recording)}
                     fullWidth
                 />
