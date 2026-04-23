@@ -27,8 +27,11 @@ window.addEventListener('vite:preloadError', (event) => {
     url.searchParams.set('v', Date.now().toString());
     window.location.replace(url.toString());
 });
+try {
+    ReactGA.initialize(import.meta.env.VITE_GA_KEY);    
+} catch (e) {
+}
 
-ReactGA.initialize(import.meta.env.VITE_GA_KEY);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

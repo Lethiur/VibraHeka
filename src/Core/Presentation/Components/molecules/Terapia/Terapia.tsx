@@ -28,7 +28,6 @@ function Terapia({ title, children, buttonOnClick }: TerapiaProps) {
     const benefitsContent: ReactNode[] = [];
     
     if (buttonOnClick != undefined) {
-        console.log("Loaded therapy");
     }
 
     React.Children.forEach(children, (child) => {

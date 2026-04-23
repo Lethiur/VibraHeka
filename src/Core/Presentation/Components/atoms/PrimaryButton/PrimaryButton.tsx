@@ -68,7 +68,6 @@ const Button: React.FC<ButtonProps> = ({
                 action: "Click",
                 label: trackId
             });
-            console.log("Event tracked:", trackId);
         }
         
         if (to) {

@@ -21,7 +21,6 @@ export namespace AuthErrorCodes {
         // Obtenemos todos los valores del enum para verificar si el código existe
         const values = Object.values(AuthErrorCodes) as string[];
         if (values.includes(code)) {
-            console.log(code)
             return code as AuthErrorCodes;
         }
         return AuthErrorCodes.UNKNOWN_ERROR;

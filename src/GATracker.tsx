@@ -11,7 +11,6 @@ export default function AnalyticsTracker() {
             page: location.pathname + location.search,
             title: location.pathname.split('/')[1]
         });
-        console.log("Page view tracked:",  location.pathname.split('/')[1]);
     }, [location]);
 
     return null;
