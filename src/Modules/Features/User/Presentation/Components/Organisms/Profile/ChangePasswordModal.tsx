@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
+import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
@@ -83,11 +83,11 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
         : null;
 
     return (
-        <Modal show={show} onHide={handleClose} centered dialogClassName="change-password-modal">
-            <Modal.Header closeButton>
-                <Modal.Title>Cambiar contrasena</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
+        <VHModal show={show} onHide={handleClose} centered dialogClassName="change-password-modal">
+            <VHModal.Header closeButton>
+                <VHModal.Title>Cambiar contrasena</VHModal.Title>
+            </VHModal.Header>
+            <VHModal.Body>
                 <form onSubmit={handleSubmit} noValidate>
                     <ErrorBox message={backendErrorMessage} variant="danger" />
 
@@ -129,8 +129,8 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
                         />
                     </div>
                 </form>
-            </Modal.Body>
-        </Modal>
+            </VHModal.Body>
+        </VHModal>
     );
 }
 
