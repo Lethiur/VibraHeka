@@ -52,12 +52,10 @@ export class AuthRepositoryImpl implements IAuthRepository {
      */
     public async Verify(data: VerificationData): Promise<Result<void, AuthErrorCodes>> {
         const dto: VerificationRequest = {
-            email: data.Email,
-            code: data.Code
+            encryptedCode: data.Token
         };
 
         const result: Result<void, string> = await this.datasource.Verify(dto);
-
         return result.mapErr(error => error as AuthErrorCodes);
     }
 
@@ -91,7 +89,6 @@ export class AuthRepositoryImpl implements IAuthRepository {
      */
     public async ResendVerificationCode(email: string): Promise<Result<void, AuthErrorCodes>> {
         const result: Result<void, string> = await this.datasource.ResendVerificationCode(email);
-
         return result.mapErr(error => error as AuthErrorCodes);
     }
 
