@@ -1,0 +1,62 @@
+@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
+
+.vh-modal {
+
+    // Backdrop blur for glassmorphism
+    &+.modal-backdrop {
+        background-color: rgba(vars.$color-dark, 0.4) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        opacity: 1 !important;
+    }
+
+    .modal-content {
+        border-radius: vars.$radius-xl;
+        overflow: hidden;
+        border: none;
+        box-shadow: vars.$shadow-lg;
+        background: vars.$color-surface;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(vars.$color-dark, 0.05);
+        padding: vars.$space-5 vars.$space-6;
+
+        // Estilizar el botón de cerrar
+        .btn-close {
+            filter: grayscale(1);
+            opacity: 0.5;
+            transition: vars.$transition-base;
+
+            &:hover {
+                opacity: 0.9;
+                transform: scale(1.1);
+            }
+
+            &:focus {
+                box-shadow: none;
+                outline: none;
+            }
+        }
+    }
+
+    .modal-title {
+        font-family: fonts.$font-primary;
+        font-weight: fonts.$font-weight-bold;
+        font-size: fonts.$font-size-xl;
+        color: vars.$color-dark;
+        margin: 0;
+    }
+
+    .modal-body {
+        padding: vars.$space-6;
+        font-size: fonts.$font-size-md;
+        color: vars.$color-dark-muted;
+    }
+
+    .modal-footer {
+        border-top: 1px solid rgba(vars.$color-dark, 0.05);
+        padding: vars.$space-4 vars.$space-6;
+    }
+}

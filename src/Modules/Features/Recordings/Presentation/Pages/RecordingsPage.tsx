@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, Modal } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import UseGetRecordings from "@recordings/Presentation/Hooks/UseGetRecordings";
@@ -77,17 +78,17 @@ const RecordingsPage: React.FC = () => {
             </Container>
 
             {/* Modal de Video */}
-            <Modal
+            <VHModal
                 show={!!selectedRecording}
                 onHide={handleCloseModal}
                 size="lg"
                 centered
                 className="recordings-video-modal"
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>{selectedRecording?.Name}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="p-0 bg-dark">
+                <VHModal.Header closeButton>
+                    <VHModal.Title>{selectedRecording?.Name}</VHModal.Title>
+                </VHModal.Header>
+                <VHModal.Body className="p-0 bg-dark">
                     {urlLoading || !videoUrl ? (
                         <div className="d-flex justify-content-center align-items-center p-5 text-white">
                             <AppLoader />
@@ -95,11 +96,11 @@ const RecordingsPage: React.FC = () => {
                     ) : (
                         <VideoPlayer src={videoUrl} />
                     )}
-                </Modal.Body>
-                <Modal.Footer>
+                </VHModal.Body>
+                <VHModal.Footer>
                     <p className="text-muted w-100 text-start m-0">{selectedRecording?.Description}</p>
-                </Modal.Footer>
-            </Modal>
+                </VHModal.Footer>
+            </VHModal>
         </div>
     );
 };

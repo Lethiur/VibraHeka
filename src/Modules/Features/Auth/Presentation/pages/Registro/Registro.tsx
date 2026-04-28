@@ -54,7 +54,7 @@ export default function Registro() {
                 });
                 localStorage.setString(STORAGE_KEYS.EMAIL, data.Email);
                 localStorage.setString(STORAGE_KEYS.PASSWORD, data.Password);
-                navigate('/verify');
+                navigate('/registro-exitoso');
             } else {
                 setGlobalError(t(`errors.auth.${result.error}`));
             }

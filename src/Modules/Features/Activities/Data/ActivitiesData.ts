@@ -54,6 +54,7 @@ export const ACTIVITIES_DATA: ActivityWeek[] = [
                 title: "Dudas sobre el estrés y la ansiedad"
             }
         }
+        
     },
     {
         label: "Semana 4",

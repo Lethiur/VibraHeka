@@ -207,8 +207,7 @@ export const es = {
                     submitting_button: "Creando..."
                 }
             },
-            register: {
-                title: "Registrate en vibraheka!",
+            register: {                title: "Registrate en vibraheka!",
                 description: "Registrate en vibraheka para poder disfrutar de todos los beneficios que ofrecemos.",
                 form: {
                     name_label: "Nombre",
@@ -222,9 +221,22 @@ export const es = {
                     submitting_button: "Registrando..."
                 }
             },
+            registro_exitoso: {
+                title: "¡Registro completado!",
+                description: "Tu registro ha sido completado con éxito. Te hemos enviado un correo desde Comunidad VibraHeka con el enlace para verificar tu cuenta. Por favor, revisa tu bandeja de entrada.",
+                back_to_login: "Volver a identificarse"
+            },
+            cuenta_inactiva: {
+                title: "Cuenta inactiva",
+                description: "Tu cuenta aún no ha sido activada. Comprueba tu bandeja de entrada y busca el correo enviado por Comunidad VibraHeka con el enlace de confirmación de cuenta.",
+                resend_hint: "Si aún no lo has recibido haz click aquí",
+                resend_button: "Reenviar correo de confirmación",
+                back_to_login: "Volver a identificarse"
+            },
             verification: {
                 title: "Verifica tu cuenta",
                 description: "Verifica tu cuenta para poder disfrutar de todos los beneficios que ofrecemos.",
+                verifying: "Estamos verificando tu cuenta...",
                 form: {
                     code_label: "Código de verificación",
                     code_help: "Introduce el código que te ha llegado a tu correo. Comprueba tu carpeta de spam si no lo recibes",

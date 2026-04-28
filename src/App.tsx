@@ -14,6 +14,8 @@ const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const ForgotPassword = lazy(() => import("@auth/Presentation/pages/ForgotPassword/ForgotPassword"))
 const ResetPassword = lazy(() => import("@auth/Presentation/pages/ResetPassword/ResetPassword"))
 const Verification = lazy(() => import("@auth/Presentation/pages/Verification/Verification"))
+const RegistroExitoso = lazy(() => import("@auth/Presentation/pages/RegistroExitoso/RegistroExitoso"))
+const CuentaInactiva = lazy(() => import("@auth/Presentation/pages/CuentaInactiva/CuentaInactiva"))
 const Dashboard = lazy(() => import("@admin/dashboard/Presentation/Pages/Dashboard"))
 const AdminLayout = lazy(() => import("@core/Presentation/Layouts/AdminLayout"))
 const TherapistIndex = lazy(() => import("@admin/addTherapist/Presentation/Pages/TherapistIndex"))
@@ -74,7 +76,9 @@ function App() {
                             !isAuthenticated && (
                                 <>
                                     <Route path="/registro" element={<Registro />} />
+                                    <Route path="/registro-exitoso" element={<RegistroExitoso />} />
                                     <Route path="/login" element={<Login />} />
+                                    <Route path="/cuenta-inactiva" element={<CuentaInactiva />} />
                                     <Route path="/forgot-password" element={<ForgotPassword />} />
                                     <Route path="/recover-password" element={<ResetPassword />} />
                                     <Route path="/verify" element={<Verification />} />

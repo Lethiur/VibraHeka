@@ -1,4 +1,5 @@
-import { Card, Col, Modal, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
+import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
 import { useNavigate } from "react-router-dom";
 import "./SubscriptionPanel.scss";
 import UseCancelSubscription from "@users/Presentation/Hooks/UseCancelSubscription";
@@ -177,15 +178,15 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
 
 
 
-            <Modal show={showCancelConfirmation} onHide={handleCloseCancelConfirmation} centered>
-                <Modal.Header closeButton={!cancelSubscriptionLoading}>
-                    <Modal.Title>Confirmar cancelacion</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+            <VHModal show={showCancelConfirmation} onHide={handleCloseCancelConfirmation} centered>
+                <VHModal.Header closeButton={!cancelSubscriptionLoading}>
+                    <VHModal.Title>Confirmar cancelacion</VHModal.Title>
+                </VHModal.Header>
+                <VHModal.Body>
                     Tu suscripcion se mantendra activa hasta el final del periodo actual. Quieres continuar con la
                     cancelacion?
-                </Modal.Body>
-                <Modal.Footer>
+                </VHModal.Body>
+                <VHModal.Footer>
                     <PrimaryButton
                         label="No, mantener suscripcion"
                         variant="outline-secondary"
@@ -198,8 +199,8 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
                         onClick={handleConfirmCancelSubscription}
                         disabled={cancelSubscriptionLoading}
                     />
-                </Modal.Footer>
-            </Modal>
+                </VHModal.Footer>
+            </VHModal>
         </>
     );
 }

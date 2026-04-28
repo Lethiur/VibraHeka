@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
 import { BookingCalendar } from "../../molecules/BookingCalendar/BookingCalendar";
 import { addDays } from "date-fns";
 
@@ -85,11 +86,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({ show, onHide, therap
     };
 
     return (
-        <Modal show={show} onHide={onHide} size="lg" centered>
-            <Modal.Header closeButton>
-                <Modal.Title>Reservar Terapia</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
+        <VHModal show={show} onHide={onHide} size="lg" centered>
+            <VHModal.Header closeButton>
+                <VHModal.Title>Reservar Terapia</VHModal.Title>
+            </VHModal.Header>
+            <VHModal.Body>
                 {loadingDates ? (
                     <div className="text-center py-5">
                         <div className="spinner-border text-primary" role="status">
@@ -107,12 +108,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({ show, onHide, therap
                         selectedDate={selectedDate}
                     />
                 )}
-            </Modal.Body>
-            <Modal.Footer>
+            </VHModal.Body>
+            <VHModal.Footer>
                 <Button variant="secondary" onClick={onHide}>
                     Cerrar
                 </Button>
-            </Modal.Footer>
-        </Modal>
+            </VHModal.Footer>
+        </VHModal>
     );
 };
