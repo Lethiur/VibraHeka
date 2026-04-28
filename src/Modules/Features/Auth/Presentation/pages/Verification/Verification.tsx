@@ -21,6 +21,8 @@ import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
 import {useSetAtom} from "jotai";
 import ReactGA from "react-ga4";
 
+const verificationInFlightTokens = new Set<string>();
+
 
 export default function Verification() {
 
@@ -44,10 +46,13 @@ export default function Verification() {
             navigate('/login');
             return;
         }
-        if (hasRun.current) return;
+        if (hasRun.current || verificationInFlightTokens.has(token)) return;
         hasRun.current = true;
-        handleSubmit();
-    }, []);
+        verificationInFlightTokens.add(token);
+        void handleSubmit().finally(() => {
+            verificationInFlightTokens.delete(token);
+        });
+    }, [token, navigate]);
 
     function trackEvent() {
         ReactGA.event("generate_lead", {
