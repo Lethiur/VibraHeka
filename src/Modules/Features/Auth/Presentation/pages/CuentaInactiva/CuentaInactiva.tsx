@@ -25,6 +25,7 @@ export default function CuentaInactiva() {
                         label={t('pages.cuenta_inactiva.resend_button')}
                         type="button"
                         variant="primary"
+                        trackId="reenviar-codigo-verificacion"
                         cooldownSeconds={60}
                         cooldownStorageKey={STORAGE_KEYS.RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL}
                         action={async () => {

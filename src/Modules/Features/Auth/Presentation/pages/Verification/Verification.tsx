@@ -75,7 +75,7 @@ export default function Verification() {
                 if (authResult.isOk()) {
                     localStorage.remove(STORAGE_KEYS.PASSWORD);
                     setIsAuthenticated(true);
-                    navigate('/profile/me');
+                    navigate('/actividades');
                 } else {
                     navigate('/login');
                 }

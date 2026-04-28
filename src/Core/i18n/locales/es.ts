@@ -223,7 +223,7 @@ export const es = {
             },
             registro_exitoso: {
                 title: "¡Registro completado!",
-                description: "Tu registro ha sido completado con éxito. Te hemos enviado un correo desde Comunidad VibraHeka con el enlace para recuperar tu contraseña. Por favor, revisa tu bandeja de entrada.",
+                description: "Tu registro ha sido completado con éxito. Te hemos enviado un correo desde Comunidad VibraHeka con el enlace para verificar tu cuenta. Por favor, revisa tu bandeja de entrada.",
                 back_to_login: "Volver a identificarse"
             },
             cuenta_inactiva: {
