@@ -1,4 +1,4 @@
-import  {useEffect, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Verification.scss";
 import {useTranslation} from "react-i18next";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
@@ -37,16 +37,17 @@ export default function Verification() {
     const navigate: NavigateFunction = useNavigate();
     const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
 
-    useEffect(() => {
-        const email: string | null = localStorage.getString(STORAGE_KEYS.EMAIL);
-        if (email == null || email === '') {
-            navigate('/')
-        }
-    }, []);
+    const hasRun = useRef(false);
 
-    if (token !== null || token !== '') {
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+        if (hasRun.current) return;
+        hasRun.current = true;
         handleSubmit();
-    }
+    }, []);
 
     function trackEvent() {
         ReactGA.event("generate_lead", {
@@ -56,11 +57,10 @@ export default function Verification() {
             method: "email_link"
         });
     }
-
-
+    
     async function handleSubmit() {
         setIsSubmitting(true);
-        let verificationResult: Result<void, AuthErrorCodes> = await verifyUserUseCase.Execute({
+        const verificationResult: Result<void, AuthErrorCodes> = await verifyUserUseCase.Execute({
             Token: token,
         });
 
@@ -77,14 +77,14 @@ export default function Verification() {
                     setIsAuthenticated(true);
                     navigate('/profile/me');
                 } else {
-                    navigate('/login')
+                    navigate('/login');
                 }
             } else {
-                navigate('/login')
+                navigate('/login');
             }
 
         } else {
-            setGlobalError(t(`errors.auth.${verificationResult.error}`))
+            setGlobalError(t(`errors.auth.${verificationResult.error}`));
         }
         setIsSubmitting(false);
     }
@@ -94,23 +94,21 @@ export default function Verification() {
             <ErrorBox message={globalError} variant="danger"/>
             <Row className="g-3 verification-actions">
                 <Col xs={12} md={6}>
-                    {(!isSubmitting || token === undefined || token === '') && <CooldownButton
-                        label={
-                            <>
-                                {t('pages.verification.form.resend_button')}
-                            </>
-                        }
-                        type="button"
-                        variant="secondary"
-                        cooldownSeconds={60}
-                        cooldownStorageKey={STORAGE_KEYS.RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL}
-                        action={async () => {
-                            const result = await ResendVerificationCode(localStorage.getString(STORAGE_KEYS.EMAIL) || "");
-                            return result.isOk();
-                        }}
-                        disabled={isSubmitting || loading}
-                        fullWidth={true}
-                    /> }
+                    {(!isSubmitting || !token) && (
+                        <CooldownButton
+                            label={<>{t('pages.verification.form.resend_button')}</>}
+                            type="button"
+                            variant="secondary"
+                            cooldownSeconds={60}
+                            cooldownStorageKey={STORAGE_KEYS.RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL}
+                            action={async () => {
+                                const result = await ResendVerificationCode(localStorage.getString(STORAGE_KEYS.EMAIL) ?? "");
+                                return result.isOk();
+                            }}
+                            disabled={isSubmitting || loading}
+                            fullWidth={true}
+                        />
+                    )}
                 </Col>
             </Row> 
         </AuthLayout>
