@@ -236,6 +236,7 @@ export const es = {
             verification: {
                 title: "Verifica tu cuenta",
                 description: "Verifica tu cuenta para poder disfrutar de todos los beneficios que ofrecemos.",
+                verifying: "Estamos verificando tu cuenta...",
                 form: {
                     code_label: "Código de verificación",
                     code_help: "Introduce el código que te ha llegado a tu correo. Comprueba tu carpeta de spam si no lo recibes",

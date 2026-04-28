@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Verification.scss";
 import {useTranslation} from "react-i18next";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
@@ -20,6 +20,9 @@ import {LoginResult} from "@auth/Domain/Entities/LoginResult.ts";
 import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
 import {useSetAtom} from "jotai";
 import ReactGA from "react-ga4";
+import {useMutation} from "@tanstack/react-query";
+import {LoginData} from "@auth/Domain/Entities/LoginData";
+import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
 
 const verificationInFlightTokens = new Set<string>();
 
@@ -31,7 +34,6 @@ export default function Verification() {
     const {t} = useTranslation();
 
     const [globalError, setGlobalError] = useState<string | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const {ResendVerificationCode, loading} = useResendVerificationCode();
     const verifyUserUseCase: VerifyUserUseCaseImpl = useVerifyUser();
     const localStorage: LocalStorageService = useLocalStorage();
@@ -39,18 +41,67 @@ export default function Verification() {
     const navigate: NavigateFunction = useNavigate();
     const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
 
-    const hasRun = useRef(false);
+    const loginMutation = useMutation<LoginResult, AuthErrorCodes, LoginData>({
+        mutationFn: async (data: LoginData) => {
+            const authResult: Result<LoginResult, AuthErrorCodes> = await loginUserUseCase.execute(data);
+            if (authResult.isErr()) throw authResult.error;
+            return authResult.value;
+        }
+    });
+
+    const verificationMutation = useMutation<void, AuthErrorCodes, string>({
+        mutationFn: async (verificationToken: string) => {
+            const verificationResult: Result<void, AuthErrorCodes> = await verifyUserUseCase.Execute({
+                Token: verificationToken,
+            });
+            if (verificationResult.isErr()) throw verificationResult.error;
+        }
+    });
+
+    const isSubmitting = verificationMutation.isPending || loginMutation.isPending;
 
     useEffect(() => {
         if (!token) {
             navigate('/login');
             return;
         }
-        if (hasRun.current || verificationInFlightTokens.has(token)) return;
-        hasRun.current = true;
+        if (verificationInFlightTokens.has(token)) return;
+
         verificationInFlightTokens.add(token);
-        void handleSubmit().finally(() => {
-            verificationInFlightTokens.delete(token);
+        verificationMutation.mutate(token, {
+            onSuccess: () => {
+                trackEvent();
+                const pwd: string | null = localStorage.getString(STORAGE_KEYS.PASSWORD);
+                const email: string = localStorage.getString(STORAGE_KEYS.EMAIL) || "";
+
+                if (!pwd || !email) {
+                    navigate('/login');
+                    return;
+                }
+
+                loginMutation.mutate(
+                    {
+                        Email: email,
+                        Password: pwd,
+                    },
+                    {
+                        onSuccess: () => {
+                            localStorage.remove(STORAGE_KEYS.PASSWORD);
+                            setIsAuthenticated(true);
+                            navigate('/actividades');
+                        },
+                        onError: () => {
+                            navigate('/login');
+                        },
+                    }
+                );
+            },
+            onError: (error) => {
+                setGlobalError(t(`errors.auth.${error}`));
+            },
+            onSettled: () => {
+                verificationInFlightTokens.delete(token);
+            }
         });
     }, [token, navigate]);
 
@@ -63,35 +114,8 @@ export default function Verification() {
         });
     }
     
-    async function handleSubmit() {
-        setIsSubmitting(true);
-        const verificationResult: Result<void, AuthErrorCodes> = await verifyUserUseCase.Execute({
-            Token: token,
-        });
-
-        if (verificationResult.isOk()) {
-            trackEvent();
-            const pwd: string | null = localStorage.getString(STORAGE_KEYS.PASSWORD);
-            if (pwd != null && pwd !== '') {
-                const authResult: Result<LoginResult, AuthErrorCodes> = await loginUserUseCase.execute({
-                    Email: localStorage.getString(STORAGE_KEYS.EMAIL) || "",
-                    Password: pwd as string
-                });
-                if (authResult.isOk()) {
-                    localStorage.remove(STORAGE_KEYS.PASSWORD);
-                    setIsAuthenticated(true);
-                    navigate('/actividades');
-                } else {
-                    navigate('/login');
-                }
-            } else {
-                navigate('/login');
-            }
-
-        } else {
-            setGlobalError(t(`errors.auth.${verificationResult.error}`));
-        }
-        setIsSubmitting(false);
+    if (isSubmitting) {
+        return <AppLoader message={t('pages.verification.verifying')} />;
     }
 
     return (
