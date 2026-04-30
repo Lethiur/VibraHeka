@@ -55,7 +55,7 @@ export default function Login() {
                 trackUser(authResult.value.UserID,  formData.get('email') as string);
                 localStorage.remove(STORAGE_KEYS.PASSWORD);
                 setIsAuthenticated(true);
-                navigate('/profile/me');
+                navigate('/subscripcion');
             } else {
                 if (authResult.error == AuthErrorCodes.USER_NOT_CONFIRMED) {
                     localStorage.setString(STORAGE_KEYS.EMAIL, formData.get('email') as string);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import "./Verification.scss";
 import {useTranslation} from "react-i18next";
 import VerifyUserUseCaseImpl from "@auth/Application/UseCases/VerifyUser/VerifyUserUseCaseImpl";
@@ -88,7 +88,7 @@ export default function Verification() {
                         onSuccess: () => {
                             localStorage.remove(STORAGE_KEYS.PASSWORD);
                             setIsAuthenticated(true);
-                            navigate('/actividades');
+                            navigate('/subscripcion');
                         },
                         onError: () => {
                             navigate('/login');
@@ -113,9 +113,9 @@ export default function Verification() {
             method: "email_link"
         });
     }
-    
+
     if (isSubmitting) {
-        return <AppLoader message={t('pages.verification.verifying')} />;
+        return <AppLoader message={t('pages.verification.verifying')}/>;
     }
 
     return (
@@ -139,7 +139,7 @@ export default function Verification() {
                         />
                     )}
                 </Col>
-            </Row> 
+            </Row>
         </AuthLayout>
     )
 }

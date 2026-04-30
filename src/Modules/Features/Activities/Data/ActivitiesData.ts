@@ -23,93 +23,94 @@ export interface ActivityWeek {
 
 export const ACTIVITIES_DATA: ActivityWeek[] = [
     {
-        label: "Semana 3",
-        theme: "Comprensión. Calmar el sistema nervioso",
+        label: "Semana 1",
+        theme: "Bienvenida. Presentación de la temática del mes",
         activities: {
-            thursday: {
-                day: 16,
-                weekday: "Jueves",
-                time: "🇪🇸 19:00, 19:30, 20:00 | 🇻🇪 13:00, 13:30, 14:00 | 🇨🇴 12:00, 12:30, 13:00 | 🇲🇽 11:00, 11:30, 12:00",
-                therapist: "Carmen Martín",
-                therapistHandle: "carmen-martin",
-                extraTherapistHandle: "luis-galvis",
-                format: "LANZAMIENTO / TALLER / PROMOCIÓN",
-                title: "Clase Bioenergética / Promo Vibraheka / Diseña tu espacio antiestrés"
-            },
-            friday: {
-                day: 17,
-                weekday: "Viernes",
-                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
-                therapist: "Marina De La Sen",
-                therapistHandle: "marina-garrido",
-                format: "MASTERCLASS",
-                title: "Tu espacio de poder para entrar en tu calma"
-            },
             saturday: {
-                day: 18,
+                day: 2,
                 weekday: "Sábado",
                 time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Equipo VibraHeka",
-                format: "PREGUNTAS Y RESPUESTAS / CONVERSATORIO",
-                title: "Dudas sobre el estrés y la ansiedad"
+                format: "PREGUNTAS Y RESPUESTAS / PRESENTACIÓN",
+                title: "Q&A + presentación de la temática del mes"
             }
         }
-        
     },
     {
-        label: "Semana 4",
-        theme: "Regulación. Reducir el miedo anticipatorio",
+        label: "Semana 2",
+        theme: "Autoestima. Reconstruir desde adentro",
         activities: {
-            wednesday: {
-                day: 22,
-                weekday: "Miércoles",
+            saturday: {
+                day: 9,
+                weekday: "Sábado",
                 time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
-                therapist: "Veronica Hernández",
-                therapistHandle: "veronica-hernandez",
+                therapist: "Carmen Martín",
+                therapistHandle: "carmen-martin",
                 format: "MEDITACIÓN",
-                title: "Mapeo corporal"
-            },
-            thursday: {
-                day: 23,
-                weekday: "Jueves",
+                title: "Reconstruir tu autoestima"
+            }
+        }
+    },
+    {
+        label: "Semana 3",
+        theme: "Antiestrés. Diseña tu espacio de bienestar",
+        activities: {
+            saturday: {
+                day: 16,
+                weekday: "Sábado",
                 time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
                 therapist: "Luis Galvis",
                 therapistHandle: "luis-galvis",
+                format: "TALLER PRÁCTICO",
+                title: "Diseña tu espacio antiestrés"
+            }
+        }
+    },
+    {
+        label: "Semana 4",
+        theme: "Cuerpo. Conexión y seguridad interior",
+        activities: {
+            thursday: {
+                day: 21,
+                weekday: "Jueves",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
+                therapist: "Marina De La Sen",
+                therapistHandle: "marina-garrido",
                 format: "MEDITACIÓN",
-                title: "Entrar en la calma del espacio"
-            },
-            friday: {
-                day: 24,
-                weekday: "Viernes",
-                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
-                therapist: "Beatriz Alonso",
-                therapistHandle: "beatriz",
-                format: "MASTERCLASS",
-                title: "\"Tu animal, tu espejo\". No necesitas controlar más, necesitas entender esto"
-            },
-            saturday: {
-                day: 25,
-                weekday: "Sábado",
-                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
-                therapist: "Vera Lucya González",
-                therapistHandle: "vera-lucya",
-                format: "CHARLA TEMÁTICA",
-                title: "Vivir en modo alerta: impacto del estrés oxidativo en tu energía vital"
+                title: "Meditación guiada"
             }
         }
     },
     {
         label: "Semana 5",
-        theme: "Cambio de patrones. Integrar lo aprendido",
+        theme: "Integración. Liberación y transformación",
         activities: {
             thursday: {
-                day: 30,
+                day: 28,
                 weekday: "Jueves",
                 time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
-                therapist: "Marina De La Sen",
-                therapistHandle: "marina-garrido",
+                therapist: "Verónica Hernández",
+                therapistHandle: "veronica-hernandez",
                 format: "MEDITACIÓN",
-                title: "Tu espacio de poder para entrar en tu calma (Reprogramación mental)"
+                title: "Buscando seguridad en tu cuerpo"
+            },
+            friday: {
+                day: 29,
+                weekday: "Viernes",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
+                therapist: "Carmen Martín",
+                therapistHandle: "carmen-martin",
+                format: "CLASE",
+                title: "Clase de liberación emocional consciente"
+            },
+            saturday: {
+                day: 30,
+                weekday: "Sábado",
+                time: "🇪🇸 20:00 | 🇻🇪 14:00 | 🇨🇴 13:00 | 🇲🇽 12:00",
+                therapist: "Luis Galvis",
+                therapistHandle: "luis-galvis",
+                format: "CONSTELACIÓN FAMILIAR",
+                title: "Tomo mi lugar e integro mi valor"
             }
         }
     }
