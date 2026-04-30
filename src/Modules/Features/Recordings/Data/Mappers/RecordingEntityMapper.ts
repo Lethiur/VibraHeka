@@ -1,5 +1,5 @@
 import {RecordingEntity} from "@recordings/Domain/Entities/RecordingEntity.ts";
-import {RecordingDto} from "@recordings/Data/Entities/RecordingDto.ts";
+import {RecordingDto, RecordingTier} from "@recordings/Data/Entities/RecordingDto.ts";
 
 export default class RecordingEntityMapper {
     
@@ -17,6 +17,7 @@ export default class RecordingEntityMapper {
         return {
             name: entity.Name,
             type: entity.Type,
+            tier: RecordingTier.FREE,
             id: entity.Id,
             description: entity.Description,
         };
