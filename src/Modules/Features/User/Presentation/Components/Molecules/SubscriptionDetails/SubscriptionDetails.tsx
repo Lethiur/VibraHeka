@@ -23,8 +23,8 @@ export default function SubscriptionDetails({
     handleReactivateSubscription,
 }: SubscriptionDetailsProps) {
 
-    // Verificar si el periodo de suscripción se ha cerrado (19 de abril)
-    const isSubscriptionClosed = new Date().getTime() > new Date("2026-04-18T18:00:00Z").getTime();
+    // Verificar si el periodo de suscripción se ha cerrado (4 de mayo)
+    const isSubscriptionClosed = new Date().getTime() > new Date("2026-05-04T18:00:00Z").getTime();
 
 
     const getStatusText = () => {
