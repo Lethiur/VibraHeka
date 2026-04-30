@@ -81,7 +81,6 @@ export default function SubscriptionLanding() {
 
     // Lógica del botón principal
     const handleSubscribeAction = () => {
-        navigate('/registro')
         // 1. Si no hay sesión, mandarlo a registro
         if (!isAuthenticated) {
             navigate("/registro?redirect=/subscripcion");
