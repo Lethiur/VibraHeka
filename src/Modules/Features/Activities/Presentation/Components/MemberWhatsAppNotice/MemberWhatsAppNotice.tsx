@@ -16,7 +16,7 @@ const MemberWhatsAppNotice: React.FC = () => {
                     Los enlaces de acceso se comparten semanalmente en nuestro grupo exclusivo para miembros. 
                     ¿Aún no estás dentro?{" "}
                     <a 
-                        href="https://chat.whatsapp.com/LvX6w6cK9WF4xPlhsMdSon" 
+                        href="https://chat.whatsapp.com/CUGzjDoP9ISL6Rbdl3M9tw" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="vh-member-whatsapp__link"
