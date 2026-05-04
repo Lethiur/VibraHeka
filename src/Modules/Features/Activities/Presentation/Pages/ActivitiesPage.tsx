@@ -1,16 +1,19 @@
-import React from "react";
+import { useTranslation } from "react-i18next";
+import { Info } from "lucide-react";
 import { Container } from "react-bootstrap";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
 import Calendar from "../Components/Calendar/Calendar";
-import AccessDisclaimer from "../Components/AccessDisclaimer/AccessDisclaimer";
+import AccountRequiredDisclaimer from "@core/Presentation/Components/organisms/AccountRequiredDisclaimer/AccountRequiredDisclaimer";
+import SubscriptionRequiredDisclaimer from "@core/Presentation/Components/organisms/SubscriptionRequiredDisclaimer/SubscriptionRequiredDisclaimer";
 import MemberWhatsAppNotice from "../Components/MemberWhatsAppNotice/MemberWhatsAppNotice";
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
 import "./ActivitiesPage.scss";
 
-const ActivitiesPage: React.FC = () => {
+export default function ActivitiesPage() {
+    const { t } = useTranslation();
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const { subscription, loading } = UseGetSubscription();
 
@@ -18,10 +21,12 @@ const ActivitiesPage: React.FC = () => {
         return <AppLoader />;
     }
 
-    const hasActiveSubscription = subscription &&
+    const hasActiveSubscription = Boolean(
+        subscription &&
         (subscription.SubscriptionStatus === SubscriptionStatus.ACTIVE ||
             subscription.SubscriptionStatus === SubscriptionStatus.TRIALING ||
-            subscription.SubscriptionStatus === SubscriptionStatus.TO_BE_CANCELLED);
+            subscription.SubscriptionStatus === SubscriptionStatus.TO_BE_CANCELLED)
+    );
 
     return (
         <div className="activities-page vh-page-section">
@@ -35,20 +40,26 @@ const ActivitiesPage: React.FC = () => {
                 </header>
 
                 <main className="activities-page__content">
+                    {!isAuthenticated && (
+                        <AccountRequiredDisclaimer>
+                            <AccountRequiredDisclaimer.Footer>
+                                <Info size={16} />
+                                <span>{t("pages.activities.account_required_note")}</span>
+                            </AccountRequiredDisclaimer.Footer>
+                        </AccountRequiredDisclaimer>
+                    )}
 
-                    {(isAuthenticated && !hasActiveSubscription) && (<MemberWhatsAppNotice />)}
-                    
-                    {(!isAuthenticated ) && (
-                        <div className="activities-page__disclaimer-container mb-12">
-                            <AccessDisclaimer />
+                    {isAuthenticated && !hasActiveSubscription && <SubscriptionRequiredDisclaimer />}
+
+                    {isAuthenticated && hasActiveSubscription && (
+                        <div className="activities-page__member-notice-container mb-12">
+                            <MemberWhatsAppNotice />
                         </div>
                     )}
-                    
+
                     <Calendar />
                 </main>
             </Container>
         </div>
     );
-};
-
-export default ActivitiesPage;
+}

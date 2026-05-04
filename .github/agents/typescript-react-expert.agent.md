@@ -61,6 +61,7 @@ No es el agente principal para cambios de Terraform, workflows o infraestructura
 - Evitar utilizar aliases fake como `@/Modules` si no existe el alias definirlo en `tsconfig.app.json` y usarlo **siempre**.
 - Usar **siempre** `FluentValidations` y crear los validators en application
 - Cuando se llama a un caso de uso que usa validaciones, se ha de pasar los errores de cada campo a cada `PrimaryTextInput`
+- Los componentes han de crearse con `export default function` en lugar de `const ...` 
 
 ## Reglas arquitectonicas obligatorias
 

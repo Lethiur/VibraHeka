@@ -8,7 +8,7 @@ import UseGetRecordingUrl from "@recordings/Presentation/Hooks/UseGetRecordingUr
 import { RecordingEntity } from "@recordings/Domain/Entities/RecordingEntity";
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
-import RecordingsDisclaimer from "@recordings/Presentation/Components/RecordingsDisclaimer/RecordingsDisclaimer";
+import AccountRequiredDisclaimer from "@core/Presentation/Components/organisms/AccountRequiredDisclaimer/AccountRequiredDisclaimer";
 import RecordingsList from "@recordings/Presentation/Components/RecordingsList/RecordingsList";
 import VideoPlayer from "@core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription.ts";
@@ -84,21 +84,19 @@ const RecordingsPage: React.FC = () => {
                         </div>
                     )}
 
-                    {!isAuthenticated && (
-                        <div className="recordings-page__disclaimer-container mb-12">
-                            <RecordingsDisclaimer />
-                        </div>
-                    )}
+                    {!isAuthenticated && <AccountRequiredDisclaimer />}
 
-                    {isAuthenticated &&( <RecordingsList
-                        recordings={recordings}
-                        isAuthenticated={isAuthenticated}
-                        hasActiveSubscription={hasActiveSubscription}
-                        onPlay={handlePlay}
-                        onSubscribe={subscribe}
-                        isLoadingUrl={urlLoading}
-                        isSubscribeLoading={subscribeLoading}
-                    />)}
+                    {isAuthenticated && (
+                        <RecordingsList
+                            recordings={recordings}
+                            isAuthenticated={isAuthenticated}
+                            hasActiveSubscription={hasActiveSubscription}
+                            onPlay={handlePlay}
+                            onSubscribe={subscribe}
+                            isLoadingUrl={urlLoading}
+                            isSubscribeLoading={subscribeLoading}
+                        />
+                    )}
                 </main>
             </Container>
 

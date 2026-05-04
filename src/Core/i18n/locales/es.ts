@@ -89,10 +89,31 @@ export const es = {
                         symbol: "Al menos un símbolo"
                     }
                 }
+            },
+            disclaimers: {
+                account_required: {
+                    title: "📍 Acceso Exclusivo para Miembros",
+                    text: "Para poder acceder a este contenido, necesitas una cuenta. Es rápido, fácil y gratuito unirte a nuestra comunidad.",
+                    cta_register: "Crear una cuenta",
+                    cta_login: "Identificarse"
+                },
+                subscription_required: {
+                    title: "Acceso exclusivo para miembros",
+                    text_before: "Las actividades en vivo estan reservadas para nuestra comunidad. Los enlaces de acceso a las actividades se pondran en nuestro ",
+                    text_highlight: "Grupo de WhatsApp de Miembros",
+                    text_after: ".",
+                    cta_subscribe: "Empezar suscripcion",
+                    cta_subscribe_loading: "Iniciando proceso seguro...",
+                    cta_whats_included: "Que incluye",
+                    footer_note: "Todas las grabaciones de las sesiones estaran disponibles para los suscriptores en su area personal."
+                }
             }
         },
 
         pages: {
+            activities: {
+                account_required_note: "Las actividades en vivo son exclusivas para miembros. Crea tu cuenta gratis y únete a nuestra comunidad."
+            },
             recordings: {
                 card: {
                     watch: "Ver grabación",
@@ -302,4 +323,9 @@ export const es = {
         }
     }
 };
+
+
+
+
+
 
