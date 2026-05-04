@@ -5,11 +5,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 40rem;
     padding: vars.$space-12 vars.$space-6;
     border-radius: vars.$radius-xl;
     border: 1px dashed rgba(vars.$color-primary, 0.2);
 
     &__content {
+        width: 100%;
         max-width: 100%;
         text-align: center;
         background: vars.$color-surface;
@@ -40,6 +42,7 @@
         color: vars.$color-dark;
         margin: 0;
         text-align: center !important;
+        text-justify: none !important;
     }
 
     &__text {
@@ -48,6 +51,7 @@
         line-height: 1.6;
         margin: 0;
         text-align: center !important;
+        text-justify: none !important;
     }
 
     &__cta {
@@ -57,6 +61,36 @@
         flex-direction: column;
         gap: vars.$space-3;
         margin-top: vars.$space-2;
+    }
+
+    &__recordings {
+        display: flex;
+        align-items: center;
+        padding: vars.$space-4;
+        background: rgba(vars.$color-primary, 0.05);
+        border-radius: vars.$radius-lg;
+        color: vars.$color-dark;
+        font-size: fonts.$font-size-sm;
+        text-align: left;
+        border: 1px solid rgba(vars.$color-primary, 0.1);
+        width: 100%;
+        position: relative;
+
+        &::before {
+            content: "i";
+            width: 1.125rem;
+            height: 1.125rem;
+            margin-right: vars.$space-3;
+            border: 1px solid rgba(vars.$color-primary, 0.6);
+            border-radius: vars.$radius-full;
+            color: vars.$color-primary;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: fonts.$font-size-xs;
+            font-weight: fonts.$font-weight-bold;
+            flex-shrink: 0;
+        }
     }
 }
 

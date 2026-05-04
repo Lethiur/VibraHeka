@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
-import { RecordingEntity, RecordingType } from "@recordings/Domain/Entities/RecordingEntity";
+import React, {useMemo} from "react";
+import {RecordingEntity, RecordingType} from "@recordings/Domain/Entities/RecordingEntity";
 import RecordingCard from "../RecordingCard/RecordingCard";
-import { Row, Col } from "react-bootstrap";
+import {Row, Col} from "react-bootstrap";
 import "./RecordingsList.scss";
 
 interface RecordingsListProps {
@@ -17,22 +17,26 @@ interface RecordingsListProps {
 const getTypeName = (type: RecordingType | string | number): string => {
     const typeValue = typeof type === "string" ? parseInt(type, 10) : type;
     switch (typeValue) {
-        case RecordingType.MEDITACION: return "Meditaciones";
-        case RecordingType.MASTERCLASS: return "Masterclasses";
-        case RecordingType.TALLER: return "Talleres";
-        default: return "Otras grabaciones";
+        case RecordingType.MEDITACION:
+            return "Meditaciones";
+        case RecordingType.MASTERCLASS:
+            return "Masterclasses";
+        case RecordingType.TALLER:
+            return "Talleres";
+        default:
+            return "Otras grabaciones";
     }
 };
 
 const RecordingsList: React.FC<RecordingsListProps> = ({
-    recordings,
-    isAuthenticated,
-    hasActiveSubscription,
-    onPlay,
-    onSubscribe,
-    isLoadingUrl = false,
-    isSubscribeLoading = false,
-}) => {
+                                                           recordings,
+                                                           isAuthenticated,
+                                                           hasActiveSubscription,
+                                                           onPlay,
+                                                           onSubscribe,
+                                                           isLoadingUrl = false,
+                                                           isSubscribeLoading = false,
+                                                       }) => {
 
     const groupedRecordings = useMemo(() => {
         const groups: Record<number, RecordingEntity[]> = {};
@@ -50,6 +54,10 @@ const RecordingsList: React.FC<RecordingsListProps> = ({
                 <p>Aún no hay grabaciones disponibles.</p>
             </div>
         );
+    }
+
+    if (!isAuthenticated) {
+        return <></>
     }
 
     return (

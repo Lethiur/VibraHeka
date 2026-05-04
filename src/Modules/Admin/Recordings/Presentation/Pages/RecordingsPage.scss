@@ -24,39 +24,10 @@
         }
     }
 
-    &__panel {
-        border: 0;
-        padding: vars.$space-6;
-
-        h2 {
-            font-family: fonts.$font-display;
-            font-size: var(--type-subtitle-size);
-            line-height: fonts.$line-height-tight;
-            color: vars.$color-dark;
-            margin-bottom: vars.$space-2;
-        }
-    }
-
-    &__panel-copy {
-        color: vars.$color-dark-muted;
-        margin-bottom: vars.$space-5;
-    }
-
-    .table {
-        margin-bottom: 0;
-        border-color: vars.$color-gray-200;
-
-        thead th {
-            font-size: var(--type-caption-size);
-            letter-spacing: vars.$tracking-wide;
-            text-transform: uppercase;
-            color: vars.$color-dark-muted;
-            background-color: vars.$color-gray-100;
-            border-bottom-width: 1px;
-        }
-
-        tbody td {
-            vertical-align: middle;
+    &__form-col {
+        @media (min-width: 992px) {
+            position: sticky;
+            top: 1rem;
         }
     }
 }
@@ -66,10 +37,5 @@
         &__header {
             padding: vars.$space-5 vars.$space-4;
         }
-
-        &__panel {
-            padding: vars.$space-5 vars.$space-4;
-        }
     }
 }
-

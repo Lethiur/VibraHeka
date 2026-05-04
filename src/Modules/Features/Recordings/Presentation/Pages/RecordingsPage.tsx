@@ -31,7 +31,6 @@ const RecordingsPage: React.FC = () => {
     const { checkoutURL, loading: subscribeLoading, subscribe } = UseSubscribe();
 
     const hasActiveSubscription =
-        isAuthenticated &&
         subscription !== null &&
         ACTIVE_SUBSCRIPTION_STATUSES.includes(subscription.SubscriptionStatus);
 
@@ -71,7 +70,7 @@ const RecordingsPage: React.FC = () => {
         <div className="recordings-page vh-page-section">
             <Container>
                 <header className="recordings-page__header text-center">
-                    <p className="recordings-page__eyebrow">Aprendizaje y Exploración</p>
+                    <p className="recordings-page__eyebrow">Aprendizaje y Exploracion</p>
                     <h1 className="recordings-page__title">Grabaciones</h1>
                     <p className="recordings-page__subtitle">
                         Revive nuestras sesiones, talleres y masterclasses siempre que lo necesites.
@@ -91,7 +90,7 @@ const RecordingsPage: React.FC = () => {
                         </div>
                     )}
 
-                    <RecordingsList
+                    {isAuthenticated &&( <RecordingsList
                         recordings={recordings}
                         isAuthenticated={isAuthenticated}
                         hasActiveSubscription={hasActiveSubscription}
@@ -99,7 +98,7 @@ const RecordingsPage: React.FC = () => {
                         onSubscribe={subscribe}
                         isLoadingUrl={urlLoading}
                         isSubscribeLoading={subscribeLoading}
-                    />
+                    />)}
                 </main>
             </Container>
 

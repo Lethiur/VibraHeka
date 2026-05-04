@@ -35,17 +35,12 @@ const ActivitiesPage: React.FC = () => {
                 </header>
 
                 <main className="activities-page__content">
-                    {(!isAuthenticated || !hasActiveSubscription) ? (
+
+                    {(isAuthenticated && !hasActiveSubscription) && (<MemberWhatsAppNotice />)}
+                    
+                    {(!isAuthenticated ) && (
                         <div className="activities-page__disclaimer-container mb-12">
-                            <AccessDisclaimer 
-                                type={!isAuthenticated ? "unauthenticated" : "no-subscription"} 
-                                subscription={subscription}
-                                subscriptionLoading={loading}
-                            />
-                        </div>
-                    ) : (
-                        <div className="activities-page__member-notice-container mb-12">
-                            <MemberWhatsAppNotice />
+                            <AccessDisclaimer />
                         </div>
                     )}
                     
