@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
 import { useAtomValue } from "jotai";
@@ -11,16 +11,39 @@ import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import RecordingsDisclaimer from "@recordings/Presentation/Components/RecordingsDisclaimer/RecordingsDisclaimer";
 import RecordingsList from "@recordings/Presentation/Components/RecordingsList/RecordingsList";
 import VideoPlayer from "@core/Presentation/Components/atoms/VideoPlayer/VideoPlayer";
+import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription.ts";
+import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe.ts";
+import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus.ts";
 
 import "./RecordingsPage.scss";
+
+const ACTIVE_SUBSCRIPTION_STATUSES: SubscriptionStatus[] = [
+    SubscriptionStatus.ACTIVE,
+    SubscriptionStatus.TRIALING,
+    SubscriptionStatus.TO_BE_CANCELLED,
+];
 
 const RecordingsPage: React.FC = () => {
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
     const { recordings, loading: recordingsLoading, error: recordingsError } = UseGetRecordings();
     const { getRecordingUrl, loading: urlLoading } = UseGetRecordingUrl();
+    const { subscription } = UseGetSubscription();
+    const { checkoutURL, loading: subscribeLoading, subscribe } = UseSubscribe();
+
+    const hasActiveSubscription =
+        isAuthenticated &&
+        subscription !== null &&
+        ACTIVE_SUBSCRIPTION_STATUSES.includes(subscription.SubscriptionStatus);
 
     const [selectedRecording, setSelectedRecording] = useState<RecordingEntity | null>(null);
     const [videoUrl, setVideoUrl] = useState<string | null>(null);
+
+    // Redirect to Stripe checkout when URL is ready
+    useEffect(() => {
+        if (checkoutURL) {
+            window.open(checkoutURL, "_self");
+        }
+    }, [checkoutURL]);
 
     const handlePlay = async (recording: RecordingEntity) => {
         if (!isAuthenticated) return;
@@ -29,7 +52,7 @@ const RecordingsPage: React.FC = () => {
         try {
             const url = await getRecordingUrl(recording.Id);
             setVideoUrl(url);
-        } catch (error) {
+        } catch {
             setSelectedRecording(null);
             setVideoUrl(null);
         }
@@ -71,8 +94,11 @@ const RecordingsPage: React.FC = () => {
                     <RecordingsList
                         recordings={recordings}
                         isAuthenticated={isAuthenticated}
+                        hasActiveSubscription={hasActiveSubscription}
                         onPlay={handlePlay}
+                        onSubscribe={subscribe}
                         isLoadingUrl={urlLoading}
+                        isSubscribeLoading={subscribeLoading}
                     />
                 </main>
             </Container>

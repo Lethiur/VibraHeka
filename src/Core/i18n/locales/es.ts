@@ -93,6 +93,14 @@ export const es = {
         },
 
         pages: {
+            recordings: {
+                card: {
+                    watch: "Ver grabación",
+                    subscribe: "Suscribirme",
+                    subscribe_loading: "Iniciando...",
+                    restricted: "Solo usuarios registrados",
+                }
+            },
             admin: {
                 title: "Panel de administracion",
                 nav: {
@@ -148,7 +156,9 @@ export const es = {
                         name_label: "Nombre",
                         description_label: "Descripción",
                         type_label: "Tipo",
+                        tier_label: "Tier",
                         type_placeholder: "Selecciona un tipo",
+                        tier_placeholder: "Selecciona un tier",
                         file_label: "Archivo",
                         file_name_label: "Nombre del archivo",
                         submit_button: "Subir grabación",
@@ -157,6 +167,10 @@ export const es = {
                             meditacion: "Meditación",
                             masterclass: "Masterclass",
                             taller: "Taller"
+                        },
+                        tiers: {
+                            free: "Gratis",
+                            premium: "Para subscriptores"
                         }
                     },
                     list: {
@@ -173,6 +187,7 @@ export const es = {
                             name: "Nombre",
                             description: "Descripción",
                             type: "Tipo",
+                            tier: "Tier",
                             created: "Fecha",
                             actions: "Acciones"
                         }

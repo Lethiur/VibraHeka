@@ -13,6 +13,7 @@ import UseUploadRecording from "@admin/recordings/Presentation/Hooks/UseUploadRe
 import UseGetRecordings from "@admin/recordings/Presentation/Hooks/UseGetRecordings";
 import UseDeleteRecording from "@admin/recordings/Presentation/Hooks/UseDeleteRecording";
 import "./RecordingsPage.scss";
+import {RecordingTier} from "@recordings/Data/Entities/RecordingDto.ts";
 
 export default function RecordingsPage() {
     const { t } = useTranslation();
@@ -94,6 +95,14 @@ export default function RecordingsPage() {
         }
     };
 
+    const getTierName = (tier: RecordingTier): string => {
+        switch (tier) {
+            case RecordingTier.FREE: return t("pages.admin.recordings.form.tiers.free");
+            case RecordingTier.PREMIUM: return t("pages.admin.recordings.form.tiers.premium");
+            default: return String(tier);
+        }
+    };
+
     return (
         <>
         <VHModal show={loading} backdrop="static" keyboard={false} centered>
@@ -157,6 +166,26 @@ export default function RecordingsPage() {
                                 )}
                             </Form.Group>
 
+                            <Form.Group controlId="Tier">
+                                <Form.Label>{t("pages.admin.recordings.form.tier_label")}</Form.Label>
+                                <Form.Select
+                                    name="Tier"
+                                    required
+                                    disabled={loading}
+                                    isInvalid={!!validationErrors.Tier}
+                                    defaultValue=""
+                                >
+                                    <option value="">{t("pages.admin.recordings.form.tier_placeholder")}</option>
+                                    <option value={RecordingTier.FREE}>{t("pages.admin.recordings.form.tiers.free")}</option>
+                                    <option value={RecordingTier.PREMIUM}>{t("pages.admin.recordings.form.tiers.premium")}</option>
+                                </Form.Select>
+                                {validationErrors.Type && (
+                                    <Form.Control.Feedback type="invalid">
+                                        {getValidationMessage(validationErrors.Type?.toString())}
+                                    </Form.Control.Feedback>
+                                )}
+                            </Form.Group>
+
                             <Form.Group controlId="File">
                                 <Form.Label>{t("pages.admin.recordings.form.file_label")}</Form.Label>
                                 <Form.Control
@@ -204,6 +233,7 @@ export default function RecordingsPage() {
                                         <th>{t("pages.admin.recordings.list.columns.name")}</th>
                                         <th>{t("pages.admin.recordings.list.columns.description")}</th>
                                         <th>{t("pages.admin.recordings.list.columns.type")}</th>
+                                        <th>{t("pages.admin.recordings.list.columns.tier")}</th>
                                         <th>{t("pages.admin.recordings.list.columns.created")}</th>
                                         <th>{t("pages.admin.recordings.list.columns.actions")}</th>
                                     </tr>
@@ -219,6 +249,7 @@ export default function RecordingsPage() {
                                                 <td>{recording.Name}</td>
                                                 <td>{recording.Description}</td>
                                                 <td>{getTypeName(recording.Type)}</td>
+                                                <td>{getTierName(recording.Tier)}</td>
                                                 <td>{new Date(recording.Created).toLocaleDateString("es-ES")}</td>
                                                 <td>
                                                     <PrimaryButton

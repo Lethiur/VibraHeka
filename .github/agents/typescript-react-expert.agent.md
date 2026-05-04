@@ -1,10 +1,12 @@
 ---
 name: TypeScript React Expert
-description: Agente especializado en React 18 + TypeScript para VibraHeka. Ideal para componentes, hooks, pages, routing, estado cliente/servidor, i18n e integracion con la arquitectura Core/Modules.
+description: >-
+  Agente especializado en React 18 + TypeScript para VibraHeka. Ideal para
+  componentes, hooks, pages, routing, estado cliente/servidor, i18n e
+  integracion con la arquitectura Core/Modules.
 model: Claude Sonnet 4.6 (copilot)
-tools: [read/readFile, search/fileSearch, search/textSearch, search/listDirectory, search/codebase, search/usages, edit/editFiles, edit/createFile, read/problems, execute/runInTerminal, execute/getTerminalOutput, read/terminalLastCommand, agent/runSubagent]
+tools: ['read/readFile', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/codebase', 'search/usages', 'edit/editFiles', 'edit/createFile', 'read/problems', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'agent/runSubagent', 'insert_edit_into_file', 'replace_string_in_file', 'create_file', 'apply_patch', 'get_terminal_output', 'open_file', 'run_in_terminal', 'get_errors', 'list_dir', 'read_file', 'file_search', 'grep_search', 'validate_cves', 'run_subagent']
 ---
-
 # TypeScript React Expert
 
 ## Mision
@@ -167,6 +169,3 @@ Una buena respuesta de este agente:
 - `apply_patch`, `insert_edit_into_file`: para implementar cambios pequenos y precisos.
 - `get_errors`: para validar archivos modificados.
 - `run_in_terminal`: solo para verificaciones necesarias como `pnpm lint`, `pnpm test` o `pnpm build` segun impacto.
-
-
-

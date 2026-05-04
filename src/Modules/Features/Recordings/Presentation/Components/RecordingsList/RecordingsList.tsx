@@ -7,8 +7,11 @@ import "./RecordingsList.scss";
 interface RecordingsListProps {
     recordings: RecordingEntity[];
     isAuthenticated: boolean;
+    hasActiveSubscription: boolean;
     onPlay: (recording: RecordingEntity) => void;
+    onSubscribe: () => void;
     isLoadingUrl?: boolean;
+    isSubscribeLoading?: boolean;
 }
 
 const getTypeName = (type: RecordingType | string | number): string => {
@@ -24,8 +27,11 @@ const getTypeName = (type: RecordingType | string | number): string => {
 const RecordingsList: React.FC<RecordingsListProps> = ({
     recordings,
     isAuthenticated,
+    hasActiveSubscription,
     onPlay,
-    isLoadingUrl = false
+    onSubscribe,
+    isLoadingUrl = false,
+    isSubscribeLoading = false,
 }) => {
 
     const groupedRecordings = useMemo(() => {
@@ -59,8 +65,11 @@ const RecordingsList: React.FC<RecordingsListProps> = ({
                                 <RecordingCard
                                     recording={recording}
                                     isAuthenticated={isAuthenticated}
+                                    hasActiveSubscription={hasActiveSubscription}
                                     onPlay={onPlay}
+                                    onSubscribe={onSubscribe}
                                     isLoadingUrl={isLoadingUrl}
+                                    isSubscribeLoading={isSubscribeLoading}
                                 />
                             </Col>
                         ))}
