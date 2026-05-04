@@ -18,6 +18,55 @@
         margin-bottom: vars.$space-5;
     }
 
+    &__badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2rem 0.6rem;
+        border-radius: vars.$radius-full;
+        border: 1px solid transparent;
+        font-size: fonts.$font-size-xs;
+        font-weight: fonts.$font-weight-semibold;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+
+        &--meditacion {
+            background: rgba(vars.$color-primary, 0.1);
+            color: vars.$color-primary-dark;
+            border-color: rgba(vars.$color-primary, 0.25);
+        }
+
+        &--masterclass {
+            background: rgba(vars.$color-secondary-light, 0.45);
+            color: vars.$color-secondary-dark;
+            border-color: rgba(vars.$color-secondary-dark, 0.25);
+        }
+
+        &--taller {
+            background: rgba(vars.$color-success, 0.12);
+            color: vars.$color-success;
+            border-color: rgba(vars.$color-success, 0.25);
+        }
+
+        &--free {
+            background: rgba(vars.$color-gray-300, 0.35);
+            color: vars.$color-dark;
+            border-color: rgba(vars.$color-gray-500, 0.45);
+        }
+
+        &--premium {
+            background: rgba(vars.$color-warning, 0.18);
+            color: vars.$color-dark;
+            border-color: rgba(vars.$color-warning, 0.35);
+        }
+
+        &--discount {
+            background: rgba(vars.$color-secondary, 0.12);
+            color: vars.$color-secondary-dark;
+            border-color: rgba(vars.$color-secondary, 0.25);
+        }
+    }
+
     .table {
         margin-bottom: 0;
         border-color: vars.$color-gray-200;
@@ -42,4 +91,3 @@
         padding: vars.$space-5 vars.$space-4;
     }
 }
-

@@ -4,6 +4,7 @@ import { ProfileApplicationErrors } from "@users/Application/Errors/ProfileAppli
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
+import { RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 
 export const es = {
     translation: {
@@ -185,13 +186,14 @@ export const es = {
                         submit_button: "Subir grabación",
                         submitting_button: "Subiendo...",
                         types: {
-                            meditacion: "Meditación",
-                            masterclass: "Masterclass",
-                            taller: "Taller"
+                            [RecordingType.MEDITACION]: "Meditación",
+                            [RecordingType.MASTERCLASS]: "Masterclass",
+                            [RecordingType.TALLER]: "Taller",
                         },
                         tiers: {
-                            free: "Gratis",
-                            premium: "Para subscriptores"
+                            [RecordingTier.FREE]: "Gratis",
+                            [RecordingTier.PREMIUM]: "Premium",
+                            [RecordingTier.DISCOUNT_FOR_MEMBERS]: "Descuento para miembros",
                         }
                     },
                     list: {
@@ -323,9 +325,3 @@ export const es = {
         }
     }
 };
-
-
-
-
-
-

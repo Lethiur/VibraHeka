@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
-import { RecordingEntity, } from "@admin/recordings/Domain/Entities/RecordingEntity";
+import { RecordingEntity } from "@admin/recordings/Domain/Entities/RecordingEntity";
 import { RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import "./RecordingList.scss";
@@ -15,6 +15,18 @@ export interface RecordingListProps {
     deleteLoading: boolean;
     onDelete: (id: string) => Promise<void>;
 }
+
+const TYPE_BADGE_CLASS: Record<RecordingType, string> = {
+    [RecordingType.MEDITACION]: "recording-list__badge--meditacion",
+    [RecordingType.MASTERCLASS]: "recording-list__badge--masterclass",
+    [RecordingType.TALLER]: "recording-list__badge--taller",
+};
+
+const TIER_BADGE_CLASS: Record<RecordingTier, string> = {
+    [RecordingTier.FREE]: "recording-list__badge--free",
+    [RecordingTier.PREMIUM]: "recording-list__badge--premium",
+    [RecordingTier.DISCOUNT_FOR_MEMBERS]: "recording-list__badge--discount",
+};
 
 export default function RecordingList({
     recordings,
@@ -28,30 +40,6 @@ export default function RecordingList({
     const getDomainErrorMessage = (errorCode: RecordingsErrors | null): string | null => {
         if (!errorCode) return null;
         return t(`errors.recordings.${errorCode}`);
-    };
-
-    const getTypeName = (type: RecordingType): string => {
-        switch (type) {
-            case RecordingType.MEDITACION:
-                return t("pages.admin.recordings.form.types.meditacion");
-            case RecordingType.MASTERCLASS:
-                return t("pages.admin.recordings.form.types.masterclass");
-            case RecordingType.TALLER:
-                return t("pages.admin.recordings.form.types.taller");
-            default:
-                return String(type);
-        }
-    };
-
-    const getTierName = (tier: RecordingTier): string => {
-        switch (tier) {
-            case RecordingTier.FREE:
-                return t("pages.admin.recordings.form.tiers.free");
-            case RecordingTier.PREMIUM:
-                return t("pages.admin.recordings.form.tiers.premium");
-            default:
-                return String(tier);
-        }
     };
 
     return (
@@ -85,8 +73,16 @@ export default function RecordingList({
                                 <tr key={recording.Id}>
                                     <td>{recording.Name}</td>
                                     <td>{recording.Description}</td>
-                                    <td>{getTypeName(recording.Type)}</td>
-                                    <td>{getTierName(recording.Tier)}</td>
+                                    <td>
+                                        <span className={`recording-list__badge ${TYPE_BADGE_CLASS[recording.Type]}`}>
+                                            {t(`pages.admin.recordings.form.types.${recording.Type}`)}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span className={`recording-list__badge ${TIER_BADGE_CLASS[recording.Tier]}`}>
+                                            {t(`pages.admin.recordings.form.tiers.${recording.Tier}`)}
+                                        </span>
+                                    </td>
                                     <td>{new Date(recording.Created).toLocaleDateString("es-ES")}</td>
                                     <td>
                                         <PrimaryButton
@@ -109,4 +105,3 @@ export default function RecordingList({
         </section>
     );
 }
-

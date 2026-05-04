@@ -2,7 +2,8 @@
 // VIBRAHEKA — Typography
 // ─────────────────────────────────────────────
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+// Google Fonts se carga via <link> en index.html para evitar CSS @import bloqueante
+// (preconnect + stylesheet non-blocking → reduce FOUC en hero typography)
 
 // ── Font Families
 $font-primary: 'Raleway', system-ui, sans-serif; // Body & UI

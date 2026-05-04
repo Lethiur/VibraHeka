@@ -13,6 +13,14 @@
             rgba(vars.$color-surface, 0.88);
         box-shadow: vars.$shadow-md;
         backdrop-filter: blur(4px);
+
+        // Neutraliza las reglas globales mobile de justify/hyphens dentro del hero
+        h1, h2, h3, p, span {
+            text-align: center;
+            hyphens: none;
+            word-break: normal;
+            overflow-wrap: normal;
+        }
     }
 
     &__eyebrow {
@@ -25,13 +33,20 @@
         color: vars.$color-primary-dark;
         text-align: center !important;
         text-justify: none !important;
+        hyphens: none;
+        word-break: normal;
+        overflow-wrap: normal;
     }
 
     &__title {
         margin-bottom: vars.$space-4;
+        font-family: fonts.$font-display; // Explícito: evita salto visual al cargar Cormorant Garamond
         color: vars.$color-dark;
         text-align: center !important;
         text-justify: none !important;
+        hyphens: none;
+        word-break: normal;
+        overflow-wrap: normal;
     }
 
     &__subtitle {
@@ -40,6 +55,9 @@
         color: vars.$color-dark-muted;
         text-align: center !important;
         text-justify: none !important;
+        hyphens: none;
+        word-break: normal;
+        overflow-wrap: normal;
     }
 
     &__content {
