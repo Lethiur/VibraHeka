@@ -4,6 +4,7 @@ import { ProfileApplicationErrors } from "@users/Application/Errors/ProfileAppli
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
+import { RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 
 export const es = {
     translation: {
@@ -89,10 +90,39 @@ export const es = {
                         symbol: "Al menos un símbolo"
                     }
                 }
+            },
+            disclaimers: {
+                account_required: {
+                    title: "📍 Acceso Exclusivo para Miembros",
+                    text: "Para poder acceder a este contenido, necesitas una cuenta. Es rápido, fácil y gratuito unirte a nuestra comunidad.",
+                    cta_register: "Crear una cuenta",
+                    cta_login: "Identificarse"
+                },
+                subscription_required: {
+                    title: "Acceso exclusivo para miembros",
+                    text_before: "Las actividades en vivo estan reservadas para nuestra comunidad. Los enlaces de acceso a las actividades se pondran en nuestro ",
+                    text_highlight: "Grupo de WhatsApp de Miembros",
+                    text_after: ".",
+                    cta_subscribe: "Empezar suscripcion",
+                    cta_subscribe_loading: "Iniciando proceso seguro...",
+                    cta_whats_included: "Que incluye",
+                    footer_note: "Todas las grabaciones de las sesiones estaran disponibles para los suscriptores en su area personal."
+                }
             }
         },
 
         pages: {
+            activities: {
+                account_required_note: "Las actividades en vivo son exclusivas para miembros. Crea tu cuenta gratis y únete a nuestra comunidad."
+            },
+            recordings: {
+                card: {
+                    watch: "Ver grabación",
+                    subscribe: "Suscribirme",
+                    subscribe_loading: "Iniciando...",
+                    restricted: "Solo usuarios registrados",
+                }
+            },
             admin: {
                 title: "Panel de administracion",
                 nav: {
@@ -148,15 +178,22 @@ export const es = {
                         name_label: "Nombre",
                         description_label: "Descripción",
                         type_label: "Tipo",
+                        tier_label: "Tier",
                         type_placeholder: "Selecciona un tipo",
+                        tier_placeholder: "Selecciona un tier",
                         file_label: "Archivo",
                         file_name_label: "Nombre del archivo",
                         submit_button: "Subir grabación",
                         submitting_button: "Subiendo...",
                         types: {
-                            meditacion: "Meditación",
-                            masterclass: "Masterclass",
-                            taller: "Taller"
+                            [RecordingType.MEDITACION]: "Meditación",
+                            [RecordingType.MASTERCLASS]: "Masterclass",
+                            [RecordingType.TALLER]: "Taller",
+                        },
+                        tiers: {
+                            [RecordingTier.FREE]: "Gratis",
+                            [RecordingTier.PREMIUM]: "Premium",
+                            [RecordingTier.DISCOUNT_FOR_MEMBERS]: "Descuento para miembros",
                         }
                     },
                     list: {
@@ -173,6 +210,7 @@ export const es = {
                             name: "Nombre",
                             description: "Descripción",
                             type: "Tipo",
+                            tier: "Tier",
                             created: "Fecha",
                             actions: "Acciones"
                         }
@@ -287,4 +325,3 @@ export const es = {
         }
     }
 };
-

@@ -24,6 +24,7 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
         let resultAsync = await this.Datasource.UploadRecording({
             name: data.Name,
             description: data.Description,
+            tier: data.Tier,
             type: data.Type,
         });
         console.log("UploadRecording result from datasource:", resultAsync);
@@ -43,6 +44,7 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
                 Id: item.id,
                 Name: item.name,
                 Description: item.description,
+                Tier: item.tier,
                 Type: item.type,
                 Created: item.created,
             })))

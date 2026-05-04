@@ -3,42 +3,74 @@
 
 .recordings-page {
     &__header {
-        margin-bottom: vars.$space-12;
-    }
+        max-width: 54rem;
+        margin: 0 auto vars.$space-12;
+        padding: vars.$space-10 vars.$space-8;
+        border: 1px solid rgba(vars.$color-primary, 0.14);
+        border-radius: vars.$radius-xl;
+        background:
+            radial-gradient(circle at top, rgba(vars.$color-primary-light, 0.22), transparent 58%),
+            rgba(vars.$color-surface, 0.88);
+        box-shadow: vars.$shadow-md;
+        backdrop-filter: blur(4px);
 
-    &__eyebrow {
-        font-family: fonts.$font-primary;
-        font-weight: fonts.$font-weight-bold;
-        font-size: fonts.$font-size-sm;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: vars.$color-primary;
-        margin-bottom: vars.$space-3;
-        display: block;
-    }
-
-    &__title {
-        font-family: fonts.$font-primary;
-        font-size: 3rem;
-        font-weight: fonts.$font-weight-bold;
-        color: vars.$color-dark;
-        margin-bottom: vars.$space-4;
-
-        @media (max-width: 768px) {
-            font-size: 2.5rem;
+        // Neutraliza las reglas globales mobile de justify/hyphens dentro del hero
+        h1, h2, h3, p, span {
+            text-align: center;
+            hyphens: none;
+            word-break: normal;
+            overflow-wrap: normal;
         }
     }
 
+    &__eyebrow {
+        margin-bottom: vars.$space-3;
+        font-family: fonts.$font-primary;
+        font-size: fonts.$font-size-sm;
+        font-weight: fonts.$font-weight-semibold;
+        letter-spacing: vars.$tracking-widest;
+        text-transform: uppercase;
+        color: vars.$color-primary-dark;
+        text-align: center !important;
+        text-justify: none !important;
+        hyphens: none;
+        word-break: normal;
+        overflow-wrap: normal;
+    }
+
+    &__title {
+        margin-bottom: vars.$space-4;
+        font-family: fonts.$font-display; // Explícito: evita salto visual al cargar Cormorant Garamond
+        color: vars.$color-dark;
+        text-align: center !important;
+        text-justify: none !important;
+        hyphens: none;
+        word-break: normal;
+        overflow-wrap: normal;
+    }
+
     &__subtitle {
-        font-size: fonts.$font-size-lg;
-        color: vars.$color-dark-muted;
-        max-width: 600px;
+        max-width: 42rem;
         margin: 0 auto;
-        line-height: 1.6;
+        color: vars.$color-dark-muted;
+        text-align: center !important;
+        text-justify: none !important;
+        hyphens: none;
+        word-break: normal;
+        overflow-wrap: normal;
     }
 
     &__content {
-        padding-top: vars.$space-8;
+        margin-top: vars.$space-8;
+    }
+}
+
+@media (max-width: 768px) {
+    .recordings-page {
+        &__header {
+            margin-bottom: vars.$space-8;
+            padding: vars.$space-8 vars.$space-5;
+        }
     }
 }
 

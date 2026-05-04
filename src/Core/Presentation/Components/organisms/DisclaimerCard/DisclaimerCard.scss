@@ -1,17 +1,18 @@
-@use "../../../../../../Assets/Styles/base/variables" as vars;
-@use "../../../../../../Assets/Styles/base/fonts" as fonts;
+﻿@use "../../../../../Assets/Styles/base/variables" as vars;
+@use "../../../../../Assets/Styles/base/fonts" as fonts;
 
-.access-disclaimer {
+.disclaimer-card {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 40rem;
+    //min-height: 40rem;
     padding: vars.$space-12 vars.$space-6;
+    margin-bottom: vars.$space-12;
     border-radius: vars.$radius-xl;
     border: 1px dashed rgba(vars.$color-primary, 0.2);
 
     &__content {
-        max-width: 100%;
+        width: 100%;
         text-align: center;
         background: vars.$color-surface;
         padding: vars.$space-10;
@@ -56,14 +57,14 @@
     &__cta {
         width: 100%;
         max-width: 24rem;
-        display: flex;
-        flex-direction: column;
-        gap: vars.$space-3;
         margin-top: vars.$space-2;
     }
 
-    &__recordings,
-    &__whatsapp {
+    &__footer {
+        width: 100%;
+    }
+
+    &__info-note {
         display: flex;
         align-items: center;
         gap: vars.$space-3;
@@ -79,26 +80,12 @@
         svg {
             color: vars.$color-primary;
             flex-shrink: 0;
-
-            &.text-success {
-                color: vars.$color-success;
-            }
-        }
-    }
-
-    &__whatsapp-link {
-        color: vars.$color-primary;
-        font-weight: fonts.$font-weight-bold;
-        text-decoration: underline;
-
-        &:hover {
-            color: vars.$color-primary-dark;
         }
     }
 }
 
 @media (max-width: 768px) {
-    .access-disclaimer {
+    .disclaimer-card {
         padding: vars.$space-6 vars.$space-4;
 
         &__content {

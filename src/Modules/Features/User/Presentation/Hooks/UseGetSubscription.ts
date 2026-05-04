@@ -21,7 +21,7 @@ export default function UseGetSubscription() {
         },
         enabled: isAuthenticated, // Solo hacer fetch si está autenticado
         retry: false,
-        refetchInterval: 1000 * 60 * 5, // Considerar los datos "frescos" por 5 min
+        refetchInterval: 1000 * 60, // Considerar los datos "frescos" por 1 min
     });
 
     return {

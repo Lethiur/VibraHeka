@@ -1,8 +1,9 @@
-import { RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import {RecordingTier, RecordingType} from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 
 export default interface CreateRecordingRequest {
 
     name : string;
     description : string;
     type : RecordingType;
+    tier: RecordingTier
 }

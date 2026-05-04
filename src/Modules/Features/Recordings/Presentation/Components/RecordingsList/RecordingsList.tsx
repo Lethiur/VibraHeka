@@ -1,32 +1,42 @@
-import React, { useMemo } from "react";
-import { RecordingEntity, RecordingType } from "@recordings/Domain/Entities/RecordingEntity";
+import React, {useMemo} from "react";
+import {RecordingEntity, RecordingType} from "@recordings/Domain/Entities/RecordingEntity";
 import RecordingCard from "../RecordingCard/RecordingCard";
-import { Row, Col } from "react-bootstrap";
+import {Row, Col} from "react-bootstrap";
 import "./RecordingsList.scss";
 
 interface RecordingsListProps {
     recordings: RecordingEntity[];
     isAuthenticated: boolean;
+    hasActiveSubscription: boolean;
     onPlay: (recording: RecordingEntity) => void;
+    onSubscribe: () => void;
     isLoadingUrl?: boolean;
+    isSubscribeLoading?: boolean;
 }
 
 const getTypeName = (type: RecordingType | string | number): string => {
     const typeValue = typeof type === "string" ? parseInt(type, 10) : type;
     switch (typeValue) {
-        case RecordingType.MEDITACION: return "Meditaciones";
-        case RecordingType.MASTERCLASS: return "Masterclasses";
-        case RecordingType.TALLER: return "Talleres";
-        default: return "Otras grabaciones";
+        case RecordingType.MEDITACION:
+            return "Meditaciones";
+        case RecordingType.MASTERCLASS:
+            return "Masterclasses";
+        case RecordingType.TALLER:
+            return "Talleres";
+        default:
+            return "Otras grabaciones";
     }
 };
 
 const RecordingsList: React.FC<RecordingsListProps> = ({
-    recordings,
-    isAuthenticated,
-    onPlay,
-    isLoadingUrl = false
-}) => {
+                                                           recordings,
+                                                           isAuthenticated,
+                                                           hasActiveSubscription,
+                                                           onPlay,
+                                                           onSubscribe,
+                                                           isLoadingUrl = false,
+                                                           isSubscribeLoading = false,
+                                                       }) => {
 
     const groupedRecordings = useMemo(() => {
         const groups: Record<number, RecordingEntity[]> = {};
@@ -46,6 +56,10 @@ const RecordingsList: React.FC<RecordingsListProps> = ({
         );
     }
 
+    if (!isAuthenticated) {
+        return <></>
+    }
+
     return (
         <div className="recordings-list">
             {Object.entries(groupedRecordings).map(([type, items]) => (
@@ -59,8 +73,11 @@ const RecordingsList: React.FC<RecordingsListProps> = ({
                                 <RecordingCard
                                     recording={recording}
                                     isAuthenticated={isAuthenticated}
+                                    hasActiveSubscription={hasActiveSubscription}
                                     onPlay={onPlay}
+                                    onSubscribe={onSubscribe}
                                     isLoadingUrl={isLoadingUrl}
+                                    isSubscribeLoading={isSubscribeLoading}
                                 />
                             </Col>
                         ))}

@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useAtomValue } from "jotai";
+import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import GetRecordingUrlContext from "@recordings/Presentation/Context/GetRecordingUrlContext";
 import { RecordingsErrors } from "@recordings/Domain/Errors/RecordingsErrors";
 import { UseToast } from "@core/Presentation/Hooks/UseToast";
@@ -10,6 +12,7 @@ export default function UseGetRecordingUrl() {
     const UseCase = useContext(GetRecordingUrlContext);
     const { ShowNotification } = UseToast();
     const { t } = useTranslation();
+    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
 
     const mutation = useMutation<string, RecordingsErrors, string>({
         mutationFn: async (recordingId: string) => {
@@ -26,9 +29,14 @@ export default function UseGetRecordingUrl() {
         }
     });
 
+    const getRecordingUrl = async (recordingId: string) => {
+        if (!isAuthenticated) return "";
+        return mutation.mutateAsync(recordingId);
+    };
+
     return {
-        getRecordingUrl: mutation.mutateAsync,
-        loading: mutation.isPending,
-        error: mutation.error as RecordingsErrors | null,
+        getRecordingUrl,
+        loading: isAuthenticated ? mutation.isPending : false,
+        error: isAuthenticated ? (mutation.error as RecordingsErrors | null) : null,
     };
 }
