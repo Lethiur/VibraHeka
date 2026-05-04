@@ -44,6 +44,7 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
                 Id: item.id,
                 Name: item.name,
                 Description: item.description,
+                Tier: item.tier,
                 Type: item.type,
                 Created: item.created,
             })))

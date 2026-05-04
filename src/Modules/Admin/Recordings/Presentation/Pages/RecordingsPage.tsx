@@ -57,11 +57,14 @@ export default function RecordingsPage() {
         const file = formData.get("File");
         const typeStr = formData.get("Type") as string;
         const typeValue = typeStr !== "" ? (Number(typeStr) as RecordingType) : null;
+        const tierStr = formData.get("Tier") as string;
+        const tierValue = tierStr !== "" ? (Number(tierStr) as RecordingTier) : null;
 
         const data: CreateRecordingEntity = {
             Name: (formData.get("Name") as string) ?? "",
             Description: (formData.get("Description") as string) ?? "",
             Type: typeValue || RecordingType.MEDITACION,
+            Tier: tierValue || RecordingTier.FREE,
             File: file instanceof File && file.size > 0 ? file : null
         };
 
