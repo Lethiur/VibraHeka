@@ -9,6 +9,7 @@ import ToastProvider from '@core/Presentation/Components/organisms/Toast/ToastPr
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactGA from "react-ga4";
 import AnalyticsTracker from "@/GATracker.tsx";
+import MetaPixelPageView from "@/MetaPixelPageView.tsx";
 
 const queryClient = new QueryClient();
 const PRELOAD_RETRY_KEY = 'vh:preload-retry';
@@ -36,6 +37,7 @@ try {
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Router>
+            <MetaPixelPageView />
             <AnalyticsTracker />
             <ToastProvider>
                 <QueryClientProvider client={queryClient}>

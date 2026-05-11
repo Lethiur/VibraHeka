@@ -2,48 +2,78 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/logo-web.png?v=2" />
-  <link rel="shortcut icon" type="image/png" href="/logo-web.png?v=2" />
-  <link rel="apple-touch-icon" href="/logo-web.png?v=2" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
 
-  <!-- Google Fonts: preconnect para reducir latencia + stylesheet no bloqueante -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" />
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1543950080092199');
+        fbq('track', 'PageView');
+    </script>
 
-  <!-- SEO Básico -->
-  <title>VibraHeka - Tu espacio de calma y sanación holística</title>
-  <meta name="description"
-    content="Plataforma dedicada al bienestar integral, terapias holísticas, meditaciones guiadas y bioenergética para calmar el sistema nervioso, reducir la ansiedad y reconectar." />
-  <meta name="keywords"
-    content="VibraHeka, terapia holística, bienestar integral, meditación, bioenergética, salud mental, reducir estrés, ansiedad, desarrollo personal, reprogramación mental" />
-  <meta name="author" content="VibraHeka" />
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#8a81d4" /> <!-- Opcional: define el color de barra en móviles -->
+    <!-- End Meta Pixel Code -->
 
-  <!-- Open Graph / Meta de Social Media (Facebook, LinkedIn, etc.) -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="VibraHeka - Bienestar Integral y Terapias Holísticas" />
-  <meta property="og:description"
-    content="Accede a sesiones en vivo, talleres antiestrés y terapeutas expertos para recuperar tu equilibrio físico y emocional." />
-  <meta property="og:image" content="/logo-web.png" />
-  <meta property="og:url" content="https://vibraheka.com" /> <!-- Cambiar por la URL real si difiere -->
+    <link rel="icon" type="image/png" href="/logo-web.png?v=2"/>
+    <link rel="shortcut icon" type="image/png" href="/logo-web.png?v=2"/>
+    <link rel="apple-touch-icon" href="/logo-web.png?v=2"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Twitter Cards -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="VibraHeka - Bienestar Integral y Terapias Holísticas" />
-  <meta name="twitter:description"
-    content="Accede a sesiones en vivo, talleres antiestrés y terapeutas expertos para recuperar tu equilibrio." />
-  <meta name="twitter:image" content="/logo-web.png" />
+    <!-- Google Fonts: preconnect para reducir latencia + stylesheet no bloqueante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"/>
+
+    <!-- SEO Básico -->
+    <title>VibraHeka - Tu espacio de calma y sanación holística</title>
+    <meta name="description"
+          content="Plataforma dedicada al bienestar integral, terapias holísticas, meditaciones guiadas y bioenergética para calmar el sistema nervioso, reducir la ansiedad y reconectar."/>
+    <meta name="keywords"
+          content="VibraHeka, terapia holística, bienestar integral, meditación, bioenergética, salud mental, reducir estrés, ansiedad, desarrollo personal, reprogramación mental"/>
+    <meta name="author" content="VibraHeka"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="theme-color" content="#8a81d4"/> <!-- Opcional: define el color de barra en móviles -->
+
+    <!-- Open Graph / Meta de Social Media (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="VibraHeka - Bienestar Integral y Terapias Holísticas"/>
+    <meta property="og:description"
+          content="Accede a sesiones en vivo, talleres antiestrés y terapeutas expertos para recuperar tu equilibrio físico y emocional."/>
+    <meta property="og:image" content="/logo-web.png"/>
+    <meta property="og:url" content="https://vibraheka.com"/> <!-- Cambiar por la URL real si difiere -->
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="VibraHeka - Bienestar Integral y Terapias Holísticas"/>
+    <meta name="twitter:description"
+          content="Accede a sesiones en vivo, talleres antiestrés y terapeutas expertos para recuperar tu equilibrio."/>
+    <meta name="twitter:image" content="/logo-web.png"/>
 
 </head>
 
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+<noscript><img height="1" width="1" style="display:none"
+               src="https://www.facebook.com/tr?id=1543950080092199&ev=PageView&noscript=1"
+/></noscript>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
