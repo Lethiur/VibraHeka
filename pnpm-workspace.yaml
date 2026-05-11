@@ -1,0 +1,10 @@
+﻿packages:
+  - "."
+
+overrides:
+  "@tiptap/core": "3.15.3"
+  "@tiptap/pm": "3.15.3"
+
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
