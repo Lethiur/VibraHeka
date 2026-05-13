@@ -34,7 +34,7 @@ export default function SubscriptionLanding() {
             const now = new Date();
     
             // Verificar si el periodo de suscripción general se ha cerrado (19 de abril)
-            const globalDeadline = new Date("2026-05-04T18:00:00Z");
+            const globalDeadline = new Date("2036-05-04T18:00:00Z");
             if (now.getTime() > globalDeadline.getTime()) {
                 setIsSubscriptionClosed(true);
             }
@@ -159,7 +159,7 @@ export default function SubscriptionLanding() {
                         </div>
                     </Col>
                 </Row>
-                {/* { !isAuthenticated && (<Row className="justify-content-center">
+                { !isAuthenticated && (<Row className="justify-content-center">
                     <Col md={12}>
                         <PrimaryButton
                             label={'Quiero unirme a VibraHeka'}
@@ -169,7 +169,7 @@ export default function SubscriptionLanding() {
                             onClick={handleSubscribeAction}
                         />
                     </Col>
-                </Row>)} */}
+                </Row>)}
 
                  {/* Tarjeta de Pricing Central */}
                 <Row className="justify-content-center">
