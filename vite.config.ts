@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '')
     const isAnalyze = env.ANALYZE === 'true'
-    const proxyTarget = env.VITE_DEV_PROXY_TARGET || 'https://2rxv3zs0n1.execute-api.eu-west-1.amazonaws.com'
+    const proxyTarget = env.VITE_DEV_PROXY_TARGET || 'https://localhost:5001' // 'https://dd1kekevp7.execute-api.eu-west-1.amazonaws.com'
     return {
         plugins: [react(), tsconfigPaths(), isAnalyze && visualizer({ open: true })].filter(Boolean),
         css: {
@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => {
                     // This allows calling e.g. `/api/v1/...` (see BackendDatasource baseURL).
                     target: proxyTarget,
                     changeOrigin: true,
-                    secure: true,
+                    secure: false,
                     configure: (proxy) => {
                         proxy.on('error', (err, _req) => {
                             console.error('[proxy] error:', err.message)

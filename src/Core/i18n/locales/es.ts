@@ -5,6 +5,7 @@ import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import { RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { CatalogErrors } from "@admin/catalog/Domain/Errors/CatalogErrors";
 
 export const es = {
     translation: {
@@ -71,6 +72,10 @@ export const es = {
                 [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
                 [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
                 [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
+            },
+            catalog: {
+                [CatalogErrors.NOT_AUTHORIZED]: "No tienes permisos para crear productos.",
+                [CatalogErrors.GENERAL_ERROR]: "Ha ocurrido un error al crear el producto."
             }
         },
         components: {
@@ -130,7 +135,8 @@ export const es = {
                     therapists: "Terapeutas",
                     emails: "Emails transaccionales",
                     email_templates: "Plantillas de correo",
-                    recordings: "Grabaciones"
+                    recordings: "Grabaciones",
+                    catalog: "Catálogo de productos"
                 },
                 emails: {
                     title: "Plantillas de correo",
@@ -215,8 +221,42 @@ export const es = {
                             actions: "Acciones"
                         }
                     }
+                },
+                catalog: {
+                    title: "Crear producto",
+                    description: "Añade un nuevo producto al catálogo.",
+                    messages: {
+                        success_title: "Éxito",
+                        success_content: "Producto creado correctamente.",
+                        error_title: "Error"
+                    },
+                    form: {
+                        title: "Nuevo producto",
+                        name_label: "Nombre",
+                        description_label: "Descripción",
+                        price_label: "Precio",
+                        currency_label: "Moneda",
+                        submit_button: "Crear producto",
+                        submitting_button: "Creando..."
+                    },
+                    table: {
+                        title: "Productos",
+                        new_button: "Nuevo producto",
+                        col_name: "Nombre",
+                        col_description: "Descripción",
+                        col_type: "Tipo",
+                        col_status: "Estado",
+                        col_actions: "Acciones",
+                        status_active: "Activo",
+                        status_inactive: "Inactivo",
+                        type_digital_recording: "Grabación digital",
+                        type_therapy: "Terapia",
+                        action_view: "Ver",
+                        empty: "No hay productos registrados.",
+                    }
                 }
             },
+
             therapists: {
                 title: "Administrar terapeutas",
                 description: "Gestiona aqui los terapeutas registrados en el sistema.",
@@ -245,7 +285,8 @@ export const es = {
                     submitting_button: "Creando..."
                 }
             },
-            register: {                title: "Registrate en vibraheka!",
+            register: {
+                title: "Registrate en vibraheka!",
                 description: "Registrate en vibraheka para poder disfrutar de todos los beneficios que ofrecemos.",
                 form: {
                     name_label: "Nombre",

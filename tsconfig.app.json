@@ -45,6 +45,9 @@
             "@admin/recordings/*": [
                 "src/Modules/Admin/Recordings/*"
             ],
+            "@admin/catalog/*": [
+                "src/Modules/Admin/Catalog/*"
+            ],
             "@users/*": [
                 "src/Modules/Features/User/*"
             ],
