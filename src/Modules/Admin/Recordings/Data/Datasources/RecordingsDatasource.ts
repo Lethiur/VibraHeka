@@ -26,14 +26,14 @@ export default class RecordingsDatasource extends BackendDatasource {
     }
 
     public async UploadRecording(data: CreateRecordingRequest): Promise<Result<AddRecordingResult, string>> {
-        return this.post<AddRecordingResult>("/recordings", data, true);
+        return this.post<AddRecordingResult>("catalog/recordings", data, true);
     }
 
     public async GetRecordings(): Promise<Result<RecordingDto[], string>> {
-        return this.get<RecordingDto[]>("/recordings", true);
+        return this.get<RecordingDto[]>("catalog/recordings", true);
     }
 
     public async DeleteRecording(id: string): Promise<Result<void, string>> {
-        return this.delete<void>(`/recordings/${id}`, true);
+        return this.delete<void>(`catalog/recordings/${id}`, true);
     }
 }

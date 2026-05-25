@@ -4,19 +4,21 @@ import { ValidationErrors } from "fluentvalidation-ts";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
-import { CreateRecordingEntity, RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { CreateRecordingEntity, CurrencyIsoCode, RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import "./CreateRecordingForm.scss";
 
 export interface CreateRecordingFormProps {
     onSubmit: (recording: CreateRecordingEntity) => Promise<void>;
     loading: boolean;
+    disabled?: boolean;
     error: RecordingsErrors | null;
     validationErrors: ValidationErrors<CreateRecordingEntity>;
 }
 
-export default function CreateRecordingForm({ onSubmit, loading, error, validationErrors }: CreateRecordingFormProps) {
+export default function CreateRecordingForm({ onSubmit, loading, disabled, error, validationErrors }: CreateRecordingFormProps) {
     const { t } = useTranslation();
+    const isDisabled = loading || disabled;
 
     const getValidationMessage = (errorCode?: string): string | undefined => {
         if (!errorCode) return undefined;
@@ -27,9 +29,8 @@ export default function CreateRecordingForm({ onSubmit, loading, error, validati
         if (!errorCode) return null;
         return t(`errors.recordings.${errorCode}`);
     };
-    
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
-        
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const file = formData.get("File");
@@ -44,21 +45,22 @@ export default function CreateRecordingForm({ onSubmit, loading, error, validati
             Type: typeValue ?? RecordingType.MEDITACION,
             Tier: tierValue ?? RecordingTier.FREE,
             File: file instanceof File && file.size > 0 ? file : null,
+            Price: parseFloat(formData.get("Price") as string) || 0,
+            CurrencyCode: (formData.get("CurrencyCode") as CurrencyIsoCode) ?? CurrencyIsoCode.USD,
         };
-        
+
         await onSubmit(data);
-    }
+    };
 
     return (
-        <section className="vh-surface-card create-recording-form">
-            <h2 className="h4">{t("pages.admin.recordings.form.title")}</h2>
+        <section className="create-recording-form">
             <ErrorBox message={getDomainErrorMessage(error)} />
 
             <Form onSubmit={handleSubmit} noValidate className="create-recording-form__body">
                 <PrimaryTextInput
                     name="Name"
                     label={t("pages.admin.recordings.form.name_label")}
-                    disabled={loading}
+                    disabled={isDisabled}
                     required
                     error={getValidationMessage(validationErrors.Name?.toString())}
                 />
@@ -68,7 +70,7 @@ export default function CreateRecordingForm({ onSubmit, loading, error, validati
                     label={t("pages.admin.recordings.form.description_label")}
                     as="textarea"
                     rows={3}
-                    disabled={loading}
+                    disabled={isDisabled}
                     required
                     error={getValidationMessage(validationErrors.Description?.toString())}
                 />
@@ -78,14 +80,14 @@ export default function CreateRecordingForm({ onSubmit, loading, error, validati
                     <Form.Select
                         name="Type"
                         required
-                        disabled={loading}
+                        disabled={isDisabled}
                         isInvalid={!!validationErrors.Type}
                         defaultValue=""
                     >
                         <option value="">{t("pages.admin.recordings.form.type_placeholder")}</option>
-                        <option value={RecordingType.MEDITACION}>{t("pages.admin.recordings.form.types.meditacion")}</option>
-                        <option value={RecordingType.MASTERCLASS}>{t("pages.admin.recordings.form.types.masterclass")}</option>
-                        <option value={RecordingType.TALLER}>{t("pages.admin.recordings.form.types.taller")}</option>
+                        <option value={RecordingType.MEDITACION}>{t(`pages.admin.recordings.form.types.${RecordingType.MEDITACION}`)}</option>
+                        <option value={RecordingType.MASTERCLASS}>{t(`pages.admin.recordings.form.types.${RecordingType.MASTERCLASS}`)}</option>
+                        <option value={RecordingType.TALLER}>{t(`pages.admin.recordings.form.types.${RecordingType.TALLER}`)}</option>
                     </Form.Select>
                     {validationErrors.Type && (
                         <Form.Control.Feedback type="invalid">
@@ -99,17 +101,57 @@ export default function CreateRecordingForm({ onSubmit, loading, error, validati
                     <Form.Select
                         name="Tier"
                         required
-                        disabled={loading}
+                        disabled={isDisabled}
                         isInvalid={!!validationErrors.Tier}
                         defaultValue=""
                     >
                         <option value="">{t("pages.admin.recordings.form.tier_placeholder")}</option>
-                        <option value={RecordingTier.FREE}>{t("pages.admin.recordings.form.tiers.free")}</option>
-                        <option value={RecordingTier.PREMIUM}>{t("pages.admin.recordings.form.tiers.premium")}</option>
+                        <option value={RecordingTier.FREE}>{t(`pages.admin.recordings.form.tiers.${RecordingTier.FREE}`)}</option>
+                        <option value={RecordingTier.PREMIUM}>{t(`pages.admin.recordings.form.tiers.${RecordingTier.PREMIUM}`)}</option>
+                        <option value={RecordingTier.DISCOUNT_FOR_MEMBERS}>{t(`pages.admin.recordings.form.tiers.${RecordingTier.DISCOUNT_FOR_MEMBERS}`)}</option>
                     </Form.Select>
                     {validationErrors.Tier && (
                         <Form.Control.Feedback type="invalid">
                             {getValidationMessage(validationErrors.Tier?.toString())}
+                        </Form.Control.Feedback>
+                    )}
+                </Form.Group>
+
+                <Form.Group controlId="Price">
+                    <Form.Label>{t("pages.admin.recordings.form.price_label")}</Form.Label>
+                    <Form.Control
+                        name="Price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        required
+                        disabled={isDisabled}
+                        isInvalid={!!validationErrors.Price}
+                    />
+                    {validationErrors.Price && (
+                        <Form.Control.Feedback type="invalid">
+                            {getValidationMessage(validationErrors.Price?.toString())}
+                        </Form.Control.Feedback>
+                    )}
+                </Form.Group>
+
+                <Form.Group controlId="CurrencyCode">
+                    <Form.Label>{t("pages.admin.recordings.form.currency_label")}</Form.Label>
+                    <Form.Select
+                        name="CurrencyCode"
+                        required
+                        disabled={isDisabled}
+                        isInvalid={!!validationErrors.CurrencyCode}
+                        defaultValue=""
+                    >
+                        <option value="">{t("pages.admin.recordings.form.currency_placeholder")}</option>
+                        <option value={CurrencyIsoCode.USD}>{t("pages.admin.recordings.form.currencies.USD")}</option>
+                        <option value={CurrencyIsoCode.ARS}>{t("pages.admin.recordings.form.currencies.ARS")}</option>
+                        <option value={CurrencyIsoCode.EUR}>{t("pages.admin.recordings.form.currencies.EUR")}</option>
+                    </Form.Select>
+                    {validationErrors.CurrencyCode && (
+                        <Form.Control.Feedback type="invalid">
+                            {getValidationMessage(validationErrors.CurrencyCode?.toString())}
                         </Form.Control.Feedback>
                     )}
                 </Form.Group>
@@ -120,7 +162,7 @@ export default function CreateRecordingForm({ onSubmit, loading, error, validati
                         name="File"
                         type="file"
                         required
-                        disabled={loading}
+                        disabled={isDisabled}
                         isInvalid={!!validationErrors.File}
                     />
                     {validationErrors.File && (
@@ -130,15 +172,17 @@ export default function CreateRecordingForm({ onSubmit, loading, error, validati
                     )}
                 </Form.Group>
 
-                <PrimaryButton
-                    type="submit"
-                    disabled={loading}
-                    fullWidth={true}
-                    label={loading
-                        ? t("pages.admin.recordings.form.submitting_button")
-                        : t("pages.admin.recordings.form.submit_button")
-                    }
-                />
+                {!isDisabled && (
+                    <PrimaryButton
+                        type="submit"
+                        disabled={isDisabled}
+                        fullWidth={true}
+                        label={loading
+                            ? t("pages.admin.recordings.form.submitting_button")
+                            : t("pages.admin.recordings.form.submit_button")
+                        }
+                    />
+                )}
             </Form>
         </section>
     );

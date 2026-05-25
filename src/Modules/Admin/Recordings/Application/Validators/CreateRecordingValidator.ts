@@ -1,5 +1,5 @@
 import { Validator } from "fluentvalidation-ts";
-import { CreateRecordingEntity, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { CreateRecordingEntity, CurrencyIsoCode, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
 
 export default class CreateRecordingValidator extends Validator<CreateRecordingEntity> {
@@ -11,6 +11,12 @@ export default class CreateRecordingValidator extends Validator<CreateRecordingE
             .must((value) => value === RecordingType.MEDITACION || value === RecordingType.MASTERCLASS || value === RecordingType.TALLER)
             .withMessage(RecordingsApplicationErrors.TYPE_REQUIRED);
         this.ruleFor("File").must((value) => value instanceof File).withMessage(RecordingsApplicationErrors.FILE_REQUIRED);
+        this.ruleFor("Price")
+            .must((value) => value > 0)
+            .withMessage(RecordingsApplicationErrors.PRICE_REQUIRED);
+        this.ruleFor("CurrencyCode")
+            .must((value) => Object.values(CurrencyIsoCode).includes(value))
+            .withMessage(RecordingsApplicationErrors.CURRENCY_REQUIRED);
     }
 }
 

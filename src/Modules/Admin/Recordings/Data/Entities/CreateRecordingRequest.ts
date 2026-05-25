@@ -5,5 +5,7 @@ export default interface CreateRecordingRequest {
     name : string;
     description : string;
     type : RecordingType;
-    tier: RecordingTier
+    tier: RecordingTier;
+    price: number;
+    currencyCode: string;
 }

@@ -1,11 +1,12 @@
-import {useEffect} from "react";
-import {Col, Container, ProgressBar, Row} from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Col, Container, ProgressBar, Row } from "react-bootstrap";
 import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
-import {useTranslation} from "react-i18next";
-import {NotificationVariant} from "@core/Domain/Notifications/INotificationProvider";
-import {UseToast} from "@core/Presentation/Hooks/UseToast";
-import {CreateRecordingEntity} from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
-import {RecordingsErrors} from "@admin/recordings/Domain/Errors/RecordingsErrors";
+import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import { useTranslation } from "react-i18next";
+import { NotificationVariant } from "@core/Domain/Notifications/INotificationProvider";
+import { UseToast } from "@core/Presentation/Hooks/UseToast";
+import { CreateRecordingEntity } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import UseUploadRecording from "@admin/recordings/Presentation/Hooks/UseUploadRecording";
 import UseGetRecordings from "@admin/recordings/Presentation/Hooks/UseGetRecordings";
 import UseDeleteRecording from "@admin/recordings/Presentation/Hooks/UseDeleteRecording";
@@ -14,14 +15,16 @@ import RecordingList from "@admin/recordings/Presentation/Components/RecordingLi
 import "./RecordingsPage.scss";
 
 export default function RecordingsPage() {
-    const {t} = useTranslation();
-    const {ShowNotification} = UseToast();
-    const {UploadRecording, recordingID, uploadProgress, loading, error, validationErrors} = UseUploadRecording();
-    const {recordings, loading: listLoading, error: listError, refetch} = UseGetRecordings();
-    const {DeleteRecording, loading: deleteLoading} = UseDeleteRecording();
+    const { t } = useTranslation();
+    const { ShowNotification } = UseToast();
+    const { UploadRecording, recordingID, uploadProgress, loading, error, validationErrors } = UseUploadRecording();
+    const { recordings, loading: listLoading, error: listError, refetch } = UseGetRecordings();
+    const { DeleteRecording, loading: deleteLoading } = UseDeleteRecording();
+    const [showFormModal, setShowFormModal] = useState(false);
 
     useEffect(() => {
         if (!recordingID) return;
+        setShowFormModal(false);
         ShowNotification(
             t("pages.admin.recordings.messages.success_title"),
             t("pages.admin.recordings.messages.success_content"),
@@ -63,33 +66,49 @@ export default function RecordingsPage() {
 
     return (
         <>
-            <VHModal show={loading} backdrop="static" keyboard={false} centered>
-                <VHModal.Header>
-                    <VHModal.Title>{t("pages.admin.recordings.upload_modal.title")}</VHModal.Title>
+            <VHModal
+                show={showFormModal}
+                backdrop={loading ? "static" : true}
+                keyboard={!loading}
+                onHide={() => { if (!loading) setShowFormModal(false); }}
+                centered
+            >
+                <VHModal.Header closeButton={!loading}>
+                    <VHModal.Title>{t("pages.admin.recordings.form.title")}</VHModal.Title>
                 </VHModal.Header>
                 <VHModal.Body>
-                    <p className="mb-3">{t("pages.admin.recordings.upload_modal.description")}</p>
-                    <ProgressBar animated now={uploadProgress} label={`${uploadProgress}%`}/>
+                    <CreateRecordingForm
+                        onSubmit={handleSubmit}
+                        loading={loading}
+                        disabled={loading}
+                        error={error}
+                        validationErrors={validationErrors}
+                    />
+                    {loading && (
+                        <div className="mt-3">
+                            <p className="text-muted small">{t("pages.admin.recordings.upload_modal.description")}</p>
+                            <ProgressBar animated now={uploadProgress} label={`${uploadProgress}%`} />
+                        </div>
+                    )}
                 </VHModal.Body>
             </VHModal>
 
             <Container fluid className="py-4 py-md-5 recordings-page">
                 <section className="vh-surface-card mb-4 recordings-page__header">
-                    <h1>{t("pages.admin.recordings.title")}</h1>
-                    <p>{t("pages.admin.recordings.description")}</p>
+                    <div className="recordings-page__header-content">
+                        <div>
+                            <h1>{t("pages.admin.recordings.title")}</h1>
+                            <p>{t("pages.admin.recordings.description")}</p>
+                        </div>
+                        <PrimaryButton
+                            label={t("pages.admin.recordings.new_recording_button")}
+                            onClick={() => setShowFormModal(true)}
+                        />
+                    </div>
                 </section>
 
-                <Row className="g-4 align-items-start">
-                    <Col lg={4} className="recordings-page__form-col">
-                        <CreateRecordingForm
-                            onSubmit={handleSubmit}
-                            loading={loading}
-                            error={error}
-                            validationErrors={validationErrors}
-                        />
-                    </Col>
-
-                    <Col lg={8}>
+                <Row className="g-4">
+                    <Col lg={12}>
                         <RecordingList
                             recordings={recordings}
                             loading={listLoading}

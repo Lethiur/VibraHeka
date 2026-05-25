@@ -26,6 +26,8 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
             description: data.Description,
             tier: data.Tier,
             type: data.Type,
+            price: data.Price,
+            currencyCode: data.CurrencyCode,
         });
         console.log("UploadRecording result from datasource:", resultAsync);
         return resultAsync.map((value: AddRecordingResult) => {

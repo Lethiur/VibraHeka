@@ -4,7 +4,7 @@ import { ProfileApplicationErrors } from "@users/Application/Errors/ProfileAppli
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
-import { RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { CurrencyIsoCode, RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
 
 export const es = {
     translation: {
@@ -71,6 +71,8 @@ export const es = {
                 [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
                 [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
                 [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
+                [RecordingsApplicationErrors.PRICE_REQUIRED]: "El precio debe ser mayor a 0",
+                [RecordingsApplicationErrors.CURRENCY_REQUIRED]: "Selecciona una moneda válida",
             }
         },
         components: {
@@ -158,6 +160,7 @@ export const es = {
                 recordings: {
                     title: "Grabaciones",
                     description: "Sube nuevas grabaciones y prepara la gestión del catálogo de contenido.",
+                    new_recording_button: "Nueva grabación",
                     upload_modal: {
                         title: "Subiendo grabación...",
                         description: "Por favor, espera mientras se sube el archivo. No cierres esta ventana."
@@ -183,8 +186,16 @@ export const es = {
                         tier_placeholder: "Selecciona un tier",
                         file_label: "Archivo",
                         file_name_label: "Nombre del archivo",
+                        price_label: "Precio",
+                        currency_label: "Moneda",
+                        currency_placeholder: "Selecciona una moneda",
                         submit_button: "Subir grabación",
                         submitting_button: "Subiendo...",
+                        currencies: {
+                            [CurrencyIsoCode.USD]: "Dólar (USD)",
+                            [CurrencyIsoCode.ARS]: "Peso Argentino (ARS)",
+                            [CurrencyIsoCode.EUR]: "Euro (EUR)",
+                        },
                         types: {
                             [RecordingType.MEDITACION]: "Meditación",
                             [RecordingType.MASTERCLASS]: "Masterclass",

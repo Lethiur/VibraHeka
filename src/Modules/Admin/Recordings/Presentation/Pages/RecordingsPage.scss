@@ -24,6 +24,14 @@
         }
     }
 
+    &__header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
     &__form-col {
         @media (min-width: 992px) {
             position: sticky;
