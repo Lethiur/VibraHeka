@@ -1,0 +1,7 @@
+.create-event-form {
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

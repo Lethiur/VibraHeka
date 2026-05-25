@@ -15,6 +15,7 @@ const adminNavItems: AdminNavItem[] = [
     { labelKey: "pages.admin.nav.emails", to: "/admin/emails", end: true },
     { labelKey: "pages.admin.nav.email_templates", to: "/admin/emails/templates" },
     { labelKey: "pages.admin.nav.recordings", to: "/admin/recordings" },
+    { labelKey: "pages.admin.nav.events", to: "/admin/events" },
 ];
 
 export default function AdminLayout() {
