@@ -5,6 +5,8 @@ import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import { CurrencyIsoCode, RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { EventsApplicationErrors } from "@admin/events/Application/Errors/EventsApplicationErrors";
+import { EventsErrors } from "@admin/events/Domain/Errors/EventsErrors";
 
 export const es = {
     translation: {
@@ -73,6 +75,22 @@ export const es = {
                 [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
                 [RecordingsApplicationErrors.PRICE_REQUIRED]: "El precio debe ser mayor a 0",
                 [RecordingsApplicationErrors.CURRENCY_REQUIRED]: "Selecciona una moneda válida",
+            },
+            events: {
+                [EventsErrors.UNAUTHORIZED]: "No tienes permisos para gestionar eventos.",
+                [EventsErrors.NETWORK_ERROR]: "No se pudo conectar con el servidor.",
+                [EventsErrors.CREATE_FAILED]: "No se pudo crear el evento.",
+                [EventsErrors.GENERAL_ERROR]: "Ha ocurrido un error inesperado.",
+                [EventsErrors.LIST_FAILED]: "No se pudo cargar el listado de eventos.",
+                [EventsErrors.DELETE_FAILED]: "No se pudo eliminar el evento.",
+                [EventsErrors.TOGGLE_STATUS_FAILED]: "No se pudo cambiar el estado del evento.",
+                [EventsApplicationErrors.NAME_REQUIRED]: "El nombre es obligatorio.",
+                [EventsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
+                [EventsApplicationErrors.DATE_REQUIRED]: "La fecha es obligatoria.",
+                [EventsApplicationErrors.DURATION_REQUIRED]: "La duración debe ser mayor a 0.",
+                [EventsApplicationErrors.TIMEZONE_REQUIRED]: "La zona horaria es obligatoria.",
+                [EventsApplicationErrors.PRICE_REQUIRED]: "El precio debe ser mayor a 0.",
+                [EventsApplicationErrors.CURRENCY_REQUIRED]: "Selecciona una moneda válida.",
             }
         },
         components: {
@@ -132,7 +150,8 @@ export const es = {
                     therapists: "Terapeutas",
                     emails: "Emails transaccionales",
                     email_templates: "Plantillas de correo",
-                    recordings: "Grabaciones"
+                    recordings: "Grabaciones",
+                    events: "Eventos"
                 },
                 emails: {
                     title: "Plantillas de correo",
@@ -223,6 +242,60 @@ export const es = {
                             type: "Tipo",
                             tier: "Tier",
                             created: "Fecha",
+                            actions: "Acciones"
+                        }
+                    }
+                },
+                events: {
+                    title: "Eventos",
+                    description: "Crea y gestiona los eventos programados.",
+                    new_event_button: "Nuevo evento",
+                    messages: {
+                        success_title: "Éxito",
+                        success_content: "Evento creado correctamente.",
+                        error_title: "Error"
+                    },
+                    status: {
+                        active: "Activo",
+                        inactive: "Inactivo"
+                    },
+                    form: {
+                        title: "Crear evento",
+                        name_label: "Nombre",
+                        description_label: "Descripción",
+                        date_label: "Fecha y hora",
+                        duration_label: "Duración (minutos)",
+                        timezone_label: "Zona horaria",
+                        timezone_placeholder: "Selecciona una zona horaria",
+                        price_label: "Precio",
+                        currency_label: "Moneda",
+                        currency_placeholder: "Selecciona una moneda",
+                        submit_button: "Crear evento",
+                        submitting_button: "Creando..."
+                    },
+                    list: {
+                        title: "Listado de eventos",
+                        description: "Gestiona los eventos programados.",
+                        empty: "No hay eventos disponibles.",
+                        loading: "Cargando eventos...",
+                        delete_button: "Eliminar",
+                        deleting_button: "Eliminando...",
+                        delete_confirm: "¿Estás seguro de que deseas eliminar este evento?",
+                        delete_success_title: "Éxito",
+                        delete_success_content: "Evento eliminado correctamente.",
+                        activate_button: "Activar",
+                        deactivate_button: "Desactivar",
+                        activate_confirm: "¿Estás seguro de que deseas activar este evento?",
+                        deactivate_confirm: "¿Estás seguro de que deseas desactivar este evento?",
+                        toggle_success_title: "Éxito",
+                        toggle_success_content: "Estado del evento actualizado correctamente.",
+                        columns: {
+                            name: "Nombre",
+                            description: "Descripción",
+                            date: "Fecha",
+                            duration: "Duración",
+                            timezone: "Zona horaria",
+                            status: "Estado",
                             actions: "Acciones"
                         }
                     }
