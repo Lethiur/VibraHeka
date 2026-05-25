@@ -275,15 +275,18 @@ export const es = {
                             "1": "Recurrente",
                         },
                         intervals: {
+                            "null": "No aplica",
                             "0": "Mensual",
                             "1": "Anual",
                         },
                     },
                     table: {
                         amount: "Importe",
+                        currency: "Moneda",
                         kind: "Tipo",
                         interval: "Intervalo",
                         active: "Activo",
+                        inactive: "Inactivo",
                         actions: "Acciones",
                         activate: "Activar",
                         deactivate: "Desactivar",
@@ -293,58 +296,59 @@ export const es = {
                         price_toggled: "Estado del precio actualizado.",
                         error_title: "Error",
                     },
-                    events: {
-                        title: "Eventos",
-                        description: "Crea y gestiona los eventos programados.",
-                        new_event_button: "Nuevo evento",
-                        messages: {
-                            success_title: "Éxito",
-                            success_content: "Evento creado correctamente.",
-                            error_title: "Error"
-                        },
-                        status: {
-                            active: "Activo",
-                            inactive: "Inactivo"
-                        },
-                        form: {
-                            title: "Crear evento",
-                            name_label: "Nombre",
-                            description_label: "Descripción",
-                            date_label: "Fecha y hora",
-                            duration_label: "Duración (minutos)",
-                            timezone_label: "Zona horaria",
-                            timezone_placeholder: "Selecciona una zona horaria",
-                            price_label: "Precio",
-                            currency_label: "Moneda",
-                            currency_placeholder: "Selecciona una moneda",
-                            submit_button: "Crear evento",
-                            submitting_button: "Creando..."
-                        },
-                        list: {
-                            title: "Listado de eventos",
-                            description: "Gestiona los eventos programados.",
-                            empty: "No hay eventos disponibles.",
-                            loading: "Cargando eventos...",
-                            delete_button: "Eliminar",
-                            deleting_button: "Eliminando...",
-                            delete_confirm: "¿Estás seguro de que deseas eliminar este evento?",
-                            delete_success_title: "Éxito",
-                            delete_success_content: "Evento eliminado correctamente.",
-                            activate_button: "Activar",
-                            deactivate_button: "Desactivar",
-                            activate_confirm: "¿Estás seguro de que deseas activar este evento?",
-                            deactivate_confirm: "¿Estás seguro de que deseas desactivar este evento?",
-                            toggle_success_title: "Éxito",
-                            toggle_success_content: "Estado del evento actualizado correctamente.",
-                            columns: {
-                                name: "Nombre",
-                                description: "Descripción",
-                                date: "Fecha",
-                                duration: "Duración",
-                                timezone: "Zona horaria",
-                                status: "Estado",
-                                actions: "Acciones"
-                            }
+                },
+                events: {
+                    title: "Eventos",
+                    description: "Crea y gestiona los eventos programados.",
+                    new_event_button: "Nuevo evento",
+                    messages: {
+                        success_title: "Éxito",
+                        success_content: "Evento creado correctamente.",
+                        error_title: "Error"
+                    },
+                    status: {
+                        active: "Activo",
+                        inactive: "Inactivo"
+                    },
+                    form: {
+                        title: "Crear evento",
+                        name_label: "Nombre",
+                        description_label: "Descripción",
+                        date_label: "Fecha y hora",
+                        duration_label: "Duración (minutos)",
+                        timezone_label: "Zona horaria",
+                        timezone_placeholder: "Selecciona una zona horaria",
+                        price_label: "Precio",
+                        currency_label: "Moneda",
+                        currency_placeholder: "Selecciona una moneda",
+                        submit_button: "Crear evento",
+                        submitting_button: "Creando..."
+                    },
+                    list: {
+                        title: "Listado de eventos",
+                        description: "Gestiona los eventos programados.",
+                        empty: "No hay eventos disponibles.",
+                        loading: "Cargando eventos...",
+                        delete_button: "Eliminar",
+                        deleting_button: "Eliminando...",
+                        delete_confirm: "¿Estás seguro de que deseas eliminar este evento?",
+                        delete_success_title: "Éxito",
+                        delete_success_content: "Evento eliminado correctamente.",
+                        activate_button: "Activar",
+                        deactivate_button: "Desactivar",
+                        activate_confirm: "¿Estás seguro de que deseas activar este evento?",
+                        deactivate_confirm: "¿Estás seguro de que deseas desactivar este evento?",
+                        toggle_success_title: "Éxito",
+                        toggle_success_content: "Estado del evento actualizado correctamente.",
+                        columns: {
+                            name: "Nombre",
+                            description: "Descripción",
+                            date: "Fecha",
+                            duration: "Duración",
+                            timezone: "Zona horaria",
+                            status: "Estado",
+                            actions: "Acciones",
+                            manage_prices: "Gestionar precios",
                         }
                     }
                 },

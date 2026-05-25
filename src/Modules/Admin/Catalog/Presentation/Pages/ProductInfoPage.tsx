@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Badge, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { NotificationVariant } from "@core/Domain/Notifications/INotificationProvider";
 import { UseToast } from "@core/Presentation/Hooks/UseToast";
@@ -173,8 +173,8 @@ export default function ProductInfoPage() {
 
         <Row className="g-4">
           <Col lg={12}>
-            <section className="vh-surface-card">
-              <h2 className="h5 mb-3">{t("pages.admin.catalog.prices_title")}</h2>
+            <section className="vh-surface-card product-info-page__prices-panel">
+              <h2>{t("pages.admin.catalog.prices_title")}</h2>
 
               <ErrorBox message={getErrorMessage(error)} />
 
@@ -185,6 +185,7 @@ export default function ProductInfoPage() {
                   <thead>
                     <tr>
                       <th>{t("pages.admin.catalog.table.amount")}</th>
+                      <th>{t("pages.admin.catalog.table.currency")}</th>
                       <th>{t("pages.admin.catalog.table.kind")}</th>
                       <th>{t("pages.admin.catalog.table.interval")}</th>
                       <th>{t("pages.admin.catalog.table.active")}</th>
@@ -194,12 +195,13 @@ export default function ProductInfoPage() {
                   <tbody>
                     {!item || item.Prices.length === 0 ? (
                       <tr>
-                        <td colSpan={5}>{t("pages.admin.catalog.prices_empty")}</td>
+                        <td colSpan={6}>{t("pages.admin.catalog.prices_empty")}</td>
                       </tr>
                     ) : (
                       item.Prices.map((price) => (
                         <tr key={price.SellableItemPriceID}>
-                          <td>{price.Amount} {price.Currency}</td>
+                          <td>{price.Amount}</td>
+                          <td>{price.Currency}</td>
                           <td>{t(`pages.admin.catalog.form.kinds.${price.Kind}`)}</td>
                           <td>
                             {price.BillingInterval !== undefined
@@ -207,11 +209,11 @@ export default function ProductInfoPage() {
                               : "—"}
                           </td>
                           <td>
-                            <Badge bg={price.IsActive ? "success" : "secondary"}>
-                              {price.IsActive ? t("pages.admin.catalog.table.activate") : t("pages.admin.catalog.table.deactivate")}
-                            </Badge>
+                            <span className={`product-info-page__badge ${price.IsActive ? "product-info-page__badge--active" : "product-info-page__badge--inactive"}`}>
+                              {price.IsActive ? t("pages.admin.catalog.table.active") : t("pages.admin.catalog.table.inactive")}
+                            </span>
                           </td>
-                          <td>
+                          <td className="product-info-page__actions">
                             <PrimaryButton
                               variant="dark-outline"
                               disabled={toggleLoading}

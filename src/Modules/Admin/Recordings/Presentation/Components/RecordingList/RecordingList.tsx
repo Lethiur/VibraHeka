@@ -86,7 +86,7 @@ export default function RecordingList({
                                         </span>
                                     </td>
                                     <td>{new Date(recording.Created).toLocaleDateString("es-ES")}</td>
-                                    <td>
+                                    <td className="recording-list__actions">
                                         <PrimaryButton
                                             variant="dark-outline"
                                             disabled={deleteLoading}

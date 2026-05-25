@@ -67,6 +67,17 @@
         }
     }
 
+    &__actions {
+        display: flex;
+        gap: vars.$space-2;
+        flex-wrap: wrap;
+
+        .atom-button {
+            font-size: fonts.$font-size-xs;
+            padding: 0.25rem 0.625rem;
+        }
+    }
+
     .table {
         margin-bottom: 0;
         border-color: vars.$color-gray-200;

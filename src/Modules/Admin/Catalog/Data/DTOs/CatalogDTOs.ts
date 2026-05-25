@@ -2,7 +2,7 @@ export interface SellableItemPriceDTO {
   sellableItemPriceID: string;
   sellableItemID: string;
   amount: number;
-  currency: string;
+  currencyCode: string;
   kind: number;
   billingInterval?: number;
   externalProductID: string;

@@ -9,7 +9,6 @@ import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import { lazy, Suspense, useEffect } from 'react';
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
-import EventsPage from './Modules/Admin/Events/Presentation/Pages/EventsPage';
 const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const ForgotPassword = lazy(() => import("@auth/Presentation/pages/ForgotPassword/ForgotPassword"))

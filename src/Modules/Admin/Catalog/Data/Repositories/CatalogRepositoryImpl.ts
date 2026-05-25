@@ -30,7 +30,7 @@ function mapPriceDTO(dto: SellableItemPriceDTO): SellableItemPriceEntity {
     SellableItemPriceID: dto.sellableItemPriceID,
     SellableItemID: dto.sellableItemID,
     Amount: dto.amount,
-    Currency: dto.currency,
+    Currency: dto.currencyCode,
     Kind: dto.kind as PriceKind,
     BillingInterval: dto.billingInterval !== undefined ? (dto.billingInterval as BillingInterval) : undefined,
     ExternalProductID: dto.externalProductID,
