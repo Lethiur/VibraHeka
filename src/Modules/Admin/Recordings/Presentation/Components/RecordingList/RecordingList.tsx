@@ -1,5 +1,6 @@
 ﻿import { Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
@@ -36,6 +37,7 @@ export default function RecordingList({
     onDelete,
 }: RecordingListProps) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const getDomainErrorMessage = (errorCode: RecordingsErrors | null): string | null => {
         if (!errorCode) return null;
@@ -94,6 +96,11 @@ export default function RecordingList({
                                                     : t("pages.admin.recordings.list.delete_button")
                                             }
                                             onClick={() => onDelete(recording.Id)}
+                                        />
+                                        <PrimaryButton
+                                            variant="primary-outline"
+                                            label={t("pages.admin.recordings.list.columns.manage_prices")}
+                                            onClick={() => navigate(`/admin/catalog/${recording.Id}`)}
                                         />
                                     </td>
                                 </tr>

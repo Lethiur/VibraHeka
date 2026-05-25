@@ -5,6 +5,7 @@ import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import { CurrencyIsoCode, RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { CatalogErrors } from "@admin/catalog/Domain/Errors/CatalogErrors";
 
 export const es = {
     translation: {
@@ -73,6 +74,15 @@ export const es = {
                 [RecordingsApplicationErrors.FILE_REQUIRED]: "El archivo es obligatorio.",
                 [RecordingsApplicationErrors.PRICE_REQUIRED]: "El precio debe ser mayor a 0",
                 [RecordingsApplicationErrors.CURRENCY_REQUIRED]: "Selecciona una moneda válida",
+            },
+            catalog: {
+                [CatalogErrors.UNAUTHORIZED]: "No tienes permisos para acceder al catálogo.",
+                [CatalogErrors.NETWORK_ERROR]: "No se pudo conectar con el servidor.",
+                [CatalogErrors.NOT_FOUND]: "El producto no fue encontrado.",
+                [CatalogErrors.FETCH_FAILED]: "No se pudo cargar la información del producto.",
+                [CatalogErrors.CREATE_PRICE_FAILED]: "No se pudo crear el precio.",
+                [CatalogErrors.TOGGLE_FAILED]: "No se pudo cambiar el estado del precio.",
+                [CatalogErrors.GENERAL_ERROR]: "Ha ocurrido un error inesperado.",
             }
         },
         components: {
@@ -223,9 +233,47 @@ export const es = {
                             type: "Tipo",
                             tier: "Tier",
                             created: "Fecha",
-                            actions: "Acciones"
+                            actions: "Acciones",
+                            manage_prices: "Gestionar precios",
                         }
                     }
+                },
+                catalog: {
+                    title: "Información del producto",
+                    loading: "Cargando producto...",
+                    prices_title: "Precios",
+                    prices_empty: "No hay precios configurados.",
+                    add_price: "Añadir precio",
+                    form: {
+                        title: "Nuevo precio",
+                        amount: "Importe",
+                        currency: "Moneda",
+                        kind: "Tipo",
+                        billing_interval: "Intervalo de facturación",
+                        submit: "Crear precio",
+                        kinds: {
+                            "0": "Único",
+                            "1": "Recurrente",
+                        },
+                        intervals: {
+                            "0": "Mensual",
+                            "1": "Anual",
+                        },
+                    },
+                    table: {
+                        amount: "Importe",
+                        kind: "Tipo",
+                        interval: "Intervalo",
+                        active: "Activo",
+                        actions: "Acciones",
+                        activate: "Activar",
+                        deactivate: "Desactivar",
+                    },
+                    messages: {
+                        price_created: "Precio creado correctamente.",
+                        price_toggled: "Estado del precio actualizado.",
+                        error_title: "Error",
+                    },
                 }
             },
             therapists: {
