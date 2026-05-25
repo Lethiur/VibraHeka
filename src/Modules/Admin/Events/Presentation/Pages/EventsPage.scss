@@ -1,7 +1,7 @@
 @use "../../../../../Assets/Styles/base/variables" as vars;
 @use "../../../../../Assets/Styles/base/fonts" as fonts;
 
-.recordings-page {
+.events-page {
     width: 100%;
     max-width: none;
 
@@ -31,17 +31,10 @@
         gap: 1rem;
         flex-wrap: wrap;
     }
-
-    &__form-col {
-        @media (min-width: 992px) {
-            position: sticky;
-            top: 1rem;
-        }
-    }
 }
 
 @media (max-width: 992px) {
-    .recordings-page {
+    .events-page {
         &__header {
             padding: vars.$space-5 vars.$space-4;
         }

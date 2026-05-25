@@ -9,6 +9,7 @@ import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import { lazy, Suspense, useEffect } from 'react';
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
+import EventsPage from './Modules/Admin/Events/Presentation/Pages/EventsPage';
 const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const ForgotPassword = lazy(() => import("@auth/Presentation/pages/ForgotPassword/ForgotPassword"))
@@ -23,6 +24,7 @@ const Emails = lazy(() => import('@admin/emailTemplates/Presentation/Screens/Ema
 const TemplateManagement = lazy(() => import('@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement'))
 const RecordingsPage = lazy(() => import('@admin/recordings/Presentation/Pages/RecordingsPage'))
 const ProductInfoPage = lazy(() => import('@admin/catalog/Presentation/Pages/ProductInfoPage'))
+const EventsPage = lazy(() => import('@admin/events/Presentation/Pages/EventsPage'))
 const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
 const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
 const LandingPage = lazy(() => import('@landing/Presentation/Pages/Landing'))
@@ -105,6 +107,7 @@ function App() {
                                         <Route path="/admin/emails/templates" element={<TemplateManagement />} />
                                         <Route path="/admin/recordings" element={<RecordingsPage />} />
                                         <Route path="/admin/catalog/:refId" element={<ProductInfoPage />} />
+                                        <Route path="/admin/events" element={<EventsPage />} />
                                     </Route>
                                 </>
                             )

@@ -48,6 +48,9 @@
             "@admin/catalog/*": [
                 "src/Modules/Admin/Catalog/*"
             ],
+            "@admin/events/*": [
+                "src/Modules/Admin/Events/*"
+            ],
             "@users/*": [
                 "src/Modules/Features/User/*"
             ],
