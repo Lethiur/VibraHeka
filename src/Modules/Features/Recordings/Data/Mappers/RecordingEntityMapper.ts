@@ -7,7 +7,7 @@ export default class RecordingEntityMapper {
 
         return {
             Name : dto.name,
-            Type: dto.type,
+            Type: dto.recordingType,
             Id: dto.id,
             Description: dto.description,
             Tier: dto.tier,
@@ -17,7 +17,7 @@ export default class RecordingEntityMapper {
     public ToDto(entity: RecordingEntity): RecordingDto {
         return {
             name: entity.Name,
-            type: entity.Type,
+            recordingType: entity.Type,
             tier: entity.Tier ?? RecordingTier.FREE,
             id: entity.Id,
             description: entity.Description,

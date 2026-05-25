@@ -6,6 +6,6 @@ export interface RecordingDto {
     id: string;
     name: string;
     description: string;
-    type: RecordingType;
+    recordingType: RecordingType;
     tier: RecordingTier;
 }
