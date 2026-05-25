@@ -161,7 +161,12 @@ export const es = {
                     emails: "Emails transaccionales",
                     email_templates: "Plantillas de correo",
                     recordings: "Grabaciones",
-                    events: "Eventos"
+                    events: "Eventos",
+                    groups: {
+                        catalog: "Catálogo",
+                        communications: "Comunicaciones",
+                        team: "Equipo",
+                    },
                 },
                 emails: {
                     title: "Plantillas de correo",
