@@ -1,5 +1,6 @@
 import { Table } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
@@ -27,6 +28,7 @@ export default function EventList({
     onToggleStatus,
 }: EventListProps) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const getDomainErrorMessage = (errorCode: EventsErrors | null): string | null => {
         if (!errorCode) return null;
@@ -105,6 +107,11 @@ export default function EventList({
                                                     : t("pages.admin.events.list.delete_button")
                                             }
                                             onClick={() => onDelete(event.EventID)}
+                                        />
+                                        <PrimaryButton
+                                            variant="primary-outline"
+                                            label={t("pages.admin.events.list.columns.manage_prices")}
+                                            onClick={() => navigate(`/admin/catalog/${event.EventID}`)}
                                         />
                                     </td>
                                 </tr>

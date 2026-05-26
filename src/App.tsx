@@ -22,6 +22,7 @@ const TherapistIndex = lazy(() => import("@admin/addTherapist/Presentation/Pages
 const Emails = lazy(() => import('@admin/emailTemplates/Presentation/Screens/EmailsForAction/Emails'))
 const TemplateManagement = lazy(() => import('@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement'))
 const RecordingsPage = lazy(() => import('@admin/recordings/Presentation/Pages/RecordingsPage'))
+const ProductInfoPage = lazy(() => import('@admin/catalog/Presentation/Pages/ProductInfoPage'))
 const EventsPage = lazy(() => import('@admin/events/Presentation/Pages/EventsPage'))
 const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
 const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
@@ -104,7 +105,8 @@ function App() {
                                         <Route path="/admin/emails" element={<Emails />} />
                                         <Route path="/admin/emails/templates" element={<TemplateManagement />} />
                                         <Route path="/admin/recordings" element={<RecordingsPage />} />
-                        <Route path="/admin/events" element={<EventsPage />} />
+                                        <Route path="/admin/catalog/:refId" element={<ProductInfoPage />} />
+                                        <Route path="/admin/events" element={<EventsPage />} />
                                     </Route>
                                 </>
                             )

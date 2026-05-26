@@ -40,16 +40,80 @@
     }
 
     &__nav {
-        gap: vars.$space-2;
+        gap: vars.$space-1;
+    }
+
+    &__nav-emoji {
+        font-style: normal;
+        margin-right: vars.$space-2;
+        flex-shrink: 0;
+    }
+
+    &__nav-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__nav-group-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background: none;
+        border: none;
+        border-radius: vars.$radius-md;
+        padding: vars.$space-2 vars.$space-4;
+        color: vars.$color-dark-muted;
+        font-size: fonts.$font-size-xs;
+        font-weight: fonts.$font-weight-semibold;
+        letter-spacing: vars.$tracking-wider;
+        text-transform: uppercase;
+        cursor: pointer;
+        gap: vars.$space-1;
+        margin-top: vars.$space-3;
+
+        &:hover {
+            background-color: vars.$color-gray-100;
+            color: vars.$color-dark;
+        }
+    }
+
+    &__nav-group-label {
+        flex: 1;
+        text-align: left;
+    }
+
+    &__nav-group-chevron {
+        font-size: 1rem;
+        line-height: 1;
+        transition: transform vars.$transition-fast;
+        transform: rotate(90deg);
+
+        &--open {
+            transform: rotate(270deg);
+        }
+    }
+
+    &__nav-group-items {
+        display: flex;
+        flex-direction: column;
+        gap: vars.$space-1;
+        padding-left: vars.$space-3;
     }
 
     &__nav-link {
+        display: flex;
+        align-items: center;
         border-radius: vars.$radius-md;
         padding: vars.$space-3 vars.$space-4;
         color: vars.$color-dark;
         font-size: var(--type-body-size);
         font-weight: fonts.$font-weight-medium;
         transition: background-color vars.$transition-fast, color vars.$transition-fast;
+
+        &--child {
+            padding: vars.$space-2 vars.$space-3;
+            font-size: var(--type-caption-size);
+        }
 
         &:hover {
             background-color: vars.$color-gray-100;
