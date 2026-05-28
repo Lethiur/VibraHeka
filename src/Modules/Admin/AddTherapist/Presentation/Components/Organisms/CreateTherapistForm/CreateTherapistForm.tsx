@@ -38,8 +38,8 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
     }
 
     return <div>
-        <h1>{t('pages.therapists.form.title')}</h1>
-        <p>{t('pages.therapists.form.description')}</p>
+        <h1>{t('pages.admin.therapists.form.title')}</h1>
+        <p>{t('pages.admin.therapists.form.description')}</p>
 
 
         <Form id="createTherapistForm" onSubmit={onSubmitForm}>
@@ -47,7 +47,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
                 <Col md={6}>
                     <PrimaryTextInput
                         name="email"
-                        label={t('pages.therapists.form.email_label')}
+                        label={t('pages.admin.therapists.form.email_label')}
                         disabled={isSubmitting}
                         error={errors.Email?.toString()}
                         required
@@ -56,7 +56,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
                 <Col md={6}>
                     <PrimaryTextInput
                         name="phoneNumber"
-                        label={t('pages.therapists.form.phone_label')}
+                        label={t('pages.admin.therapists.form.phone_label')}
                         disabled={isSubmitting}
                         error={errors.PhoneNumber?.toString()}
                         required
@@ -69,7 +69,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
                 <Col md={4}>
                     <PrimaryTextInput
                         name="firstName"
-                        label={t('pages.therapists.form.name_label')}
+                        label={t('pages.admin.therapists.form.name_label')}
                         disabled={isSubmitting}
                         error={errors.FirstName?.toString()}
                         required
@@ -78,7 +78,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
                 <Col md={4}>
                     <PrimaryTextInput
                         name="middleName"
-                        label={t('pages.therapists.form.middle_name_label')}
+                        label={t('pages.admin.therapists.form.middle_name_label')}
                         disabled={isSubmitting}
                         error={errors.MiddleName?.toString()}
                         required
@@ -87,7 +87,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
                 <Col md={4}>
                     <PrimaryTextInput
                         name="lastName"
-                        label={t('pages.therapists.form.last_name_label')}
+                        label={t('pages.admin.therapists.form.last_name_label')}
                         disabled={isSubmitting}
                         error={errors.LastName?.toString()}
                         required
@@ -96,7 +96,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
             </Row>
             <Row className="mt-2 mb-3">
                 <Form.Group className="timezone-field">
-                    <Form.Label>{t('pages.therapists.form.timezone_label')}</Form.Label>
+                    <Form.Label>{t('pages.admin.therapists.form.timezone_label')}</Form.Label>
                     <TimezoneSelect
                         form="createTherapistForm"
                         name="timezone"
@@ -110,7 +110,7 @@ export default function CreateTherapistForm({ onSubmit, isSubmitting, errors }: 
 
             <Row>
                 <Col md={12}>
-                    <PrimaryButton label={t('pages.therapists.form.submit_button')} type="submit" variant="primary" disabled={isSubmitting} fullWidth={true} />
+                    <PrimaryButton label={t('pages.admin.therapists.form.submit_button')} type="submit" variant="primary" disabled={isSubmitting} fullWidth={true} />
                 </Col>
             </Row>
         </Form>

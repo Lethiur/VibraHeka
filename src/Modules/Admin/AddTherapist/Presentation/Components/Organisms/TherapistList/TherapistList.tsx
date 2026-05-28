@@ -33,7 +33,7 @@ export default function TherapistList({ users, onDelete, onEdit, isLoading }: Us
             <Card.Header className="bg-white py-3">
                 <Row className="align-items-center">
                     <Col>
-                        <h5 className="mb-0">{t('pages.therapists.list_title')}</h5>
+                        <h5 className="mb-0">{t('pages.admin.therapists.list_title')}</h5>
                     </Col>
                 </Row>
             </Card.Header>
@@ -42,11 +42,11 @@ export default function TherapistList({ users, onDelete, onEdit, isLoading }: Us
                 <Table responsive hover className="mb-0">
                     <thead className="bg-light">
                         <tr>
-                            <th>{t('pages.therapists.list_id')}</th>
-                            <th>{t('pages.therapists.list_name')}</th>
-                            <th>{t('pages.therapists.list_email')}</th>
-                            <th>{t('pages.therapists.list_timezone')}</th>
-                            <th className="text-center">{t('pages.therapists.list_actions')}</th>
+                            <th>{t('pages.admin.therapists.list_id')}</th>
+                            <th>{t('pages.admin.therapists.list_name')}</th>
+                            <th>{t('pages.admin.therapists.list_email')}</th>
+                            <th>{t('pages.admin.therapists.list_timezone')}</th>
+                            <th className="text-center">{t('pages.admin.therapists.list_actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,14 +67,14 @@ export default function TherapistList({ users, onDelete, onEdit, isLoading }: Us
                                             className="me-2"
                                             onClick={() => onEdit(user.Id)}
                                         >
-                                            {t('pages.therapists.options.edit')}
+                                            {t('pages.admin.therapists.options.edit')}
                                         </Button>
                                         <Button
                                             variant="outline-danger"
                                             size="sm"
                                             onClick={() => onDelete(user.Id)}
                                         >
-                                            {t('pages.therapists.options.delete')}
+                                            {t('pages.admin.therapists.options.delete')}
                                         </Button>
                                     </td>
                                 </tr>

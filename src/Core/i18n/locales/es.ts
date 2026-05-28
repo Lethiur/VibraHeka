@@ -385,83 +385,83 @@ export const es = {
                         submitting_button: "Creando..."
                     }
                 },
-                register: {
-                    title: "Registrate en vibraheka!",
-                    description: "Registrate en vibraheka para poder disfrutar de todos los beneficios que ofrecemos.",
-                    form: {
-                        name_label: "Nombre",
-                        middle_name_label: "Primer apellido",
-                        last_name_label: "Segundo apellido",
-                        email_label: "Email",
-                        password_label: "Contraseña",
-                        password_confirmation_label: "Confirmar contraseña",
-                        password_confirmation_help: "Repite la contraseña para confirmarla",
-                        submit_button: "Registrarse",
-                        submitting_button: "Registrando..."
-                    }
-                },
-                registro_exitoso: {
-                    title: "¡Registro completado!",
-                    description: "Tu registro ha sido completado con éxito. Te hemos enviado un correo desde Comunidad VibraHeka con el enlace para verificar tu cuenta. Por favor, revisa tu bandeja de entrada.",
+            },
+            login: {
+                title: "Identificarse",
+                description: "Identificate para acceder a tu cuenta.",
+                form: {
+                    email_label: "Email",
+                    email_help: "Introduce tu email",
+                    password_label: "Contraseña",
+                    password_help: "No compartas tu contraseña con nadie",
+                    forgot_password_link: "He olvidado mi contraseña",
+                    submit_button: "Identificarse",
+                    submitting_button: "Verificando..."
+                }
+            },
+            register: {
+                title: "Registrate en vibraheka!",
+                description: "Registrate en vibraheka para poder disfrutar de todos los beneficios que ofrecemos.",
+                form: {
+                    name_label: "Nombre",
+                    middle_name_label: "Primer apellido",
+                    last_name_label: "Segundo apellido",
+                    email_label: "Email",
+                    password_label: "Contraseña",
+                    password_confirmation_label: "Confirmar contraseña",
+                    password_confirmation_help: "Repite la contraseña para confirmarla",
+                    submit_button: "Registrarse",
+                    submitting_button: "Registrando..."
+                }
+            },
+            registro_exitoso: {
+                title: "¡Registro completado!",
+                description: "Tu registro ha sido completado con éxito. Te hemos enviado un correo desde Comunidad VibraHeka con el enlace para verificar tu cuenta. Por favor, revisa tu bandeja de entrada.",
+                back_to_login: "Volver a identificarse"
+            },
+            cuenta_inactiva: {
+                title: "Cuenta inactiva",
+                description: "Tu cuenta aún no ha sido activada. Comprueba tu bandeja de entrada y busca el correo enviado por Comunidad VibraHeka con el enlace de confirmación de cuenta.",
+                resend_hint: "Si aún no lo has recibido haz click aquí",
+                resend_button: "Reenviar correo de confirmación",
+                back_to_login: "Volver a identificarse"
+            },
+            verification: {
+                title: "Verifica tu cuenta",
+                description: "Verifica tu cuenta para poder disfrutar de todos los beneficios que ofrecemos.",
+                verifying: "Estamos verificando tu cuenta...",
+                form: {
+                    code_label: "Código de verificación",
+                    code_help: "Introduce el código que te ha llegado a tu correo. Comprueba tu carpeta de spam si no lo recibes",
+                    submit_button: "Verificar",
+                    resend_button: "Reenviar codigo",
+                    submitting_button: "Verificando..."
+                }
+            },
+            forgot_password: {
+                title: "Recupera tu contraseña",
+                description: "Introduce tu email y te enviaremos las instrucciones para recuperar el acceso.",
+                form: {
+                    email_label: "Email",
+                    email_help: "Introduce el correo asociado a tu cuenta",
+                    submit_button: "Enviar instrucciones",
+                    submitting_button: "Enviando...",
+                    success_message: "Si existe una cuenta asociada al email, recibirás un correo con las instrucciones para recuperar tu contraseña.",
                     back_to_login: "Volver a identificarse"
-                },
-                cuenta_inactiva: {
-                    title: "Cuenta inactiva",
-                    description: "Tu cuenta aún no ha sido activada. Comprueba tu bandeja de entrada y busca el correo enviado por Comunidad VibraHeka con el enlace de confirmación de cuenta.",
-                    resend_hint: "Si aún no lo has recibido haz click aquí",
-                    resend_button: "Reenviar correo de confirmación",
-                    back_to_login: "Volver a identificarse"
-                },
-                verification: {
-                    title: "Verifica tu cuenta",
-                    description: "Verifica tu cuenta para poder disfrutar de todos los beneficios que ofrecemos.",
-                    verifying: "Estamos verificando tu cuenta...",
-                    form: {
-                        code_label: "Código de verificación",
-                        code_help: "Introduce el código que te ha llegado a tu correo. Comprueba tu carpeta de spam si no lo recibes",
-                        submit_button: "Verificar",
-                        resend_button: "Reenviar codigo",
-                        submitting_button: "Verificando..."
-                    }
-                },
-                login: {
-                    title: "Identificarse",
-                    description: "Identificate para acceder a tu cuenta.",
-                    form: {
-                        email_label: "Email",
-                        email_help: "Introduce tu email",
-                        password_label: "Contraseña",
-                        password_help: "No compartas tu contraseña con nadie",
-                        forgot_password_link: "He olvidado mi contraseña",
-                        submit_button: "Identificarse",
-                        submitting_button: "Verificando..."
-                    }
-                },
-                forgot_password: {
-                    title: "Recupera tu contraseña",
-                    description: "Introduce tu email y te enviaremos las instrucciones para recuperar el acceso.",
-                    form: {
-                        email_label: "Email",
-                        email_help: "Introduce el correo asociado a tu cuenta",
-                        submit_button: "Enviar instrucciones",
-                        submitting_button: "Enviando...",
-                        success_message: "Si existe una cuenta asociada al email, recibirás un correo con las instrucciones para recuperar tu contraseña.",
-                        back_to_login: "Volver a identificarse"
-                    }
-                },
-                reset_password: {
-                    title: "Restablece tu contraseña",
-                    description: "Define una nueva contraseña para recuperar el acceso a tu cuenta.",
-                    form: {
-                        password_label: "Nueva contraseña",
-                        password_help: "Debe tener al menos 6 caracteres",
-                        password_confirmation_label: "Confirmar nueva contraseña",
-                        password_confirmation_help: "Repite la nueva contraseña",
-                        submit_button: "Guardar nueva contraseña",
-                        submitting_button: "Guardando...",
-                        success_message: "Tu contraseña ha sido actualizada. Ya puedes iniciar sesion.",
-                        back_to_login: "Ir a iniciar sesion"
-                    }
+                }
+            },
+            reset_password: {
+                title: "Restablece tu contraseña",
+                description: "Define una nueva contraseña para recuperar el acceso a tu cuenta.",
+                form: {
+                    password_label: "Nueva contraseña",
+                    password_help: "Debe tener al menos 6 caracteres",
+                    password_confirmation_label: "Confirmar nueva contraseña",
+                    password_confirmation_help: "Repite la nueva contraseña",
+                    submit_button: "Guardar nueva contraseña",
+                    submitting_button: "Guardando...",
+                    success_message: "Tu contraseña ha sido actualizada. Ya puedes iniciar sesion.",
+                    back_to_login: "Ir a iniciar sesion"
                 }
             }
         }
