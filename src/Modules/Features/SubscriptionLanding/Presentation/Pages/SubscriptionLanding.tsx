@@ -41,7 +41,7 @@ export default function SubscriptionLanding() {
     
             // Fecha objetivo fija para el contador (Oferta): Viernes 17 de Abril de 2026 a las 18:00 UTC
             // Esto evita que el contador se reinicie la semana siguiente.
-            const target = new Date("2026-05-01T18:00:00Z");
+            const target = new Date("2026-05-31T21:00:00Z");
     
             const difference = target.getTime() - now.getTime();
     
