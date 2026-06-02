@@ -20,7 +20,7 @@ export interface SellableItemDTO {
 }
 
 export interface CreateSellableItemPriceRequest {
-  referenceID: string;
+  sellableItemID: string;
   amount: number;
   currency: string;
   kind: number;

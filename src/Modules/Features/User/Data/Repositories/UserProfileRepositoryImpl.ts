@@ -6,6 +6,7 @@ import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
 import IChangePasswordRequest from "@users/Data/Requests/IChangePasswordRequest";
 import IUpdateProfileRequest from "@users/Data/Requests/IUpdateProfileRequest";
 import { IChangePasswordData } from "@users/Domain/Entities/IChangePasswordData";
+import { mapUserProfileDTO } from "@users/Data/Mappers/UserMapper";
 
 export default class UserProfileRepositoryImpl implements IProfileRepository {
 
@@ -55,17 +56,7 @@ export default class UserProfileRepositoryImpl implements IProfileRepository {
      */
     public async GetUserProfile(userId: string): Promise<Result<IUserprofile, ProfileErrors>> {
         const result = await this.getProfileDatasource.GetUserProfile(userId);
-        return result.map(user => ({
-            Id: user.id,
-            FirstName: user.firstName,
-            MiddleName: user.middleName,
-            LastName: user.lastName,
-            Email: user.email,
-            Phone: user.phoneNumber,
-            Bio: user.bio,
-            AvatarUrl: user.avatarUrl,
-            TimeZone: user.timeZoneID
-        })).mapErr(e => e as ProfileErrors);
+        return result.map(mapUserProfileDTO).mapErr(e => e as ProfileErrors);
     }
 
 

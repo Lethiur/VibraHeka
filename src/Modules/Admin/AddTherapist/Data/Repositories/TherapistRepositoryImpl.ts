@@ -6,8 +6,8 @@ import TherapistDatasource from "@admin/addTherapist/Data/Datasources/TherapistD
 import { TherapistDTO } from "@admin/addTherapist/Data/Models/TherapistDTO";
 import { TherapistAPIErrors } from "@admin/addTherapist/Data/Errors/TherapistAPIErrors";
 import { API_ERROR_MAP } from "@admin/addTherapist/Data/Errors/ErrorMap";
-import { ICreateTherapistDTO } from "@/Modules/Admin/AddTherapist/Data/Models/ICreateTherapistDTO";
 import { CreateTherapistEntity } from "@admin/addTherapist/Domain/Entities/CreateTherapistEntity";
+import { mapTherapistDTO, mapCreateTherapistToDTO } from "@admin/addTherapist/Data/Mappers/TherapistMapper";
 
 /**
  * TherapistRepositoryImpl is responsible for providing implementations of the ITherapistRepository interface.
@@ -26,17 +26,7 @@ export default class TherapistRepositoryImpl implements ITherapistRepository {
         const getTherapistResult: Result<TherapistDTO[], TherapistAPIErrors> = await this.Datasource.GetAllTherapists();
 
         return getTherapistResult.map((dto: TherapistDTO[]) => {
-            return dto.map(therapist => {
-                return new Therapist({
-                    Id: therapist.id,
-                    FirstName: therapist.firstName,
-                    LastName: therapist.lastName,
-                    MiddleName: therapist.middleName,
-                    Bio: therapist.bio,
-                    Email: therapist.email,
-                    TimezoneID: therapist.timezoneID
-                })
-            })
+            return dto.map(mapTherapistDTO);
         }).mapErr(e => API_ERROR_MAP[e] ?? TherapistsErrors.GENERAL_ERROR);
 
     }
@@ -49,15 +39,7 @@ export default class TherapistRepositoryImpl implements ITherapistRepository {
      */
     public async CreateTherapist(therapist: CreateTherapistEntity): Promise<Result<string, TherapistsErrors>> {
 
-        const dto: ICreateTherapistDTO = {
-            email: therapist.Email,
-            firstName: therapist.FirstName,
-            middleName: therapist.MiddleName,
-            lastName: therapist.LastName,
-            phoneNumber: therapist.PhoneNumber,
-            bio: therapist.Bio,
-            timezoneID: therapist.TimezoneID,
-        };
+        const dto = mapCreateTherapistToDTO(therapist);
 
         const result: Result<string, TherapistAPIErrors> = await this.Datasource.CreateTherapist(dto);
 
