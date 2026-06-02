@@ -7,10 +7,10 @@ export default function UseTogglePriceActive() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<CatalogErrors | null>(null);
 
-  const TogglePrice = async (priceId: string): Promise<boolean> => {
+  const ActivatePrice = async (sellableItemPriceID: string, sellableItemID: string): Promise<boolean> => {
     setLoading(true);
     setError(null);
-    const result = await UseCase.Execute(priceId);
+    const result = await UseCase.Execute(sellableItemPriceID, sellableItemID);
     setLoading(false);
     if (result.isErr()) {
       setError(result.error);
@@ -19,5 +19,5 @@ export default function UseTogglePriceActive() {
     return true;
   };
 
-  return { TogglePrice, loading, error };
+  return { ActivatePrice, loading, error };
 }

@@ -42,8 +42,8 @@ export default class CatalogRepositoryImpl implements ICatalogRepository {
       .mapErr((code) => mapError(code, CatalogErrors.CREATE_PRICE_FAILED));
   }
 
-  public async TogglePriceActive(priceId: string): Promise<Result<void, CatalogErrors>> {
-    const result = await this.Datasource.TogglePriceActive(priceId);
+  public async ActivatePrice(sellableItemPriceID: string, sellableItemID: string): Promise<Result<void, CatalogErrors>> {
+    const result = await this.Datasource.ActivatePrice(sellableItemPriceID, sellableItemID);
     return result.mapErr((code) => mapError(code, CatalogErrors.TOGGLE_FAILED));
   }
 }

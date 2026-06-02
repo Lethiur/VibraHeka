@@ -92,6 +92,8 @@
         display: flex;
         gap: vars.$space-2;
         flex-wrap: wrap;
+        min-height: 2rem;
+        align-items: center;
 
         .atom-button {
             font-size: fonts.$font-size-xs;

@@ -10,11 +10,11 @@ interface PricesTableProps {
   prices: SellableItemPriceEntity[];
   loading: boolean;
   error: CatalogErrors | null;
-  toggleLoading: boolean;
-  onToggle: (priceId: string) => void;
+  activationLoading: boolean;
+  onActivate: (sellableItemPriceID: string, sellableItemID: string) => void;
 }
 
-export default function PricesTable({ prices, loading, error, toggleLoading, onToggle }: PricesTableProps) {
+export default function PricesTable({ prices, loading, error, activationLoading, onActivate }: PricesTableProps) {
   const { t } = useTranslation();
 
   if (loading) {
@@ -66,17 +66,17 @@ export default function PricesTable({ prices, loading, error, toggleLoading, onT
                     : t("pages.admin.catalog.table.inactive")}
                 </span>
               </td>
-              <td className="product-info-page__actions">
-                <PrimaryButton
-                  variant="dark-outline"
-                  disabled={toggleLoading}
-                  label={
-                    price.IsActive
-                      ? t("pages.admin.catalog.table.deactivate")
-                      : t("pages.admin.catalog.table.activate")
-                  }
-                  onClick={() => onToggle(price.SellableItemPriceID)}
-                />
+              <td>
+                <div className="product-info-page__actions">
+                  {!price.IsActive && (
+                    <PrimaryButton
+                      variant="dark-outline"
+                      disabled={activationLoading}
+                      label={t("pages.admin.catalog.table.activate")}
+                      onClick={() => onActivate(price.SellableItemPriceID, price.SellableItemID)}
+                    />
+                  )}
+                </div>
               </td>
             </tr>
           ))

@@ -83,7 +83,7 @@ export const es = {
                 [CatalogErrors.NOT_FOUND]: "El producto no fue encontrado.",
                 [CatalogErrors.FETCH_FAILED]: "No se pudo cargar la información del producto.",
                 [CatalogErrors.CREATE_PRICE_FAILED]: "No se pudo crear el precio.",
-                [CatalogErrors.TOGGLE_FAILED]: "No se pudo cambiar el estado del precio.",
+                [CatalogErrors.TOGGLE_FAILED]: "No se pudo activar el precio.",
                 [CatalogErrors.GENERAL_ERROR]: "Ha ocurrido un error inesperado."
             },
             events: {
@@ -298,7 +298,7 @@ export const es = {
                     },
                     messages: {
                         price_created: "Precio creado correctamente.",
-                        price_toggled: "Estado del precio actualizado.",
+                        price_activated: "Precio activado correctamente.",
                         error_title: "Error",
                     },
                 },
