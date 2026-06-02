@@ -2,8 +2,11 @@ import IEmailTemplateSettingsRepository from "@admin/emailTemplates/Domain/Repos
 import EmailTemplatesSettingsDatasource from "@admin/emailTemplates/Data/Datasources/EmailTemplatesSettingsDatasource";
 import { EmailTemplateForAction } from "@admin/emailTemplates/Domain/Models/EmailTemplateForAction";
 import { Result } from "neverthrow";
-import { ActionType } from "@admin/emailTemplates/Domain/Models/ActionType";
 import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
+import {
+  mapEmailTemplateForActionDTO,
+  mapEmailTemplateForActionToDTO,
+} from "@admin/emailTemplates/Data/Mappers/EmailTemplateMapper";
 
 
 /**
@@ -26,10 +29,7 @@ export default class EmailTemplateSettingsRepositoryImpl implements IEmailTempla
      */
     public async GetTemplatesSettings(): Promise<Result<EmailTemplateForAction[], EmailTemplateErrors>> {
         const result = await this.Datasource.GetTemplatesSettings();
-        return result.map((templates) => templates.map((template) => ({
-            TemplateID: template.templateID,
-            ActionType: template.actionType as ActionType
-        } as EmailTemplateForAction))).mapErr((error) => error as EmailTemplateErrors);
+        return result.map((templates) => templates.map(mapEmailTemplateForActionDTO)).mapErr((error) => error as EmailTemplateErrors);
     }
 
     /**
@@ -38,10 +38,7 @@ export default class EmailTemplateSettingsRepositoryImpl implements IEmailTempla
      * @returns {Promise<Result<void, EmailTemplateErrors>>} The result of the save operation.
      */
     public async SaveTemplate(EmaiLTemplateForAction: EmailTemplateForAction): Promise<Result<void, EmailTemplateErrors>> {
-        const result = await this.Datasource.SaveTemplateForAction({
-            actionType: EmaiLTemplateForAction.ActionType,
-            templateID: EmaiLTemplateForAction.TemplateID
-        });
+        const result = await this.Datasource.SaveTemplateForAction(mapEmailTemplateForActionToDTO(EmaiLTemplateForAction));
         return result.mapErr((error) => error as EmailTemplateErrors);
     }
 }

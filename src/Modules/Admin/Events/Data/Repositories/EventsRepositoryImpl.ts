@@ -7,6 +7,7 @@ import { CreateEventEntity } from "@admin/events/Domain/Entities/CreateEventEnti
 import { EventEntity } from "@admin/events/Domain/Entities/EventEntity";
 import { EventsErrors } from "@admin/events/Domain/Errors/EventsErrors";
 import { IEventsRepository } from "@admin/events/Domain/Repositories/IEventsRepository";
+import { mapEventDTO } from "@admin/events/Data/Mappers/EventMapper";
 
 export default class EventsRepositoryImpl implements IEventsRepository {
     constructor(private readonly Datasource: EventsDatasource = new EventsDatasource()) { }
@@ -14,17 +15,7 @@ export default class EventsRepositoryImpl implements IEventsRepository {
     public async GetEvents(fromDate: string, toDate: string): Promise<Result<EventEntity[], EventsErrors>> {
         const result = await this.Datasource.GetEvents(fromDate, toDate);
         return result
-            .map((dtos: EventDto[]): EventEntity[] =>
-                dtos.map((dto: EventDto) => ({
-                    EventID: dto.eventId,
-                    EventName: dto.name,
-                    EventDescription: dto.description,
-                    EventDateUtc: dto.eventDateUtc,
-                    Duration: dto.duration,
-                    EventTimezone: dto.eventTimezone,
-                    IsActive: dto.isActive
-                }))
-            )
+            .map((dtos: EventDto[]): EventEntity[] => dtos.map(mapEventDTO))
             .mapErr((error) => API_ERROR_MAP[error as EventsApiErrors] ?? EventsErrors.LIST_FAILED);
     }
 

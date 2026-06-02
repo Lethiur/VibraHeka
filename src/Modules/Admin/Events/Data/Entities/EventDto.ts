@@ -1,5 +1,5 @@
 export interface EventDto {
-    eventId: string;
+    eventID: string;
     name: string;
     description: string;
     eventDateUtc: string;

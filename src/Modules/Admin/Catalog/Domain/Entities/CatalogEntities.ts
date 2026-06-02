@@ -37,7 +37,7 @@ export interface SellableItemEntity {
 }
 
 export interface CreateSellableItemPriceEntity {
-  ReferenceID: string;
+  SellableItemID: string;
   Amount: number;
   Currency: string;
   Kind: PriceKind;

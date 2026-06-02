@@ -15,6 +15,7 @@ import { LoginRequest } from "../Requests/LoginRequest";
 import { ForgotPasswordData } from "../../Domain/Entities/ForgotPasswordData";
 import { ResetPasswordData } from "../../Domain/Entities/ResetPasswordData";
 import { ResetPasswordRequest } from "../Requests/ResetPasswordRequest";
+import { mapLoginResultDTO, mapRegisterResponseDTO } from "@auth/Data/Mappers/AuthMapper";
 
 export class AuthRepositoryImpl implements IAuthRepository {
 
@@ -36,12 +37,7 @@ export class AuthRepositoryImpl implements IAuthRepository {
 
         const result: Result<LoginResultDTO, string> = await this.datasource.Login(dto);
 
-        return result.map<LoginResult>((loginResult) => ({
-            UserID: loginResult.userID,
-            Token: loginResult.accessToken,
-            RefreshToken: loginResult.refreshToken,
-            Role: loginResult.role,
-        })).mapErr(error => error as AuthErrorCodes);
+        return result.map<LoginResult>(mapLoginResultDTO).mapErr(error => error as AuthErrorCodes);
     }
 
     /**
@@ -75,10 +71,7 @@ export class AuthRepositoryImpl implements IAuthRepository {
 
         const result: Result<RegisterResponseDTO, string> = await this.datasource.register(request);
 
-        return result.map((value) => ({
-            UserId: value.userId,
-            NeedsConfirmation: value.needsConfirmation,
-        })).mapErr((error) => error as AuthErrorCodes);
+        return result.map(mapRegisterResponseDTO).mapErr((error) => error as AuthErrorCodes);
     }
 
     /**

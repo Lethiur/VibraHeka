@@ -7,8 +7,8 @@ import { RecordingEntity } from "@admin/recordings/Domain/Entities/RecordingEnti
 import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
 import { IRecordingsRepository } from "@admin/recordings/Domain/Repositories/IRecordingsRepository";
 import AddRecordingResponse from "@admin/recordings/Domain/Entities/AddRecordingResponse.ts";
-import AddRecordingResult from "@admin/recordings/Data/Entities/AddRecordingResult.ts";
 import { RecordingDto } from "@admin/recordings/Data/Entities/RecordingDto";
+import { mapAddRecordingResult, mapRecordingDTO } from "@admin/recordings/Data/Mappers/RecordingMapper";
 
 export default class RecordingsRepositoryImpl implements IRecordingsRepository {
     constructor(private readonly Datasource: RecordingsDatasource = new RecordingsDatasource()) {
@@ -30,26 +30,14 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
             currencyCode: data.CurrencyCode,
         });
         console.log("UploadRecording result from datasource:", resultAsync);
-        return resultAsync.map((value: AddRecordingResult) => {
-            return {
-                RecordingId: value.recordingId,
-                UploadUrl: value.uploadUrl,
-            } as AddRecordingResponse
-        }).mapErr((error) => API_ERROR_MAP[error as RecordingsApiErrors] ?? RecordingsErrors.GENERAL_ERROR);
+        return resultAsync.map(mapAddRecordingResult).mapErr((error) => API_ERROR_MAP[error as RecordingsApiErrors] ?? RecordingsErrors.GENERAL_ERROR);
     }
 
     public async GetRecordings(): Promise<Result<RecordingEntity[], RecordingsErrors>> {
         const result = await this.Datasource.GetRecordings();
 
         return result
-            .map((dto: RecordingDto[]): RecordingEntity[] => dto.map((item: RecordingDto) => ({
-                Id: item.id,
-                Name: item.name,
-                Description: item.description,
-                Tier: item.tier,
-                Type: item.type,
-                Created: item.created,
-            })))
+            .map((dto: RecordingDto[]): RecordingEntity[] => dto.map(mapRecordingDTO))
             .mapErr((error) => API_ERROR_MAP[error as RecordingsApiErrors] ?? RecordingsErrors.LIST_FAILED);
     }
 

@@ -4,6 +4,7 @@ import { Result } from "neverthrow";
 import { EmailTemplate } from "@admin/emailTemplates/Domain/Models/EmailTemplate";
 import { EmailTemplateDTO } from "@admin/emailTemplates/Data/DTOs/EmailTemplateDTO";
 import { EmailTemplateErrors } from "@admin/emailTemplates/Domain/Errors/EmailTemplateErrors";
+import { mapEmailTemplateDTO } from "@admin/emailTemplates/Data/Mappers/EmailTemplateMapper";
 
 /**
  * Implementation of the email template repository.
@@ -74,13 +75,6 @@ export default class EmailTemplateRepositoryImpl implements IEmailTemplateReposi
     public async GetAllTemplates(): Promise<Result<EmailTemplate[], EmailTemplateErrors>> {
         const result: Result<EmailTemplateDTO[], string> = await this.Datasource.GetAllTemplates();
 
-        return result.map((templates) => templates.map((template) => {
-            return {
-                ID: template.templateID,
-                Name: template.templateName,
-                Created: template.createdAt,
-                LastModified: template.lastModified
-            }
-        })).mapErr((error) => error as EmailTemplateErrors);
+        return result.map((templates) => templates.map(mapEmailTemplateDTO)).mapErr((error) => error as EmailTemplateErrors);
     }
 }
