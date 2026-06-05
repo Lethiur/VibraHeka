@@ -13,4 +13,4 @@ const repository: ICatalogRepository = new CatalogRepositoryImpl(datasource);
 
 export const getSellableItemUseCase: IGetSellableItemUseCase = new GetSellableItemUseCaseImpl(repository);
 export const createPriceUseCase: ICreatePriceUseCase = new CreatePriceUseCaseImpl(repository);
-export const togglePriceActiveUseCase: ITogglePriceActiveUseCase = new TogglePriceActiveUseCaseImpl(repository);
+export const activatePriceUseCase: ITogglePriceActiveUseCase = new TogglePriceActiveUseCaseImpl(repository);

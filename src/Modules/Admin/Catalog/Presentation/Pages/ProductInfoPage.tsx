@@ -17,16 +17,16 @@ export default function ProductInfoPage() {
   const { ShowNotification } = UseToast();
 
   const { item, loading, error, refetch } = UseGetSellableItem(refId);
-  const { TogglePrice, loading: toggleLoading } = UseTogglePriceActive();
+  const { ActivatePrice, loading: activationLoading } = UseTogglePriceActive();
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleToggle = async (priceId: string) => {
-    const success = await TogglePrice(priceId);
+  const handleActivate = async (sellableItemPriceID: string, sellableItemID: string) => {
+    const success = await ActivatePrice(sellableItemPriceID, sellableItemID);
     if (success) {
       ShowNotification(
-        t("pages.admin.catalog.messages.price_toggled"),
-        t("pages.admin.catalog.messages.price_toggled"),
+        t("pages.admin.catalog.messages.price_activated"),
+        t("pages.admin.catalog.messages.price_activated"),
         NotificationVariant.Success,
       );
       refetch();
@@ -57,7 +57,7 @@ export default function ProductInfoPage() {
             <PrimaryButton
               label={t("pages.admin.catalog.add_price")}
               onClick={() => setShowModal(true)}
-              disabled={loading || !item}
+              disabled={loading || activationLoading || !item}
             />
           </div>
         </section>
@@ -70,8 +70,8 @@ export default function ProductInfoPage() {
                 prices={item?.Prices ?? []}
                 loading={loading}
                 error={error}
-                toggleLoading={toggleLoading}
-                onToggle={handleToggle}
+                activationLoading={activationLoading}
+                onActivate={handleActivate}
               />
             </section>
           </Col>

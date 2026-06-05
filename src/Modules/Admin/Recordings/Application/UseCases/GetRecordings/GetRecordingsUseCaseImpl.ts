@@ -8,7 +8,11 @@ export default class GetRecordingsUseCaseImpl implements IGetRecordingsUseCase {
     constructor(private readonly Repository: IRecordingsRepository) { }
 
     public async Execute(): Promise<Result<RecordingEntity[], RecordingsErrors>> {
-        return this.Repository.GetRecordings();
+        const result = await this.Repository.GetRecordings();
+        if(result.isOk()) {
+            console.log("GetRecordingsUseCase: Successfully retrieved recordings:", result.value);
+        }
+        return result;
     }
 }
 

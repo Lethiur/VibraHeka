@@ -9,8 +9,9 @@ export function mapRecordingDTO(dto: RecordingDto): RecordingEntity {
     Name: dto.name,
     Description: dto.description,
     Tier: dto.tier,
-    Type: dto.type,
+    Type: dto.recordingType,
     Created: dto.created,
+    IsActive: dto.isActive,
   };
 }
 

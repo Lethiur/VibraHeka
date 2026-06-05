@@ -15,7 +15,7 @@ export default class CatalogDatasource extends BackendDatasource {
     return this.post<SellableItemPriceDTO>("catalog/prices", data, true);
   }
 
-  public async TogglePriceActive(priceId: string): Promise<Result<void, string>> {
-    return this.patch<void>(`catalog/prices/${priceId}/toggle-active`, {}, true);
+  public async ActivatePrice(sellableItemPriceID: string, sellableItemID: string): Promise<Result<void, string>> {
+    return this.post<void>("catalog/prices/activate", { sellableItemPriceID, sellableItemID }, true);
   }
 }

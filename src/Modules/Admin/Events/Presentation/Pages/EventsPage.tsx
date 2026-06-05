@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
+import ConfirmationModal from "@core/Presentation/Components/molecules/ConfirmationModal/ConfirmationModal";
 import { useTranslation } from "react-i18next";
 import { NotificationVariant } from "@core/Domain/Notifications/INotificationProvider";
 import { UseToast } from "@core/Presentation/Hooks/UseToast";
@@ -23,6 +24,7 @@ export default function EventsPage() {
     const { DeleteEvent, loading: deleteLoading } = UseDeleteEvent();
     const { ToggleStatus, loading: toggleLoading } = UseToggleEventStatus();
     const [showFormModal, setShowFormModal] = useState(false);
+    const [toggleConfirmation, setToggleConfirmation] = useState<{ id: string; activate: boolean } | null>(null);
 
     useEffect(() => {
         if (!createdId) return;
@@ -67,11 +69,22 @@ export default function EventsPage() {
     };
 
     const handleToggleStatus = async (id: string, activate: boolean): Promise<void> => {
-        const confirmMsg = activate
-            ? t("pages.admin.events.list.activate_confirm")
-            : t("pages.admin.events.list.deactivate_confirm");
-        if (!window.confirm(confirmMsg)) return;
+        setToggleConfirmation({ id, activate });
+    };
+
+    const handleCloseToggleConfirmation = (): void => {
+        if (!toggleLoading) {
+            setToggleConfirmation(null);
+        }
+    };
+
+    const handleConfirmToggleStatus = async (): Promise<void> => {
+        if (!toggleConfirmation) return;
+
+        const { id, activate } = toggleConfirmation;
+        setToggleConfirmation(null);
         const success = await ToggleStatus(id, activate);
+
         if (success) {
             ShowNotification(
                 t("pages.admin.events.list.toggle_success_title"),
@@ -89,6 +102,22 @@ export default function EventsPage() {
 
     return (
         <>
+            <ConfirmationModal
+                show={toggleConfirmation !== null}
+                title={toggleConfirmation?.activate
+                    ? t("pages.admin.events.activation_modal.activate_title")
+                    : t("pages.admin.events.activation_modal.deactivate_title")}
+                description={toggleConfirmation?.activate
+                    ? t("pages.admin.events.list.activate_confirm")
+                    : t("pages.admin.events.list.deactivate_confirm")}
+                confirmLabel={toggleConfirmation?.activate
+                    ? t("pages.admin.events.list.activate_button")
+                    : t("pages.admin.events.list.deactivate_button")}
+                cancelLabel={t("pages.admin.events.activation_modal.cancel_button")}
+                loading={toggleLoading}
+                onCancel={handleCloseToggleConfirmation}
+                onConfirm={handleConfirmToggleStatus}
+            />
             <VHModal
                 show={showFormModal}
                 backdrop={loading ? "static" : true}

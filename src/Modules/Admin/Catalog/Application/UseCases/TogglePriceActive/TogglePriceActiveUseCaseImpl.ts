@@ -6,7 +6,7 @@ import { CatalogErrors } from "@admin/catalog/Domain/Errors/CatalogErrors";
 export default class TogglePriceActiveUseCaseImpl implements ITogglePriceActiveUseCase {
   constructor(private readonly Repository: ICatalogRepository) {}
 
-  public async Execute(priceId: string): Promise<Result<void, CatalogErrors>> {
-    return this.Repository.TogglePriceActive(priceId);
+  public async Execute(sellableItemPriceID: string, sellableItemID: string): Promise<Result<void, CatalogErrors>> {
+    return this.Repository.ActivatePrice(sellableItemPriceID, sellableItemID);
   }
 }

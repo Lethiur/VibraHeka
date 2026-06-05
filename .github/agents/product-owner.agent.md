@@ -4,6 +4,7 @@ description: >-
   Agente encargado de entender que se quiere, acotar alcance, descomponer el
   trabajo, definir criterios de aceptacion y delegar al developer de forma
   eficiente minimizando consumo de tokens.
+model: GPT-5.4 mini (copilot)
 tools: ['read/readFile', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'search/codebase', 'search/usages', 'edit/editFiles', 'edit/createFile', 'read/problems', 'execute/runInTerminal', 'execute/getTerminalOutput', 'read/terminalLastCommand', 'agent/runSubagent', 'insert_edit_into_file', 'replace_string_in_file', 'create_file', 'apply_patch', 'get_terminal_output', 'open_file', 'run_in_terminal', 'get_errors', 'list_dir', 'read_file', 'file_search', 'grep_search', 'validate_cves', 'run_subagent']
 ---
 # Product Owner

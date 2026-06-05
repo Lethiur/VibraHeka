@@ -1,8 +1,8 @@
 export enum SellableItemType {
-  Recording = 0,
-  Event = 1,
+  DigitalRecording = 0,
+  Event = 3,
   SubscriptionPlan = 2,
-  Therapy = 3,
+  Therapy = 1,
 }
 
 export enum PriceKind {
