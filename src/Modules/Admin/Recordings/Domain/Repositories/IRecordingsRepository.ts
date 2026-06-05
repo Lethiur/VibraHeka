@@ -9,4 +9,6 @@ export interface IRecordingsRepository {
     UploadRecordingVideo(url: string, data: File, onProgress?: (progress: number) => void) : Promise<Result<void, RecordingsErrors>>;
     GetRecordings(): Promise<Result<RecordingEntity[], RecordingsErrors>>;
     DeleteRecording(id: string): Promise<Result<void, RecordingsErrors>>;
+    ActivateRecording(id: string): Promise<Result<void, RecordingsErrors>>;
+    DeactivateRecording(id: string): Promise<Result<void, RecordingsErrors>>;
 }

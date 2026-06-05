@@ -8,6 +8,7 @@ import { EventEntity } from "@admin/events/Domain/Entities/EventEntity";
 import { EventsErrors } from "@admin/events/Domain/Errors/EventsErrors";
 import { IEventsRepository } from "@admin/events/Domain/Repositories/IEventsRepository";
 import { mapEventDTO } from "@admin/events/Data/Mappers/EventMapper";
+import { SellableItemType } from "@admin/catalog/Domain/Entities/CatalogEntities";
 
 export default class EventsRepositoryImpl implements IEventsRepository {
     constructor(private readonly Datasource: EventsDatasource = new EventsDatasource()) { }
@@ -39,13 +40,19 @@ export default class EventsRepositoryImpl implements IEventsRepository {
     }
 
     public async DeactivateEvent(id: string): Promise<Result<void, EventsErrors>> {
-        return ResultAsync.fromPromise(this.Datasource.DeactivateEvent(id), () => EventsErrors.TOGGLE_STATUS_FAILED)
+        return ResultAsync.fromPromise(
+            this.Datasource.DeactivateEvent({ productID: id, productType: SellableItemType.Event }),
+            () => EventsErrors.TOGGLE_STATUS_FAILED,
+        )
             .andThen((result) => result)
             .mapErr((error) => API_ERROR_MAP[error as EventsApiErrors] ?? EventsErrors.TOGGLE_STATUS_FAILED);
     }
 
     public async ActivateEvent(id: string): Promise<Result<void, EventsErrors>> {
-        return ResultAsync.fromPromise(this.Datasource.ActivateEvent(id), () => EventsErrors.TOGGLE_STATUS_FAILED)
+        return ResultAsync.fromPromise(
+            this.Datasource.ActivateEvent({ productID: id, productType: SellableItemType.Event }),
+            () => EventsErrors.TOGGLE_STATUS_FAILED,
+        )
             .andThen((result) => result)
             .mapErr((error) => API_ERROR_MAP[error as EventsApiErrors] ?? EventsErrors.TOGGLE_STATUS_FAILED);
     }

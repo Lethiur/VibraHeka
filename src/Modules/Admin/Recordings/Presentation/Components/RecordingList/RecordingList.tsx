@@ -14,8 +14,15 @@ export interface RecordingListProps {
     loading: boolean;
     error: RecordingsErrors | null;
     deleteLoading: boolean;
+    toggleLoading: boolean;
     onDelete: (id: string) => Promise<void>;
+    onToggleStatus: (id: string, activate: boolean) => Promise<void>;
 }
+
+const STATUS_BADGE_CLASS = {
+    active: "recording-list__badge--active",
+    inactive: "recording-list__badge--inactive",
+} as const;
 
 const TYPE_BADGE_CLASS: Record<RecordingType, string> = {
     [RecordingType.MEDITACION]: "recording-list__badge--meditacion",
@@ -34,7 +41,9 @@ export default function RecordingList({
     loading,
     error,
     deleteLoading,
+    toggleLoading,
     onDelete,
+    onToggleStatus,
 }: RecordingListProps) {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -61,6 +70,7 @@ export default function RecordingList({
                             <th>{t("pages.admin.recordings.list.columns.description")}</th>
                             <th>{t("pages.admin.recordings.list.columns.type")}</th>
                             <th>{t("pages.admin.recordings.list.columns.tier")}</th>
+                            <th>{t("pages.admin.recordings.list.columns.status")}</th>
                             <th>{t("pages.admin.recordings.list.columns.created")}</th>
                             <th>{t("pages.admin.recordings.list.columns.actions")}</th>
                         </tr>
@@ -68,7 +78,7 @@ export default function RecordingList({
                     <tbody>
                         {recordings.length === 0 ? (
                             <tr>
-                                <td colSpan={6}>{t("pages.admin.recordings.list.empty")}</td>
+                                <td colSpan={7}>{t("pages.admin.recordings.list.empty")}</td>
                             </tr>
                         ) : (
                             recordings.map((recording) => (
@@ -85,11 +95,27 @@ export default function RecordingList({
                                             {t(`pages.admin.recordings.form.tiers.${recording.Tier}`)}
                                         </span>
                                     </td>
+                                    <td>
+                                        <span className={`recording-list__badge ${recording.IsActive ? STATUS_BADGE_CLASS.active : STATUS_BADGE_CLASS.inactive}`}>
+                                            {recording.IsActive
+                                                ? t("pages.admin.recordings.status.active")
+                                                : t("pages.admin.recordings.status.inactive")}
+                                        </span>
+                                    </td>
                                     <td>{new Date(recording.Created).toLocaleDateString("es-ES")}</td>
                                     <td className="recording-list__actions">
                                         <PrimaryButton
                                             variant="dark-outline"
-                                            disabled={deleteLoading}
+                                            disabled={toggleLoading}
+                                            label={recording.IsActive
+                                                ? t("pages.admin.recordings.list.deactivate_button")
+                                                : t("pages.admin.recordings.list.activate_button")
+                                            }
+                                            onClick={() => onToggleStatus(recording.Id, !recording.IsActive)}
+                                        />
+                                        <PrimaryButton
+                                            variant="dark-outline"
+                                            disabled={deleteLoading || toggleLoading}
                                             label={
                                                 deleteLoading
                                                     ? t("pages.admin.recordings.list.deleting_button")

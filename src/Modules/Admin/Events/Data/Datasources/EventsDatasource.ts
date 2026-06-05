@@ -2,6 +2,12 @@ import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
 import { Result } from "neverthrow";
 import { EventDto } from "@admin/events/Data/Entities/EventDto";
 import { CreateEventRequest } from "@admin/events/Data/Entities/CreateEventRequest";
+import { SellableItemType } from "@admin/catalog/Domain/Entities/CatalogEntities";
+
+type ModifyProductVisibilityRequest = {
+    productID: string;
+    productType: SellableItemType;
+};
 
 export default class EventsDatasource extends BackendDatasource {
     public async GetEvents(fromDate: string, toDate: string): Promise<Result<EventDto[], string>> {
@@ -16,11 +22,11 @@ export default class EventsDatasource extends BackendDatasource {
         return this.delete<void>(`events/${id}`, true);
     }
 
-    public async DeactivateEvent(id: string): Promise<Result<void, string>> {
-        return this.patch<void>(`events/${id}/deactivate`, {}, true);
+    public async DeactivateEvent(request: ModifyProductVisibilityRequest): Promise<Result<void, string>> {
+        return this.patch<void>("events/deactivate", request, true);
     }
 
-    public async ActivateEvent(id: string): Promise<Result<void, string>> {
-        return this.patch<void>(`events/${id}/activate`, {}, true);
+    public async ActivateEvent(request: ModifyProductVisibilityRequest): Promise<Result<void, string>> {
+        return this.patch<void>("events/activate", request, true);
     }
 }

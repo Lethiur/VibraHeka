@@ -9,6 +9,7 @@ import { IRecordingsRepository } from "@admin/recordings/Domain/Repositories/IRe
 import AddRecordingResponse from "@admin/recordings/Domain/Entities/AddRecordingResponse.ts";
 import { RecordingDto } from "@admin/recordings/Data/Entities/RecordingDto";
 import { mapAddRecordingResult, mapRecordingDTO } from "@admin/recordings/Data/Mappers/RecordingMapper";
+import { SellableItemType } from "@admin/catalog/Domain/Entities/CatalogEntities";
 
 export default class RecordingsRepositoryImpl implements IRecordingsRepository {
     constructor(private readonly Datasource: RecordingsDatasource = new RecordingsDatasource()) {
@@ -45,5 +46,23 @@ export default class RecordingsRepositoryImpl implements IRecordingsRepository {
         return ResultAsync.fromPromise(this.Datasource.DeleteRecording(id), () => RecordingsErrors.DELETE_FAILED)
             .andThen((result) => result)
             .mapErr((error) => API_ERROR_MAP[error as RecordingsApiErrors] ?? RecordingsErrors.DELETE_FAILED);
+    }
+
+    public async ActivateRecording(id: string): Promise<Result<void, RecordingsErrors>> {
+        return ResultAsync.fromPromise(
+            this.Datasource.ActivateRecording({ productID: id, productType: SellableItemType.DigitalRecording }),
+            () => RecordingsErrors.TOGGLE_STATUS_FAILED,
+        )
+            .andThen((result) => result)
+            .mapErr((error) => API_ERROR_MAP[error as RecordingsApiErrors] ?? RecordingsErrors.TOGGLE_STATUS_FAILED);
+    }
+
+    public async DeactivateRecording(id: string): Promise<Result<void, RecordingsErrors>> {
+        return ResultAsync.fromPromise(
+            this.Datasource.DeactivateRecording({ productID: id, productType: SellableItemType.DigitalRecording }),
+            () => RecordingsErrors.TOGGLE_STATUS_FAILED,
+        )
+            .andThen((result) => result)
+            .mapErr((error) => API_ERROR_MAP[error as RecordingsApiErrors] ?? RecordingsErrors.TOGGLE_STATUS_FAILED);
     }
 }

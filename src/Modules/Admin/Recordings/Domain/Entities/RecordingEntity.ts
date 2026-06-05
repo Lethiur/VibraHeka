@@ -8,5 +8,6 @@ export interface RecordingEntity {
     Type: RecordingType;
     Tier: RecordingTier;
     Created: string;
+    IsActive: boolean;
 }
 

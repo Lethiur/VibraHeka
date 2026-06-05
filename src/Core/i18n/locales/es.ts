@@ -70,6 +70,7 @@ export const es = {
                 [RecordingsErrors.GENERAL_ERROR]: "Ha ocurrido un error al subir la grabación.",
                 [RecordingsErrors.LIST_FAILED]: "No se pudo cargar el listado de grabaciones.",
                 [RecordingsErrors.DELETE_FAILED]: "No se pudo eliminar la grabación.",
+                [RecordingsErrors.TOGGLE_STATUS_FAILED]: "No se pudo cambiar el estado de la grabación.",
                 [RecordingsApplicationErrors.NAME_REQUIRED]: "El nombre es obligatorio.",
                 [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
                 [RecordingsApplicationErrors.TYPE_REQUIRED]: "El tipo es obligatorio.",
@@ -204,6 +205,15 @@ export const es = {
                         success_content: "Grabación subida correctamente.",
                         error_title: "Error"
                     },
+                    activation_modal: {
+                        activate_title: "Confirmar activación",
+                        deactivate_title: "Confirmar desactivación",
+                        cancel_button: "Cancelar",
+                    },
+                    status: {
+                        active: "Activa",
+                        inactive: "Inactiva"
+                    },
                     errors: {
                         [RecordingsApplicationErrors.NAME_REQUIRED]: "El nombre es obligatorio.",
                         [RecordingsApplicationErrors.DESCRIPTION_REQUIRED]: "La descripción es obligatoria.",
@@ -251,11 +261,18 @@ export const es = {
                         delete_confirm: "¿Estás seguro de que deseas eliminar esta grabación?",
                         delete_success_title: "Éxito",
                         delete_success_content: "Grabación eliminada correctamente.",
+                        activate_button: "Activar",
+                        deactivate_button: "Desactivar",
+                        activate_confirm: "¿Estás seguro de que deseas activar esta grabación?",
+                        deactivate_confirm: "¿Estás seguro de que deseas desactivar esta grabación?",
+                        toggle_success_title: "Éxito",
+                        toggle_success_content: "Estado de la grabación actualizado correctamente.",
                         columns: {
                             name: "Nombre",
                             description: "Descripción",
                             type: "Tipo",
                             tier: "Tier",
+                            status: "Estado",
                             created: "Fecha",
                             actions: "Acciones",
                             manage_prices: "Gestionar precios",
@@ -310,6 +327,11 @@ export const es = {
                         success_title: "Éxito",
                         success_content: "Evento creado correctamente.",
                         error_title: "Error"
+                    },
+                    activation_modal: {
+                        activate_title: "Confirmar activación",
+                        deactivate_title: "Confirmar desactivación",
+                        cancel_button: "Cancelar",
                     },
                     status: {
                         active: "Activo",

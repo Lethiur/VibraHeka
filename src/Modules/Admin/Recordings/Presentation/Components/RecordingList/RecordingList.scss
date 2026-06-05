@@ -65,6 +65,18 @@
             color: vars.$color-secondary-dark;
             border-color: rgba(vars.$color-secondary, 0.25);
         }
+
+        &--active {
+            background: rgba(vars.$color-success, 0.12);
+            color: vars.$color-success;
+            border-color: rgba(vars.$color-success, 0.25);
+        }
+
+        &--inactive {
+            background: rgba(vars.$color-error, 0.08);
+            color: vars.$color-error;
+            border-color: rgba(vars.$color-error, 0.2);
+        }
     }
 
     &__actions {
