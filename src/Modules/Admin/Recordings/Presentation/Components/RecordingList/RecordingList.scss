@@ -49,9 +49,9 @@
         }
 
         &--constellation {
-            background: rgba(vars.$color-info, 0.12);
-            color: vars.$color-info-dark;
-            border-color: rgba(vars.$color-info, 0.25);
+            background: rgba(vars.$color-primary, 0.12);
+            color: vars.$color-earth;
+            border-color: rgba(vars.$color-primary, 0.25);
         }
 
         &--free {
