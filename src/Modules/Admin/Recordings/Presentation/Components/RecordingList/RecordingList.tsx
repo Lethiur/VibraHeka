@@ -21,6 +21,7 @@ const TYPE_BADGE_CLASS: Record<RecordingType, string> = {
     [RecordingType.MEDITACION]: "recording-list__badge--meditacion",
     [RecordingType.MASTERCLASS]: "recording-list__badge--masterclass",
     [RecordingType.TALLER]: "recording-list__badge--taller",
+    [RecordingType.CONSTELLATION]: "recording-list__badge--constellation",
 };
 
 const TIER_BADGE_CLASS: Record<RecordingTier, string> = {

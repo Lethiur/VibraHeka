@@ -48,6 +48,12 @@
             border-color: rgba(vars.$color-success, 0.25);
         }
 
+        &--constellation {
+            background: rgba(vars.$color-info, 0.12);
+            color: vars.$color-info-dark;
+            border-color: rgba(vars.$color-info, 0.25);
+        }
+
         &--free {
             background: rgba(vars.$color-gray-300, 0.35);
             color: vars.$color-dark;
