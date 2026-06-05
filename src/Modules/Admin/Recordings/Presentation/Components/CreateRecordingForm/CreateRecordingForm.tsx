@@ -88,6 +88,7 @@ export default function CreateRecordingForm({ onSubmit, loading, disabled, error
                         <option value={RecordingType.MEDITACION}>{t(`pages.admin.recordings.form.types.${RecordingType.MEDITACION}`)}</option>
                         <option value={RecordingType.MASTERCLASS}>{t(`pages.admin.recordings.form.types.${RecordingType.MASTERCLASS}`)}</option>
                         <option value={RecordingType.TALLER}>{t(`pages.admin.recordings.form.types.${RecordingType.TALLER}`)}</option>
+                        <option value={RecordingType.CONSTELLATION}>{t(`pages.admin.recordings.form.types.${RecordingType.CONSTELLATION}`)}</option>
                     </Form.Select>
                     {validationErrors.Type && (
                         <Form.Control.Feedback type="invalid">
