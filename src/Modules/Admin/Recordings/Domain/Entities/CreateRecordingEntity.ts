@@ -2,6 +2,7 @@ export enum RecordingType {
     MEDITACION,
     MASTERCLASS,
     TALLER,
+    CONSTELLATION
 }
 
 export enum RecordingTier {
