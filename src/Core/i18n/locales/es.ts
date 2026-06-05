@@ -234,6 +234,7 @@ export const es = {
                             [RecordingType.MEDITACION]: "Meditación",
                             [RecordingType.MASTERCLASS]: "Masterclass",
                             [RecordingType.TALLER]: "Taller",
+                            [RecordingType.CONSTELLATION]: "Constelaciones",
                         },
                         tiers: {
                             [RecordingTier.FREE]: "Gratis",
