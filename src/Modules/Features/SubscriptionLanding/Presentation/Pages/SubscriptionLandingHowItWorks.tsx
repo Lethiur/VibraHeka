@@ -123,9 +123,7 @@ export default function SubscriptionLandingHowItWorks() {
         <div className="subscription-landing vh-page-section">
             <Container>
                 <section className="subscription-landing__eyebrow type-caption">
-                    <span>✦</span>
-                    <span>Cómo funciona</span>
-                    <span>✦</span>
+                    <h1>C&Oacute;MO FUNCIONA</h1>
                 </section>
 
                 <section className="subscription-landing__copy-block subscription-landing__copy-block--naked subscription-landing__copy-block--intro">
@@ -156,59 +154,54 @@ export default function SubscriptionLandingHowItWorks() {
                 </section>
 
                 <section className="subscription-landing__pricing-section">
-                    <div className={`subscription-landing__pricing-card subscription-landing__pricing-card--modern ${isOfferExpired ? 'is-expired' : ''}`}>
-                        <div className="subscription-landing__pricing-card-topline">
-                            <span>Empieza hoy</span>
-                            <span>Plan Mensual</span>
-                        </div>
-                        <div className="subscription-landing__pricing-card-price">
-                            {!isOfferExpired && <span className="subscription-landing__pricing-card-price-old">22€</span>}
-                            <span className="subscription-landing__pricing-card-price-new">{isOfferExpired ? '22€' : '17€'}<small>/mes</small></span>
-                        </div>
-                        <div className="subscription-landing__pricing-card-countdown">
-                            <p className="subscription-landing__pricing-card-countdown-label">
-                                <Clock size={16} /> {isOfferExpired ? 'Oferta finalizada' : 'La oferta finaliza en:'}
-                            </p>
-                            <div className="subscription-landing__pricing-card-countdown-timer">
-                                <div className="unit"><span>{String(timeLeft.h).padStart(2, '0')}</span><small>h</small></div>
-                                <span className="sep">:</span>
-                                <div className="unit"><span>{String(timeLeft.m).padStart(2, '0')}</span><small>m</small></div>
-                                <span className="sep">:</span>
-                                <div className="unit"><span>{String(timeLeft.s).padStart(2, '0')}</span><small>s</small></div>
+                    <Col className="d-flex flex-column align-items-center">
+                        <h2>DA EL PASO</h2>
+                        <div className={`subscription-landing__pricing-card subscription-landing__pricing-card--modern ${isOfferExpired ? 'is-expired' : ''}`}>
+                            <div className="subscription-landing__pricing-card-topline">
+                                <span>Empieza hoy</span>
+                                <span>Plan Mensual</span>
                             </div>
-                        </div>
+                            <div className="subscription-landing__pricing-card-price">
+                                {!isOfferExpired && <span className="subscription-landing__pricing-card-price-old">22€</span>}
+                                <span className="subscription-landing__pricing-card-price-new">{isOfferExpired ? '22€' : '17€'}<small>/mes</small></span>
+                            </div>
+                            {!isOfferExpired && <div className="subscription-landing__pricing-card-countdown">
+                                <p className="subscription-landing__pricing-card-countdown-label">
+                                    <Clock size={16} /> {isOfferExpired ? 'Oferta finalizada' : 'La oferta finaliza en:'}
+                                </p>
+                                <div className="subscription-landing__pricing-card-countdown-timer">
+                                    <div className="unit"><span>{String(timeLeft.h).padStart(2, '0')}</span><small>h</small></div>
+                                    <span className="sep">:</span>
+                                    <div className="unit"><span>{String(timeLeft.m).padStart(2, '0')}</span><small>m</small></div>
+                                    <span className="sep">:</span>
+                                    <div className="unit"><span>{String(timeLeft.s).padStart(2, '0')}</span><small>s</small></div>
+                                </div>
+                            </div> }
 
-                        <div className="subscription-landing__pricing-card-benefits">
-                            <ul>
-                                <li>✓ Acceso completo a la plataforma</li>
-                                <li>✓ Trabajo semanal guiado</li>
-                                <li>✓ Espacio de revisión semanal</li>
-                                <li>✓ Biblioteca de recursos</li>
-                                <li>✓ Grupo privado de WhatsApp</li>
-                                <li>✓ Descuentos para miembros</li>
-                            </ul>
-                        </div>
+                            <div className="subscription-landing__pricing-card-footnote">
+                                <div>
+                                    <h3>14 DÍAS DE PRUEBA GRATUITA</h3>
+                                    <p>Prueba la plataforma, explora los contenidos y participa en las actividades. Después decide si quieres continuar. Sin permanencia. Puedes cancelar cuando quieras.</p>
+                                </div>
+                            </div>
 
-                        <div className="subscription-landing__pricing-card-cta">
-                            <PrimaryButton
-                                label={isLoading ? "Iniciando proceso seguro..." : "EMPEZAR PRUEBA GRATUITA"}
-                                variant="primary"
-                                fullWidth
-                                onClick={handleSubscribeAction}
-                                disabled={isLoading}
-                            />
-                        </div>
-
-                        <div className="subscription-landing__pricing-card-footnote">
-                            <div>
-                                <strong>14 DÍAS DE PRUEBA GRATUITA</strong>
-                                <p>Prueba la plataforma, explora los contenidos y participa en las actividades. Después decide si quieres continuar. Sin permanencia. Puedes cancelar cuando quieras.</p>
+                            <div className="subscription-landing__pricing-card-cta">
+                                <PrimaryButton
+                                    label={isLoading ? "Iniciando proceso seguro..." : "EMPEZAR PRUEBA GRATUITA"}
+                                    variant="primary"
+                                    fullWidth
+                                    onClick={handleSubscribeAction}
+                                    disabled={isLoading}
+                                />
                             </div>
                             <div className="subscription-landing__pricing-card-guarantee">
                                 <ShieldCheck size={16} /> Pago seguro gestionado por Stripe
                             </div>
+
+                           
+
                         </div>
-                    </div>
+                    </Col>
                 </section>
             </Container>
         </div>
