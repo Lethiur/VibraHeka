@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
-import { BadgePercent, BrainCircuit, CalendarCheck, CheckCircle2, Clock, MessageCircleQuestion, RefreshCcw, ShieldCheck, Sparkles, Users, Video } from "lucide-react";
+import { BadgePercent, BrainCircuit, CalendarCheck, CheckCircle2, Clock, RefreshCcw, ShieldCheck, Sparkles, Users, Video } from "lucide-react";
 import "./SubscriptionLanding.scss";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom.ts";
