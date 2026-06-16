@@ -1,255 +1,116 @@
-// import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { useAtomValue } from "jotai";
-// import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
-import { RefreshCcw, BrainCircuit, MessageCircleQuestion, Video, Users, BadgePercent, CalendarCheck, CheckCircle2, Clock, ShieldCheck } from "lucide-react";
+import { BrainCircuit, Sparkles, Wind } from "lucide-react";
 import "./SubscriptionLanding.scss";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton.tsx";
-import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
-import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
-import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
-import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SubscriptionLanding() {
     const navigate = useNavigate();
-    const isAuthenticated = useAtomValue(isAuthenticatedAtom);
 
-    // Hooks para gestión de la suscripción y pagos de Stripe
-    const { checkoutURL, loading: subscribeLoading, subscribe } = UseSubscribe();
-    const { subscription, loading: subscriptionLoading, getSubscription } = UseGetSubscription();
-    
-    const [isProcessing, setIsProcessing] = useState(false);
-    
-    // Fecha límite absoluta para suscripciones: Domingo 19 de Abril de 2026 a las 18:00 UTC
-    const [isSubscriptionClosed, setIsSubscriptionClosed] = useState(false);
-    
-    // Lógica del contador regresivo hasta el Viernes 17 de Abril a las 18:00 UTC
-    const [timeLeft, setTimeLeft] = useState<{ h: number, m: number, s: number }>({ h: 0, m: 0, s: 0 });
-    const [isOfferExpired, setIsOfferExpired] = useState(false);
-
-    useEffect(() => {
-        const calculateTimeLeft = () => {
-            const now = new Date();
-    
-            // Verificar si el periodo de suscripción general se ha cerrado (19 de abril)
-            const globalDeadline = new Date("2036-05-04T18:00:00Z");
-            if (now.getTime() > globalDeadline.getTime()) {
-                setIsSubscriptionClosed(true);
-            }
-    
-            // Fecha objetivo fija para el contador (Oferta): Viernes 17 de Abril de 2026 a las 18:00 UTC
-            // Esto evita que el contador se reinicie la semana siguiente.
-            const target = new Date("2026-05-31T21:00:00Z");
-    
-            const difference = target.getTime() - now.getTime();
-    
-            if (difference <= 0) {
-                setIsOfferExpired(true);
-                setTimeLeft({ h: 0, m: 0, s: 0 });
-                return;
-            }
-    
-            const h = Math.floor(difference / (1000 * 60 * 60));
-            const m = Math.floor((difference / (1000 * 60)) % 60);
-            const s = Math.floor((difference / 1000) % 60);
-    
-            setTimeLeft({ h, m, s });
-            setIsOfferExpired(false);
-        };
-    
-        calculateTimeLeft();
-        const timer = setInterval(calculateTimeLeft, 1000);
-        return () => clearInterval(timer);
-    }, []);
-    
-    // Cargar suscripción al entrar si estamos identificados
-    useEffect(() => {
-        if (isAuthenticated && !subscription) {
-            getSubscription();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuthenticated]);
-    
-    // Redirección asíncrona a Stripe cuando el hook genera el URL
-    useEffect(() => {
-        if (checkoutURL) {
-            window.open(checkoutURL, "_self");
-        }
-    }, [checkoutURL]);
-
-    // Lógica del botón principal
-    const handleSubscribeAction = () => {
-        // 1. Si no hay sesión, mandarlo a registro
-        if (!isAuthenticated) {
-            navigate("/registro?redirect=/subscripcion");
-            return;
-        }
-        
-        // 2. Si hay sesión y la suscripción está activa, no hace falta que pague de nuevo
-        if (subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE) {
-            navigate("/profile/me");
-            return;
-        }
-        
-        // 3. Usuario listo y sin suscripción activa -> Generar checkout URL
-        setIsProcessing(true);
-        subscribe();
-    }
-
-    const isLoading = isProcessing || subscribeLoading || (isAuthenticated && subscriptionLoading);
-
-    const benefits = [
+    const recognitions = [
         {
             icon: <BrainCircuit size={24} />,
-            title: "Meditaciones Guiadas",
-            description: "Prácticas centradas en calmar profundamente el sistema nervioso."
+            title: "LA MIRADA CANSADA",
+            description: "Sientes que has perdido la perspectiva."
         },
         {
-            icon: <RefreshCcw size={24} />,
-            title: "Liberación Consciente",
-            description: "Prácticas para liberar el estrés, soltar emociones reprimidas y aliviar tensiones físicas."
+            icon: <Sparkles size={24} />,
+            title: "EL RUIDO INTERNO",
+            description: "No encuentras el interruptor mental."
         },
         {
-            icon: <MessageCircleQuestion size={24} />,
-            title: "Espacio de Q&A",
-            description: "Sesiones de preguntas y respuestas para sentirte acompañado y ganar herramientas útiles."
-        },
-        {
-            icon: <BadgePercent size={24} />,
-            title: "Descuento en Terapias",
-            description: "Accede a sesiones, talleres y constelaciones por un valor inferior al precio de mercado."
-        },
-        {
-            icon: <Video size={24} />,
-            title: "Grabaciones Disponibles",
-            description: "Todas las grabaciones de las actividades, disponibles en tu panel para ver a tu ritmo."
-        },
-        {
-            icon: <Users size={24} />,
-            title: "Grupo Exclusivo",
-            description: "Acceso a nuestro grupo de WhatsApp diseñado exclusivamente para miembros."
-        },
-        {
-            icon: <CalendarCheck size={24} />,
-            title: "Actividades Gratuitas",
-            description: "Acceso inmediato y sin coste a la mayoría de actividades programadas y con descuento en la programación con coste."
-        },
-        {
-            icon: <CheckCircle2 size={24} />,
-            title: "Cero Riesgo",
-            description: "14 días de prueba gratuitos y sin permanencia. Cancela en un clic cuando lo desees."
+            icon: <Wind size={24} />,
+            title: "EL CUERPO RÍGIDO",
+            description: "Tu musculatura retiene la carga."
         }
     ];
+
+    const statements = [
+        "Que es normal apretar la mandíbula.",
+        "Que es normal no poder dejar de pensar.",
+        "Que es normal llegar al final del día agotados y seguir sin desconectar.",
+        "Como si no hubiera otra manera de vivir.",
+        "Pero cuando algo se repite durante años, no siempre significa que sea normal.",
+        "Puede que hayas aprendido a funcionar así.",
+        "A seguir adelante aunque el cuerpo esté cansado.",
+        "A ignorar ciertas molestias porque siempre están ahí.",
+        "A convivir con el ruido mental porque ya forma parte de tu día a día.",
+        "Pero acostumbrarse a algo no significa que tenga que seguir siendo así."
+    ]
 
     return (
         <div className="subscription-landing vh-page-section">
             <Container>
-                {/* Hero Superior */}
                 <Row className="justify-content-center">
-                    <Col lg={10}>
+                    <Col lg={10} className="subscription-landing__intro">
                         <div className="subscription-landing__hero">
                             <h1 className="subscription-landing__hero-title">
-                                Da el paso hacia un <strong>bienestar real</strong> y sostenible
+                                CUANDO VIVIR EN TENSIÓN SE VUELVE NORMAL
                             </h1>
                             <p className="subscription-landing__hero-subtitle">
-                                Tu mente no descansa. Tu cuerpo tampoco Entra en VibraHeka: el espacio de acompañamiento donde sueltas  el  estrés y empiezas a recuperar tu calma
+                                Cuando vivir en tensión se vuelve normal, acabamos creyendo que siempre hemos sido así.
                             </p>
                         </div>
                     </Col>
                 </Row>
-                { !isAuthenticated && (<Row className="justify-content-center">
-                    <Col md={12}>
-                        <PrimaryButton
-                            label={'Quiero unirme a VibraHeka'}
-                            variant="primary"
-                            fullWidth
-                            trackId="subscription_landing_subscribe_button"
-                            onClick={handleSubscribeAction}
-                        />
-                    </Col>
-                </Row>)}
-
-                 {/* Tarjeta de Pricing Central */}
-                <Row className="justify-content-center">
-                    <Col md={10} lg={8} xl={6}>
-                        <div className={`subscription-landing__pricing-card ${isOfferExpired ? 'is-expired' : ''}`}>
-                            <span className="subscription-landing__pricing-card-period">Plan Mensual</span>
-                            <div className="subscription-landing__pricing-card-price">
-                                {!isOfferExpired && <span className="subscription-landing__pricing-card-price-old">22€</span>}
-                                <span className="subscription-landing__pricing-card-price-new">
-                                    {isOfferExpired ? '22€' : '17€'}<small>/mes</small>
-                                </span>
-                            </div>
-
-                            {/* Contador de Oferta */}
-                            <div className="subscription-landing__pricing-card-countdown">
-                                <p className="subscription-landing__pricing-card-countdown-label">
-                                    <Clock size={16} /> {isOfferExpired ? 'Oferta finalizada' : 'La oferta finaliza en:'}
-                                </p>
-                                <div className="subscription-landing__pricing-card-countdown-timer">
-                                    <div className="unit">
-                                        <span>{String(timeLeft.h).padStart(2, '0')}</span>
-                                        <small>h</small>
-                                    </div>
-                                    <span className="sep">:</span>
-                                    <div className="unit">
-                                        <span>{String(timeLeft.m).padStart(2, '0')}</span>
-                                        <small>m</small>
-                                    </div>
-                                    <span className="sep">:</span>
-                                    <div className="unit">
-                                        <span>{String(timeLeft.s).padStart(2, '0')}</span>
-                                        <small>s</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {(!isSubscriptionClosed) ? (
-                                <div className="subscription-landing__pricing-card-cta">
-                                    <PrimaryButton
-                                        label={isLoading ? "Iniciando proceso seguro..." : (isAuthenticated && subscription?.SubscriptionStatus === SubscriptionStatus.ACTIVE ? "Ya estás suscrito - Ir a mi panel" : "Suscribirme Ahora")}
-                                        variant="primary"
-                                        fullWidth
-                                        onClick={handleSubscribeAction}
-                                        disabled={isLoading}
-                                    />
-                                </div>
-                            ) : (
-                                <div className="subscription-landing__pricing-card-closed mt-4">
-                                    <p className="text-muted small">El periodo de suscripción ha finalizado por ahora.</p>
-                                </div>
-                            )}
-
-                            <div className="subscription-landing__pricing-card-guarantee">
-                                <ShieldCheck size={16} /> Pago seguro gestionado por Stripe
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-                
-                
-                {/* Desglose de Beneficios */}
-                <div className="subscription-landing__benefits">
-                    <h2 className="subscription-landing__benefits-title">¿Qué incluye tu cuenta?</h2>
-
+                <section className="subscription-landing__copy-grid m-4">
                     <Row className="g-4">
-                        {benefits.map((benefit, index) => (
-                            <Col md={6} lg={4} key={index}>
-                                <div className="subscription-landing__benefit-card h-100">
-                                    <div className="subscription-landing__benefit-card-icon">
-                                        {benefit.icon}
-                                    </div>
-                                    <div className="subscription-landing__benefit-card-content">
-                                        <h3>{benefit.title}</h3>
-                                        <p>{benefit.description}</p>
-                                    </div>
-                                </div>
+                        {statements.map((statement, index) => (
+                            <Col md={4} key={index}>
+                                <article className="subscription-landing__recognition-card">
+                                    <div className="subscription-landing__recognition-card-icon"><Sparkles size={24}></Sparkles></div>
+                                    <p>{statement}</p>
+                                </article>
                             </Col>
                         ))}
                     </Row>
-                </div>
+                </section>
+            </Container>
+            <section className="landing-attention-band ">
+                <Container className="px-3 px-sm-4">
+                    <h1 className="subscription-landing__hero-title">¿TE RECONOCES EN ESTE MOMENTO?</h1>
+                    <Row className="g-4 m-2">
+                        {recognitions.map((item) => (
+                            <Col md={4} key={item.title}>
+                                <article className="subscription-landing__recognition-card">
+                                    <div className="subscription-landing__recognition-card-icon">{item.icon}</div>
+                                    <h3>{item.title}</h3>
+                                    <p>{item.description}</p>
+                                </article>
+                            </Col>
+                        ))}
+                    </Row>
+                    <div className="subtitle subscription-landing__copy-block subscription-landing__copy-block--narrow subscription-landing__copy-block--naked">
+                        <p>Si te identificas con alguna de estas situaciones, VibraHeka te da el respaldo de un grupo que camina a tu mismo ritmo.</p>
+                        <p>Un espacio para recuperar el timón de tu día a día, despejar la mente y aflojar el cuerpo.</p>
+                    </div>
+                </Container>
+            </section>
+            <Container>
+
+                <section className="subscription-landing__copy-block subscription-landing__copy-block--naked subscription-landing__copy-block--feature">
+                    <h2>¿QUÉ ES VIBRAHEKA?</h2>
+                    <p>VibraHeka es un espacio online para parar dos veces a la semana. Un lugar de práctica en vivo diseñado para darte un respiro, amortiguar el impacto de la rutina y recuperar el control cuando sientes que todo se desborda.</p>
+                    <p>Aquí no venimos a acumular más información ni a darte tareas pendientes. Nos encontramos dos veces por semana —una para la clase con la propuesta práctica y otra para el espacio de revisión—, dándote el respaldo de un grupo que camina a tu mismo ritmo para:</p>
+                    <ul className="subscription-landing__list">
+                        <li>👁️ <strong>Ganar perspectiva:</strong> Ver con claridad en qué momentos te aceleras y aprender a despejar el panorama cuando el día se complica.</li>
+                        <li>🗣️ <strong>Apagar el runrún:</strong> Bajar las revoluciones de tu cabeza, silenciar ese diálogo interno que te exige llegar a todo y aprender a responder con más lógica.</li>
+                        <li>✋ <strong>Quitarle peso al cuerpo:</strong> Aflojar la musculatura de golpe, liberando la rigidez de la mandíbula y aprender a soltar la tensión que acumulas de lunes a viernes.</li>
+                    </ul>
+                    <p>No es un curso para rellenar tus horas libres.</p>
+                    <p>No es teoría para que la archives en una carpeta.</p>
+                    <p>Es un espacio semanal para aprender como actuar cuando estás bajo presión y dejar de normalizar ese desgaste constante de vivir siempre a la defensiva.</p>
+                    <p>No necesitas dar un giro de 180 grados a tu vida. Solo necesitas dejar de ir a remolque y recuperar el control de tu día a día.</p>
+                    <p>Si te has reconocido en alguna de estas situaciones, ahora puedes descubrir cómo trabajamos dentro de VibraHeka.</p>
+                    <div className="subscription-landing__cta-row">
+                        <PrimaryButton
+                            label="QUIERO CONOCER VIBRAHEKA"
+                            variant="primary"
+                            fullWidth
+                            onClick={() => navigate('/subscripcion/como-funciona')}
+                        />
+                    </div>
+                </section>
 
             </Container>
         </div>
