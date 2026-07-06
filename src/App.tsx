@@ -25,9 +25,9 @@ const RecordingsPage = lazy(() => import('@admin/recordings/Presentation/Pages/R
 const ProductInfoPage = lazy(() => import('@admin/catalog/Presentation/Pages/ProductInfoPage'))
 const EventsPage = lazy(() => import('@admin/events/Presentation/Pages/EventsPage'))
 const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
-const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
+// const TherapistPage = lazy(() => import('@therapist/Presentation/Pages/TherapistPage/TherapistPage'))
 const LandingPage = lazy(() => import('@landing/Presentation/Pages/Landing'))
-const TerapeutasHome = lazy(() => import('@therapist/Presentation/Pages/TerapetuasHome'))
+// const TerapeutasHome = lazy(() => import('@therapist/Presentation/Pages/TerapetuasHome'))
 const FreeClassesPage = lazy(() => import('@freeclasses/Presentation/Pages/FreeClassesPage/FreeClassesPage'))
 const PrivacyPolicy = lazy(() => import('@legal/Presentation/Pages/PrivacyPolicy/PrivacyPolicy'))
 const LegalNotice = lazy(() => import('@legal/Presentation/Pages/LegalNotice/LegalNotice'))
@@ -112,8 +112,8 @@ function App() {
                                 </>
                             )
                         }
-                        <Route path="/terapeutas" element={<TerapeutasHome />} />
-                        <Route path="/terapeutas/:id" element={<TherapistPage />} />
+                        {/*<Route path="/terapeutas" element={<TerapeutasHome />} />*/}
+                        {/*<Route path="/terapeutas/:id" element={<TherapistPage />} />*/}
                         <Route path="/clases-gratuitas" element={<FreeClassesPage />} />
                         <Route path="/politica-de-privacidad" element={<PrivacyPolicy />} />
                         <Route path="/aviso-legal" element={<LegalNotice />} />
