@@ -21,13 +21,13 @@ window.addEventListener('vite:preloadError', (event) => {
         console.error('Preload error persists after one reload. Skipping further automatic reloads.');
         return;
     }
-
     sessionStorage.setItem(PRELOAD_RETRY_KEY, '1');
 
     const url = new URL(window.location.href);
     url.searchParams.set('v', Date.now().toString());
     window.location.replace(url.toString());
 });
+
 try {
     ReactGA.initialize(import.meta.env.VITE_GA_KEY);    
 } catch (e) {

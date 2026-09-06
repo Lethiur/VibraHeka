@@ -3,20 +3,22 @@ import { IUserprofile } from "@users/Domain/Entities/IUserProfile";
 import IProfileRepository from "@users/Domain/Repositories/IProfileRepository";
 import GetProfileDatasource from "@/Modules/Features/User/Data/Datasources/ProfileDatasource";
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
-import IChangePasswordRequest from "@users/Data/Requests/IChangePasswordRequest";
+import ChangePasswordCommand from "@auth/Domain/Commands/ChangePasswordCommand.ts";
 import IUpdateProfileRequest from "@users/Data/Requests/IUpdateProfileRequest";
 import { IChangePasswordData } from "@users/Domain/Entities/IChangePasswordData";
 import { mapUserProfileDTO } from "@users/Data/Mappers/UserMapper";
+import AuthDatasource from "@auth/Data/Datasources/AuthDatasource.ts";
 
 export default class UserProfileRepositoryImpl implements IProfileRepository {
 
 
     constructor(
-        private readonly getProfileDatasource: GetProfileDatasource
+        private readonly getProfileDatasource: GetProfileDatasource,
+        private readonly authDatasource: AuthDatasource
     ) { }
 
     public async ChangePassword(data: IChangePasswordData): Promise<Result<void, ProfileErrors>> {
-        const request: IChangePasswordRequest = {
+        const request: ChangePasswordCommand = {
             currentPassword: data.CurrentPassword,
             newPassword: data.NewPassword,
             newPasswordConfirmation: data.NewPasswordConfirmation

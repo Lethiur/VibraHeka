@@ -1,35 +1,25 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { LoginData } from "@auth/Domain/Entities/LoginData";
-import { ValidationErrors } from "fluentvalidation-ts";
+import React, {useEffect} from "react";
+import {useTranslation} from "react-i18next";
 import useLoginUser from "@auth/Presentation/Hooks/useLoginUser";
-import LoginUserUseCase from "@auth/Application/UseCases/LoginUser/LoginUserUseCase";
-import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { LoginResult } from "@auth/Domain/Entities/LoginResult";
-import { Result } from "neverthrow";
-import { useSetAtom } from "jotai";
-import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
+import {AuthErrorCodes} from "@auth/Domain/Errors/AuthErrorCodes";
+import {useSetAtom} from "jotai";
+import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import {Link, NavigateFunction, useNavigate} from "react-router-dom";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
-import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import ReactGA from "react-ga4";
 
 
 export default function Login() {
-
-    const [globalError, setGlobalError] = useState<string | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [errors, setErrors] = useState<ValidationErrors<LoginData>>({})
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const localStorage: LocalStorageService = useLocalStorage();
     const navigate: NavigateFunction = useNavigate();
-    const loginUserUseCase: LoginUserUseCase = useLoginUser();
+    const {loading, error, success, formErrors, loginUser} = useLoginUser();
     const setIsAuthenticated = useSetAtom(isAuthenticatedAtom);
 
     function trackUser(id: string, email: string) {
@@ -38,47 +28,39 @@ export default function Login() {
             email: email
         });
     }
-    
+
+
+    useEffect(() => {
+        if (error == AuthErrorCodes.USER_NOT_CONFIRMED) {
+            localStorage.setString(STORAGE_KEYS.EMAIL, formData.get('email') as string);
+            navigate('/cuenta-inactiva');
+        }
+    }, [error]);
+
+    useEffect(() => {
+        if (success) {
+            localStorage.remove(STORAGE_KEYS.PASSWORD);
+            setIsAuthenticated(true);
+            navigate('/actividades');
+        }
+    }, [success]);
+
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        setGlobalError(null);
+
         const formData = new FormData(event.currentTarget);
 
-        try {
-            setIsSubmitting(true);
-            const authResult: Result<LoginResult, AuthErrorCodes> = await loginUserUseCase.execute({
-                Email: formData.get('email') as string,
-                Password: formData.get('password') as string
-            });
+        loginUser({
+            email: formData.get('email') as string,
+            password: formData.get('password') as string
+        });
 
-            if (authResult.isOk()) {
-                trackUser(authResult.value.UserID,  formData.get('email') as string);
-                localStorage.remove(STORAGE_KEYS.PASSWORD);
-                setIsAuthenticated(true);
-                navigate('/actividades');
-            } else {
-                if (authResult.error == AuthErrorCodes.USER_NOT_CONFIRMED) {
-                    localStorage.setString(STORAGE_KEYS.EMAIL, formData.get('email') as string);
-                    navigate('/cuenta-inactiva');
-                    return;
-                }
-                setGlobalError(authResult.error);
-            }
-
-        } catch (error) {
-            if (error instanceof InvalidEntityError) {
-                setErrors(error.fieldErrors);
-            }
-        }
-        finally {
-            setIsSubmitting(false);
-        }
     }
 
     return (
         <AuthLayout title={t('pages.login.title')} subtitle={t('pages.login.description')}>
-            {globalError && (
-                <ErrorBox message={t(`errors.auth.${globalError}`, { defaultValue: globalError })} variant="danger" />
+            {error && (
+                <ErrorBox message={t(`errors.auth.${error}`, {defaultValue: error})} variant="danger"/>
             )}
 
             <form onSubmit={handleSubmit} noValidate>
@@ -86,18 +68,18 @@ export default function Login() {
                     label={t('pages.login.form.email_label')}
                     name="email"
                     type="email"
-                    disabled={isSubmitting}
+                    disabled={loading}
                     helpText={t('pages.login.form.email_help')}
-                    error={errors.Email ? t(`errors.auth.${errors.Email}`) : undefined}
+                    error={formErrors.email ? t(`errors.auth.${formErrors.email}`) : undefined}
                 />
                 <PrimaryTextInput
                     label={t('pages.login.form.password_label')}
                     name="password"
                     type="password"
                     showPasswordToggle={true}
-                    disabled={isSubmitting}
+                    disabled={loading}
                     helpText={t('pages.login.form.password_help')}
-                    error={errors.Password ? t(`errors.auth.${errors.Password}`) : undefined}
+                    error={formErrors.password ? t(`errors.auth.${formErrors.password}`) : undefined}
                 />
 
                 <div className="d-flex justify-content-end mt-2">
@@ -108,11 +90,11 @@ export default function Login() {
 
                 <div className="auth-form__submit">
                     <PrimaryButton
-                        label={isSubmitting ? t('pages.login.form.submitting_button') : t('pages.login.form.submit_button')}
+                        label={loading ? t('pages.login.form.submitting_button') : t('pages.login.form.submit_button')}
                         type="submit"
                         trackId="submit_login_form"
                         variant="primary"
-                        disabled={isSubmitting}
+                        disabled={loading}
                         fullWidth={true}
                     />
                 </div>

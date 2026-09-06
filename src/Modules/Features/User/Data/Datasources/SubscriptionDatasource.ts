@@ -1,7 +1,12 @@
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
-import ISubscriptionDetailsDTO from "@users/Data/Entities/ISubscriptionDetailsDTO";
-import ISubscriptionCreationDTO from "@users/Data/Entities/ISubscriptionCreationDTO";
-import { Result } from "neverthrow";
+import { Result} from "neverthrow";
+import {
+    Configuration, SubscriptionDetailsResponse,
+    SubscriptionPortalResponse, SubscriptionResponse,
+    SubscriptionsApi
+} from "@/Generated/api/subscriptions";
+import {BASE_PATH} from "@/Generated/api/subscriptions/base.ts";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
 
 
 /**
@@ -10,13 +15,23 @@ import { Result } from "neverthrow";
  */
 export default class SubscriptionDatasource extends BackendDatasource {
 
+    private Api: SubscriptionsApi;
+
+    constructor() {
+        super();
+        const config: Configuration = new Configuration({
+            accessToken: () => this.StorageService.getString(STORAGE_KEYS.AUTH_TOKEN) || ''
+        });
+        this.Api = new SubscriptionsApi(config, BASE_PATH, this.AxiosInstance);
+    }
+
     /**
      * GetSubscriptionDetails
      * @description Get subscription details
      * @returns {Promise<Result<ISubscription, string>>}
      */
-    public async GetSubscriptionDetails(): Promise<Result<ISubscriptionDetailsDTO, string>> {
-        return this.get('/subscriptions', true);
+    public async GetSubscriptionDetails(): Promise<Result<SubscriptionDetailsResponse, string>> {
+        return this.PerformAndUnwrap(this.Api.getSubscriptionStatus.bind(this));
     }
 
     /**
@@ -25,16 +40,16 @@ export default class SubscriptionDatasource extends BackendDatasource {
      * @returns {Promise<Result<void, string>>}
      */
     public async CancelSubscription(): Promise<Result<void, string>> {
-        return this.patch('/subscriptions', {}, true);
+        return this.PerformAndUnwrap(this.Api.cancelSubscription);
     }
 
     /**
      * Subscribe
      * @description Subscribe to a plan
-     * @returns {Promise<Result<ISubscriptionCreationDTO, string>>}
+     * @returns {Promise<Result<SubscriptionResponse, string>>}
      */
-    public async Subscribe(): Promise<Result<ISubscriptionCreationDTO, string>> {
-        return this.put<ISubscriptionCreationDTO>('/subscriptions', {}, true);
+    public async Subscribe(): Promise<Result<SubscriptionResponse, string>> {
+        return this.PerformAndUnwrap(this.Api.subscribe);
     }
 
     /**
@@ -42,8 +57,8 @@ export default class SubscriptionDatasource extends BackendDatasource {
      * @description Get subscription portal
      * @returns {Promise<Result<string, string>>}
      */
-    public async GetSubscriptionPortal(): Promise<Result<string, string>> {
-        return this.get('/subscriptions/details', true);
+    public async GetSubscriptionPortal(): Promise<Result<SubscriptionPortalResponse, string>> {
+        return this.PerformAndUnwrap(() => this.Api.getSubscriptionPortal());
     }
 
     /**
@@ -52,7 +67,7 @@ export default class SubscriptionDatasource extends BackendDatasource {
      * @returns {Promise<Result<void, string>>}
      */
     public async ReactivateSubscription(): Promise<Result<void, string>> {
-        return this.patch('/subscriptions/reactivate', {}, true);
+        return this.PerformAndUnwrap(this.Api.reactivateSubscription);
     }
 
 }

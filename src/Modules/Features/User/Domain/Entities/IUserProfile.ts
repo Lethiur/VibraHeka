@@ -1,5 +1,5 @@
 /**
- * @description Interfaz que representa el perfil de un usuario
+ * Represents a user profile containing personal and contact information.
  */
 export interface IUserprofile {
     TimeZone: string;
@@ -11,5 +11,4 @@ export interface IUserprofile {
     Phone: string;
     Bio: string;
     AvatarUrl: string;
-
 }

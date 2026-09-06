@@ -1,5 +1,5 @@
-import { OrderStatus } from "@/Modules/Features/User/Domain/Enums/OrderStatus";
-import { SubscriptionStatus } from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
+import {OrderStatus} from "@users/Domain/Enums/OrderStatus.ts";
+import {SubscriptionStatus} from "@users/Domain/Enums/SubscriptionStatus.ts";
 
 export default interface ISubscription {
     StartDate: Date;

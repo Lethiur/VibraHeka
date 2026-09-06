@@ -6,7 +6,6 @@ import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import useForgotPassword from "@auth/Presentation/Hooks/useForgotPassword";
-import { ForgotPasswordData } from "@auth/Domain/Entities/ForgotPasswordData";
 
 export default function ForgotPassword() {
     const { t } = useTranslation();
@@ -14,13 +13,10 @@ export default function ForgotPassword() {
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-
         const formData = new FormData(event.currentTarget);
-        const data: ForgotPasswordData = {
+        forgotPassword({
             Email: (formData.get("email") as string) || ""
-        };
-
-        await forgotPassword(data);
+        });
     }
 
     return (

@@ -8,7 +8,7 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
     const useCase = useContext(GetSubscriptionContext);
     const queryClient = useQueryClient();
     const [isProcessing, setIsProcessing] = useState(false);
-    // 1. Iniciamos el temporizador de 3 segundos
+
     useEffect(() => {
         if (!isWaiting) return;
 
@@ -18,8 +18,6 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
         const interval = setInterval(async () => {
             attempts++;
             const result = await useCase.Execute();
-
-            result.andTee(value => console.log(value.Status))
             result.match(
                 (details) => {
                     if (details.Status !== OrderStatus.PENDING) {
@@ -38,7 +36,7 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
                         queryClient.setQueryData(["subscription"], value);
                     }
                 })
-            }; // 3 segundos
+            };
         }, 200);
 
         const stopPolling = () => {

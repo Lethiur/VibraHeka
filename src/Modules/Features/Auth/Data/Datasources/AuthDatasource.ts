@@ -1,11 +1,25 @@
 import { Result } from "neverthrow";
-import { RegisterResponseDTO } from "@auth/Data/Entities/RegistrationResponseDTO";
-import { RegistrationRequest } from "@auth/Data/Requests/RegistrationRequest";
-import { VerificationRequest } from "@auth/Data/Requests/VerificationRequest";
-import { LoginResultDTO } from "@auth/Data/Entities/LoginResultDTO";
-import { LoginRequest } from "@auth/Data/Requests/LoginRequest";
-import { ResetPasswordRequest } from "@auth/Data/Requests/ResetPasswordRequest";
+import { RegistrationCommand } from "@auth/Domain/Commands/RegistrationCommand.ts";
+import { VerificationCommand } from "@auth/Domain/Commands/VerificationCommand.ts";
+import { LoginCommand } from "@auth/Domain/Commands/LoginCommand.ts";
+import { ResetPasswordCommand } from "@auth/Domain/Commands/ResetPasswordCommand.ts";
 import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
+import {
+    AuthenticateUserRequest, AuthenticateUserResponse,
+    AuthenticationApi, ChangePasswordRequest, ConfirmResetPasswordRequest,
+    RegisterUserRequest,
+    RegisterUserResponse, ResendConfirmationCodeRequest, ResetPasswordRequest,
+    VerifyUserRequest
+} from "@/Generated/api/authentication";
+import {BASE_PATH} from "@/Generated/api/authentication/base.ts";
+import {
+    mapToChangePasswordRequest,
+    mapToConfirmPasswordRequest,
+    mapToLoginRequestRequest,
+    mapToRegistrationRequestDTO,
+    mapToVerificationRequest
+} from "@auth/Data/Mappers/AuthMapper.ts";
+import ChangePasswordCommand from "@auth/Domain/Commands/ChangePasswordCommand.ts";
 
 /**
  * Represents an authentication data source responsible for handling
@@ -13,34 +27,44 @@ import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
  */
 export default class AuthDatasource extends BackendDatasource {
 
+    private readonly Api : AuthenticationApi;
+
+    constructor() {
+        super();
+        this.Api = new AuthenticationApi(undefined, BASE_PATH, this.AxiosInstance);
+    }
+
     /**
      * Registers a new user with the provided registration data.
      *
-     * @param {RegistrationRequestDto} registrationData - The data required for registering a user.
-     * @return {Promise<Result<RegisterResponseDto, string>>} A promise that resolves to a result containing either the registration response on success or an error code on failure.
+     * @param {RegistrationCommand} request - The data required for registering a user.
+     * @return {Promise<Result<RegisterUserResponse, string>>} A promise that resolves to a result containing either the registration response on success or an error code on failure.
      */
-    public async register(registrationData: RegistrationRequest): Promise<Result<RegisterResponseDTO, string>> {
-        return await this.post<RegisterResponseDTO>('/auth/register', registrationData);
+    public async register(request: RegistrationCommand): Promise<Result<RegisterUserResponse, string>> {
+        const dto: RegisterUserRequest = mapToRegistrationRequestDTO(request);
+        return await this.PerformAndUnwrap(() => this.Api.registerUser(dto));
     }
 
     /**
      * Verifies the given verification request by sending a PATCH request to the specified endpoint.
      *
-     * @param {VerificationRequestDTO} dto - The data transfer object containing the verification details.
+     * @param {VerificationCommand} request - The data transfer object containing the verification details.
      * @return {Promise<Result<void, string>>} A promise that resolves with a `Result` containing either a success or error message.
      */
-    async Verify(dto: VerificationRequest): Promise<Result<void, string>> {
-        return await this.patch<void>('/auth/confirm', dto);
+    async Verify(request: VerificationCommand): Promise<Result<void, string>> {
+        const req: VerifyUserRequest = mapToVerificationRequest(request);
+        return await this.PerformAndUnwrap(() => this.Api.verifyUser(req));
     }
 
     /**
      * Authenticates a user by sending login credentials to the server.
      *
-     * @param {LoginRequestDTO} dto - The data transfer object containing user login credentials.
+     * @param {LoginCommand} request - The data transfer object containing user login credentials.
      * @return {Promise<Result<LoginResultDTO, string>>} A promise that resolves to a result object containing either the authenticated user's data or an error message.
      */
-    async Login(dto: LoginRequest): Promise<Result<LoginResultDTO, string>> {
-        return await this.post<LoginResultDTO>('/auth/authenticate', dto);
+    async Login(request: LoginCommand): Promise<Result<AuthenticateUserResponse, string>> {
+        const req: AuthenticateUserRequest = mapToLoginRequestRequest(request);
+        return await this.PerformAndUnwrap(() => this.Api.authenticateUser(req));
     }
 
     /**
@@ -50,27 +74,45 @@ export default class AuthDatasource extends BackendDatasource {
      * @return {Promise<Result<void, string>>} A promise that resolves with a `Result` containing either a success or error message.
      */
     async ResendVerificationCode(email: string): Promise<Result<void, string>> {
-        const encodedEmail: string = encodeURIComponent(email);
-        return await this.get<void>(`/auth/resend-confirmation-code?email=${encodedEmail}`);
+        const request : ResendConfirmationCodeRequest = {
+            email
+        }
+        return await this.PerformAndUnwrap(() => this.Api.resendConfirmationCode(request));
     }
 
     /**
-     * Starts the forgot-password flow by requesting a recovery email.
+     * Initiates a password reset process for the provided email address.
      *
-     * @param {ForgotPasswordRequestDTO} dto - The DTO containing the user's email.
-     * @return {Promise<Result<void, string>>} A promise that resolves with success or an error code.
+     * @param {string} email - The email address of the user requesting the password reset.
+     * @return {Promise<Result<void, string>>} A promise resolving to a result object which indicates success or contains an error message.
      */
     async ForgotPassword(email: string): Promise<Result<void, string>> {
-        return await this.post<void>('/auth/forgot-password', { email });
+        const request : ResetPasswordRequest = {
+            email
+        }
+        return await this.PerformAndUnwrap(() => this.Api.resetPassword(request));
     }
 
     /**
-     * Completes the forgot-password flow by confirming token and new password.
+     * Confirms a forgotten password reset request.
      *
-     * @param {ResetPasswordRequestDTO} dto - Token and new password payload.
-     * @return {Promise<Result<void, string>>} A promise that resolves with success or an error code.
+     * @param {ResetPasswordCommand} request - The user-provided reset password request data to confirm.
+     * @return {Promise<Result<void, string>>} A promise that resolves to a Result object containing either a success signal (void) or an error message (string).
      */
-    async ConfirmForgotPassword(dto: ResetPasswordRequest): Promise<Result<void, string>> {
-        return await this.post<void>('/auth/forgot-password/confirm', dto);
+    async ConfirmForgotPassword(request: ResetPasswordCommand): Promise<Result<void, string>> {
+        const req : ConfirmResetPasswordRequest  = mapToConfirmPasswordRequest(request);
+        return await this.PerformAndUnwrap(() => this.Api.confirmResetPassword(req));
     }
+
+    /**
+     * Updates the user's password based on the provided request.
+     *
+     * @param {ChangePasswordCommand} request - The request object containing the necessary data to update the password.
+     * @return {Promise<Result<void, string>>} A promise that resolves with a result object. The result will either represent success (void) or a failure with an error message.
+     */
+    public async ChangePassword(request: ChangePasswordCommand): Promise<Result<void, string>> {
+        const req: ChangePasswordRequest = mapToChangePasswordRequest(request);
+        return await this.PerformAndUnwrap(() => this.Api.changePassword(req));
+    }
+
 }

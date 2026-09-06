@@ -1,8 +1,8 @@
 ﻿import { Result } from "neverthrow";
-import { AuthErrorCodes } from "../../../Domain/Errors/AuthErrorCodes";
-import { VerificationData } from "../../../Domain/Entities/VerificationData";
+import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
 import {IVerifyUserUseCase} from "./IVerifyUserUseCase";
-import {IAuthRepository} from "../../../Domain/Repositories/IAuthRepository";
+import {IAuthRepository} from "@auth/Domain/Repositories/IAuthRepository";
+import {VerificationCommand} from "@auth/Domain/Commands/VerificationCommand.ts";
 
 
 /**
@@ -16,10 +16,10 @@ export default class VerifyUserUseCaseImpl implements IVerifyUserUseCase {
     /**
      * Executes the verification process using the provided verification data.
      *
-     * @param {VerificationData} verificationData - The data required for verification.
+     * @param {VerificationCommand} verificationData - The data required for verification.
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with the result of the verification process or rejects with an error.
      */
-    public async Execute(verificationData: VerificationData): Promise<Result<void, AuthErrorCodes>> {
+    public async Execute(verificationData: VerificationCommand): Promise<Result<void, AuthErrorCodes>> {
         return await this.AuthRepository.Verify(verificationData);
     }
     

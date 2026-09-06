@@ -1,15 +1,28 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, {
+    AxiosError,
+    AxiosInstance,
+    AxiosResponse,
+    InternalAxiosRequestConfig
+} from 'axios';
 import { err, ok, Result } from "neverthrow";
-import { ResponseEntity } from "@core/Domain/Entities/ResponseEntity";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import {AuthenticationApi, RefreshTokenRequest, RefreshTokenResponse} from "@/Generated/api/authentication";
+import {BASE_PATH} from "@/Generated/api/subscriptions/base.ts";
+import {BadRequestResponse} from "@/Generated/api/users";
 
-const BASE_URL: string =   import.meta.env.VITE_API_BASE_URL || "/api/v1";
+export const BASE_URL: string =   import.meta.env.VITE_API_BASE_URL || "/api/v1";
 let refreshInFlight: Promise<Result<string, string>> | null = null;
 let lastUnauthorizedEventAtMs = 0;
 
 const UNAUTHORIZED_EVENT = "auth:unauthorized";
 const UNAUTHORIZED_EVENT_THROTTLE_MS = 1000;
+
+declare module 'axios' {
+    interface InternalAxiosRequestConfig {
+        _retry?: boolean;
+    }
+}
 
 /**
  * Represents a data source for making API requests using Axios.
@@ -28,17 +41,62 @@ export default class BackendDatasource {
      * for performing the respective HTTP operations. Additionally, interceptors
      * can be attached to the instance for request/response customization.
      */
-    private AxiosInstance: AxiosInstance;
+    protected AxiosInstance: AxiosInstance;
 
-    constructor(private StorageService: LocalStorageService = new LocalStorageService()) {
+    /**
+     * An instance of the AuthenticationApi class used to handle
+     * authentication-related functionality such as user login,
+     * logout, and token management. Provides methods to interact
+     * with the authentication system and perform secure operations.
+     */
+    private authApi: AuthenticationApi;
+
+    /**
+     * Constructs an instance of the class with a customizable local storage service and initializes
+     * an Axios instance with default base URL and headers. It also sets up an Axios response
+     * interceptor for handling unauthorized responses, including token refresh logic.
+     *
+     * @param {LocalStorageService} StorageService - An optional instance of `LocalStorageService` used for managing authentication tokens. Defaults to a new instance of `LocalStorageService`.
+     * @return {void}
+     */
+    constructor(protected StorageService: LocalStorageService = new LocalStorageService()) {
         this.AxiosInstance = axios.create({
             baseURL: BASE_URL,
             headers: {
                 'Content-Type': 'application/json',
             },
         });
+
+        this.authApi = new AuthenticationApi(undefined, BASE_PATH, this.AxiosInstance);
+
+        this.AxiosInstance.interceptors.response.use(response => {
+            return response;
+        }, async (error : AxiosError) => {
+            const originalRequest : InternalAxiosRequestConfig<any, any> | undefined = error.config;
+
+            if (error.response?.status !== 401 || originalRequest?._retry === true) {
+                this.notifyUnauthorized();
+                throw error;
+            }
+
+            originalRequest!._retry = true;
+
+            const refreshResult: Result<string,string> = await this.refreshAuthToken();
+            if (refreshResult.isOk()) {
+                this.StorageService.setString(STORAGE_KEYS.AUTH_TOKEN, refreshResult.value);
+                return this.AxiosInstance.request(originalRequest!);
+            }
+            this.notifyUnauthorized();
+            throw error;
+        });
     }
 
+    /**
+     * Notifies the system of an unauthorized access event by dispatching a custom event.
+     * Prevents event spamming by throttling consecutive notifications within a defined time interval.
+     *
+     * @return {void} Does not return a value.
+     */
     private notifyUnauthorized(): void {
         if (typeof window === "undefined") return;
         const now = Date.now();
@@ -47,22 +105,30 @@ export default class BackendDatasource {
         window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
     }
 
-    private isRefreshTokenRequest(config: AxiosRequestConfig): boolean {
-        const url = config.url || "";
-        return url.includes("/auth/refresh-token");
-    }
-
+    /**
+     * Refreshes the authentication token using the stored refresh token and email.
+     * If a refresh operation is already in progress, it returns the in-flight promise.
+     * Upon successful token refresh, the new access token is returned.
+     * If the refresh token is not available, the method returns an error result with "UNAUTHORIZED".
+     *
+     * @return {Promise<Result<string, string>>} A promise that resolves to a Result containing the new access token as a string on success, or an error message as a string on failure.
+     */
     private async refreshAuthToken(): Promise<Result<string, string>> {
         if (refreshInFlight) return refreshInFlight;
 
-        const refreshToken = this.StorageService.getString(STORAGE_KEYS.REFRESH_TOKEN);
+        const refreshToken : string | null = this.StorageService.getString(STORAGE_KEYS.REFRESH_TOKEN);
         if (!refreshToken) return err("UNAUTHORIZED");
 
-        const email = this.StorageService.getString(STORAGE_KEYS.EMAIL) || "";
+        const email : string = this.StorageService.getString(STORAGE_KEYS.EMAIL) || "";
 
         refreshInFlight = (async () => {
             try {
-                return await this.refreshToken(refreshToken, email);
+                const refreshTokenRequest : RefreshTokenRequest = {
+                    refreshToken: refreshToken,
+                    email: email
+                };
+                 const result : Result<RefreshTokenResponse, string> = await this.PerformAndUnwrap(() => this.authApi.refreshToken(refreshTokenRequest));
+                 return result.map(response => response.accessToken);
             } finally {
                 refreshInFlight = null;
             }
@@ -72,96 +138,26 @@ export default class BackendDatasource {
     }
 
     /**
-     * Sends an HTTP request using Axios and processes the response.
+     * Executes the given callback function that returns a Promise of an AxiosResponse,
+     * and unwraps the result, handling errors and extracting data or error codes as appropriate.
      *
-     * @param {AxiosRequestConfig} config - The configuration object for the Axios request.
-     * @param {boolean} includeToken - Determines if the request should include an authorization token. Defaults to false.
-     * @return {Promise<Result<T, string>>} A promise that resolves to a `Result` object containing either the response content or an error message.
+     * @param {() => Promise<AxiosResponse<T>>} callback - A function that returns a Promise resolving to an AxiosResponse of type T.
+     * @return {Promise<Result<T, string>>} A Promise resolving to a `Result` object, where success contains the unwrapped data of type T,
+     *                                      and failure contains an error code as a string.
      */
-    private async request<T>(config: AxiosRequestConfig, includeToken: boolean = false, hasRetriedAfterRefresh: boolean = false): Promise<Result<T, string>> {
+    protected async PerformAndUnwrap<T>(callback: () => Promise<AxiosResponse<T>> ) : Promise<Result<T, string>> {
         try {
-            if (includeToken) {
-                const token = this.StorageService.getString(STORAGE_KEYS.AUTH_TOKEN) || '';
-                config.headers = {
-                    ...config.headers,
-                    Authorization: `Bearer ${token}`
-                };
-            }
-            const response: AxiosResponse<ResponseEntity<T>> = await this.AxiosInstance.request(config);
-
-            if(response.status === 204) {
-                return ok(undefined as unknown as T);
-            }
-
-            if (response.data.success) {
-                return ok(response.data.content!);
-            }
-
-
-
-            return err(response.data.errorCode || 'UNKNOWN_ERROR');
-        } catch (error: any) {
-            if (axios.isAxiosError(error)) {
-                const axiosError = error as AxiosError;
-                if (axiosError.response) {
-                    const status = axiosError.response.status;
-                    if (status === 401) {
-                        // If the request was authenticated, try refresh once (except when calling refresh endpoint itself).
-                        if (
-                            includeToken &&
-                            !hasRetriedAfterRefresh &&
-                            !this.isRefreshTokenRequest(config)
-                        ) {
-                            const refreshResult = await this.refreshAuthToken();
-                            if (refreshResult.isOk()) {
-                                this.StorageService.setString(STORAGE_KEYS.AUTH_TOKEN, refreshResult.value);
-                                return this.request<T>(config, includeToken, true);
-                            }
-                            this.notifyUnauthorized();
-                            return err("UNAUTHORIZED");
-                        }
-
-                        // For any other 401, normalize to UNAUTHORIZED. Only broadcast for protected calls.
-                        if (includeToken) this.notifyUnauthorized();
-                        return err("UNAUTHORIZED");
-                    }
-
-                    if (axiosError.response.data) {
-                        const errorData = axiosError.response.data as ResponseEntity<T>;
-                        return err(errorData.errorCode || 'UNKNOWN_ERROR');
-                    } else {
-                        // Non-401 without body
-                        return err('NETWORK_ERROR');
-                    }
-                } else {
-                    return err('NETWORK_ERROR');
+            const result : AxiosResponse<T> = await callback();
+            return ok(result.data);
+        } catch (e) {
+            console.log(e);
+            if (axios.isAxiosError<BadRequestResponse>(e)) {
+                const axiosError = e as AxiosError<BadRequestResponse>;
+                if (axiosError !== undefined) {
+                    return err(axiosError.response!.data.errorCode);
                 }
             }
-            return err('NETWORK_ERROR');
+            return err('U-000');
         }
-    }
-    
-    public async refreshToken(refreshToken: string, email : string) : Promise<Result<string, string>> {
-       return this.post<string>('/auth/refresh-token', { RefreshToken: refreshToken, Username: email });
-    }
-
-    public async get<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'GET', url }, includeToken);
-    }
-
-    public async post<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'POST', url, data }, includeToken);
-    }
-
-    public async put<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'PUT', url, data }, includeToken);
-    }
-
-    public async delete<T>(url: string, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'DELETE', url }, includeToken);
-    }
-
-    public async patch<T>(url: string, data: any = {}, includeToken: boolean = false, config?: AxiosRequestConfig): Promise<Result<T, string>> {
-        return this.request<T>({ ...config, method: 'PATCH', url, data }, includeToken);
     }
 }

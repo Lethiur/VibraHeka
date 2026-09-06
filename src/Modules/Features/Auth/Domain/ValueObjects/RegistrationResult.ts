@@ -1,4 +1,4 @@
-export interface RegisterResponseDTO {
+export interface RegistrationResult {
     userId: string;
     needsConfirmation: boolean;
 }

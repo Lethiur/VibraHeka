@@ -1,32 +1,20 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ReactivateSubscriptionContext } from "@users/Presentation/Context/ReactivateSubscriptionContext";
-import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
+import GenericUseMutation from "@core/Presentation/Hooks/GenericUseMutation.ts";
 
 export default function UseReactivateSubscription() {
 
     const useCase = useContext(ReactivateSubscriptionContext);
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<SubscriptionErrors | null>(null);
-
-    const reactivateSubscription = async () => {
-        setLoading(true);
-        const result = await useCase.Execute();
-        let success = false;
-        result.match(
-            () => {
-                success = true;
-                setError(null);
-            },
-            (err) => setError(err)
-        );
-        setLoading(false);
-        return success;
-    };
+    const mutation = GenericUseMutation<void>(
+        ["subscription-panel"],
+        useCase.Execute
+    );
 
     return {
-        loading,
-        error,
-        reactivateSubscription
+        success: mutation.success,
+        loading: mutation.loading,
+        error: mutation.error,
+        reactivateSubscription: mutation.executeAsync
     };
 }

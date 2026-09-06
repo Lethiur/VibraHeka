@@ -1,8 +1,8 @@
 import { Validator } from "fluentvalidation-ts";
-import { ForgotPasswordData } from "@auth/Domain/Entities/ForgotPasswordData";
+import { ForgotPasswordCommand } from "@auth/Domain/Commands/ForgotPasswordCommand.ts";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
 
-export default class ForgotPasswordDataValidator extends Validator<ForgotPasswordData> {
+export default class ForgotPasswordDataValidator extends Validator<ForgotPasswordCommand> {
     constructor() {
         super();
         this.ruleFor("Email")

@@ -1,49 +1,55 @@
-import { Card, Col, Row } from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
 import VHModal from "@core/Presentation/Components/molecules/VHModal/VHModal";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./SubscriptionPanel.scss";
 import UseCancelSubscription from "@users/Presentation/Hooks/UseCancelSubscription";
 import UseGetSubscription from "@users/Presentation/Hooks/UseGetSubscription";
 import UseSubscribe from "@users/Presentation/Hooks/UseSubscribe";
-import { useEffect, useState } from "react";
-import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
+import {useEffect, useState} from "react";
+import {SubscriptionErrors} from "@users/Domain/Errors/SubscriptionErrors";
 import UseGetSubscriptionPanel from "@users/Presentation/Hooks/UseGetSubscriptionPanel";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import UseRefreshSubscription from "@users/Presentation/Hooks/UseRefreshSubscription";
-import { OrderStatus } from "@users/Domain/Enums/OrderStatus";
-import SubscriptionDetails from "@/Modules/Features/User/Presentation/Components/Molecules/SubscriptionDetails/SubscriptionDetails";
+import SubscriptionDetails
+    from "@/Modules/Features/User/Presentation/Components/Molecules/SubscriptionDetails/SubscriptionDetails";
 import UseReactivateSubscription from "../../../Hooks/UseReactivateSubscription";
+import {OrderStatus} from "@users/Domain/Enums/OrderStatus.ts";
+
 
 interface SubscriptionPanelProps {
     timeZone: string;
 }
 
-export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) {
+export default function SubscriptionPanel({timeZone}: SubscriptionPanelProps) {
     const navigate = useNavigate();
-    const [waitingForStripe, setWaitingForStripe] = useState(false);
     const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
 
-    const { checkoutURL, loading, error, subscribe } = UseSubscribe();
-    const { subscription, loading: subscriptionLoading, error: subscriptionError, getSubscription } = UseGetSubscription();
-    const { cancelSubscription, loading: cancelSubscriptionLoading, error: cancelSubscriptionError } = UseCancelSubscription();
-    const { getSubscriptionPanel, loading: getSubscriptionPanelLoading, error: getSubscriptionPanelError, subscriptionPanel } = UseGetSubscriptionPanel();
-    const { reactivateSubscription, loading: reactivateSubscriptionLoading, error: reactivateSubscriptionError } = UseReactivateSubscription();
-    UseRefreshSubscription(waitingForStripe);
-
-    useEffect(() => {
-        if (!subscription) {
-            getSubscription();
-        }
-    }, []);
-
-    useEffect(() => {
-        if (subscription?.Status === OrderStatus.PENDING) {
-            setWaitingForStripe(true);
-        } else {
-            setWaitingForStripe(false);
-        }
-    }, [subscription]);
+    const {checkoutURL, loading, error, subscribe} = UseSubscribe();
+    const {
+        subscription,
+        loading: subscriptionLoading,
+        error: subscriptionError,
+        getSubscription
+    } = UseGetSubscription();
+    const {
+        cancelSubscription,
+        loading: cancelSubscriptionLoading,
+        error: cancelSubscriptionError,
+        success: cancelSubscriptionSuccess
+    } = UseCancelSubscription();
+    const {
+        getSubscriptionPanel,
+        loading: getSubscriptionPanelLoading,
+        error: getSubscriptionPanelError,
+        subscriptionPanel
+    } = UseGetSubscriptionPanel();
+    const {
+        reactivateSubscription,
+        loading: reactivateSubscriptionLoading,
+        error: reactivateSubscriptionError
+    } = UseReactivateSubscription();
+    UseRefreshSubscription(subscription?.Status == OrderStatus.PAYMENT_PENDING);
 
     useEffect(() => {
         if (checkoutURL) {
@@ -57,9 +63,16 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
         }
     }, [subscriptionPanel]);
 
+    useEffect(() => {
+        if (!cancelSubscriptionSuccess) {
+            return;
+        }
+        getSubscription();
+        setShowCancelConfirmation(false);
+    }, [cancelSubscriptionSuccess, getSubscription]);
+
     const handleSubscribe = () => {
         subscribe();
-        setWaitingForStripe(true);
     };
 
     const handleCancelSubscription = () => {
@@ -72,11 +85,7 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
     };
 
     const handleConfirmCancelSubscription = async () => {
-        const success = await cancelSubscription();
-        if (success) {
-            await getSubscription();
-            setShowCancelConfirmation(false);
-        }
+        await cancelSubscription();
     };
 
     const handleGetSubscriptionPanel = () => {
@@ -116,10 +125,11 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
                     <div className="vh-skeleton vh-skeleton-button"></div>
                 </Col>
             </Row>
-            {waitingForStripe && subscription?.Status === OrderStatus.PENDING && (
+            {subscription?.Status == OrderStatus.PAYMENT_PENDING && subscription?.Status === OrderStatus.PAYMENT_PENDING && (
                 <Row className="g-3 justify-content-center align-items-center">
                     <Col md={12} lg={12}>
-                        <PrimaryButton label="Si no has completado el pago pulsa aqui" variant="primary" onClick={() => window.open(subscription?.CheckoutSessionUrl!, "_self")} />
+                        <PrimaryButton label="Si no has completado el pago pulsa aqui" variant="primary"
+                                       onClick={() => window.open(subscription?.CheckoutSessionUrl!, "_self")}/>
                     </Col>
                 </Row>
             )}
@@ -175,7 +185,6 @@ export default function SubscriptionPanel({ timeZone }: SubscriptionPanelProps) 
                     </Card>
                 </Col>
             </Row>
-
 
 
             <VHModal show={showCancelConfirmation} onHide={handleCloseCancelConfirmation} centered>

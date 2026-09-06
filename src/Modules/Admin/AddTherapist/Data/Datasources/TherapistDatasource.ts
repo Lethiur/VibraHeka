@@ -1,8 +1,9 @@
 ﻿import BackendDatasource from "@core/Data/Datasources/BackendDatasource";
-import { Result } from "neverthrow";
+import {err, ok, Result} from "neverthrow";
 import { TherapistAPIErrors } from "@admin/addTherapist/Data/Errors/TherapistAPIErrors";
 import { TherapistDTO } from "@admin/addTherapist/Data/Models/TherapistDTO";
 import { ICreateTherapistDTO } from "@/Modules/Admin/AddTherapist/Data/Models/ICreateTherapistDTO";
+import {adminCreateTherapist, AdminCreateTherapistData, UserDto} from "@core/Api/generated";
 
 
 /**

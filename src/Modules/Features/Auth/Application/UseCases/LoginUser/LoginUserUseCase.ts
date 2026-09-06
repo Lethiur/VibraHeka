@@ -1,6 +1,5 @@
 import { Result } from "neverthrow";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { LoginData } from "@auth/Domain/Entities/LoginData";
 import { LoginResult } from "@auth/Domain/Entities/LoginResult";
 import { ILoginUserUseCase } from "@auth/Application/UseCases/LoginUser/ILoginUserUseCase";
 import { IAuthRepository } from "@auth/Domain/Repositories/IAuthRepository";
@@ -9,6 +8,7 @@ import { ValidationErrors } from "fluentvalidation-ts";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
+import {LoginCommand} from "@auth/Domain/Commands/LoginCommand.ts";
 
 
 /**
@@ -31,8 +31,8 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
      * either successful login information or authentication error codes.
      * @throws {InvalidEntityError} If the provided login data is invalid based on validation errors.
      */
-    public async execute(data: LoginData): Promise<Result<LoginResult, AuthErrorCodes>> {
-        const validate: ValidationErrors<LoginData> = this.LoginValidator.validate(data);
+    public async execute(data: LoginCommand): Promise<Result<LoginResult, AuthErrorCodes>> {
+        const validate: ValidationErrors<LoginCommand> = this.LoginValidator.validate(data);
 
         if (Object.keys(validate).length > 0) {
             throw new InvalidEntityError(validate);
@@ -41,9 +41,8 @@ export default class LoginUserUseCase implements ILoginUserUseCase {
         const loginResult: Result<LoginResult, AuthErrorCodes> = await this.AuthRepository.Login(data);
 
         if (loginResult.isOk()) {
-            this.LocalStorageService.setString(STORAGE_KEYS.EMAIL, data.Email);
+            this.LocalStorageService.setString(STORAGE_KEYS.EMAIL, data.email);
             this.LocalStorageService.setString(STORAGE_KEYS.ROLE, loginResult.value.Role.toString())
-            this.LocalStorageService.setString(STORAGE_KEYS.USER_ID, loginResult.value.UserID);
             this.LocalStorageService.setString(STORAGE_KEYS.REFRESH_TOKEN, loginResult.value.RefreshToken);
             this.LocalStorageService.setString(STORAGE_KEYS.AUTH_TOKEN, loginResult.value.Token);
         }

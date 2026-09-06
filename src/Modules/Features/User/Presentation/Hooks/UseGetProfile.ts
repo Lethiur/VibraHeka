@@ -1,30 +1,23 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GetUserProfileContext } from "@users/Presentation/Context/GetUserProfileContext";
 import { IUserprofile } from "@users/Domain/Entities/IUserProfile";
+import GenericUseQuery from "@core/Presentation/Hooks/GenericUseQuery.ts";
 
-export default function UseGetProfile() {
-
+export default function UseGetProfile(userId: string) {
     const useCase = useContext(GetUserProfileContext);
 
-    const [profile, setProfile] = useState<IUserprofile>({} as IUserprofile);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-
-    const getProfile = async (userId: string) => {
-        setLoading(true);
-        const result = await useCase.Execute(userId);
-        result.match(
-            (profile) => setProfile(profile),
-            (error) => setError(error)
-        );
-        setLoading(false);
-        return profile;
-    };
+    const { data, isLoading, error, refetch } = GenericUseQuery<IUserprofile, string>(
+        ["profile", userId],
+        () => useCase.Execute(userId),
+        {
+            enabled: Boolean(userId),
+        }
+    );
 
     return {
-        profile,
-        loading,
-        error,
-        getProfile
+        profile: data ?? null,
+        loading: isLoading,
+        error: error ?? null,
+        getProfile: refetch,
     };
 }

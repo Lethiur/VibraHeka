@@ -1,7 +1,7 @@
-﻿import {LoginData} from "../../../Domain/Entities/LoginData";
-import {LoginResult} from "../../../Domain/Entities/LoginResult";
+﻿import {LoginResult} from "../../../Domain/Entities/LoginResult";
 import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
 import {Result} from "neverthrow";
+import {LoginCommand} from "@auth/Domain/Commands/LoginCommand.ts";
 
 /**
  * Represents a use case for handling user login operations.
@@ -21,8 +21,8 @@ export interface ILoginUserUseCase {
     /**
      * Executes the login operation using the provided login data.
      *
-     * @param {LoginData} data - The data containing the login credentials required for authentication.
+     * @param {LoginCommand} data - The data containing the login credentials required for authentication.
      * @return {Promise<Result<LoginResult, AuthErrorCodes>>} A promise that resolves to a result object containing either the successful login result or authentication error codes.
      */
-    execute(data: LoginData): Promise<Result<LoginResult, AuthErrorCodes>>;
+    execute(data: LoginCommand): Promise<Result<LoginResult, AuthErrorCodes>>;
 }

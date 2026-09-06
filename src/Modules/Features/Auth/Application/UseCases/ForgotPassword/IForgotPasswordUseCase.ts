@@ -1,7 +1,7 @@
 import { Result } from "neverthrow";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { ForgotPasswordData } from "@auth/Domain/Entities/ForgotPasswordData";
+import { ForgotPasswordCommand } from "@auth/Domain/Commands/ForgotPasswordCommand.ts";
 
 export interface IForgotPasswordUseCase {
-    execute(data: ForgotPasswordData): Promise<Result<void, AuthErrorCodes>>;
+    execute(data: ForgotPasswordCommand): Promise<Result<void, AuthErrorCodes>>;
 }

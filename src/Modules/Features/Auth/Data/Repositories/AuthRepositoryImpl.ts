@@ -1,21 +1,16 @@
-import { RegistrationRequest } from "../Requests/RegistrationRequest";
-import { RegisterResponseDTO } from "../Entities/RegistrationResponseDTO";
+import { RegistrationCommand } from "@auth/Domain/Commands/RegistrationCommand.ts";
 import AuthDatasource from "../Datasources/AuthDatasource";
 import { AuthErrorCodes } from "../../Domain/Errors/AuthErrorCodes";
-import { RegistrationResult } from "../../Domain/Entities/RegistrationResult";
 import { Result } from "neverthrow";
 import { IAuthRepository } from "../../Domain/Repositories/IAuthRepository";
-import { RegistrationData } from "../../Domain/Entities/RegistrationData";
-import { VerificationData } from "../../Domain/Entities/VerificationData";
-import { VerificationRequest } from "../Requests/VerificationRequest";
-import { LoginData } from "../../Domain/Entities/LoginData";
-import { LoginResult } from "../../Domain/Entities/LoginResult";
-import { LoginResultDTO } from "../Entities/LoginResultDTO";
-import { LoginRequest } from "../Requests/LoginRequest";
-import { ForgotPasswordData } from "../../Domain/Entities/ForgotPasswordData";
-import { ResetPasswordData } from "../../Domain/Entities/ResetPasswordData";
-import { ResetPasswordRequest } from "../Requests/ResetPasswordRequest";
-import { mapLoginResultDTO, mapRegisterResponseDTO } from "@auth/Data/Mappers/AuthMapper";
+import { VerificationCommand } from "@auth/Domain/Commands/VerificationCommand.ts";
+import { LoginCommand } from "@auth/Domain/Commands/LoginCommand.ts";
+import { ForgotPasswordCommand } from "@auth/Domain/Commands/ForgotPasswordCommand.ts";
+import { ResetPasswordCommand } from "@auth/Domain/Commands/ResetPasswordCommand.ts";
+import {AuthenticateUserResponse, RegisterUserResponse} from "@/Generated/api/authentication";
+import {mapToLoginResult, mapToRegistrationResult} from "@auth/Data/Mappers/AuthMapper.ts";
+import {RegistrationResult} from "@auth/Domain/ValueObjects/RegistrationResult.ts";
+import {AuthenticationResult} from "@auth/Domain/ValueObjects/AuthenticationResult.ts";
 
 export class AuthRepositoryImpl implements IAuthRepository {
 
@@ -25,53 +20,35 @@ export class AuthRepositoryImpl implements IAuthRepository {
     /**
      * Authenticates a user based on the provided login data.
      *
-     * @param {LoginData} data - The login credentials and associated information required for authentication.
-     * @return {Promise<Result<LoginResult, AuthErrorCodes>>} A promise that resolves to the result of the login operation,
-     * containing either the login result data or authentication error codes.
+     * @param {LoginCommand} command - The login credentials and associated information required for authentication.
+     * @return {Promise<Result<AuthenticationResult, AuthErrorCodes>>} A promise that resolves to the result of the login operation,
+     * containing either the authentication result data or authentication error codes.
      */
-    public async Login(data: LoginData): Promise<Result<LoginResult, AuthErrorCodes>> {
-        const dto: LoginRequest = {
-            email: data.Email,
-            password: data.Password,
-        }
-
-        const result: Result<LoginResultDTO, string> = await this.datasource.Login(dto);
-
-        return result.map<LoginResult>(mapLoginResultDTO).mapErr(error => error as AuthErrorCodes);
+    public async Login(command: LoginCommand): Promise<Result<AuthenticationResult, AuthErrorCodes>> {
+        const result: Result<AuthenticateUserResponse, string> = await this.datasource.Login(command);
+        return result.map<AuthenticationResult>(mapToLoginResult).mapErr(error => error as AuthErrorCodes);
     }
 
     /**
      * Verifies the provided data to determine its authenticity or validity.
      *
-     * @param {VerificationData} data - The data to be verified.
+     * @param {VerificationCommand} command - The data to be verified.
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with a result indicating success or failure, or an error code if verification fails.
      */
-    public async Verify(data: VerificationData): Promise<Result<void, AuthErrorCodes>> {
-        const dto: VerificationRequest = {
-            encryptedCode: data.Token
-        };
-
-        const result: Result<void, string> = await this.datasource.Verify(dto);
+    public async Verify(command: VerificationCommand): Promise<Result<void, AuthErrorCodes>> {
+        const result: Result<void, string> = await this.datasource.Verify(command);
         return result.mapErr(error => error as AuthErrorCodes);
     }
 
     /**
      * Registers a new user with the provided registration data.
      *
-     * @param {RegistrationData} data - The registration data containing the user's email, password, and full name.
+     * @param {RegistrationCommand} command - The registration data containing the user's email, password, and full name.
      * @return {Promise<Result<RegistrationResult, AuthErrorCodes>>} A promise that resolves to a result containing either the registration result or an authentication error code.
      */
-    public async Register(data: RegistrationData): Promise<Result<RegistrationResult, AuthErrorCodes>> {
-        const request: RegistrationRequest = {
-            email: data.Email,
-            password: data.Password,
-            firstName: data.FirstName,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        };
-
-        const result: Result<RegisterResponseDTO, string> = await this.datasource.register(request);
-
-        return result.map(mapRegisterResponseDTO).mapErr((error) => error as AuthErrorCodes);
+    public async Register(command: RegistrationCommand): Promise<Result<RegistrationResult, AuthErrorCodes>> {
+        const result: Result<RegisterUserResponse, string> = await this.datasource.register(command);
+        return result.map(mapToRegistrationResult).mapErr((error) => error as AuthErrorCodes);
     }
 
     /**
@@ -88,28 +65,22 @@ export class AuthRepositoryImpl implements IAuthRepository {
     /**
      * Starts the forgot-password flow for the given email.
      *
-     * @param {ForgotPasswordData} data - The data needed to request password recovery.
+     * @param {ForgotPasswordCommand} command - The data needed to request password recovery.
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an auth error code.
      */
-    public async ForgotPassword(data: ForgotPasswordData): Promise<Result<void, AuthErrorCodes>> {
-        const result: Result<void, string> = await this.datasource.ForgotPassword(data.Email);
+    public async ForgotPassword(command: ForgotPasswordCommand): Promise<Result<void, AuthErrorCodes>> {
+        const result: Result<void, string> = await this.datasource.ForgotPassword(command.Email);
         return result.mapErr(error => error as AuthErrorCodes);
     }
 
     /**
      * Completes forgot-password confirmation with token and new password.
      *
-     * @param {ResetPasswordData} data - The values required to set the new password.
+     * @param {ResetPasswordCommand} command - The values required to set the new password.
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an auth error code.
      */
-    public async ResetPassword(data: ResetPasswordData): Promise<Result<void, AuthErrorCodes>> {
-        const request: ResetPasswordRequest = {
-            encryptedToken: data.EncryptedToken,
-            newPassword: data.NewPassword,
-            newPasswordConfirmation: data.NewPasswordConfirmation
-        };
-
-        const result: Result<void, string> = await this.datasource.ConfirmForgotPassword(request);
+    public async ResetPassword(command: ResetPasswordCommand): Promise<Result<void, AuthErrorCodes>> {
+        const result: Result<void, string> = await this.datasource.ConfirmForgotPassword(command);
         return result.mapErr(error => error as AuthErrorCodes);
     }
 

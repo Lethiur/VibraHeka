@@ -4,9 +4,14 @@ import ISubscription from "@users/Domain/Entities/ISubscription";
 import ISubscriptionCreation from "@users/Domain/Entities/ISubscriptionCreation";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
 import SubscriptionDatasource from "@users/Data/Datasources/SubscriptionDatasource";
-import ISubscriptionDetailsDTO from "@users/Data/Entities/ISubscriptionDetailsDTO";
-import ISubscriptionCreationDTO from "@users/Data/Entities/ISubscriptionCreationDTO";
-import { mapSubscriptionDetailsDTO, mapSubscriptionCreationDTO } from "@users/Data/Mappers/UserMapper";
+import { mapSubscriptionDetailsDTO } from "@users/Data/Mappers/SubscriptionMapper";
+import { mapSubscriptionCreationDTO } from "@users/Data/Mappers/UserMapper";
+import {
+    SubscriptionDetailsResponse,
+    SubscriptionPortalResponse,
+    SubscriptionResponse
+} from "@/Generated/api/subscriptions";
+
 
 /**
  * SubscriptionRepositoryImpl
@@ -14,9 +19,7 @@ import { mapSubscriptionDetailsDTO, mapSubscriptionCreationDTO } from "@users/Da
  */
 export default class SubscriptionRepositoryImpl implements ISubscriptionRepository {
 
-    constructor(private readonly subscriptionDatasource: SubscriptionDatasource) {
-
-    }
+    constructor(private readonly subscriptionDatasource: SubscriptionDatasource) {}
 
     /**
      * GetSubscriptionDetails
@@ -24,7 +27,7 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
      * @returns {Promise<Result<ISubscription, SubscriptionErrors>>}
      */
     public async GetSubscriptionDetails(): Promise<Result<ISubscription, SubscriptionErrors>> {
-        const result: Result<ISubscriptionDetailsDTO, string> = await this.subscriptionDatasource.GetSubscriptionDetails();
+        const result: Result<SubscriptionDetailsResponse, string> = await this.subscriptionDatasource.GetSubscriptionDetails();
         return result.map(mapSubscriptionDetailsDTO).mapErr(error => error as SubscriptionErrors);
     }
 
@@ -44,7 +47,7 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
      * @returns {Promise<Result<ISubscriptionCreation, SubscriptionErrors>>}
      */
     public async Subscribe(): Promise<Result<ISubscriptionCreation, SubscriptionErrors>> {
-        const result: Result<ISubscriptionCreationDTO, string> = await this.subscriptionDatasource.Subscribe();
+        const result: Result<SubscriptionResponse, string> = await this.subscriptionDatasource.Subscribe();
 
         if (result.isErr()) {
             return err(result.error as SubscriptionErrors);
@@ -59,8 +62,8 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
     }
 
     public async GetSubscriptionPortal(): Promise<Result<string, SubscriptionErrors>> {
-        const result: Result<string, string> = await this.subscriptionDatasource.GetSubscriptionPortal();
-        return result.mapErr(error => error as SubscriptionErrors);
+        const result: Result<SubscriptionPortalResponse, string> = await this.subscriptionDatasource.GetSubscriptionPortal();
+        return result.map(entity => entity.url).mapErr(error => error as SubscriptionErrors);
     }
 
     /**

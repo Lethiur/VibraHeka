@@ -1,6 +1,5 @@
 import { Result } from "neverthrow";
 import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { ResetPasswordData } from "@auth/Domain/Entities/ResetPasswordData";
 import { IResetPasswordUseCase } from "@auth/Application/UseCases/ResetPassword/IResetPasswordUseCase";
 import { IAuthRepository } from "@auth/Domain/Repositories/IAuthRepository";
 import ResetPasswordDataValidator from "@auth/Application/Validators/ResetPasswordDataValidator";
@@ -8,6 +7,7 @@ import { ValidationErrors } from "fluentvalidation-ts";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
 import { passwordsMatch, sanitizePasswordInput } from "@core/Application/Validation/PasswordInput";
+import {ResetPasswordCommand} from "@auth/Domain/Commands/ResetPasswordCommand.ts";
 
 export default class ResetPasswordUseCaseImpl implements IResetPasswordUseCase {
 
@@ -16,22 +16,22 @@ export default class ResetPasswordUseCaseImpl implements IResetPasswordUseCase {
         private readonly validator: ResetPasswordDataValidator
     ) { }
 
-    public async execute(data: ResetPasswordData): Promise<Result<void, AuthErrorCodes>> {
-        const sanitizedData: ResetPasswordData = {
+    public async execute(data: ResetPasswordCommand): Promise<Result<void, AuthErrorCodes>> {
+        const sanitizedData: ResetPasswordCommand = {
             ...data,
-            NewPassword: sanitizePasswordInput(data.NewPassword),
-            NewPasswordConfirmation: sanitizePasswordInput(data.NewPasswordConfirmation)
+            newPassword: sanitizePasswordInput(data.newPassword),
+            newPasswordConfirmation: sanitizePasswordInput(data.newPasswordConfirmation)
         };
 
-        const validationResult: ValidationErrors<ResetPasswordData> = this.validator.validate(sanitizedData);
+        const validationResult: ValidationErrors<ResetPasswordCommand> = this.validator.validate(sanitizedData);
 
         if (Object.keys(validationResult).length > 0) {
             throw new InvalidEntityError(validationResult);
         }
 
-        if (!passwordsMatch(sanitizedData.NewPassword, sanitizedData.NewPasswordConfirmation)) {
-            throw new InvalidEntityError<ResetPasswordData>({
-                NewPasswordConfirmation: AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH
+        if (!passwordsMatch(sanitizedData.newPassword, sanitizedData.newPasswordConfirmation)) {
+            throw new InvalidEntityError<ResetPasswordCommand>({
+                newPasswordConfirmation: AuthApplicationErrors.PASSWORD_CONFIRMATION_MISMATCH
             });
         }
 

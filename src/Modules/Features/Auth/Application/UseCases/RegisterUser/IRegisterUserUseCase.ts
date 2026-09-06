@@ -1,15 +1,18 @@
 ﻿import {Result} from "neverthrow";
-import {RegistrationData} from "../../../Domain/Entities/RegistrationData";
 import {RegistrationResult} from "../../../Domain/Entities/RegistrationResult";
 import {AuthErrorCodes} from "../../../Domain/Errors/AuthErrorCodes";
+import {RegistrationCommand} from "@auth/Domain/Commands/RegistrationCommand.ts";
 
 
 export interface IRegisterUserUseCase
 {
+
     /**
-     * Executes the primary operation of the method and returns a promise.
+     * Executes the registration process based on the provided registration data.
      *
-     * @return {Promise<Result<RegistrationResult, string>>} A promise that resolves to a Result object containing a RegistrationResult on success or an error message string on failure.
+     * @param {RegistrationCommand} registrationData - The data required to complete the registration process.
+     * @return {Promise<Result<RegistrationResult, AuthErrorCodes>>} A promise that resolves with the result of the registration process,
+     * which can be either a successful result or an error code indicating the specific failure.
      */
-    execute(registrationData : RegistrationData): Promise<Result<RegistrationResult, AuthErrorCodes>>;
+    execute(registrationData : RegistrationCommand): Promise<Result<RegistrationResult, AuthErrorCodes>>;
 }

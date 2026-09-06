@@ -3,6 +3,9 @@
 Estas instrucciones aplican a cualquier agente que trabaje en este repositorio.
 Objetivo: mantener cambios coherentes con la arquitectura actual, minimizar regresiones y acelerar reviews.
 
+# 0) Obligatorio
+- Usar siempre la skill `cavern_language.SKILL.md` SIEMPRE, SIN EXCEPCIONES
+
 ## 1) Contexto del proyecto
 
 - Frontend: React 18 + TypeScript + Vite.

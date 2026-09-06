@@ -1,32 +1,20 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CancelSubscriptionContext } from "@users/Presentation/Context/CancelSubscriptionContext";
-import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
+import GenericUseMutation from "@core/Presentation/Hooks/GenericUseMutation.ts";
 
 export default function UseCancelSubscription() {
 
     const useCase = useContext(CancelSubscriptionContext);
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<SubscriptionErrors | null>(null);
-
-    const cancelSubscription = async () => {
-        setLoading(true);
-        const result = await useCase.Execute();
-        let success = false;
-        result.match(
-            () => {
-                success = true;
-                setError(null);
-            },
-            (error) => setError(error)
-        );
-        setLoading(false);
-        return success;
-    };
+    const mutation = GenericUseMutation<void>(
+        ["subscription-panel"],
+        useCase.Execute
+    );
 
     return {
-        loading,
-        error,
-        cancelSubscription
+        success: mutation.success,
+        loading: mutation.loading,
+        error: mutation.error,
+        cancelSubscription: mutation.executeAsync
     };
 }

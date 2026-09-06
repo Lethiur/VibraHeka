@@ -1,12 +1,12 @@
 import { Result } from 'neverthrow';
-import { RegistrationData } from "../Entities/RegistrationData";
-import { RegistrationResult } from "../Entities/RegistrationResult";
 import { AuthErrorCodes } from "../Errors/AuthErrorCodes";
-import { VerificationData } from "../Entities/VerificationData";
-import { LoginData } from "../Entities/LoginData";
-import { LoginResult } from "../Entities/LoginResult";
-import { ForgotPasswordData } from "../Entities/ForgotPasswordData";
-import { ResetPasswordData } from "../Entities/ResetPasswordData";
+import { ForgotPasswordCommand } from "@auth/Domain/Commands/ForgotPasswordCommand.ts";
+import {RegistrationCommand} from "@auth/Domain/Commands/RegistrationCommand.ts";
+import {VerificationCommand} from "@auth/Domain/Commands/VerificationCommand.ts";
+import {LoginCommand} from "@auth/Domain/Commands/LoginCommand.ts";
+import {ResetPasswordCommand} from "@auth/Domain/Commands/ResetPasswordCommand.ts";
+import {RegistrationResult} from "@auth/Domain/ValueObjects/RegistrationResult.ts";
+import {AuthenticationResult} from "@auth/Domain/ValueObjects/AuthenticationResult.ts";
 
 /**
  * Interface representing an authentication repository that provides methods
@@ -17,26 +17,26 @@ export interface IAuthRepository {
     /**
      * Registers a new user with the provided registration data.
      *
-     * @param {RegistrationData} data - The registration details such as username, email, and password.
+     * @param {RegistrationCommand} data - The registration details such as username, email, and password.
      * @return {Promise<Result<RegistrationResult, AuthErrorCodes>>} A promise that resolves to a result object containing either the registration result or an authentication error code.
      */
-    Register(data: RegistrationData): Promise<Result<RegistrationResult, AuthErrorCodes>>;
+    Register(data: RegistrationCommand): Promise<Result<RegistrationResult, AuthErrorCodes>>;
 
     /**
      * Verifies the provided data and checks its validity.
      *
-     * @param {VerificationData} data - The verification data to be validated.
+     * @param {VerificationCommand} command - The verification data to be validated.
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves to a result object indicating whether the verification was successful or contains error codes in case of failure.
      */
-    Verify(data: VerificationData): Promise<Result<void, AuthErrorCodes>>;
+    Verify(command: VerificationCommand): Promise<Result<void, AuthErrorCodes>>;
 
     /**
      * Authenticates a user based on the provided login data and returns the result of the operation.
      *
-     * @param {LoginData} data - The login data containing the user's credentials and any required information for authentication.
-     * @return {Promise<Result<LoginResult, AuthErrorCodes>>} A promise that resolves with the authentication result, which is either a `LoginResult` object on success or an `AuthErrorCodes` error on failure.
+     * @param {LoginCommand} command - The login data containing the user's credentials and any required information for authentication.
+     * @return {Promise<Result<AuthenticationResult, AuthErrorCodes>>} A promise that resolves with the authentication result, which is either a `AuthenticationResult` object on success or an `AuthErrorCodes` error on failure.
      */
-    Login(data: LoginData): Promise<Result<LoginResult, AuthErrorCodes>>;
+    Login(command: LoginCommand): Promise<Result<AuthenticationResult, AuthErrorCodes>>;
 
     /**
      * Resends the verification code to the specified email address.
@@ -49,16 +49,16 @@ export interface IAuthRepository {
     /**
      * Starts the forgot-password flow by sending a recovery email to the user.
      *
-     * @param {ForgotPasswordData} data - The payload that contains the user's email.
+     * @param {ForgotPasswordCommand} command - The payload that contains the user's email.
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an error code.
      */
-    ForgotPassword(data: ForgotPasswordData): Promise<Result<void, AuthErrorCodes>>;
+    ForgotPassword(command: ForgotPasswordCommand): Promise<Result<void, AuthErrorCodes>>;
 
     /**
      * Completes the forgot-password flow by setting a new password.
      *
-     * @param {ResetPasswordData} data - The payload containing token and new password values.
+     * @param {ResetPasswordCommand} command - The payload containing token and new password values.
      * @return {Promise<Result<void, AuthErrorCodes>>} A promise that resolves with success or an error code.
      */
-    ResetPassword(data: ResetPasswordData): Promise<Result<void, AuthErrorCodes>>;
+    ResetPassword(command: ResetPasswordCommand): Promise<Result<void, AuthErrorCodes>>;
 }

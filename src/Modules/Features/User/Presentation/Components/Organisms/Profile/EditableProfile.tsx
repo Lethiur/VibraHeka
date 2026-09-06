@@ -8,7 +8,6 @@ import { NotificationVariant } from "@core/Domain/Notifications/INotificationPro
 import { Card, Col, Form, Image, Row } from "react-bootstrap";
 import { KeyRound, Pencil, Save, X } from "lucide-react";
 import EditableField from "@core/Presentation/Components/molecules/EditableField/EditableField";
-import { useQuery } from "@tanstack/react-query";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import ChangePasswordModal from "@users/Presentation/Components/Organisms/ChangePasswordModal/ChangePasswordModal.tsx";
 
@@ -19,7 +18,7 @@ interface ProfileProps {
 }
 
 export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) {
-    const { profile, loading, getProfile } = UseGetProfile();
+    const { profile, loading } = UseGetProfile(UserID);
     const { UpdateProfile, loading: updateLoading } = UseUpdateUserProfile();
     const { ShowNotification } = UseToast();
     const { t } = useTranslation();
@@ -27,11 +26,6 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState<IUserprofile>();
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
-
-    useQuery({
-        queryKey: ["profile", UserID],
-        queryFn: () => getProfile(UserID),
-    });
 
     useEffect(() => {
         if (profile) {
@@ -253,5 +247,4 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
         </Row>
     );
 }
-
 

@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
             },
         },
         build: {
-            sourcemap: false,
+            sourcemap: true,
         },
         server: {
             // Vite dev server proxy (only applies during `vite` / `pnpm dev`).

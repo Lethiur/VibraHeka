@@ -8,7 +8,7 @@ import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 
-export default function CuentaInactiva() {
+export default function InactiveAccount() {
     const { t } = useTranslation();
     const { ResendVerificationCode, loading } = useResendVerificationCode();
     const localStorage: LocalStorageService = useLocalStorage();
