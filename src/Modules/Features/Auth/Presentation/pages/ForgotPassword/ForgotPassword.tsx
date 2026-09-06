@@ -7,11 +7,30 @@ import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTex
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import useForgotPassword from "@auth/Presentation/Hooks/useForgotPassword";
 
-export default function ForgotPassword() {
+/**
+ * ForgotPassword component renders a password recovery form and handles the
+ * submission process for initiating the forgot password workflow. The form includes
+ * fields for entering an email address and manages its state and errors during the
+ * form submission process.
+ *
+ * @return {JSX.Element} A React component containing the Forgot Password form and associated UI elements,
+ * including input fields, error messages, success messages, and navigation links.
+ */
+export default function ForgotPassword(): JSX.Element {
+
+    // Hooks
     const { t } = useTranslation();
     const { forgotPassword, formErrors, error, loading, success } = useForgotPassword();
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    /**
+     * Handles the form submission event by preventing the default behavior,
+     * extracting form data, and invoking the forgotPassword function with the
+     * extracted email address.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
+     * @return {Promise<void>} A promise that resolves when the form handling is complete.
+     */
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) : Promise<void> {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         forgotPassword({

@@ -1,77 +1,78 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
-import { ValidationErrors } from "fluentvalidation-ts";
-import { useTranslation } from "react-i18next";
-import { RegistrationData } from "@auth/Domain/Entities/RegistrationData";
-import { useRegisterUser } from "@auth/Presentation/Hooks/useRegisterUser";
-import RegisterUserUseCase from "@auth/Application/UseCases/RegisterUser/RegisterUserUseCase";
-import { AuthErrorCodes } from "@auth/Domain/Errors/AuthErrorCodes";
-import { RegistrationResult } from "@auth/Domain/Entities/RegistrationResult";
-import { Result } from "neverthrow";
-import { NavigateFunction, useNavigate, Link } from "react-router-dom";
-import { Col, Row } from "react-bootstrap";
+import {useTranslation} from "react-i18next";
+import {useRegisterUser} from "@auth/Presentation/Hooks/useRegisterUser";
+import {NavigateFunction, useNavigate, Link} from "react-router-dom";
+import {Col, Row} from "react-bootstrap";
 import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
-import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
-import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import PrimaryTextInput from "@core/Presentation/Components/molecules/PrimaryTextInput/PrimaryTextInput";
 import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import PasswordStrengthMeter from "@auth/Presentation/Components/Molecules/PasswordStrengthMeter/PasswordStrengthMeter";
 import ReactGA from "react-ga4";
+import {RegistrationCommand} from "@auth/Domain/Commands/RegistrationCommand.ts";
 
-export default function Registro() {
-    const { t } = useTranslation();
-    const [errors, setErrors] = useState<ValidationErrors<RegistrationData>>({});
-    const [globalError, setGlobalError] = useState<string | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+/**
+ * Renders the user registration form and handles the registration logic.
+ *
+ * This component uses various hooks and services to manage state, handle form submission,
+ * and navigate the user upon successful registration. It provides input fields for user
+ * information such as email, username, and password, and displays errors if they occur.
+ *
+ * The form submission process includes validation, API interaction for user registration,
+ * and storing user credentials in local storage. It navigates to a success page upon successful registration.
+ *
+ * @return {JSX.Element} The rendered registration form component.
+ */
+export default function Registration(): JSX.Element {
+
+    // State variables
     const [password, setPassword] = useState("");
 
-    const registerUserUseCase: RegisterUserUseCase = useRegisterUser();
+    // Hooks
+    const {t} = useTranslation();
+    const {registerUser, error, loading, fromErrors} = useRegisterUser();
     const localStorage: LocalStorageService = useLocalStorage();
     const navigate: NavigateFunction = useNavigate();
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    /**
+     * Handles the form submission event by preventing the default behavior, extracting form data,
+     * and passing the data to a user registration function with appropriate callbacks.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} event - The form submission event triggered by the user.
+     * @return {Promise<void>} A promise that resolves once the form submission process is complete.
+     */
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault();
-        setGlobalError(null);
 
         const formData = new FormData(event.currentTarget);
 
-        const data: RegistrationData = {
-            FirstName: (formData.get('firstName') as string) || "",
-            Email: (formData.get('email') as string) || "",
-            Password: password,
+        const data : RegistrationCommand = {
+            firstName: (formData.get('firstName') as string) || "",
+            email: (formData.get('email') as string) || "",
+            password: password,
+            timezone: "Europe/Madrid"
         };
 
 
-        try {
-            setIsSubmitting(true);
-            const result: Result<RegistrationResult, AuthErrorCodes> = await registerUserUseCase.execute(data);
-            if (result.isOk()) {
+        registerUser(data, {
+            onSuccess: () => {
+                localStorage.setString(STORAGE_KEYS.EMAIL, data.email);
+                localStorage.setString(STORAGE_KEYS.PASSWORD, data.password);
                 ReactGA.event("sign_up", {
                     method: "email"
                 });
-                localStorage.setString(STORAGE_KEYS.EMAIL, data.Email);
-                localStorage.setString(STORAGE_KEYS.PASSWORD, data.Password);
                 navigate('/registro-exitoso');
-            } else {
-                setGlobalError(t(`errors.auth.${result.error}`));
             }
-
-        } catch (error) {
-            if (error instanceof InvalidEntityError) {
-                setErrors(error.fieldErrors);
-            }
-        }
-        finally {
-            setIsSubmitting(false)
-        }
+        });
     }
 
     return (
         <AuthLayout title={t('pages.register.title')} subtitle={t('pages.register.description')}>
-            <ErrorBox message={globalError} />
+            <ErrorBox message={error}/>
 
             <form onSubmit={handleSubmit} noValidate>
                 <div className="auth-form__section">
@@ -81,8 +82,8 @@ export default function Registro() {
                         name="email"
                         type="email"
                         required
-                        disabled={isSubmitting}
-                        error={errors.Email ? t(`errors.auth.${errors.Email}`, { defaultValue: errors.Email.toString() }) : undefined}
+                        disabled={loading}
+                        error={fromErrors.email ? t(`errors.auth.${fromErrors.email}`, {defaultValue: fromErrors.email.toString()}) : undefined}
                     />
                 </div>
 
@@ -93,8 +94,8 @@ export default function Registro() {
                                 label="Nombre de usuario"
                                 name="firstName"
                                 required
-                                disabled={isSubmitting}
-                                error={errors.FirstName ? t(`errors.auth.${errors.FirstName}`, { defaultValue: errors.FirstName.toString() }) : undefined}
+                                disabled={loading}
+                                error={fromErrors.firstName ? t(`errors.auth.${fromErrors.firstName}`, {defaultValue: fromErrors.firstName.toString()}) : undefined}
                             />
                         </Col>
                     </Row>
@@ -108,10 +109,10 @@ export default function Registro() {
                         required
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
-                        disabled={isSubmitting}
-                        error={errors.Password ? t(`errors.auth.${errors.Password}`, { defaultValue: errors.Password.toString() }) : undefined}
+                        disabled={loading}
+                        error={fromErrors.password ? t(`errors.auth.${fromErrors.password}`, {defaultValue: fromErrors.password.toString()}) : undefined}
                     />
-                    <PasswordStrengthMeter password={password} />
+                    <PasswordStrengthMeter password={password}/>
                 </div>
 
                 <p className="auth-form__legal-disclaimer">
@@ -123,11 +124,11 @@ export default function Registro() {
 
                 <div className="auth-form__submit">
                     <PrimaryButton
-                        label={isSubmitting ? t('pages.register.form.submitting_button') : t('pages.register.form.submit_button')}
+                        label={loading ? t('pages.register.form.submitting_button') : t('pages.register.form.submit_button')}
                         type="submit"
                         variant="primary"
                         trackId="submit_register_form"
-                        disabled={isSubmitting}
+                        disabled={loading}
                         fullWidth={true}
                     />
                 </div>

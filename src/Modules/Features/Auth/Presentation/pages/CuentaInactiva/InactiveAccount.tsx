@@ -4,20 +4,26 @@ import { Col, Row } from "react-bootstrap";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 import CooldownButton from "@core/Presentation/Components/molecules/CooldownButton/CooldownButton";
 import useResendVerificationCode from "@auth/Presentation/Hooks/useResendVerificationCode";
-import useLocalStorage from "@core/Presentation/Hooks/UseLocalStorage";
-import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
+import ErrorBox from "@core/Presentation/Components/atoms/ErrorBox/ErrorBox.tsx";
 
-export default function InactiveAccount() {
+/**
+ * The InactiveAccount component renders a user interface for accounts that are marked as inactive. It provides users with the option to resend a verification code and navigate back to the login page.
+ *
+ * @return {JSX.Element} A React component that includes options for resending the verification code, displaying error messages, and navigating to the login page.
+ */
+export default function InactiveAccount(): JSX.Element {
+
+    // Hooks
     const { t } = useTranslation();
-    const { ResendVerificationCode, loading } = useResendVerificationCode();
-    const localStorage: LocalStorageService = useLocalStorage();
+    const { HandleResendVerificationCode, loading, error } = useResendVerificationCode();
 
     return (
         <AuthLayout
             title={t('pages.cuenta_inactiva.title')}
             subtitle={t('pages.cuenta_inactiva.description')}
         >
+            <ErrorBox message={error} />
             <Row className="g-3 mt-4">
                 <Col xs={12} className="text-center">
                     <p className="type-body text-muted mb-3">{t('pages.cuenta_inactiva.resend_hint')}</p>
@@ -28,12 +34,7 @@ export default function InactiveAccount() {
                         trackId="reenviar-codigo-verificacion"
                         cooldownSeconds={60}
                         cooldownStorageKey={STORAGE_KEYS.RESEND_VERIFICATION_CODE_COOLDOWN_UNTIL}
-                        action={async () => {
-                            const result = await ResendVerificationCode(
-                                localStorage.getString(STORAGE_KEYS.EMAIL) ?? ""
-                            );
-                            return result.isOk();
-                        }}
+                        action={HandleResendVerificationCode}
                         disabled={loading}
                         fullWidth={true}
                     />

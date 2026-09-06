@@ -9,12 +9,12 @@ import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import { lazy, Suspense, useEffect } from 'react';
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
-const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registro'))
+const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registration.tsx'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const ForgotPassword = lazy(() => import("@auth/Presentation/pages/ForgotPassword/ForgotPassword"))
 const ResetPassword = lazy(() => import("@auth/Presentation/pages/ResetPassword/ResetPassword"))
 const Verification = lazy(() => import("@auth/Presentation/pages/Verification/Verification"))
-const RegistroExitoso = lazy(() => import("@auth/Presentation/pages/RegistroExitoso/RegistroExitoso"))
+const RegistroExitoso = lazy(() => import("@auth/Presentation/pages/RegistroExitoso/SuccessfulRegistration.tsx"))
 const CuentaInactiva = lazy(() => import("@auth/Presentation/pages/CuentaInactiva/InactiveAccount"))
 const Dashboard = lazy(() => import("@admin/dashboard/Presentation/Pages/Dashboard"))
 const AdminLayout = lazy(() => import("@core/Presentation/Layouts/AdminLayout"))

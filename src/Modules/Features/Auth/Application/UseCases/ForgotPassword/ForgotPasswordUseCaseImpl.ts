@@ -7,6 +7,12 @@ import { ValidationErrors } from "fluentvalidation-ts";
 import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import ForgotPasswordDataValidator from "@auth/Application/Validators/ForgotPasswordDataValidator";
 
+/**
+ * Implementation of the ForgotPassword use case.
+ *
+ * This class is responsible for handling the forgot password operation by validating the input
+ * data and delegating the actual processing to the authentication repository.
+ */
 export default class ForgotPasswordUseCaseImpl implements IForgotPasswordUseCase {
 
     constructor(

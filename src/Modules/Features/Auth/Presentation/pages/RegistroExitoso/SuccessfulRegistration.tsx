@@ -2,7 +2,14 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import AuthLayout from "@auth/Presentation/layouts/AuthLayout/AuthLayout";
 
-export default function RegistroExitoso() {
+/**
+ * Renders the successful registration confirmation page.
+ *
+ * @return {JSX.Element} The component structure including a title, subtitle, and a link to navigate back to the login page.
+ */
+export default function SuccessfulRegistration(): JSX.Element {
+
+    // Hooks
     const { t } = useTranslation();
 
     return (

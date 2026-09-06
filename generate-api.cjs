@@ -1,6 +1,7 @@
 ﻿const fs = require('fs');
 const path = require('path');
 const {execFileSync} = require('child_process');
+const isWindows = process.platform === 'win32';
 
 const contractsDir = path.resolve(
     __dirname,
@@ -16,10 +17,7 @@ const modules = fs
     .readdirSync(contractsDir, {withFileTypes: true})
     .filter(entry => entry.isDirectory())
     .filter(entry => {
-            console.log("Jisus christ " + path.join(contractsDir, entry.name, 'api.yml'))
-            return fs.existsSync(
-                path.join(contractsDir, entry.name, 'api.yml')
-            )
+            return fs.existsSync(path.join(contractsDir, entry.name, 'api.yml'));
         }
     );
 
@@ -46,8 +44,11 @@ for (const module of modules) {
         force: true
     });
 
-    const generator = path.resolve(
-        'node_modules/.bin/openapi-generator-cli.cmd'
+    const generator = path.join(
+        __dirname,
+        'node_modules',
+        '.bin',
+        isWindows ? 'openapi-generator-cli.cmd' : 'openapi-generator-cli'
     );
 
     if (!fs.existsSync(generator)) {
@@ -58,17 +59,17 @@ for (const module of modules) {
 
     console.log(`Using generator: ${generator}`);
 
+    const generatorArgs = [
+        'generate',
+        '-i', input,
+        '-g', 'typescript-axios',
+        '-o', output,
+        '--additional-properties=supportsES6=true,dateLibrary=javascript'
+    ];
+
     execFileSync(
-        'cmd.exe',
-        [
-            '/c',
-            generator,
-            'generate',
-            '-i', input,
-            '-g', 'typescript-axios',
-            '-o', output,
-            '--additional-properties=supportsES6=true,dateLibrary=javascript'
-        ],
+        isWindows ? 'cmd.exe' : generator,
+        isWindows ? ['/c', generator, ...generatorArgs] : generatorArgs,
         {
             stdio: 'inherit',
             cwd: __dirname

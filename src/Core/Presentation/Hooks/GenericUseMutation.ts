@@ -1,4 +1,10 @@
-import { MutationKey, UseMutationOptions, useMutation } from "@tanstack/react-query";
+import {
+    MutationKey,
+    UseMutationOptions,
+    useMutation,
+    UseMutateFunction,
+    UseMutateAsyncFunction
+} from "@tanstack/react-query";
 import { Result } from "neverthrow";
 
 type GenericUseMutationOptions<TData, TError, TVariables> = Pick<
@@ -11,8 +17,8 @@ type GenericUseMutationReturn<TData, TError, TVariables> = {
     error: TError | null;
     loading: boolean;
     success: boolean;
-    execute: (variables: TVariables) => void;
-    executeAsync: (variables: TVariables) => Promise<TData>;
+    execute: UseMutateFunction<TData, TError, TVariables, unknown>;
+    executeAsync: UseMutateAsyncFunction<TData, TError, TVariables, unknown>;
     reset: () => void;
 };
 
