@@ -1,0 +1,9 @@
+﻿type: object
+title: CreateOrderRequest
+description: Request DTO for creating an order
+
+additionalProperties: false
+properties:
+  order:
+    $ref: '../Entities/OrderDTO.yml'
+    description: The order details to be created.

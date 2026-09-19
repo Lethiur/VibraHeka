@@ -1,0 +1,12 @@
+﻿type: object
+title: AddAttachmentResponse
+description: The object returned when a new attachment is successfully added to an email template
+
+required:
+  - url
+
+properties:
+  url:
+    type: string
+    format: uri
+    description: The URL of the newly added attachment

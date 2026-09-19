@@ -1,0 +1,24 @@
+﻿{
+  "runtime": "Net100",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "./api.yml"
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpController": {
+      "className": "IAuthController",
+      "controllerStyle": "Abstract",
+      "namespace": "VibraHeka.Web.Authentication",
+      "generateController": true,
+      "useCancellationToken": true,
+      "generateEnums" : true,
+      "generateNullableReferenceTypes": true,
+      "generateModelValidationAttributes": true,
+      "generateDtoTypes": true,
+      "useActionResultType": true,
+      "templateDirectory" : "../../Templates",
+      "output": "../../../Generated/AuthController.cs"
+    }
+  }
+}

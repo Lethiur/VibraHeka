@@ -1,0 +1,13 @@
+﻿components:
+  schemas:
+    ProductType:
+      title: ProductType
+      type: string
+      enum:
+        - product
+        - bundle
+        - subscriptionPlan
+      x-enumNames:
+        - Product
+        - Bundle
+        - SubscriptionPlan

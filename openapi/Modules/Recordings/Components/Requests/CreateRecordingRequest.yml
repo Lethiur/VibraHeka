@@ -1,0 +1,35 @@
+﻿type: object
+title: CreateRecordingRequest
+description: Represents the data transfer object for a recording
+
+required:
+  - name
+  - description
+  - price
+  - currency
+  - tier
+  - type
+  
+additionalProperties: false
+properties:
+  name:
+    type: string
+    minLength: 3
+    description: The name of the recording.
+  description:
+    type: string
+    description: A brief description of the recording.
+    minLength: 3
+  price:
+    type: number
+    format: decimal
+    description: The price of the recording.
+    minimum: 0
+  currency:
+    $ref: '../../../Common/Fields/CurrencyCode.yml'
+    description: The currency code for the price of the recording.
+  tier:
+    $ref: '../Enums/RecordingTier.yml#/components/schemas/RecordingTier'
+  type:
+    $ref: '../Enums/RecordingType.yml#/components/schemas/RecordingType'
+    

@@ -1,0 +1,16 @@
+﻿type: object
+title: UpdateEmailTemplateNameRequest
+description: Request to update email template name
+
+required:
+  - templateID
+  - name
+additionalProperties: false
+properties:
+  templateID:
+    $ref: '../../../Common/Fields/ID.yml'
+    description: The unique identifier of the email template to be updated
+  name:
+    type: string
+    minLength: 3
+    description: The new name of the email template

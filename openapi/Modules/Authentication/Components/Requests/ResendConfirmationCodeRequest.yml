@@ -1,0 +1,11 @@
+type: object
+title: ResendConfirmationCodeRequest
+description: Request to resend the confirmation code for user email verification
+
+required:
+  - email
+additionalProperties: false
+properties: 
+  email:
+    $ref: '../../../Common/Fields/Email.yml'
+    description: The email address of the user for which the confirmation code needs to be resent

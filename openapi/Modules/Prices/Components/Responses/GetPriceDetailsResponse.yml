@@ -1,0 +1,10 @@
+﻿type: object
+title: GetPriceDetailsResponse
+description: The details of a price
+additionalProperties: false
+required:
+  - product
+properties:
+  product:
+    $ref: '../Entities/ProductDTO.yml'
+    description: The product associated with the price

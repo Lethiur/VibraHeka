@@ -1,0 +1,29 @@
+﻿type: object
+title: CreateTherapistRequest
+description: User profile update request
+additionalProperties: false
+properties:
+  email:
+    $ref: '../../../Common/Fields/Email.yml'  
+    description: The email address of the user
+  
+  firstName:
+    type: string
+    description: The first name of the user
+    example: "John"
+  middleName:
+    type: string
+    description: The middle name of the user
+    example: "A."
+  lastName:
+    type: string
+    description: The last name of the user
+    example: "Doe"
+  phoneNumber:
+    type: string
+    description: The phone number of the user
+    example: "+1234567890"
+  timezoneID:
+    type: string
+    description: The timezone ID of the user
+    example: "America/New_York"

@@ -1,0 +1,10 @@
+﻿type: object
+title: CreateSubscriptionPlanResponse
+description: Represents the data transfer object for a subscription plan
+additionalProperties: false
+required:
+  - id
+properties: 
+  id:
+    $ref: '../../../Common/Fields/Id.yml'
+    description: The unique identifier of the CREATED subscription plan.

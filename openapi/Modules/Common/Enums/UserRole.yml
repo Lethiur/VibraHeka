@@ -1,0 +1,13 @@
+﻿components:
+  schemas:
+    UserRole:
+      title: UserRole
+      type: string
+      enum:
+        - user
+        - admin
+        - therapist
+      x-enumNames:
+        - User
+        - Admin
+        - Therapist

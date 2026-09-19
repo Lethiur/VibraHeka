@@ -1,0 +1,13 @@
+type: object
+title: GetTemplatesResponse
+description: Email template response
+
+required:
+  - templates
+
+properties:
+  templates:
+    type: array
+    description: A list of email templates
+    items:
+      $ref: '../Entities/SimpleEmailTemplateDTO.yml'

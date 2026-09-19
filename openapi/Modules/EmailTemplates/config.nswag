@@ -1,0 +1,32 @@
+﻿{
+  "runtime": "Net100",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "./api.yml"
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpController": {
+      "className": "IEmailTemplatesController",
+      "controllerTarget" : "AspNetCore",
+      "controllerStyle": "Abstract",
+      "namespace": "VibraHeka.Web.EmailTemplates",
+      "useCancellationToken": true,
+      "generateEnums" : true,
+      "generateNullableReferenceTypes": true,
+      "generateController": true,
+      "generateModelValidationAttributes": true,
+      "generateDtoTypes": true,
+      "useActionResultType": true,
+      "templateDirectory" : "../../Templates",
+      "output": "../../../Generated/EmailTemplatesController.cs",
+      "generateComplexTypesForFormData": true,
+      "typeMappers": [
+            {
+              "type": "FileParameter",
+              "customType": "Microsoft.AspNetCore.Http.IFormFile"
+            }
+          ]
+    }
+  }
+}

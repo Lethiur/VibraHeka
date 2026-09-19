@@ -1,0 +1,12 @@
+type: object
+title: AdminGetRecordingResponse
+description: DTO for extended recording entity.
+additionalProperties: false
+required:
+  - recordings
+properties:
+  recordings:
+    type: array
+    items:
+      $ref: '../Entities/ExtendedRecordingDTO.yml'
+    description: A list of extended recording entities.

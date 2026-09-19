@@ -1,0 +1,32 @@
+﻿type: object
+title: CreateEventRequest
+description: Request body for creating an event
+additionalProperties: false
+properties:
+  name:
+    type: string
+    description: The name of the event
+  description:
+    type: string
+    description: The description of the event
+  startDate:
+    $ref: '../../../Common/Fields/Date.yml'
+    description: The start date of the event
+  price:
+    type: number
+    minimum: 0
+    format: decimal
+    description: The price of the event
+  duration:
+    type: number
+    description: The duration of the event in minutes
+    format: int32
+    minimum: 0
+  currencyCode:
+    $ref: '../../../Common/Fields/CurrencyCode.yml'
+    description: The currency code of the event price
+  timezone:
+    type: string
+    description: The timezone of the event
+    example: Europe/London
+    

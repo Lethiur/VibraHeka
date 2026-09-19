@@ -1,0 +1,11 @@
+﻿component:
+  schema:
+    eventStatus:
+      title: EventStatus
+      type: string
+      enum:
+        - ready
+        - missingLink
+      x-enumNames:
+        - Ready
+        - MissingLink

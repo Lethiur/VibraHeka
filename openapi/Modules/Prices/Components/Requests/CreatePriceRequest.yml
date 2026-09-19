@@ -1,0 +1,29 @@
+﻿type: object
+title: CreatePriceRequest
+description: Request object for creating a new price
+
+required:
+  - productId
+  - amount
+  - currency
+  - active
+  
+additionalProperties: false
+properties:
+  productId:
+    $ref: '../../../Common/Fields/ID.yml'
+    description: The ID of the product for which the price is being created
+  amount:
+    type: number
+    format: decimal
+    minimum: 0
+    description: The amount of the price
+  currency:
+    $ref: '../../../Common/Fields/CurrencyCode.yml'
+    description: The currency of the price
+  active:
+    type: boolean
+    description: Whether the price is active or not
+  billingInterval:
+    $ref: '../../../Common/Enums/BillingInterval.yml#/components/schemas/BillingInterval'
+    description: The billing interval for the price

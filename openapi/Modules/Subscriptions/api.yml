@@ -1,0 +1,138 @@
+﻿openapi: 3.1.0
+
+info:
+  title: VibraHeka API - Subscriptions API
+  version: 1.0.0
+  description: API for managing subscriptions
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: [ ]
+
+tags:
+  - name: Subscriptions
+    description: Operations related to subscriptions
+servers:
+  - url: /api/v1/subscriptions
+    description: local Server server
+
+paths:
+  /:
+    put:
+      tags:
+        - Subscriptions
+      operationId: Subscribe
+      summary: Subscribe to a plan
+      description: Hola hamijo
+      responses:
+        '200':
+          description: Subscription successful
+          content:
+            application/json:
+              schema:
+                $ref: './Components/Responses/SubscriptionResponse.yml'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '../Common/Response/BadRequestResponse.yml'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+                
+    get:
+      tags:
+        - Subscriptions
+      operationId: GetSubscriptionStatus
+      summary: Get subscription status
+      description: Retrieves the current status of the subscription
+      responses:
+        '200':
+          description: Subscription status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: './Components/Responses/SubscriptionDetailsResponse.yml'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '../Common/Response/BadRequestResponse.yml'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+    patch:
+      tags:
+        - Subscriptions
+      operationId: CancelSubscription
+      summary: Cancel a subscription
+      description: Cancels the current subscription
+      responses:
+        '204':
+          description: Subscription canceled successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '../Common/Response/BadRequestResponse.yml'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+  /reactivate:
+    patch:
+      tags:
+        - Subscriptions
+      operationId: ReactivateSubscription
+      summary: Reactivate a subscription
+      description: Reactivates a previously canceled subscription
+      responses:
+        '204':
+          description: Subscription reactivated successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '../Common/Response/BadRequestResponse.yml'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+  /details:
+    get:
+      tags:
+        - Subscriptions
+      operationId: GetSubscriptionPortal
+      summary: Get subscription details
+      description: Retrieves the details of the current subscription
+      responses:
+        '200':
+          description: Subscription details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: './Components/Responses/SubscriptionPortalResponse.yml'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '../Common/Response/BadRequestResponse.yml'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+      
+  

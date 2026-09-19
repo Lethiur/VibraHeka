@@ -1,0 +1,10 @@
+﻿type: object
+title: GetRecordingDownloadUrlResponse
+description: Response containing the download URL for a recording.
+additionalProperties: false
+required:
+  - downloadUrl
+properties:
+  downloadUrl:
+    type: string
+    description: The URL to download the recording.

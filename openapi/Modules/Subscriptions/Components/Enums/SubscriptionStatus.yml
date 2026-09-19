@@ -1,0 +1,19 @@
+﻿components:
+  schemas:
+    SubscriptionStatus:
+      title: SubscriptionStatus
+      type: string
+      enum:
+        - created
+        - active
+        - toBeCancelled
+        - cancelled
+        - inactive
+        - trailing
+      x-enumNames:
+        - Created
+        - Active
+        - ToBeCancelled
+        - Cancelled
+        - Inactive
+        - Trailing
