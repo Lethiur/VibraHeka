@@ -8,10 +8,13 @@ import { err, ok, Result } from "neverthrow";
 import LocalStorageService from "@core/Infrastructure/Storage/LocalStorageService";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import {AuthenticationApi, RefreshTokenRequest, RefreshTokenResponse} from "@/Generated/api/authentication";
-import {BASE_PATH} from "@/Generated/api/subscriptions/base.ts";
+import {BASE_PATH} from "@/Generated/api/authentication/base.ts";
 import {BadRequestResponse} from "@/Generated/api/users";
 
 export const BASE_URL: string =   import.meta.env.VITE_API_BASE_URL || "/api/v1";
+const API_ORIGIN = /^https?:\/\//i.test(BASE_URL)
+    ? new URL(BASE_URL).origin
+    : undefined;
 let refreshInFlight: Promise<Result<string, string>> | null = null;
 let lastUnauthorizedEventAtMs = 0;
 
@@ -61,10 +64,23 @@ export default class BackendDatasource {
      */
     constructor(protected StorageService: LocalStorageService = new LocalStorageService()) {
         this.AxiosInstance = axios.create({
-            baseURL: BASE_URL,
+            baseURL: API_ORIGIN,
             headers: {
                 'Content-Type': 'application/json',
             },
+        });
+
+        this.AxiosInstance.interceptors.request.use(config => {
+            const accessToken = this.StorageService.getString(STORAGE_KEYS.AUTH_TOKEN);
+
+            if (accessToken) {
+                config.headers = {
+                    ...config.headers,
+                    Authorization: `Bearer ${accessToken}`,
+                };
+            }
+
+            return config;
         });
 
         this.authApi = new AuthenticationApi(undefined, BASE_PATH, this.AxiosInstance);
@@ -74,7 +90,11 @@ export default class BackendDatasource {
         }, async (error : AxiosError) => {
             const originalRequest : InternalAxiosRequestConfig<any, any> | undefined = error.config;
 
-            if (error.response?.status !== 401 || originalRequest?._retry === true) {
+            if (error.response?.status !== 401) {
+                throw error;
+            }
+
+            if (originalRequest?._retry === true) {
                 this.notifyUnauthorized();
                 throw error;
             }

@@ -26,6 +26,7 @@ export class AuthRepositoryImpl implements IAuthRepository {
      */
     public async Login(command: LoginCommand): Promise<Result<AuthenticationResult, AuthErrorCodes>> {
         const result: Result<AuthenticateUserResponse, string> = await this.datasource.Login(command);
+        console.log("Login result:", result);
         return result.map<AuthenticationResult>(mapToLoginResult).mapErr(error => error as AuthErrorCodes);
     }
 

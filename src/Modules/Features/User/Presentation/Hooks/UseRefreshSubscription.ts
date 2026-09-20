@@ -20,7 +20,7 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
             const result = await useCase.Execute();
             result.match(
                 (details) => {
-                    if (details.Status !== OrderStatus.PENDING) {
+                    if (!details.isPaymentPending()) {
                         queryClient.setQueryData(["subscription"], details);
                         stopPolling();
                     }
@@ -31,7 +31,7 @@ export default function UseRefreshSubscription(isWaiting: boolean) {
             if (attempts >= 30) {
                 stopPolling();
                 result.andTee(value => {
-                    if (value.Status === OrderStatus.PENDING) {
+                    if (value.isPaymentPending()) {
                         value.Status = OrderStatus.ENABLED_FOR_RETRY;
                         queryClient.setQueryData(["subscription"], value);
                     }

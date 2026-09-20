@@ -11,6 +11,8 @@ export default function UseGetProfile(userId: string) {
         () => useCase.Execute(userId),
         {
             enabled: Boolean(userId),
+            refetchOnMount: "always",
+            refetchOnWindowFocus: true,
         }
     );
 

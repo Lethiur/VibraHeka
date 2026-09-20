@@ -1,11 +1,12 @@
-import { RecordingType, RecordingTier } from "@recordings/Domain/Entities/RecordingEntity.ts";
-
-export { RecordingTier };
+import {RecordingTier, RecordingType} from "@/Modules/Features/Recordings/Admin/Domain/Entities/CreateRecordingEntity";
 
 export interface RecordingDto {
     id: string;
     name: string;
     description: string;
-    type: RecordingType;
+    recordingType: RecordingType;
     tier: RecordingTier;
+    created: string;
+    isActive: boolean;
 }
+

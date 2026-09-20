@@ -9,6 +9,7 @@ import { useLogout } from "@auth/Presentation/Hooks/useLogout";
 import { STORAGE_KEYS } from "@core/Infrastructure/Storage/StorageKeys";
 import { lazy, Suspense, useEffect } from 'react';
 import AppLoader from "@core/Presentation/Components/molecules/AppLoader/AppLoader";
+import { UserRoles } from './Modules/Features/Auth/Domain/Enums/UserRoles';
 const Registro = lazy(() => import('@auth/Presentation/pages/Registro/Registration.tsx'))
 const Login = lazy(() => import("@auth/Presentation/pages/Login/Login"))
 const ForgotPassword = lazy(() => import("@auth/Presentation/pages/ForgotPassword/ForgotPassword"))
@@ -21,7 +22,7 @@ const AdminLayout = lazy(() => import("@core/Presentation/Layouts/AdminLayout"))
 const TherapistIndex = lazy(() => import("@admin/addTherapist/Presentation/Pages/TherapistIndex"))
 const Emails = lazy(() => import('@admin/emailTemplates/Presentation/Screens/EmailsForAction/Emails'))
 const TemplateManagement = lazy(() => import('@admin/emailTemplates/Presentation/Screens/TemplatesManagement/TemplateManagement'))
-const RecordingsPage = lazy(() => import('@admin/recordings/Presentation/Pages/RecordingsPage'))
+const RecordingsPage = lazy(() => import('@/Modules/Features/Recordings/Admin/Presentation/Pages/RecordingsPage'))
 const ProductInfoPage = lazy(() => import('@admin/catalog/Presentation/Pages/ProductInfoPage'))
 const EventsPage = lazy(() => import('@admin/events/Presentation/Pages/EventsPage'))
 const Profile = lazy(() => import('@users/Presentation/pages/Profile/Profile'))
@@ -35,7 +36,7 @@ const TermsOfService = lazy(() => import('@legal/Presentation/Pages/TermsOfServi
 const ActivitiesPage = lazy(() => import('@/Modules/Features/Activities/Presentation/Pages/ActivitiesPage'))
 const SubscriptionLanding = lazy(() => import('@/Modules/Features/SubscriptionLanding/Presentation/Pages/SubscriptionLanding'))
 const SubscriptionLandingHowItWorks = lazy(() => import('@/Modules/Features/SubscriptionLanding/Presentation/Pages/SubscriptionLandingHowItWorks'))
-const UserRecordingsPage = lazy(() => import('@recordings/Presentation/Pages/RecordingsPage'))
+const UserRecordingsPage = lazy(() => import('@/Modules/Features/Recordings/User/Presentation/Pages/RecordingsPage'))
 
 function App() {
 
@@ -57,12 +58,12 @@ function App() {
         return () => window.removeEventListener("auth:unauthorized", handler);
     }, [logout]);
 
-    function getRole(): number {
-        return parseInt(localStorage.getItem(STORAGE_KEYS.ROLE) ?? "0");
+    function getRole(): UserRoles {
+        return localStorage.getItem(STORAGE_KEYS.ROLE) as UserRoles ?? UserRoles.User;
     }
 
     function isAdmin(): boolean {
-        return getRole() === 1 && isAuthenticated;
+        return getRole() === UserRoles.Admin && isAuthenticated;
     }
 
 

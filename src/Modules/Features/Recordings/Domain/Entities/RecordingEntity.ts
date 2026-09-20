@@ -1,14 +1,5 @@
-export enum RecordingType {
-    MEDITACION,
-    MASTERCLASS,
-    TALLER,
-}
-
-export enum RecordingTier {
-    FREE = 0,
-    PREMIUM = 1,
-    DISCOUNT_FOR_MEMBERS = 2,
-}
+import { RecordingType } from "@/Modules/Features/Recordings/Admin/Domain/Entities/CreateRecordingEntity";
+import { RecordingTier } from "@/Modules/Features/Recordings/Admin/Domain/Entities/CreateRecordingEntity";
 
 export interface RecordingEntity {
     Id: string;
@@ -16,4 +7,7 @@ export interface RecordingEntity {
     Description: string;
     Type: RecordingType;
     Tier: RecordingTier;
+    Created: string;
+    IsActive: boolean;
 }
+

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { GetSubscriptionContext } from "@users/Presentation/Context/GetSubscriptionContext";
-import ISubscription from "@users/Domain/Entities/ISubscription";
+import Subscription from "@users/Domain/Entities/Subscription";
 import { useAtomValue } from "jotai";
 import { isAuthenticatedAtom } from "@core/Presentation/Storage/AuthAtom";
 import GenericUseQuery from "@core/Presentation/Hooks/GenericUseQuery";
@@ -9,7 +9,7 @@ export default function UseGetSubscription() {
     const useCase = useContext(GetSubscriptionContext);
     const isAuthenticated = useAtomValue(isAuthenticatedAtom);
 
-    const { data, isLoading, error, refetch } = GenericUseQuery<ISubscription, string>(
+    const { data, isLoading, error, refetch } = GenericUseQuery<Subscription, string>(
         ["subscription"],
         async () => useCase.Execute(),
         {

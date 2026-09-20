@@ -2,9 +2,9 @@
 import { AuthApplicationErrors } from "@auth/Application/Errors/AuthApplicationErrors";
 import { ProfileApplicationErrors } from "@users/Application/Errors/ProfileApplicationErrors";
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
-import { RecordingsApplicationErrors } from "@admin/recordings/Application/Errors/RecordingsApplicationErrors";
-import { RecordingsErrors } from "@admin/recordings/Domain/Errors/RecordingsErrors";
-import { CurrencyIsoCode, RecordingTier, RecordingType } from "@admin/recordings/Domain/Entities/CreateRecordingEntity";
+import { RecordingsApplicationErrors } from "@/Modules/Features/Recordings/Admin/Application/Errors/RecordingsApplicationErrors";
+import { RecordingsErrors } from "@/Modules/Features/Recordings/Admin/Domain/Errors/RecordingsErrors";
+import { CurrencyIsoCode, RecordingTier, RecordingType } from "@/Modules/Features/Recordings/Admin/Domain/Entities/CreateRecordingEntity";
 import { EventsApplicationErrors } from "@admin/events/Application/Errors/EventsApplicationErrors";
 import { EventsErrors } from "@admin/events/Domain/Errors/EventsErrors";
 
@@ -77,15 +77,15 @@ export const es = {
                 [RecordingsApplicationErrors.PRICE_REQUIRED]: "El precio debe ser mayor a 0",
                 [RecordingsApplicationErrors.CURRENCY_REQUIRED]: "Selecciona una moneda válida",
             },
-            catalog: {
-                [CatalogErrors.UNAUTHORIZED]: "No tienes permisos para acceder al catálogo.",
-                [CatalogErrors.NETWORK_ERROR]: "No se pudo conectar con el servidor.",
-                [CatalogErrors.NOT_FOUND]: "El producto no fue encontrado.",
-                [CatalogErrors.FETCH_FAILED]: "No se pudo cargar la información del producto.",
-                [CatalogErrors.CREATE_PRICE_FAILED]: "No se pudo crear el precio.",
-                [CatalogErrors.TOGGLE_FAILED]: "No se pudo cambiar el estado del precio.",
-                [CatalogErrors.GENERAL_ERROR]: "Ha ocurrido un error inesperado."
-            },
+            // catalog: {
+            //     [CatalogErrors.UNAUTHORIZED]: "No tienes permisos para acceder al catálogo.",
+            //     [CatalogErrors.NETWORK_ERROR]: "No se pudo conectar con el servidor.",
+            //     [CatalogErrors.NOT_FOUND]: "El producto no fue encontrado.",
+            //     [CatalogErrors.FETCH_FAILED]: "No se pudo cargar la información del producto.",
+            //     [CatalogErrors.CREATE_PRICE_FAILED]: "No se pudo crear el precio.",
+            //     [CatalogErrors.TOGGLE_FAILED]: "No se pudo cambiar el estado del precio.",
+            //     [CatalogErrors.GENERAL_ERROR]: "Ha ocurrido un error inesperado."
+            // },
             events: {
                 [EventsErrors.UNAUTHORIZED]: "No tienes permisos para gestionar eventos.",
                 [EventsErrors.NETWORK_ERROR]: "No se pudo conectar con el servidor.",
@@ -152,6 +152,86 @@ export const es = {
                     subscribe_loading: "Iniciando...",
                     restricted: "Solo usuarios registrados",
                 }
+            },
+            profile: {
+                title: "Mi perfil",
+                avatar_alt: "Avatar de usuario",
+                messages: {
+                    saved_profile_title: "Éxito",
+                    saved_profile_message: "Perfil guardado correctamente.",
+                    error_profile_title: "Error",
+                    error_profile_message: "No se pudo guardar el perfil.",
+                },
+                fields: {
+                    firstName: "Nombre",
+                    middleName: "Primer apellido",
+                    lastName: "Segundo apellido",
+                    email: "Email",
+                    email_help: "El e-mail no se puede cambiar.",
+                    phone: "Teléfono",
+                    phone_help: "El teléfono no se puede cambiar.",
+                    bio: "Bio",
+                },
+                actions: {
+                    edit_profile: "Editar perfil",
+                    change_password: "Cambiar contraseña",
+                    cancel: "Cancelar",
+                    save: "Guardar cambios",
+                    saving: "Guardando...",
+                },
+                change_password: {
+                    title: "Cambiar contraseña",
+                    current_password_label: "Contraseña actual",
+                    new_password_label: "Nueva contraseña",
+                    confirm_password_label: "Repite la nueva contraseña",
+                    submit: "Actualizar contraseña",
+                    success_title: "Contraseña actualizada",
+                    success_message: "La contraseña se actualizó correctamente.",
+                    error_title: "Error",
+                    error_fallback: "No se pudo cambiar la contraseña.",
+                },
+                subscription: {
+                    title: "Mi suscripción",
+                    whats_included: "¿Qué incluye?",
+                    status_label: "Estado",
+                    statuses: {
+                        no_subscription: "Sin suscripción activa",
+                        pending_payment: "Pendiente de pago",
+                        active: "Activa",
+                        pending_cancel: "Pendiente de cancelación",
+                        cancelled: "Cancelada",
+                        trialing: "En periodo de prueba",
+                        created: "A la espera de confirmación de pago",
+                        unknown: "Desconocido",
+                    },
+                    date_labels: {
+                        no_renewal: "Sin fecha de renovación",
+                        no_expiration: "Sin fecha de expiración",
+                        payment: "Fecha de pago",
+                        renewal: "Fecha de renovación",
+                        cancelation: "Fecha de cancelación",
+                        first_invoice: "Fecha primera factura",
+                    },
+                    actions: {
+                        resume_payment_hint: "Si no has completado el pago pulsa aquí",
+                        resume_payment: "Reanudar pago",
+                        processing_payment: "Procesando tu pago...",
+                        subscribe: "Suscribirme",
+                        view_invoices: "Ver facturas",
+                        manage: "Gestionar suscripción",
+                        cancel: "Cancelar suscripción",
+                        reactivate: "Reactivar",
+                        period_closed: "El periodo de suscripción ha finalizado.",
+                    },
+                    cancel_modal: {
+                        title: "Confirmar cancelación",
+                        body: "Tu suscripción se mantendrá activa hasta el final del periodo actual. ¿Quieres continuar con la cancelación?",
+                        keep: "No, mantener suscripción",
+                        confirm: "Sí, cancelar suscripción",
+                        cancelling: "Cancelando...",
+                    },
+                    payment_session_active_until: "Tu sesión de pago sigue activa hasta el {{date}}.",
+                },
             },
             admin: {
                 title: "Panel de administracion",

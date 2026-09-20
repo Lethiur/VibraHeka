@@ -1,7 +1,7 @@
 export enum SubscriptionStatus {
-    CREATED = 0,
-    ACTIVE = 1,
-    TO_BE_CANCELLED = 2,
-    CANCELLED = 3,
-    TRIALING = 5
+    CREATED = "created",
+    ACTIVE = "active",
+    TO_BE_CANCELLED = "toBeCancelled",
+    CANCELLED = "cancelled",
+    TRIALING = "trailing"
 }

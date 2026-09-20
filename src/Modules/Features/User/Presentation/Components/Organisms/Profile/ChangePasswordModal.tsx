@@ -85,7 +85,7 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
     return (
         <VHModal show={show} onHide={handleClose} centered dialogClassName="change-password-modal">
             <VHModal.Header closeButton>
-                <VHModal.Title>Cambiar contrasena</VHModal.Title>
+                <VHModal.Title>{t("pages.profile.change_password.title")}</VHModal.Title>
             </VHModal.Header>
             <VHModal.Body>
                 <form onSubmit={handleSubmit} noValidate>
@@ -93,7 +93,7 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
 
                     <PrimaryTextInput
                         name="CurrentPassword"
-                        label="Contrasena actual"
+                        label={t("pages.profile.change_password.current_password_label")}
                         type="password"
                         value={formData.CurrentPassword}
                         onChange={handleFieldChange}
@@ -103,12 +103,12 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
                     />
                     <PasswordConfirmationFields
                         passwordName="NewPassword"
-                        passwordLabel="Nueva contrasena"
+                        passwordLabel={t("pages.profile.change_password.new_password_label")}
                         passwordValue={formData.NewPassword}
                         onPasswordChange={handleFieldChange}
                         passwordError={translateProfileError(formErrors.NewPassword?.toString())}
                         confirmationName="NewPasswordConfirmation"
-                        confirmationLabel="Repite la nueva contrasena"
+                        confirmationLabel={t("pages.profile.change_password.confirm_password_label")}
                         confirmationValue={formData.NewPasswordConfirmation}
                         onConfirmationChange={handleFieldChange}
                         confirmationError={translateProfileError(formErrors.NewPasswordConfirmation?.toString())}
@@ -117,12 +117,12 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
 
                     <div className="change-password-modal__actions">
                         <PrimaryButton
-                            label="Cancelar"
+                            label={t("pages.profile.actions.cancel")}
                             variant="outline-danger"
                             onClick={handleClose}
                         />
                         <PrimaryButton
-                            label={loading ? "Guardando..." : "Actualizar contrasena"}
+                            label={loading ? t("pages.profile.actions.saving") : t("pages.profile.change_password.submit")}
                             variant="success"
                             type="submit"
                             disabled={loading}
@@ -133,5 +133,4 @@ export default function ChangePasswordModal({ show, onHide }: ChangePasswordModa
         </VHModal>
     );
 }
-
 

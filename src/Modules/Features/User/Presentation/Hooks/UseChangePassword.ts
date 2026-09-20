@@ -4,45 +4,40 @@ import InvalidEntityError from "@core/Application/Errors/InvalidEntityError";
 import { ChangePasswordContext } from "@users/Presentation/Context/ChangePasswordContext";
 import { IChangePasswordData } from "@users/Domain/Entities/IChangePasswordData";
 import { ProfileErrors } from "@users/Domain/Errors/ProfileErrors";
+import GenericUseMutation from "@core/Presentation/Hooks/GenericUseMutation";
 
 export default function UseChangePassword() {
     const useCase = useContext(ChangePasswordContext);
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<ProfileErrors | string | null>(null);
-    const [success, setSuccess] = useState(false);
     const [formErrors, setFormErrors] = useState<ValidationErrors<IChangePasswordData>>({});
+    const mutation = GenericUseMutation<void, ProfileErrors, IChangePasswordData>(
+        ["change-password"],
+        (data: IChangePasswordData) => useCase.Execute(data),
+        {
+            onSuccess: () => {
+                setFormErrors({});
+            }
+        }
+    );
 
     const ChangePassword = async (data: IChangePasswordData): Promise<void> => {
-        setLoading(true);
-        setError(null);
-        setSuccess(false);
         setFormErrors({});
 
         try {
-            const result = await useCase.Execute(data);
-            result.match(
-                () => setSuccess(true),
-                (profileError) => setError(profileError)
-            );
+            await mutation.executeAsync(data);
         } catch (exception: unknown) {
             if (exception instanceof InvalidEntityError) {
                 setFormErrors(exception.fieldErrors as ValidationErrors<IChangePasswordData>);
-            } else if (exception instanceof Error) {
-                setError(exception.message);
-            } else {
-                setError("UNKNOWN_ERROR");
+                mutation.reset();
             }
-        } finally {
-            setLoading(false);
         }
     };
 
     return {
         ChangePassword,
-        loading,
-        error,
-        success,
+        loading: mutation.loading,
+        error: mutation.error,
+        success: mutation.success,
         formErrors
     };
 }

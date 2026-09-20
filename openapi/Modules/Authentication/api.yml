@@ -190,7 +190,7 @@ paths:
   /:
     patch:
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       tags:
         - Authentication
       operationId: ChangePassword

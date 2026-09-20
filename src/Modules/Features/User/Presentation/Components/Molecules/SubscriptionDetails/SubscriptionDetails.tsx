@@ -1,12 +1,13 @@
+import { useTranslation } from "react-i18next";
 import { SubscriptionStatus } from "@/Modules/Features/User/Domain/Enums/SubscriptionStatus";
 import { OrderStatus } from "@/Modules/Features/User/Domain/Enums/OrderStatus";
-import ISubscription from "@users/Domain/Entities/ISubscription";
+import Subscription from "@users/Domain/Entities/Subscription";
 import { Col, Row } from "react-bootstrap";
 import PrimaryButton from "@core/Presentation/Components/atoms/PrimaryButton/PrimaryButton";
 import "./SubscriptionDetails.scss";
 
 interface SubscriptionDetailsProps {
-    subscription: ISubscription | null;
+    subscription: Subscription | null;
     timeZone: string;
     handleSubscribe: () => void;
     handleCancelSubscription: () => void;
@@ -22,33 +23,34 @@ export default function SubscriptionDetails({
     handleGetSubscriptionPanel,
     handleReactivateSubscription,
 }: SubscriptionDetailsProps) {
+    const { t } = useTranslation();
 
-    // Verificar si el periodo de suscripción se ha cerrado (4 de mayo)
-    const isSubscriptionClosed = false; //new Date().getTime() > new Date("2026-05-04T18:00:00Z").getTime();
-
+    const isPaymentPending = subscription?.isPaymentPending() ?? false;
+    const isActive = subscription?.isActive() ?? false;
+    const isSubscriptionClosed = false;
 
     const getStatusText = () => {
-        if (!subscription) return "Sin suscripcion activa";
-        if (subscription.Status === OrderStatus.PENDING) return "Pendiente de pago";
+        if (!subscription) return t("pages.profile.subscription.statuses.no_subscription");
+        if (isPaymentPending) return t("pages.profile.subscription.statuses.pending_payment");
         switch (subscription.SubscriptionStatus) {
             case SubscriptionStatus.ACTIVE:
-                return "Activa";
+                return t("pages.profile.subscription.statuses.active");
             case SubscriptionStatus.TO_BE_CANCELLED:
-                return "Pendiente de cancelacion";
+                return t("pages.profile.subscription.statuses.pending_cancel");
             case SubscriptionStatus.CANCELLED:
-                return "Cancelada";
+                return t("pages.profile.subscription.statuses.cancelled");
             case SubscriptionStatus.TRIALING:
-                return "En periodo de prueba";
+                return t("pages.profile.subscription.statuses.trialing");
             case SubscriptionStatus.CREATED:
-                return "A la espera de confirmacion de pago";
+                return t("pages.profile.subscription.statuses.created");
             default:
-                return "Desconocido";
+                return t("pages.profile.subscription.statuses.unknown");
         }
     };
 
     const getStatusClass = () => {
         if (!subscription) return "is-neutral";
-        if (subscription.Status === OrderStatus.PENDING) return "is-pending";
+        if (isPaymentPending) return "is-pending";
         switch (subscription.SubscriptionStatus) {
             case SubscriptionStatus.ACTIVE:
                 return "is-active";
@@ -65,23 +67,24 @@ export default function SubscriptionDetails({
     };
 
     const getDateFieldName = () => {
-        if (!subscription) return "Sin fecha de renovacion";
-        if (subscription.Status === OrderStatus.PENDING) return "Fecha de pago";
+        if (!subscription) return t("pages.profile.subscription.date_labels.no_renewal");
+        if (isPaymentPending) return t("pages.profile.subscription.date_labels.payment");
         switch (subscription.SubscriptionStatus) {
             case SubscriptionStatus.ACTIVE:
-                return "Fecha de renovacion";
+                return t("pages.profile.subscription.date_labels.renewal");
             case SubscriptionStatus.TO_BE_CANCELLED:
-                return "Fecha de cancelacion";
+                return t("pages.profile.subscription.date_labels.cancelation");
             case SubscriptionStatus.CANCELLED:
-                return "Fecha de cancelacion";
+                return t("pages.profile.subscription.date_labels.cancelation");
             case SubscriptionStatus.TRIALING:
-                return "Fecha primera factura";
+                return t("pages.profile.subscription.date_labels.first_invoice");
             default:
+                return t("pages.profile.subscription.date_labels.no_renewal");
         }
     }
 
     const formatEndDate = () => {
-        if (!subscription?.EndDate) return "Sin fecha de renovacion";
+        if (!subscription?.EndDate) return t("pages.profile.subscription.date_labels.no_renewal");
         const formatter = new Intl.DateTimeFormat("es-ES", {
             day: "2-digit",
             month: "long",
@@ -98,7 +101,7 @@ export default function SubscriptionDetails({
     };
 
     const formatCheckoutExpiration = () => {
-        if (!subscription?.CheckoutSessionExpiresAt) return "Sin fecha de expiracion";
+        if (!subscription?.CheckoutSessionExpiresAt) return t("pages.profile.subscription.date_labels.no_expiration");
         const formatter = new Intl.DateTimeFormat("es-ES", {
             day: "2-digit",
             month: "long",
@@ -111,27 +114,27 @@ export default function SubscriptionDetails({
     };
 
     const renderActionButtons = () => {
-        const canResumeCheckout =
-            subscription?.Status === OrderStatus.ENABLED_FOR_RETRY &&
-            !!subscription.CheckoutSessionUrl;
+        const canResumeCheckout = subscription?.canResumePayment() ?? false;
 
-        if (subscription?.Status === OrderStatus.ENABLED_FOR_RETRY || subscription?.Status === OrderStatus.PENDING) {
+        if (isPaymentPending || canResumeCheckout) {
             return (
                 <Col md={12}>
                     {!isSubscriptionClosed ? (
                         <PrimaryButton
-                            label={subscription?.Status === OrderStatus.ENABLED_FOR_RETRY ? "Reanudar pago" : "Procesando tu pago..."}
+                            label={canResumeCheckout
+                                ? t("pages.profile.subscription.actions.resume_payment")
+                                : t("pages.profile.subscription.actions.processing_payment")}
                             variant="success"
                             fullWidth={true}
                             disabled={!canResumeCheckout}
                             onClick={() => {
                                 if (!canResumeCheckout) return;
-                                window.open(subscription.CheckoutSessionUrl as string, "_self");
+                                window.open(subscription!.CheckoutSessionUrl!, "_self");
                             }}
                         />
                     ) : (
                         <div className="text-center p-3 bg-light rounded">
-                            <p className="text-muted mb-0 small">El periodo de suscripción ha finalizado.</p>
+                            <p className="text-muted mb-0 small">{t("pages.profile.subscription.actions.period_closed")}</p>
                         </div>
                     )}
                 </Col>
@@ -142,16 +145,16 @@ export default function SubscriptionDetails({
             return (
                 <Col md={12}>
                     {!isSubscriptionClosed ? (
-                        <PrimaryButton label="Suscribirme" variant="primary" fullWidth={true} onClick={handleSubscribe} />
+                        <PrimaryButton label={t("pages.profile.subscription.actions.subscribe")} variant="primary" fullWidth={true} onClick={handleSubscribe} />
                     ) : (
                         <div className="text-center p-3 bg-light rounded">
-                            <p className="text-muted mb-0 small">El periodo de suscripción ha finalizado.</p>
+                            <p className="text-muted mb-0 small">{t("pages.profile.subscription.actions.period_closed")}</p>
                         </div>
                     )}
 
                     {subscription?.SubscriptionStatus === SubscriptionStatus.CANCELLED && (
                         <div className="mt-3">
-                            <PrimaryButton label="Ver facturas" variant="outline-secondary" fullWidth={true}
+                            <PrimaryButton label={t("pages.profile.subscription.actions.view_invoices")} variant="outline-secondary" fullWidth={true}
                                 onClick={handleGetSubscriptionPanel} />
                         </div>
                     )}
@@ -159,19 +162,19 @@ export default function SubscriptionDetails({
             );
         }
 
-        if (subscription.SubscriptionStatus === SubscriptionStatus.ACTIVE || subscription.SubscriptionStatus === SubscriptionStatus.TRIALING) {
+        if (isActive) {
             return (
                 <>
                     <Col md={4} sm={12}>
-                        <PrimaryButton label="Cancelar suscripcion" variant="danger-outline" fullWidth={true}
+                        <PrimaryButton label={t("pages.profile.subscription.actions.cancel")} variant="danger-outline" fullWidth={true}
                             onClick={handleCancelSubscription} />
                     </Col>
                     <Col md={4} sm={12}>
-                        <PrimaryButton label="Ver facturas" variant="outline" fullWidth={true}
+                        <PrimaryButton label={t("pages.profile.subscription.actions.view_invoices")} variant="outline" fullWidth={true}
                             onClick={handleGetSubscriptionPanel} />
                     </Col>
                     <Col md={4} sm={12}>
-                        <PrimaryButton label="Gestionar suscripcion" variant="outline-primary" fullWidth={true}
+                        <PrimaryButton label={t("pages.profile.subscription.actions.manage")} variant="outline-primary" fullWidth={true}
                             onClick={handleGetSubscriptionPanel} />
                     </Col>
                 </>
@@ -182,11 +185,11 @@ export default function SubscriptionDetails({
             return (
                 <>
                     <Col md={6} sm={12}>
-                        <PrimaryButton label="Ver facturas" variant="outline-secondary" fullWidth={true}
+                        <PrimaryButton label={t("pages.profile.subscription.actions.view_invoices")} variant="outline-secondary" fullWidth={true}
                             onClick={handleGetSubscriptionPanel} />
                     </Col>
                     <Col md={6} sm={12}>
-                        <PrimaryButton label="Reactivar" variant="secondary" fullWidth={true}
+                        <PrimaryButton label={t("pages.profile.subscription.actions.reactivate")} variant="secondary" fullWidth={true}
                             onClick={handleReactivateSubscription} />
                     </Col>
                 </>
@@ -201,11 +204,11 @@ export default function SubscriptionDetails({
             <Row className="g-3 subscription-details__summary">
                 <Col md={6} sm={12}>
                     <div className="subscription-kpi">
-                        <span className="subscription-kpi__label">Estado</span>
+                        <span className="subscription-kpi__label">{t("pages.profile.subscription.status_label")}</span>
                         <span className={`subscription-kpi__value ${getStatusClass()}`}>{getStatusText()}</span>
                     </div>
                 </Col>
-                {(subscription?.Status !== OrderStatus.PENDING && subscription?.Status !== OrderStatus.ENABLED_FOR_RETRY) && (
+                {!isPaymentPending && (
                     <Col md={6} sm={12}>
                         <div className="subscription-kpi">
                             <span className="subscription-kpi__label">{getDateFieldName()}</span>
@@ -213,10 +216,10 @@ export default function SubscriptionDetails({
                         </div>
                     </Col>
                 )}
-                {(subscription?.Status === OrderStatus.PENDING || subscription?.Status === OrderStatus.ENABLED_FOR_RETRY) && (
+                {isPaymentPending && (
                     <Col md={12} sm={12}>
                         <div className="subscription-note">
-                            Tu sesion de pago sigue activa hasta el {formatCheckoutExpiration()}.
+                            {t("pages.profile.subscription.payment_session_active_until", { date: formatCheckoutExpiration() })}
                         </div>
                     </Col>
                 )}

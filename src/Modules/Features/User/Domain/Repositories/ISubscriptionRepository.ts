@@ -1,5 +1,5 @@
 import { Result } from "neverthrow";
-import ISubscription from "@/Modules/Features/User/Domain/Entities/ISubscription";
+import Subscription from "@/Modules/Features/User/Domain/Entities/Subscription";
 import ISubscriptionCreation from "@/Modules/Features/User/Domain/Entities/ISubscriptionCreation";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
 
@@ -11,9 +11,9 @@ export default interface ISubscriptionRepository {
     /**
      * GetSubscriptionDetails
      * @description Get subscription details
-     * @returns {Promise<Result<ISubscription, SubscriptionErrors>>}
+     * @returns {Promise<Result<Subscription, SubscriptionErrors>>}
      */
-    GetSubscriptionDetails(): Promise<Result<ISubscription, SubscriptionErrors>>;
+    GetSubscriptionDetails(): Promise<Result<Subscription, SubscriptionErrors>>;
     /**
      * CancelSubscription
      * @description Cancel subscription

@@ -27,7 +27,6 @@ const EditableField: React.FC<EditableFieldProps> = ({
     rows,
     required,
     className,
-    helpText,
     error
 }) => {
     if (isEditing) {
@@ -35,8 +34,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
             <PrimaryTextInput
                 label={label}
                 name={name}
-                value={value}
-                onChange={onChange}
+                onChange={onChange || (() => {})}
                 disabled={!isEditing}
                 as={as}
                 error={error}
@@ -44,7 +42,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
                 rows={rows}
                 required={required}
                 className={className}
-                helpText={helpText}
+                placeholder={value}
             />
         );
     }

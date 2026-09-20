@@ -28,10 +28,10 @@ export default class SubscriptionDatasource extends BackendDatasource {
     /**
      * GetSubscriptionDetails
      * @description Get subscription details
-     * @returns {Promise<Result<ISubscription, string>>}
+     * @returns {Promise<Result<SubscriptionDetailsResponse, string>>}
      */
     public async GetSubscriptionDetails(): Promise<Result<SubscriptionDetailsResponse, string>> {
-        return this.PerformAndUnwrap(this.Api.getSubscriptionStatus.bind(this));
+        return this.PerformAndUnwrap(() => this.Api.getSubscriptionStatus());
     }
 
     /**
@@ -40,7 +40,7 @@ export default class SubscriptionDatasource extends BackendDatasource {
      * @returns {Promise<Result<void, string>>}
      */
     public async CancelSubscription(): Promise<Result<void, string>> {
-        return this.PerformAndUnwrap(this.Api.cancelSubscription);
+        return this.PerformAndUnwrap(() => this.Api.cancelSubscription());
     }
 
     /**
@@ -49,7 +49,7 @@ export default class SubscriptionDatasource extends BackendDatasource {
      * @returns {Promise<Result<SubscriptionResponse, string>>}
      */
     public async Subscribe(): Promise<Result<SubscriptionResponse, string>> {
-        return this.PerformAndUnwrap(this.Api.subscribe);
+        return this.PerformAndUnwrap(() => this.Api.subscribe());
     }
 
     /**
@@ -67,7 +67,7 @@ export default class SubscriptionDatasource extends BackendDatasource {
      * @returns {Promise<Result<void, string>>}
      */
     public async ReactivateSubscription(): Promise<Result<void, string>> {
-        return this.PerformAndUnwrap(this.Api.reactivateSubscription);
+        return this.PerformAndUnwrap(() => this.Api.reactivateSubscription());
     }
 
 }

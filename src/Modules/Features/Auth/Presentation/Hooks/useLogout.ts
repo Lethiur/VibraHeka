@@ -23,6 +23,7 @@ export const useLogout = () => {
     const logout = () => {
         // 1. Limpiar persistencia
         localStorage.remove(STORAGE_KEYS.AUTH_TOKEN);
+        localStorage.remove(STORAGE_KEYS.USER_ID);
         localStorage.remove(STORAGE_KEYS.REFRESH_TOKEN);
         localStorage.remove(STORAGE_KEYS.EMAIL);
         localStorage.remove(STORAGE_KEYS.ROLE);
@@ -36,4 +37,3 @@ export const useLogout = () => {
 
     return { logout };
 };
-

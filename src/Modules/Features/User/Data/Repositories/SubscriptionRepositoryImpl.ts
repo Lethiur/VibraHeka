@@ -1,11 +1,11 @@
 import ISubscriptionRepository from "@users/Domain/Repositories/ISubscriptionRepository";
 import { err, ok, Result } from "neverthrow";
-import ISubscription from "@users/Domain/Entities/ISubscription";
 import ISubscriptionCreation from "@users/Domain/Entities/ISubscriptionCreation";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
 import SubscriptionDatasource from "@users/Data/Datasources/SubscriptionDatasource";
 import { mapSubscriptionDetailsDTO } from "@users/Data/Mappers/SubscriptionMapper";
 import { mapSubscriptionCreationDTO } from "@users/Data/Mappers/UserMapper";
+import Subscription from "@users/Domain/Entities/Subscription";
 import {
     SubscriptionDetailsResponse,
     SubscriptionPortalResponse,
@@ -26,7 +26,7 @@ export default class SubscriptionRepositoryImpl implements ISubscriptionReposito
      * @description Get subscription details
      * @returns {Promise<Result<ISubscription, SubscriptionErrors>>}
      */
-    public async GetSubscriptionDetails(): Promise<Result<ISubscription, SubscriptionErrors>> {
+    public async GetSubscriptionDetails(): Promise<Result<Subscription, SubscriptionErrors>> {
         const result: Result<SubscriptionDetailsResponse, string> = await this.subscriptionDatasource.GetSubscriptionDetails();
         return result.map(mapSubscriptionDetailsDTO).mapErr(error => error as SubscriptionErrors);
     }

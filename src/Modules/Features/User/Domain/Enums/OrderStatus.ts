@@ -1,11 +1,10 @@
 export enum OrderStatus {
-    PENDING = 0,
-    ORDER_PAYED = 1,
-    INVOICE_PAYED = 2,
-    PAYMENT_PENDING = 3,
-    ORDER_DELAYED = 4,
-    PAYMENT_FAILED = 5,
-    CANCELLED = 6,
-    ENABLED_FOR_RETRY = 99999
-
+    PENDING = "draft",
+    PAYMENT_PENDING = "pendingPayment",
+    ORDER_PAYED = "Paid",
+    INVOICE_PAYED = "PartiallyRefunded",
+    ORDER_DELAYED = "Refunded",
+    PAYMENT_FAILED = "Failed",
+    CANCELLED = "Cancelled",
+    ENABLED_FOR_RETRY = "enabledForRetry",
 }

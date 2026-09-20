@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
-import { ProfileErrors } from "../../Domain/Errors/ProfileErrors";
+import { useContext } from "react";
 import { UpdateUserProfileContext } from "../../Presentation/Context/UpdateUserProfileContext";
 import { IUserprofile } from "../../Domain/Entities/IUserProfile";
+import GenericUseMutation from "@core/Presentation/Hooks/GenericUseMutation";
+import { ProfileErrors } from "../../Domain/Errors/ProfileErrors";
 
 /**
  * @description Hook para actualizar el perfil de un usuario
@@ -10,21 +11,15 @@ import { IUserprofile } from "../../Domain/Entities/IUserProfile";
 export default function UseUpdateUserProfile() {
 
     const updateProfileUseCase = useContext(UpdateUserProfileContext);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<ProfileErrors | null>(null);
-
-
-    const UpdateProfile = async (user: IUserprofile) => {
-        setLoading(true);
-        const result = await updateProfileUseCase.Execute(user);
-        result.mapErr(setError)
-        setLoading(false);
-        return result;
-    }
+    const mutation = GenericUseMutation<void, ProfileErrors, IUserprofile>(
+        ["update-profile"],
+        (user: IUserprofile) => updateProfileUseCase.Execute(user)
+    );
 
     return {
-        UpdateProfile,
-        loading,
-        error
-    }
+        UpdateProfile: mutation.executeAsync,
+        loading: mutation.loading,
+        error: mutation.error,
+        success: mutation.success,
+    };
 }

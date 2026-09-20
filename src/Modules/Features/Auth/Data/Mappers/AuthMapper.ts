@@ -70,6 +70,7 @@ export function mapToLoginResult(response: AuthenticateUserResponse): Authentica
 }
 
 export function mapToDomainRole(role: AuthenticateUserResponseRoleEnum) : UserRoles {
+    console.log("Mapping role:", role);
     switch (role) {
         case AuthenticateUserResponseRoleEnum.Admin:
             return UserRoles.Admin;

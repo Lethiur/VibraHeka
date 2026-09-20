@@ -6,6 +6,7 @@ import { STORAGE_KEYS } from '@core/Infrastructure/Storage/StorageKeys';
 import EditableProfile from '@users/Presentation/Components/Organisms/Profile/EditableProfile';
 import SubscriptionPanel from '../../Components/Organisms/Subscription/SubscriptionPanel';
 import { Col, Container, Row } from 'react-bootstrap';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 export default function Profile(): ReactElement {
     const { id } = useParams<{ id: string }>();
@@ -15,7 +16,10 @@ export default function Profile(): ReactElement {
     let userID: string;
 
     if (id === 'me') {
-        const localStorageUserID: string | null = localStorage.getString(STORAGE_KEYS.USER_ID);
+        const token = localStorage.getString(STORAGE_KEYS.AUTH_TOKEN);
+        const tokenUserId = token ? jwtDecode<JwtPayload>(token).sub : undefined;
+        const localStorageUserID: string | null =
+            localStorage.getString(STORAGE_KEYS.USER_ID) ?? tokenUserId ?? null;
         if (localStorageUserID) {
             userID = localStorageUserID;
         } else {
@@ -42,5 +46,4 @@ export default function Profile(): ReactElement {
         </Container>
     );
 };
-
 

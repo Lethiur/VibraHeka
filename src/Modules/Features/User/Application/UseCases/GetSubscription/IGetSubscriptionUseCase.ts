@@ -1,5 +1,5 @@
 import { Result } from "neverthrow";
-import ISubscription from "@users/Domain/Entities/ISubscription";
+import Subscription from "@users/Domain/Entities/Subscription";
 import { SubscriptionErrors } from "@users/Domain/Errors/SubscriptionErrors";
 
 /**
@@ -11,7 +11,7 @@ export default interface IGetSubscriptionUseCase {
     /**
      * Execute
      * @description Execute get subscription use case
-     * @returns {Promise<Result<ISubscription, SubscriptionErrors>>}
+     * @returns {Promise<Result<Subscription, SubscriptionErrors>>}
      */
-    Execute(): Promise<Result<ISubscription, SubscriptionErrors>>;
+    Execute(): Promise<Result<Subscription, SubscriptionErrors>>;
 }

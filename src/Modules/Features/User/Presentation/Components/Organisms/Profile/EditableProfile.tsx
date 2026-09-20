@@ -1,6 +1,6 @@
 import UseGetProfile from "@users/Presentation/Hooks/UseGetProfile";
 import UseUpdateUserProfile from "@users/Presentation/Hooks/UseUpdateProfile";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IUserprofile } from "@users/Domain/Entities/IUserProfile";
 import { UseToast } from "@core/Presentation/Hooks/UseToast";
 import { useTranslation } from "react-i18next";
@@ -18,40 +18,48 @@ interface ProfileProps {
 }
 
 export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) {
-    const { profile, loading } = UseGetProfile(UserID);
+    const { profile, loading, getProfile } = UseGetProfile(UserID);
     const { UpdateProfile, loading: updateLoading } = UseUpdateUserProfile();
     const { ShowNotification } = UseToast();
     const { t } = useTranslation();
 
     const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState<IUserprofile>();
     const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
 
-    useEffect(() => {
-        if (profile) {
-            setFormData(profile);
-        }
-    }, [profile]);
 
-    const handleSave = async (e: React.FormEvent) => {
+    const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const result = await UpdateProfile(formData!);
-        result.match(
-            (_) => ShowNotification(t("pages.profile.messages.saved_profile"), NotificationVariant.Success),
-            (_) => ShowNotification(t("pages.profile.messages.error_profile"), NotificationVariant.Error),
-        );
-        setIsEditing(false);
-    };
+        if (!profile) return;
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(
-            (prev) =>
-                ({
-                    ...prev,
-                    [name]: value,
-                }) as IUserprofile,
-        );
+        const formData = new FormData(e.currentTarget);
+
+        const updatedProfile: IUserprofile = {
+            ...profile,
+            FirstName: String(formData.get("FirstName") || profile.FirstName),
+            MiddleName: String(formData.get("MiddleName") || profile.MiddleName),
+            LastName: String(formData.get("LastName") || profile.LastName),
+            Phone: String(formData.get("Phone") || profile.Phone),
+            Bio: String(formData.get("Bio") || profile.Bio),
+        };
+
+        await UpdateProfile(updatedProfile, {
+            onSuccess: async () => {
+                ShowNotification(
+                    t("pages.profile.messages.saved_profile_title"),
+                    t("pages.profile.messages.saved_profile_message"),
+                    NotificationVariant.Success
+                );
+                setIsEditing(false);
+                getProfile();
+            },
+            onError: () => {
+                ShowNotification(
+                    t("pages.profile.messages.error_profile_title"),
+                    t("pages.profile.messages.error_profile_message"),
+                    NotificationVariant.Error
+                );
+            }
+        });
     };
 
     const renderProfileSkeleton = () => (
@@ -87,7 +95,7 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
         </Row>
     );
 
-    if (loading || updateLoading || !formData) {
+    if (loading || updateLoading || !profile) {
         return renderProfileSkeleton();
     }
 
@@ -98,7 +106,7 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                     <Card.Header>
                         <h2>
                             {IsOwnProfile
-                                ? t("pages.profile.title", "Mi perfil")
+                                ? t("pages.profile.title")
                                 : `${profile!.FirstName} ${profile!.MiddleName} ${profile!.LastName}`}
                         </h2>
                     </Card.Header>
@@ -114,7 +122,7 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                         }
                                         roundedCircle
                                         className="profile-avatar"
-                                        alt="User Avatar"
+                                        alt={t("pages.profile.avatar_alt")}
                                     />
                                 </div>
                             </Col>
@@ -126,46 +134,40 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                             <Row>
                                 <Col md={4}>
                                     <EditableField
-                                        label={t("pages.profile.fields.firstName", "Nombre")}
+                                        label={t("pages.profile.fields.firstName")}
                                         name="FirstName"
-                                        value={formData!.FirstName}
-                                        onChange={handleChange}
+                                        value={profile.FirstName}
                                         isEditing={isEditing}
-                                        required
                                     />
                                 </Col>
                                 <Col md={4}>
                                     <EditableField
-                                        label={t("pages.profile.fields.middleName", "Primer apellido")}
+                                        label={t("pages.profile.fields.middleName")}
                                         name="MiddleName"
-                                        value={formData!.MiddleName}
-                                        onChange={handleChange}
+                                        value={profile.MiddleName}
                                         isEditing={isEditing}
-                                        required
                                     />
                                 </Col>
                                 <Col md={4}>
                                     <EditableField
-                                        label={t("pages.profile.fields.lastName", "Segundo apellido")}
+                                        label={t("pages.profile.fields.lastName")}
                                         name="LastName"
-                                        value={formData!.LastName}
-                                        onChange={handleChange}
+                                        value={profile.LastName}
                                         isEditing={isEditing}
-                                        required
                                     />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col md={12} lg={4}>
                                     <EditableField
-                                        label={t("pages.profile.fields.email", "")}
+                                        label={t("pages.profile.fields.email")}
                                         name="Email"
-                                        value={formData!.Email}
+                                        value={profile.Email}
                                         isEditing={false}
                                         type="email"
                                         helpText={
                                             IsOwnProfile && isEditing
-                                                ? t("pages.profile.fields.email_help", "El e-mail no se puede cambiar")
+                                                ? t("pages.profile.fields.email_help")
                                                 : undefined
                                         }
                                         className="text-muted"
@@ -174,15 +176,14 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                 <Col lg={4}></Col>
                                 <Col md={12} lg={4}>
                                     <EditableField
-                                        label={t("pages.profile.fields.phone", "Teléfono")}
+                                        label={t("pages.profile.fields.phone")}
                                         name="Phone"
-                                        value={formData!.Phone}
+                                        value={profile.Phone}
                                         isEditing={isEditing}
-                                        onChange={handleChange}
                                         type="number"
                                         helpText={
                                             IsOwnProfile && isEditing
-                                                ? t("pages.profile.fields.phone_help", "")
+                                                ? t("pages.profile.fields.phone_help")
                                                 : undefined
                                         }
                                         className="text-muted"
@@ -191,10 +192,9 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                             </Row>
 
                             <EditableField
-                                label={t("pages.profile.fields.bio", "Bio")}
+                                label={t("pages.profile.fields.bio")}
                                 name="Bio"
-                                value={formData!.Bio}
-                                onChange={handleChange}
+                                value={profile.Bio}
                                 isEditing={isEditing}
                                 as="textarea"
                                 rows={3}
@@ -205,13 +205,13 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                     {!isEditing ? (
                                         <>
                                             <PrimaryButton
-                                                label={t("pages.profile.edit_button", "Editar Perfil")}
+                                                label={t("pages.profile.actions.edit_profile")}
                                                 variant="primary"
                                                 iconLeft={<Pencil size={18} />}
                                                 onClick={() => setIsEditing(true)}
                                             />
                                             <PrimaryButton
-                                                label="Cambiar contrasena"
+                                                label={t("pages.profile.actions.change_password")}
                                                 variant="outline-secondary"
                                                 iconLeft={<KeyRound size={18} />}
                                                 onClick={() => setShowChangePasswordModal(true)}
@@ -220,13 +220,13 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
                                     ) : (
                                         <>
                                             <PrimaryButton
-                                                label={t("common.cancel", "Cancelar")}
+                                                label={t("pages.profile.actions.cancel")}
                                                 variant="outline-danger"
                                                 iconLeft={<X size={18} />}
                                                 onClick={() => setIsEditing(false)}
                                             />
                                             <PrimaryButton
-                                                label={t("common.save", "Guardar cambios")}
+                                                label={t("pages.profile.actions.save")}
                                                 variant="success"
                                                 type="submit"
                                                 iconLeft={<Save size={18} />}
@@ -247,4 +247,3 @@ export default function EditableProfile({ UserID, IsOwnProfile }: ProfileProps) 
         </Row>
     );
 }
-

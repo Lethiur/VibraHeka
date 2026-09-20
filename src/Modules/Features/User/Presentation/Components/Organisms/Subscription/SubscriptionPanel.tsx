@@ -14,7 +14,7 @@ import UseRefreshSubscription from "@users/Presentation/Hooks/UseRefreshSubscrip
 import SubscriptionDetails
     from "@/Modules/Features/User/Presentation/Components/Molecules/SubscriptionDetails/SubscriptionDetails";
 import UseReactivateSubscription from "../../../Hooks/UseReactivateSubscription";
-import {OrderStatus} from "@users/Domain/Enums/OrderStatus.ts";
+import { useTranslation } from "react-i18next";
 
 
 interface SubscriptionPanelProps {
@@ -24,6 +24,7 @@ interface SubscriptionPanelProps {
 export default function SubscriptionPanel({timeZone}: SubscriptionPanelProps) {
     const navigate = useNavigate();
     const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
+    const { t } = useTranslation();
 
     const {checkoutURL, loading, error, subscribe} = UseSubscribe();
     const {
@@ -49,7 +50,8 @@ export default function SubscriptionPanel({timeZone}: SubscriptionPanelProps) {
         loading: reactivateSubscriptionLoading,
         error: reactivateSubscriptionError
     } = UseReactivateSubscription();
-    UseRefreshSubscription(subscription?.Status == OrderStatus.PAYMENT_PENDING);
+
+    UseRefreshSubscription(subscription?.isPaymentPending() ?? false);
 
     useEffect(() => {
         if (checkoutURL) {
@@ -125,11 +127,11 @@ export default function SubscriptionPanel({timeZone}: SubscriptionPanelProps) {
                     <div className="vh-skeleton vh-skeleton-button"></div>
                 </Col>
             </Row>
-            {subscription?.Status == OrderStatus.PAYMENT_PENDING && subscription?.Status === OrderStatus.PAYMENT_PENDING && (
+            {subscription?.isPaymentPending() && (
                 <Row className="g-3 justify-content-center align-items-center">
                     <Col md={12} lg={12}>
-                        <PrimaryButton label="Si no has completado el pago pulsa aqui" variant="primary"
-                                       onClick={() => window.open(subscription?.CheckoutSessionUrl!, "_self")}/>
+                        <PrimaryButton label={t("pages.profile.subscription.actions.resume_payment_hint")} variant="primary"
+                                       onClick={() => window.open(subscription!.CheckoutSessionUrl!, "_self")}/>
                     </Col>
                 </Row>
             )}
@@ -172,13 +174,13 @@ export default function SubscriptionPanel({timeZone}: SubscriptionPanelProps) {
                 <Col md={12} lg={12}>
                     <Card className="profile-card vh-panel vh-surface-card">
                         <Card.Header className="subscription-panel__header">
-                            <h2>Mi Suscripcion</h2>
+                            <h2>{t("pages.profile.subscription.title")}</h2>
                             <button
                                 type="button"
                                 className="subscription-panel__benefits-btn"
                                 onClick={() => navigate("/subscripcion")}
                             >
-                                ¿Qué incluye?
+                                {t("pages.profile.subscription.whats_included")}
                             </button>
                         </Card.Header>
                         <Card.Body>{renderCardBody()}</Card.Body>
@@ -189,21 +191,20 @@ export default function SubscriptionPanel({timeZone}: SubscriptionPanelProps) {
 
             <VHModal show={showCancelConfirmation} onHide={handleCloseCancelConfirmation} centered>
                 <VHModal.Header closeButton={!cancelSubscriptionLoading}>
-                    <VHModal.Title>Confirmar cancelacion</VHModal.Title>
+                    <VHModal.Title>{t("pages.profile.subscription.cancel_modal.title")}</VHModal.Title>
                 </VHModal.Header>
                 <VHModal.Body>
-                    Tu suscripcion se mantendra activa hasta el final del periodo actual. Quieres continuar con la
-                    cancelacion?
+                    {t("pages.profile.subscription.cancel_modal.body")}
                 </VHModal.Body>
                 <VHModal.Footer>
                     <PrimaryButton
-                        label="No, mantener suscripcion"
+                        label={t("pages.profile.subscription.cancel_modal.keep")}
                         variant="outline-secondary"
                         onClick={handleCloseCancelConfirmation}
                         disabled={cancelSubscriptionLoading}
                     />
                     <PrimaryButton
-                        label={cancelSubscriptionLoading ? "Cancelando..." : "Si, cancelar suscripcion"}
+                        label={cancelSubscriptionLoading ? t("pages.profile.subscription.cancel_modal.cancelling") : t("pages.profile.subscription.cancel_modal.confirm")}
                         variant="danger"
                         onClick={handleConfirmCancelSubscription}
                         disabled={cancelSubscriptionLoading}

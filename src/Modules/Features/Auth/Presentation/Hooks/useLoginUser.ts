@@ -11,6 +11,7 @@ import {STORAGE_KEYS} from "@core/Infrastructure/Storage/StorageKeys.ts";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import {useSetAtom} from "jotai";
 import {isAuthenticatedAtom} from "@core/Presentation/Storage/AuthAtom.ts";
+import {jwtDecode, JwtPayload} from "jwt-decode";
 
 /**
  * A custom hook for managing the login user process, including state for loading, error, success, and form validation errors.

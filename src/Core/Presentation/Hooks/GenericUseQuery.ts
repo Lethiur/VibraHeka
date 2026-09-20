@@ -4,6 +4,8 @@ import {Result} from "neverthrow";
 type GenericUseQueryOptions = {
     enabled?: boolean;
     refetchInterval?: number;
+    refetchOnMount?: boolean | "always";
+    refetchOnWindowFocus?: boolean;
     retry?: boolean;
 };
 
@@ -13,7 +15,7 @@ export default function GenericUseQuery<TData, TError = string>(
     options: GenericUseQueryOptions = {}
 ) {
     return useQuery<TData, TError>({
-        queryKey: [queryKey],
+        queryKey,
         queryFn: async () => {
             const result = await queryFn();
             return result.match(
@@ -26,5 +28,7 @@ export default function GenericUseQuery<TData, TError = string>(
         enabled: options.enabled ?? true,
         retry: options.retry ?? false,
         refetchInterval: options.refetchInterval,
+        refetchOnMount: options.refetchOnMount ?? true,
+        refetchOnWindowFocus: options.refetchOnWindowFocus ?? true,
     });
 }

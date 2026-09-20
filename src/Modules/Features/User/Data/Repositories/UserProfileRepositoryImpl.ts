@@ -24,7 +24,7 @@ export default class UserProfileRepositoryImpl implements IProfileRepository {
             newPasswordConfirmation: data.NewPasswordConfirmation
         };
 
-        const result = await this.getProfileDatasource.ChangePassword(request);
+        const result = await this.authDatasource.ChangePassword(request);
         return result.mapErr(e => e as ProfileErrors);
     }
 

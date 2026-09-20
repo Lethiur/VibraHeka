@@ -11,6 +11,7 @@ export default class GetProfileUseCaseImpl implements IGetProfileUseCase {
     ) { }
 
     public async Execute(userId: string): Promise<Result<IUserprofile, ProfileErrors>> {
+        console.log("Executing GetProfileUseCaseImpl", userId);
         return this.profileRepository.GetUserProfile(userId);
     }
 

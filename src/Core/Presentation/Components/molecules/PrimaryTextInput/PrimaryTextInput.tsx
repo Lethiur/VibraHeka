@@ -13,6 +13,7 @@ type PrimaryTextInputProps = {
     type?: string
     rows?: number
     required?: boolean
+    placeholder?: string
     className?: string
     helpText?: string
     as?: React.ElementType
@@ -43,7 +44,8 @@ export default function PrimaryTextInput({
     autoComplete,
     autoCapitalize,
     autoCorrect,
-    spellCheck
+    spellCheck,
+    placeholder
 }: PrimaryTextInputProps) {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const canTogglePassword = type === "password" && (showPasswordToggle || showPassword);
@@ -87,6 +89,7 @@ export default function PrimaryTextInput({
                     </InputGroup>
                 ) : (
                     <Form.Control
+                        placeholder={placeholder}
                         as={as}
                         type={type}
                         name={name}

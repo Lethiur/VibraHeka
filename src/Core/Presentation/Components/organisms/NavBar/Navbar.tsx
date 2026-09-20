@@ -2,12 +2,13 @@ import { Link, NavLink } from "react-router-dom";
 import './Navbar.scss'
 import { Navbar, Container, Image, Nav } from "react-bootstrap";
 import { useState } from "react";
+import { UserRoles } from "@auth/Domain/Enums/UserRoles";
 
 import logo from "../../../../../Assets/Images/logo-web.png";
 interface NavbarProps {
     isAuthenticated: boolean;
     onLogout: () => void;
-    role: number
+    role: UserRoles
 }
 
 export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProps) {
@@ -55,7 +56,7 @@ export default function VHNavbar({ isAuthenticated, onLogout, role }: NavbarProp
                             </>
                         )}
 
-                        {(role === 1 && isAuthenticated) && (
+                        {(role === UserRoles.Admin && isAuthenticated) && (
                             <Nav.Link as={NavLink} to="/admin" onClick={() => setExpanded(false)}>Admin</Nav.Link>
                         )}
 

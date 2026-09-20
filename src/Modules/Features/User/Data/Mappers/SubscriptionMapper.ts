@@ -1,4 +1,4 @@
-import ISubscription from "@users/Domain/Entities/ISubscription";
+import Subscription from "@users/Domain/Entities/Subscription";
 import { OrderStatus } from "@users/Domain/Enums/OrderStatus";
 import { SubscriptionStatus } from "@users/Domain/Enums/SubscriptionStatus";
 import {
@@ -7,12 +7,13 @@ import {
 } from "@/Generated/api/subscriptions";
 
 function mapOrderStatus(status: SubscriptionDetailsResponseStatusEnum): OrderStatus {
-    switch (status) {
+    switch (String(status)) {
         case SubscriptionDetailsResponseStatusEnum.Draft:
             return OrderStatus.PENDING;
         case SubscriptionDetailsResponseStatusEnum.PendingPayment:
             return OrderStatus.PAYMENT_PENDING;
         case SubscriptionDetailsResponseStatusEnum.Paid:
+        case "paid":
             return OrderStatus.ORDER_PAYED;
         case SubscriptionDetailsResponseStatusEnum.PartiallyRefunded:
             return OrderStatus.INVOICE_PAYED;
@@ -30,7 +31,7 @@ function mapOrderStatus(status: SubscriptionDetailsResponseStatusEnum): OrderSta
 function mapSubscriptionStatus(
     status: SubscriptionDetailsResponseSubscriptionStatusEnum
 ): SubscriptionStatus {
-    switch (status) {
+    switch (String(status)) {
         case SubscriptionDetailsResponseSubscriptionStatusEnum.Created:
             return SubscriptionStatus.CREATED;
         case SubscriptionDetailsResponseSubscriptionStatusEnum.Active:
@@ -42,19 +43,20 @@ function mapSubscriptionStatus(
         case SubscriptionDetailsResponseSubscriptionStatusEnum.Inactive:
             return SubscriptionStatus.CANCELLED;
         case SubscriptionDetailsResponseSubscriptionStatusEnum.Trailing:
+        case "trialing":
             return SubscriptionStatus.TRIALING;
         default:
             return SubscriptionStatus.CREATED;
     }
 }
 
-export function mapSubscriptionDetailsDTO(dto: SubscriptionDetailsResponse): ISubscription {
-    return {
-        StartDate: new Date(dto.startDate),
-        EndDate: new Date(dto.endDate),
-        Status: mapOrderStatus(dto.status),
-        SubscriptionStatus: mapSubscriptionStatus(dto.subscriptionStatus),
-        CheckoutSessionUrl: dto.checkoutSessionUrl || null,
-        CheckoutSessionExpiresAt: new Date(dto.checkoutSessionExpiresAt),
-    };
+export function mapSubscriptionDetailsDTO(dto: SubscriptionDetailsResponse): Subscription {
+    return new Subscription(
+        new Date(dto.startDate),
+        new Date(dto.endDate),
+        mapOrderStatus(dto.status),
+        mapSubscriptionStatus(dto.subscriptionStatus),
+        dto.checkoutSessionUrl || null,
+        dto.checkoutSessionExpiresAt ? new Date(dto.checkoutSessionExpiresAt) : null,
+    );
 }
