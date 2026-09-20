@@ -107,16 +107,7 @@ export default function RecordingList({
                                     <td className="recording-list__actions">
                                         <PrimaryButton
                                             variant="dark-outline"
-                                            disabled={toggleLoading}
-                                            label={recording.IsActive
-                                                ? t("pages.admin.recordings.list.deactivate_button")
-                                                : t("pages.admin.recordings.list.activate_button")
-                                            }
-                                            onClick={() => onToggleStatus(recording.Id, !recording.IsActive)}
-                                        />
-                                        <PrimaryButton
-                                            variant="dark-outline"
-                                            disabled={deleteLoading || toggleLoading}
+                                            disabled={deleteLoading}
                                             label={
                                                 deleteLoading
                                                     ? t("pages.admin.recordings.list.deleting_button")

@@ -4,10 +4,16 @@ import {
   SellableItemEntity,
   SellableItemPriceEntity,
   CreateSellableItemPriceEntity,
+  SellableItemType,
+  PriceKind,
+  BillingInterval,
 } from "@admin/catalog/Domain/Entities/CatalogEntities";
 import { CatalogErrors } from "@admin/catalog/Domain/Errors/CatalogErrors";
 import CatalogDatasource from "@admin/catalog/Data/Datasources/CatalogDatasource";
-import { mapPriceDTO, mapSellableItemDTO } from "@admin/catalog/Data/Mappers/CatalogMapper";
+import {
+  SellableItemDTO,
+  SellableItemPriceDTO,
+} from "@admin/catalog/Data/DTOs/CatalogDTOs";
 
 const ERROR_MAP: Record<string, CatalogErrors> = {
   UNAUTHORIZED: CatalogErrors.UNAUTHORIZED,
@@ -17,6 +23,31 @@ const ERROR_MAP: Record<string, CatalogErrors> = {
 
 function mapError(code: string, fallback: CatalogErrors): CatalogErrors {
   return ERROR_MAP[code] ?? fallback;
+}
+
+function mapPriceDTO(dto: SellableItemPriceDTO): SellableItemPriceEntity {
+  return {
+    SellableItemPriceID: dto.sellableItemPriceID,
+    SellableItemID: dto.sellableItemID,
+    Amount: dto.amount,
+    Currency: dto.currencyCode,
+    Kind: dto.kind as PriceKind,
+    BillingInterval: dto.billingInterval !== undefined ? (dto.billingInterval as BillingInterval) : undefined,
+    ExternalProductID: dto.externalProductID,
+    ExternalPriceID: dto.externalPriceID,
+    IsActive: dto.isActive,
+  };
+}
+
+function mapSellableItemDTO(dto: SellableItemDTO): SellableItemEntity {
+  return {
+    SellableItemID: dto.sellableItemID,
+    Type: dto.type as SellableItemType,
+    ReferenceID: dto.referenceID,
+    Name: dto.name,
+    IsActive: dto.isActive,
+    Prices: dto.prices.map(mapPriceDTO),
+  };
 }
 
 export default class CatalogRepositoryImpl implements ICatalogRepository {
@@ -31,7 +62,7 @@ export default class CatalogRepositoryImpl implements ICatalogRepository {
 
   public async CreatePrice(data: CreateSellableItemPriceEntity): Promise<Result<SellableItemPriceEntity, CatalogErrors>> {
     const result = await this.Datasource.CreatePrice({
-      sellableItemID: data.SellableItemID,
+      referenceID: data.ReferenceID,
       amount: data.Amount,
       currency: data.Currency,
       kind: data.Kind,
@@ -42,8 +73,8 @@ export default class CatalogRepositoryImpl implements ICatalogRepository {
       .mapErr((code) => mapError(code, CatalogErrors.CREATE_PRICE_FAILED));
   }
 
-  public async ActivatePrice(sellableItemPriceID: string, sellableItemID: string): Promise<Result<void, CatalogErrors>> {
-    const result = await this.Datasource.ActivatePrice(sellableItemPriceID, sellableItemID);
+  public async TogglePriceActive(priceId: string): Promise<Result<void, CatalogErrors>> {
+    const result = await this.Datasource.TogglePriceActive(priceId);
     return result.mapErr((code) => mapError(code, CatalogErrors.TOGGLE_FAILED));
   }
 }

@@ -1,8 +1,8 @@
 export enum SellableItemType {
-  DigitalRecording = 0,
-  Event = 3,
+  Recording = 0,
+  Event = 1,
   SubscriptionPlan = 2,
-  Therapy = 1,
+  Therapy = 3,
 }
 
 export enum PriceKind {
@@ -37,7 +37,7 @@ export interface SellableItemEntity {
 }
 
 export interface CreateSellableItemPriceEntity {
-  SellableItemID: string;
+  ReferenceID: string;
   Amount: number;
   Currency: string;
   Kind: PriceKind;
